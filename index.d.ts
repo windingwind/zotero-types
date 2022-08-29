@@ -620,7 +620,7 @@ declare class _ZoteroNotes {
 
 // chrome/content/zotero/zoteroPane.js
 
-declare const ZoteroPane: {
+export const ZoteroPane: {
   [attr: string]: any;
   collectionsView: any;
   itemsView: {
@@ -800,7 +800,7 @@ declare interface TabInstance {
   selected?: boolean;
 }
 
-declare const Zotero_Tabs: {
+export const Zotero_Tabs: {
   selectedID: string;
   selectedType: string;
   selectedIndex: number;
@@ -841,7 +841,7 @@ declare const Zotero_Tabs: {
   _hideTabBar: () => void;
 };
 
-declare namespace XUL {
+export namespace XUL {
   class Element extends HTMLElement {
     public disabled?: boolean;
     public value?: string;
@@ -903,6 +903,6 @@ declare class ClassList {
   public contains(classname: string): boolean;
 }
 
-declare class XULEvent extends Event {
+export class XULEvent extends Event {
   public target: XUL.Element;
 }
