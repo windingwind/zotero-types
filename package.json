@@ -1,0 +1,21 @@
+{
+  "name": "zotero-types",
+  "version": "0.0.0",
+  "description": "This package contains type definitions for Zotero (https://www.zotero.org/) plugin.",
+  "main": "",
+  "types": "index.d.ts",
+  "typeScriptVersion": "2.0",
+  "author": "windingwind",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/windingwind/zotero-types.git"
+  },
+  "scripts": {
+    "release": "release-it"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.13",
+    "release-it": "^15.4.0"
+  }
+}
