@@ -7,6 +7,12 @@
   "typeScriptVersion": "2.0",
   "author": "windingwind",
   "license": "MIT",
+  "keywords": [
+    "zotero",
+    "plugin",
+    "types",
+    "typing"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/windingwind/zotero-types.git"
