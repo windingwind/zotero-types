@@ -24,6 +24,8 @@ This type definition only contains frequently used typings and is not complete. 
 
 Planning yo merge to https://github.com/DefinitelyTyped/DefinitelyTyped/
 
+To release this to npm package, use `npm run release`.
+
 ## Disclaimer
 
 Use this code under MIT License. No warranties are provided. Keep the laws of your locality in mind!
