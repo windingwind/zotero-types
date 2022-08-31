@@ -1,9 +1,7 @@
 // Type definitions for Zotero
 // Project: https://github.com/windingwind/zotero-types#readme
 // Definitions by: windingwind <https://github.com/windingwind>
-// Definitions: 
-
-/// <reference types="node" />
+// Definitions:
 
 // https://github.com/retorquere/zotero-better-bibtex/blob/master/typings/global.d.ts
 
@@ -16,7 +14,7 @@ declare interface DirectoryIteratorConstructable {
   new (path: string): DirectoryIterator; // eslint-disable-line @typescript-eslint/prefer-function-type
 }
 
-export namespace OS {
+declare namespace OS {
   namespace File {
     type Entry = {
       isDir: boolean;
@@ -32,7 +30,7 @@ export namespace OS {
     };
   }
 }
-export const OS: {
+declare const OS: {
   // https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/OSFile.jsm/OS.File_for_the_main_thread
   File: {
     exists: (path: string) => boolean | Promise<boolean>;
@@ -88,10 +86,18 @@ export const OS: {
   };
 };
 
-export const NetUtil: { [attr: string]: any };
+declare const NetUtil: any;
+
+declare namespace Zotero {
+  type DataObject = _ZoteroDataObject;
+  type Item = _ZoteroItem;
+  type Collection = _ZoteroCollection;
+  type Library = _ZoteroLibrary;
+  type EditorInstance = _ZoteroEditorInstance;
+}
 
 // https://stackoverflow.com/questions/39040108/import-class-in-definition-file-d-ts
-export const Zotero: {
+declare const Zotero: {
   [attr: string]: any;
   debug: (message, level?, maxDepth?, stack?) => void;
   log: (
@@ -112,6 +118,7 @@ export const Zotero: {
       value: boolean | string | number,
       global?: boolean | undefined
     ) => any;
+    clear: (pref: string, global?: boolean | undefined) => void;
   };
   Notifier: {
     registerObserver: (
@@ -121,46 +128,48 @@ export const Zotero: {
       priority?: null
     ) => string;
     unregisterObserver: (id: String) => void;
+    trigger: (
+      event: string,
+      type: string,
+      ids: number | number[],
+      extraData?: any,
+      force?: boolean
+    ) => any;
   };
-  DataObject: _ZoteroDataObjectConstructable;
-  Item: _ZoteroItemConstructable;
   Items: _ZoteroItems;
-  Collection: _ZoteroCollectionConstructable;
-  Collections: _ZoteroCollection;
-  Library: _ZoteroLibraryConstructable;
+  Collections: _ZoteroCollections;
   Libraries: _ZoteroLibraries;
   Reader: _ZoteroReader;
-  EditorInstance: _ZoteroEditorInstanceConstructable;
   EditorInstanceUtilities: _ZoteroEditorInstanceUtilities;
   Notes: _ZoteroNotes;
 };
 
-export const ZoteroPane_Local: {
+declare const ZoteroPane_Local: {
   [attr: string]: any;
   getSelectedCollection: () => _ZoteroCollection;
   newNote: (popup?, parentKey?, text?, citeURI?) => Promise<number>;
 };
 
-export const Zotero_File_Interface: {
+declare const Zotero_File_Interface: {
   exportItemsToClipboard: (items: _ZoteroItem[], translatorID: string) => void;
 };
 
-export class Zotero_File_Exporter {
+declare class Zotero_File_er {
   items: _ZoteroItem[];
   save: () => Promise<any>;
 }
 
-export const Components: any;
-export const Services: any;
+declare const Components: any;
+declare const Services: any;
 
-export const ZoteroContextPane: {
+declare const ZoteroContextPane: {
   [attr: string]: any;
   getActiveEditor: () => _ZoteroEditorInstance;
 };
 
 // chrome/content/zotero/xpcom/data/dataObject.js
 
-declare interface _ZoteroDataObject {
+declare class _ZoteroDataObject {
   objectType: string;
   id: number;
   libraryID: number;
@@ -187,14 +196,10 @@ declare interface _ZoteroDataObject {
   _synced: boolean;
 }
 
-declare interface _ZoteroDataObjectConstructable {
-  new (): _ZoteroDataObject;
-}
-
 // chrome/content/zotero/xpcom/data/item.js
 // TODO: complete this part
 
-declare interface _ZoteroItem extends _ZoteroDataObject {
+declare class _ZoteroItem extends _ZoteroDataObject {
   isRegularItem: () => boolean;
   isAttachment: () => boolean;
   isAnnotation: () => boolean;
@@ -204,9 +209,9 @@ declare interface _ZoteroItem extends _ZoteroDataObject {
   removeTag: (tag: string) => boolean;
   // Only regular item
   addToCollection: (id: number) => void;
-  getNotes: () => _ZoteroItem[];
+  getNotes: () => number[];
   getCollections: () => number[];
-  getAttachments: () => _ZoteroItem[];
+  getAttachments: () => number[];
   getField: (
     name: string,
     unformatted?: boolean,
@@ -249,10 +254,6 @@ declare interface _ZoteroItem extends _ZoteroDataObject {
   annotationPosition: string;
   annotationColor: string;
   annotationPageLabel: string;
-}
-
-declare interface _ZoteroItemConstructable {
-  new (itemTypeOrID?: string): _ZoteroItem;
 }
 
 // chrome/content/zotero/xpcom/data/items.js
@@ -307,12 +308,13 @@ declare class _ZoteroItems {
 
 // chrome/content/zotero/xpcom/data/collection.js
 
-declare interface _ZoteroCollection extends _ZoteroDataObject {
+declare class _ZoteroCollection extends _ZoteroDataObject {
   name: string;
   version: number;
   synced: boolean;
   treeViewID: string;
   treeViewImage: string;
+  getName: () => string;
   loadFromRow: (row: object[]) => void;
   hasChildCollections: (
     /**
@@ -393,10 +395,6 @@ declare interface _ZoteroCollection extends _ZoteroDataObject {
   addLinkedCollection: (collection: _ZoteroCollection) => Promise<any>;
 }
 
-declare interface _ZoteroCollectionConstructable {
-  new (params?: object): _ZoteroCollection;
-}
-
 // chrome/content/zotero/xpcom/data/collections.js
 
 declare class _ZoteroCollections {
@@ -426,6 +424,7 @@ declare class _ZoteroCollections {
      */
     asIDs?: boolean
   ) => _ZoteroItem[] | number[];
+  getLoaded: () => _ZoteroCollection[];
   registerChildCollection: (
     collectionID: number,
     childCollectionID: number
@@ -440,7 +439,7 @@ declare class _ZoteroCollections {
 
 // chrome/content/zotero/xpcom/data/library.js
 
-declare interface _ZoteroLibrary {
+declare class _ZoteroLibrary {
   libraryID: number;
   id: number;
   libraryType: "user" | "group";
@@ -477,10 +476,6 @@ declare interface _ZoteroLibrary {
   updateSearches: () => Promise<any>;
   hasItems: () => Promise<boolean>;
   hasItem: (item: _ZoteroItem) => boolean;
-}
-
-declare interface _ZoteroLibraryConstructable {
-  new (params?: object): _ZoteroLibrary;
 }
 
 // chrome/content/zotero/xpcom/data/libraries.js
@@ -573,14 +568,10 @@ declare interface _ZoteroEditorInstance {
   _prefObserverIDs: any[];
 }
 
-declare interface _ZoteroEditorInstanceConstructable {
-  new (): _ZoteroEditorInstance;
-}
-
 declare class _ZoteroEditorInstanceUtilities {
   serializeAnnotations: (
     annotations: object[],
-    skipEmbeddingItemData: boolean
+    skipEmbeddingItemData?: boolean
   ) => { html: string; citationItems: _ZoteroItem[] };
   _transformTextToHTML: (text: string) => string;
   _formatCitationItemPreview: (citationItem: _ZoteroItem) => string;
@@ -610,9 +601,12 @@ declare class _ZoteroNotes {
     fromItemKey: string,
     toItemKey: string
   ) => void;
-  getExportableNote: (item: _ZoteroItem) => Promise<string>;
+  getableNote: (item: _ZoteroItem) => Promise<string>;
   ensureEmbeddedImagesAreAvailable: (item: _ZoteroItem) => Promise<boolean>;
-  copyEmbeddedImages: (fromItemKey: string, toItemKey: string) => Promise<void>;
+  copyEmbeddedImages: (
+    fromNote: _ZoteroItem,
+    toNote: _ZoteroItem
+  ) => Promise<void>;
   promptToIgnoreMissingImage: () => boolean;
   deleteUnusedEmbeddedImages: (item: _ZoteroItem) => Promise<void>;
   hasSchemaVersion: (note: _ZoteroItem) => boolean;
@@ -620,7 +614,7 @@ declare class _ZoteroNotes {
 
 // chrome/content/zotero/zoteroPane.js
 
-export const ZoteroPane: {
+declare const ZoteroPane: {
   [attr: string]: any;
   collectionsView: any;
   itemsView: {
@@ -656,7 +650,6 @@ declare interface _ZoteroReaderLocation {
 
 declare class _ZoteroReaderInstance {
   [attr: string]: any;
-  constructor();
   pdfStateFileName: string;
   annotationItemIDs: number[];
   itemID: number;
@@ -697,9 +690,7 @@ declare class _ZoteroReaderInstance {
   promptToTransferAnnotations: () => boolean;
   promptToDeletePages: (num: number) => boolean;
   reload: () => void;
-  menuCmd: (
-    cmd: "transferFromPDF" | "export" | "showInLibrary"
-  ) => Promise<void>;
+  menuCmd: (cmd: "transferFromPDF" | "" | "showInLibrary") => Promise<void>;
   _initIframeWindow: () => boolean;
   _setState: (state: _ZoteroReaderState) => Promise<void>;
   _getState: () => Promise<_ZoteroReaderState>;
@@ -800,7 +791,7 @@ declare interface TabInstance {
   selected?: boolean;
 }
 
-export const Zotero_Tabs: {
+declare const Zotero_Tabs: {
   selectedID: string;
   selectedType: string;
   selectedIndex: number;
@@ -814,13 +805,13 @@ export const Zotero_Tabs: {
   getState: () => TabInstance[];
   restoreState: (tabs: TabInstance[]) => void;
   add: (options: {
-    id: string;
+    id?: string;
     type: string;
     data: any;
     title: string;
     index: number;
     select: boolean;
-    onClose: Function;
+    onClose: Function | undefined;
   }) => { id: string; container: XUL.Element };
   rename: (id: string, title: string) => void;
   updateLibraryTabIcon: () => void;
@@ -828,7 +819,7 @@ export const Zotero_Tabs: {
   closeAll: () => void;
   undoClose: () => void;
   move: (id: string, newIndex: number) => void;
-  select: (id: string, reopening: boolean, options?: any) => void;
+  select: (id: string, reopening?: boolean, options?: any) => void;
   unload: (id: string) => void;
   unloadUnusedTabs: () => void;
   selectPrev: () => void;
@@ -841,12 +832,13 @@ export const Zotero_Tabs: {
   _hideTabBar: () => void;
 };
 
-export namespace XUL {
+declare namespace XUL {
   class Element extends HTMLElement {
     public disabled?: boolean;
     public value?: string;
     public width?: number;
     public height?: number;
+    public setAttribute(qualifiedName: string, value: string | any): void;
   }
 
   class Label extends Element {
@@ -895,14 +887,23 @@ export namespace XUL {
     public type?: string;
     public tooltiptext?: string;
   }
-}
 
-declare class ClassList {
-  public add(classname: string): void;
-  public remove(classname: string): void;
-  public contains(classname: string): boolean;
-}
+  class ListItem extends XUL.Element {
+    public selectedItem?: XUL.Element;
+  }
 
-export class XULEvent extends Event {
-  public target: XUL.Element;
+  class XULWindow extends Window {
+    public document: XMLDocument;
+    public arguments: any;
+    public openDialog: (
+      target: string,
+      type: string,
+      params: string,
+      extraParams?: object
+    ) => XULWindow;
+  }
+
+  class XULEvent extends Event {
+    public target: XUL.Element;
+  }
 }
