@@ -8,13 +8,18 @@ npm package: https://www.npmjs.com/package/zotero-types
 
 1. Run `npm install --save-dev zotero-types`.
 
-2. Import the type declaration in your TypeScript code.
+2. No need to import the type declaration in your TypeScript code. If your IDE does not recoginize the definitions, add the path to typing file in the include of `tsconfig.json`:
+
+```json
+// tsconfig.json
+{
+  "include": ["src", "typing", "node_modules/zotero-types"]
+}
+```
 
 **Example**:
 
 ```ts
-import { Zotero } from "zotero-types";
-
 const item = Zotero.Items.get(1234); // Zotero.Item
 ```
 
