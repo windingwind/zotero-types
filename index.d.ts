@@ -442,7 +442,7 @@ declare class _ZoteroCollections {
 declare class _ZoteroLibrary {
   libraryID: number;
   id: number;
-  libraryType: "user" | "group";
+  libraryType: "user" | "group" | "feed";
   libraryTypeID: number;
   isGroup: boolean;
   libraryVersion: number;
@@ -504,7 +504,7 @@ declare interface _ZoteroEditorInstance {
     readOnly?: boolean;
     disableUI?: boolean;
     onReturn?: Function;
-    iframeWindow?: XUL.Element;
+    iframeWindow?: Window;
     popup?: any;
     state?: any;
     placeholder?: any;
