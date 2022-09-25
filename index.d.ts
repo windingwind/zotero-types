@@ -88,6 +88,14 @@ declare const OS: {
 
 declare const NetUtil: any;
 
+/*
+  Example:
+  var Zotero: _ZoteroConstructable = Components.classes[
+    "@zotero.org/Zotero;1"
+  ].getService(Components.interfaces.nsISupports).wrappedJSObject;
+*/
+declare type _ZoteroConstructable = typeof Zotero;
+
 declare namespace Zotero {
   type DataObject = _ZoteroDataObject;
   type Item = _ZoteroItem;
