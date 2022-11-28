@@ -144,6 +144,11 @@ declare const Zotero: {
       force?: boolean
     ) => any;
   };
+  Promise: {
+    method: (fn: Function) => () => _PromiseWithResolved<any>;
+    defer: () => ZoteroPromise;
+    delay: (timeout: number) => Promise<void>;
+  };
   Items: _ZoteroItems;
   Collections: _ZoteroCollections;
   Libraries: _ZoteroLibraries;
@@ -839,6 +844,16 @@ declare const Zotero_Tabs: {
   _showTabBar: () => void;
   _hideTabBar: () => void;
 };
+
+declare interface ZoteroPromise {
+  promise: Promise<void>;
+  resolve: () => void;
+  reject: () => void;
+}
+
+declare class _PromiseWithResolved<T> extends Promise<T> {
+  isResolved: boolean;
+}
 
 declare namespace XUL {
   class Element extends HTMLElement {
