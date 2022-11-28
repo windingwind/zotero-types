@@ -273,9 +273,8 @@ declare class _ZoteroItem extends _ZoteroDataObject {
 
 declare class _ZoteroItems {
   [attr: string]: any;
-  get: (
-    ids: number | number[] | string | string[]
-  ) => _ZoteroItem | _ZoteroItem[];
+  get(ids: number | string): _ZoteroItem;
+  get(ids: number[] | string[]): _ZoteroItem[];
   getAll: (
     libraryID: number,
     /**
