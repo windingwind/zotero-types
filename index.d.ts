@@ -21,6 +21,7 @@ declare namespace OS {
       size: number;
       path: string;
       unixMode?: number;
+      name: string;
     };
     type FileInfo = {
       isDir: boolean;
@@ -146,8 +147,202 @@ declare const Zotero: {
   };
   Promise: {
     method: (fn: Function) => () => _PromiseWithResolved<any>;
-    defer: () => ZoteroPromise;
+    defer: () => _ZoteroPromise;
     delay: (timeout: number) => Promise<void>;
+  };
+  File: {
+    pathToFile: (pathOrFile: string | nsIFile) => nsIFile;
+    pathToFileURI: (path: string) => string;
+    encodeFilePath: (path: string) => string;
+    getExtension: (file: string | nsIFile) => string;
+    getClosestDirectory: (file: string) => string | false;
+    getSample: (
+      file: nsIFile | string
+    ) =>
+      | string
+      | Promise<string>
+      | Uint8Array
+      | Promise<Uint8Array>
+      | Promise<BufferSource>;
+    getBinaryContentsAsync: (
+      source: string | nsIFile,
+      maxLength?: number
+    ) => Promise<string>;
+    getContentsAsync: (
+      source: string | nsIFile | nsIInputStream,
+      charset?: string,
+      maxLength?: number
+    ) =>
+      | string
+      | Promise<string>
+      | Uint8Array
+      | Promise<Uint8Array>
+      | Promise<BufferSource>
+      | Promise<void>;
+    getContentsFromURL: (url: string) => string;
+    getContentsFromURLAsync: (url: string, options?: any) => Promise<string>;
+    getResource: (url: string) => string;
+    getResourceAsync: (url: string) => Promise<string>;
+    putContents: (file: typeof OS.File, str: string) => void;
+    putContentsAsync: (
+      path: string | nsIFile,
+      data: string | nsIInputStream | ArrayBuffer,
+      charset?: string
+    ) => Promise<void>;
+    download: (uri: string, path: string) => Promise<void>;
+    rename: (
+      file: string,
+      newName: string,
+      options?: { overwrite?: boolean; unique: boolean }
+    ) => Promise<string | false>;
+    removeIfExists: (path: string) => Promise<void>;
+    directoryIsEmpty: (path: string) => Promise<boolean>;
+    iterateDirectory: (path: string, onEntry: any) => Promise<void>;
+    canMoveDirectoryWithCommand: () => boolean;
+    canMoveDirectoryWithFunction: () => boolean;
+    moveDirectory: (
+      oldDir: string,
+      newDir: string,
+      options?
+    ) => Promise<void | Error[]>;
+    generateDataURI: (file: string, contentType: string) => string;
+    setNormalFilePermissions: (file: string) => void | Promise<void>;
+    createShortened: (
+      file: string,
+      type: any,
+      mode: any,
+      maxBytes: number
+    ) => string;
+    moveToUnique: (file: string, newFile: string) => Promise<string>;
+    copyToUnique: (file: string, newFile: string) => Promise<OS.File.Entry>;
+    copyDirectory: (
+      source: string | nsIFile,
+      target: string | nsIFile
+    ) => Promise<void>;
+    createDirectoryIfMissing: (dir: string) => void;
+    createDirectoryIfMissingAsync: (
+      path: string,
+      options?: any
+    ) => Promise<void>;
+    normalizeToUnix: (path: string) => string;
+    directoryContains: (dir: string, file: string) => boolean;
+    zipDirectory: (
+      dirPath: string,
+      zipPath: string,
+      observer: any
+    ) => Promise<void | false>;
+    truncateFileName: (fileName: string, maxLength: number) => string;
+    getCharsetFromFile: (
+      file: typeof OS.File,
+      mimeType: string,
+      callback: Function,
+      args: any
+    ) => void;
+    checkFileAccessError: (
+      e: Error | any,
+      file: string | nsIFile,
+      operation: "create" | "delete" | any
+    ) => void;
+    getEvictedICloudPath: (path: string) => string;
+    isCloudStorageFolder: (path: string) => boolean;
+    reveal: (file: string) => Promise<void>;
+  };
+  URI: {
+    defaultPrefix: {
+      value: "http://zotero.org/";
+    };
+    getLocalUserURI: () => string;
+    getCurrentUserURI: () => string;
+    getCurrentUserLibraryURI: () => string;
+    getLibraryURI: (libraryID: number) => string;
+    /**
+     * Get path portion of library URI (e.g., users/6 or groups/1)
+     */
+    getLibraryPath: (libraryID: number) => string;
+    /**
+     * Get library from path (e.g., users/6 or groups/1)
+     */
+    getPathLibrary: (path: string) => _ZoteroLibrary | false;
+    /**
+     * Return URI of item, which might be a local URI if user hasn't synced
+     */
+    getItemURI: (item: Zotero.Item) => string;
+    /**
+     * Get path portion of item URI (e.g., users/6/items/ABCD1234 or groups/1/items/ABCD1234)
+     */
+    getItemPath: (item: Zotero.Item) => string;
+    getFeedItemURI: (feedItem: Zotero.Item) => string;
+    getFeedItemPath: (feedItem: Zotero.Item) => string;
+    /**
+     * Return URI of collection, which might be a local URI if user hasn't synced
+     */
+    getCollectionURI: (feedItem: Zotero.Collection) => string;
+    /**
+     * Get path portion of collection URI (e.g., users/6/collections/ABCD1234 or groups/1/collections/ABCD1234)
+     */
+    getCollectionPath: (feedItem: Zotero.Collection) => string;
+    getFeedURI: (feed: _ZoteroDataObject) => string;
+    getFeedPath: (feed: _ZoteroDataObject) => string;
+    getGroupsURL: () => string;
+    getGroupURI: (group: Zotero.Collection) => string;
+    _getObjectPath: (
+      obj: Zotero.Library | Zotero.Collection | Zotero.Item
+    ) => string;
+    _getObjectURI: (
+      obj: Zotero.Library | Zotero.Collection | Zotero.Item
+    ) => string;
+    /**
+     * Convert an item URI into an item
+     */
+    getURIItem: (itemURI: string) => Promise<Zotero.Item>;
+    getURIItemLibraryKey: (
+      itemURI: string
+    ) => { libraryID: number; key?: string; objectType?: string } | false;
+    /**
+     * Convert an item URI into a libraryID and key from the database, without relying on global state
+     *
+     * Note that while the URI must point to a valid library, the item doesn't need to exist
+     */
+    getURIItemLibraryKeyFromDB: (itemURI: string) => any;
+    getURIItemID: (itemURI: string) => number | false;
+    /**
+     * Convert a collection URI into a collection
+     */
+    getURICollection: (
+      collectionURI: string
+    ) => Promise<Zotero.Collection | false>;
+    getURICollectionLibraryKey: (
+      collectionURI: string
+    ) => { libraryID: number; key?: string; objectType?: string } | false;
+    getURICollectionID: (collectionURI: string) => number | false;
+    getURILibrary: (libraryURI: string) => number | false;
+    getURIFeed: (feedURI: string) => Zotero.Library | false;
+    /**
+     * Convert an object URI into an object containing libraryID and key
+     */
+    _getURIObject: (
+      objectURI: string,
+      type: string
+    ) => { libraryID: number; key?: string; objectType?: string } | false;
+    /**
+     * Convert an object URI into a Zotero.Library that the object is in
+     */
+    _getURIObjectLibrary: (objectURI: string) => Zotero.Library | false;
+    /**
+     * Convert an object URI into a libraryID from the database, without relying on global state
+     */
+    _getURIObjectLibraryID: (objectURI: string) => Promise<number | false>;
+    /**
+     * Convert an object URI into a libraryID and key from the database, without relying on global state
+     *
+     * Note that while the URI must point to a valid library, the object doesn't need to exist
+     */
+    _getURIObjectLibraryKeyFromDB: (
+      objectURI: string,
+      type: string
+    ) => Promise<
+      { libraryID: number; key?: string; objectType?: string } | false
+    >;
   };
   Items: _ZoteroItems;
   Collections: _ZoteroCollections;
@@ -156,6 +351,13 @@ declare const Zotero: {
   EditorInstanceUtilities: _ZoteroEditorInstanceUtilities;
   Notes: _ZoteroNotes;
 };
+
+declare interface nsIFile {
+  [attr: string]: any;
+}
+declare interface nsIInputStream {
+  [attr: string]: any;
+}
 
 declare const ZoteroPane_Local: {
   [attr: string]: any;
@@ -217,6 +419,7 @@ declare class _ZoteroItem extends _ZoteroDataObject {
   isAttachment: () => boolean;
   isAnnotation: () => boolean;
   isPDFAttachment: () => boolean;
+  isEmbeddedImageAttachment: () => boolean;
   getTags: () => { tag: string; type: number }[];
   addTag: (name: string, type: number) => boolean;
   removeTag: (tag: string) => boolean;
@@ -247,7 +450,8 @@ declare class _ZoteroItem extends _ZoteroDataObject {
   getBestAttachments: () => Promise<_ZoteroItem[]>;
   getBestAttachmentState: () => Promise<object>;
   // Only image annotation & attachment item
-  getFilePathAsync: () => string;
+  getFilePath: () => string;
+  getFilePathAsync: () => Promise<string>;
   // Only notes
   isNote: () => boolean;
   getNote: () => string;
@@ -267,6 +471,8 @@ declare class _ZoteroItem extends _ZoteroDataObject {
   annotationPosition: string;
   annotationColor: string;
   annotationPageLabel: string;
+  attachmentContentType: string;
+  dateModified: string;
 }
 
 // chrome/content/zotero/xpcom/data/items.js
@@ -844,7 +1050,7 @@ declare const Zotero_Tabs: {
   _hideTabBar: () => void;
 };
 
-declare interface ZoteroPromise {
+declare interface _ZoteroPromise {
   promise: Promise<void>;
   resolve: () => void;
   reject: () => void;
