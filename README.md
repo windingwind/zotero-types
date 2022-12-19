@@ -8,7 +8,7 @@ npm package: https://www.npmjs.com/package/zotero-types
 
 1. Run `npm install --save-dev zotero-types`.
 
-2. No need to import the type declaration in your TypeScript code. If your IDE does not recoginize the definitions, add the path to typing file in the include of `tsconfig.json`:
+2. No need to import the type declaration in your TypeScript code. If your IDE does not recognize the definitions, add the path to typing file in the include of `tsconfig.json`:
 
 ```json
 // tsconfig.json
@@ -27,9 +27,9 @@ const item = Zotero.Items.get(1234); // Zotero.Item
 
 This type definition only contains frequently used typings and is not complete. Please check the source code of Zotero here: [https://github.com/zotero/zotero](https://github.com/zotero/zotero).
 
-Planning yo merge to https://github.com/DefinitelyTyped/DefinitelyTyped/
+Planning to merge to https://github.com/DefinitelyTyped/DefinitelyTyped/
 
-To release this to npm package, use `npm run release`.
+To release this to the npm package, use `npm run release`.
 
 ## Disclaimer
 
