@@ -1,5 +1,4 @@
-/// <reference path="zotero_data.d.ts" />
-
+/// <reference path="../zotero.d.ts" />
 // chrome/content/zotero/xpcom/editorInstance.js
 
 declare interface _ZoteroEditorInstance {

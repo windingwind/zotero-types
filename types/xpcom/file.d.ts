@@ -1,5 +1,5 @@
-/// <reference path="platform.d.ts" />
-/// <reference path="zotero_data.d.ts" />
+/// <reference path="../platform.d.ts" />
+/// <reference path="../zotero.d.ts" />
 
 declare interface _ZoteroFile {
   pathToFile: (pathOrFile: string | nsIFile) => nsIFile;
