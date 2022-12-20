@@ -1,4 +1,4 @@
-/// <reference path="zotero.d.ts" />
+/// <reference path="../zotero.d.ts" />
 
 declare interface _ZoteroURI {
   defaultPrefix: {

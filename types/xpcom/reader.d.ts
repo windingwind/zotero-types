@@ -1,5 +1,3 @@
-/// <reference path="zotero_data.d.ts" />
-
 // chrome/content/zotero/xpcom/reader.js
 
 declare interface _ZoteroReaderState {

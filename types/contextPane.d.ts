@@ -1,4 +1,4 @@
-/// <reference path="zotero_editor_instance.d.ts" />
+/// <reference path="xpcom/editorInstance.d.ts" />
 
 declare const ZoteroContextPane: {
   [attr: string]: any;

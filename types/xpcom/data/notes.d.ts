@@ -1,4 +1,4 @@
-/// <reference path="zotero_editor_instance.d.ts" />
+/// <reference path="../editorInstance.d.ts" />
 
 // chrome/content/zotero/xpcom/data/notes.js
 

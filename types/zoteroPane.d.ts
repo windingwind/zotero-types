@@ -1,5 +1,3 @@
-/// <reference path="zotero_data.d.ts" />
-
 // chrome/content/zotero/zoteroPane.js
 
 declare const ZoteroPane: {
