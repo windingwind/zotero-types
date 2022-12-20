@@ -1,3 +1,5 @@
+// Type definitions for Zotero platform (Mozilla Firefox 60/102)
+
 declare const Components: any;
 declare const Services: any;
 

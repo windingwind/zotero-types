@@ -20,12 +20,29 @@ npm package: https://www.npmjs.com/package/zotero-types
 **Example**:
 
 ```ts
-const item = Zotero.Items.get(1234); // Zotero.Item
+// Example 1: get Zotero.Item by id
+const item = Zotero.Items.get(1234);
+
+// Example 2: use XUL.Element type with specific properties
+const exportFiles = document.querySelector(
+  "#menu_export_files"
+) as XUL.Menuitem;
+exportFiles.disabled = true;
+
+// Example 3: use platform APIs (OS)
+const filepath = "/path/to/file";
+if (await OS.File.exists(filepath)) {
+  let contentRaw = (await OS.File.read(filepath, {
+    encoding: "utf-8",
+  })) as string;
+}
 ```
 
 ## Contributing
 
 This type definition only contains frequently used typings and is not complete. Please check the source code of Zotero here: [https://github.com/zotero/zotero](https://github.com/zotero/zotero).
+
+The `d.ts` files of Zotero are set accordingly to their corresponding file in the Zotero repository.
 
 Planning to merge to https://github.com/DefinitelyTyped/DefinitelyTyped/
 
