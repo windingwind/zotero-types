@@ -1,3 +1,5 @@
+/// <reference path="dataObject.d.ts" />
+
 declare class _ZoteroCollection extends _ZoteroDataObject {
     name: string;
     version: number;

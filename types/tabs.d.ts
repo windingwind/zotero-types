@@ -1,3 +1,4 @@
+/// <reference path="zotero.d.ts" />
 // chrome/content/zotero/tabs.js
 
 declare interface TabInstance {
