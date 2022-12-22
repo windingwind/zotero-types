@@ -1,5 +1,10 @@
 declare namespace XUL {
-  type Crop = "start" | "end" | "center" | "none";
+  interface IDisabled { disabled: boolean; }
+  interface ICrop { crop: "start" | "end" | "center" | "none"; }
+  interface IValue { value: string; }
+  interface ILabel { label: string; }
+  interface ISelectedIndex { selectedIndex: number }
+  interface IProperties { properties: string }
 
   interface Element extends HTMLElement {
     width: number | string;
@@ -11,20 +16,15 @@ declare namespace XUL {
     setAttribute(qualifiedName: string, value: string | any): void;
   }
 
-  interface Description extends Element {
-    disabled: boolean;
-    value: string;
-    crop: Crop;
+  interface Description extends Element, IDisabled, ICrop, IValue {
     control: string;
   }
 
-  interface Label extends Description {}
+  interface Label extends Description { }
 
-  interface Textbox extends Element {
-    value: string;
+  interface Textbox extends Element, IValue, ILabel, IDisabled {
     readOnly: boolean;
     maxLength: number;
-    label: string;
     clickSelectsAll: boolean;
     defaultValue: string;
     selectionStart: number;
@@ -32,55 +32,135 @@ declare namespace XUL {
     type: "autocomplete" | "number" | "password" | "search";
     placeholder: string;
     size: number;
-    disabled: boolean;
     readonly inputField: HTMLInputElement;
     reset: () => void;
     select: () => void;
     setSelectionRange: (start: number, end: number) => void;
   }
 
-  interface Checkbox extends Element {
+  interface Checkbox extends Element, ILabel, IDisabled {
     checked: boolean;
-    label: string;
-    disabled: boolean;
   }
 
-  interface Radio extends Element {
+  interface Radio extends Element, ILabel, IDisabled {
     selected: boolean;
-    label: string;
     command: Command;
-    disabled: boolean;
   }
 
-  interface ProgressMeter extends Element {}
-
-  interface Menupopup extends Element {}
-
-  interface Menuitem extends Element {
-    value: string;
-    label: string;
-    disabled: boolean;
-  }
-
-  interface Menulist extends Element {
-    selectedItem: Menuitem;
-    value: string;
-    itemCount: number;
-    selectedIndex: number;
-    disabled: boolean;
-    getItemAtIndex: (i: number) => XUL.Menuitem;
-    appendItem: (
-      label: string,
-      value: string,
-      description: string
-    ) => XUL.Menuitem;
+  interface RadioGroup extends Element, IDisabled, IValue, ISelectedIndex {
+    focusedItem: Radio;
+    selectedItem: Radio;
+    appendItem: (lable: string, value?: string) => Radio;
     insertItemAt: (
       index: number,
       label: string,
-      value: string,
-      description: string
-    ) => XUL.Menuitem;
+      value?: string
+    ) => Radio;
+    removeItemAt: (index: number) => Radio;
   }
+
+  interface GroupBox extends Element, ICrop, ILabel { }
+
+  interface StatusBar extends Element { }
+
+  interface StatusBarPanel extends Element, ILabel { }
+
+  interface Separator extends Element { }
+
+  interface Spacer extends Element { }
+
+  interface ProgressMeter extends Element {
+    mode: 'determined' | 'undetermined';
+    value: number;
+  }
+
+  interface MenuBar extends Element { }
+
+  interface Menu extends Element, IValue { }
+
+  interface MenuPopup extends Popup { }
+
+  interface Popup extends Element {
+    /**
+     * Closes the popup menu immediately.
+     */
+    hidePopup: () => void;
+
+    /**
+     * menupopup.showPopup (someButton,-1,-1,"popup","bottomleft","topleft");
+     */
+    showPopup: (
+      element: Element,
+      x: number,
+      y: number,
+      popupType: 'popup' | 'context' | 'tooltip',
+      anchor: string,
+      align: string
+    ) => void;
+
+    /**
+     * Changes the current size of the popup to a new width and height.
+     */
+    sizeTo: (width: number, height: number) => void;
+
+    /**
+     * Moves the popup to a new location.
+     */
+    moveTo: (x: number, y: number) => void;
+
+    position: 'after_start' | 'after_end' | 'before_start' | 'before_end' | 'end_after' | 'end_before' | 'start_after' | 'start_before' | 'overlap' | 'at_pointer' | 'after_pointer';
+  }
+
+  interface MenuItem extends Element, ICrop, IValue, ILabel, IDisabled {
+    command: string | Command;
+    allowEvents: boolean;
+    selected: boolean;
+  }
+
+  interface MenuList extends Element, ICrop, IValue, IDisabled, ILabel, ISelectedIndex {
+    selectedItem: MenuItem;
+    itemCount: number;
+    description: string;
+    open: false;
+    readonly inputField: Textbox;
+
+    getItemAtIndex: (i: number) => XUL.MenuItem;
+    appendItem: (
+      label: string,
+      value?: string,
+      description?: string
+    ) => XUL.MenuItem;
+    insertItemAt: (
+      index: number,
+      label: string,
+      value?: string,
+      description?: string
+    ) => XUL.MenuItem;
+  }
+
+  interface MenuSeparator extends Element { }
+
+  interface Tooltip extends ILabel, Popup { }
+
+  interface ToolBox extends Element { }
+
+  interface ToolBar extends Element { }
+
+  interface ToolBarPalette extends Element { }
+
+  interface ToolBarSet extends Element { }
+
+  interface ToolBarButton extends Button { }
+
+  interface ToolBarItem extends Element { }
+
+  interface ToolBarSeparator extends Separator { }
+
+  interface ToolBarSpacer extends Spacer { }
+
+  interface ToolBarSpring extends Element { }
+
+  interface ToolBarGrippy extends Grippy { }
 
   interface Box extends Element {
     maxHeight: number;
@@ -89,8 +169,7 @@ declare namespace XUL {
     minWidth: number;
   }
 
-  interface Deck extends Element {
-    selectedIndex: number;
+  interface Deck extends Element, ISelectedIndex {
     selectedPanel: Element;
   }
 
@@ -99,8 +178,7 @@ declare namespace XUL {
     readonly control: Tabs;
   }
 
-  interface Tabs extends Element {
-    selectedIndex: number;
+  interface Tabs extends Element, ISelectedIndex {
     itemCount: number;
     selectedItem: Tab;
 
@@ -134,27 +212,29 @@ declare namespace XUL {
     removeItemAt: (index: number) => Tab;
   }
 
-  interface TabPanels extends Element {
-    selectedIndex: number;
+  interface TabPanels extends Element, ISelectedIndex {
     selectedPanel: Element;
   }
 
-  interface TabBox extends Element {
+  interface TabBox extends Element, ISelectedIndex {
     handleCtrlPageUpDown: boolean;
     handleCtrlTab: boolean;
     accessibleType: number;
-    selectedIndex: number;
     selectedPanel: Element;
     selectedTab: Tab;
     tabs: Tabs;
     tabpanels: TabPanels;
   }
 
-  interface Button extends Element {
+  interface Button extends Element, IDisabled, ICrop, ILabel {
     checked: boolean;
     type: string;
     tooltiptext: string;
-    disabled: boolean;
+    autoCheck: boolean;
+    checkState: number;
+    dlgType: string;
+    group: string;
+    open: boolean;
   }
 
   interface ListItem extends Element {
@@ -164,27 +244,21 @@ declare namespace XUL {
   /**
    * Used to place a seperator row in a tree.
    */
-  interface TreeSeparator extends Element {
-    properties: string;
-  }
+  interface TreeSeparator extends Element, IProperties { }
 
   /**
    * A single row in a tree. It should be placed inside a treeitem element.
    * Children of the treerow should be treecell elements.
    * If child rows are necessary, they should be placed in a treechildren element inside the parent treeitem.
    */
-  interface TreeRow extends Element {
-    properties: string;
-  }
+  interface TreeRow extends Element, IProperties { }
 
   /**
    * A single cell in a tree. This element should be placed inside a treerow.
    * You can set the text for the cell using the label attribute.
    */
-  interface TreeCell extends Element {
-    label: string;
+  interface TreeCell extends Element, IProperties, ILabel {
     mode: "none" | "normal" | "undetermined";
-    properties: string;
   }
 
   /**
@@ -192,8 +266,7 @@ declare namespace XUL {
    * The treeitem can be clicked by the user to select the row of the tree.
    * The treeitem contains a single row and all of what appear to the user as that row's descendants.
    */
-  interface TreeItem extends Element {
-    label: string;
+  interface TreeItem extends Element, ILabel {
     open: boolean;
   }
 
@@ -211,14 +284,12 @@ declare namespace XUL {
    * You can also place splitter elements between the columns to allow column resizing.
    * You should always place an id attribute on a treecol element to ensure that the column positioning is handled properly.
    */
-  interface TreeCol extends Element {
-    crop: Crop;
+  interface TreeCol extends Element, ICrop, ILabel {
     cycler: boolean;
     dragging: boolean;
     fixed: boolean;
     hideheader: boolean;
     ignoreincolumnpicker: boolean;
-    label: string;
     primary: boolean;
     src: string;
     type: "checkbox" | "progressmeter" | "text";
@@ -242,8 +313,17 @@ declare namespace XUL {
     firstOrdinalColumn: TreeCol;
   }
 
-  interface Command extends Element {
-    label: string;
+  interface ScrollBar extends Element { }
+
+  interface Grippy extends Element { }
+
+  interface Splitter extends Element { }
+
+  interface ColorPicker extends Element, IDisabled {
+    color: string;
+  }
+
+  interface Command extends Element, ILabel {
     oncommand: () => any;
   }
 

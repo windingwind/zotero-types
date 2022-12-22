@@ -14,8 +14,11 @@ declare interface _ZoteroReaderState {
 }
 
 declare interface _ZoteroReaderLocation {
-  annotationKey: String;
+  annotationKey?: string;
+  id?: string;
   pageIndex: number;
+  pageLabel?: string;
+  position: { rects: any, paths: any };
 }
 
 declare class _ZoteroReaderInstance {
@@ -39,7 +42,7 @@ declare class _ZoteroReaderInstance {
   }) => Promise<boolean>;
   updateTitle: () => void;
   setAnnotations: (items: _ZoteroItem[]) => void;
-  unsetAnnotations(keys: number[] | string[]);
+  unsetAnnotations: (keys: number[] | string[]) => void;
   navigate: (location: _ZoteroReaderLocation) => Promise<void>;
   enableAddToNote: (enable: boolean) => void;
   setSidebarWidth: (width: number) => void;
