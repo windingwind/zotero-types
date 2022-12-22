@@ -27,5 +27,8 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
+  },
+  "dependencies": {
+    "@types/react": "^18.0.26"
   }
 }
