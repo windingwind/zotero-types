@@ -2,5 +2,5 @@
 
 declare const ZoteroContextPane: {
   [attr: string]: any;
-  getActiveEditor: () => _ZoteroEditorInstance;
+  getActiveEditor(): _ZoteroEditorInstance;
 };

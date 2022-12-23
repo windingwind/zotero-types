@@ -7,7 +7,7 @@ declare const Services: any;
 declare interface DirectoryIterator {
   forEach(handler: any): Promise<void>;
   close(): void;
-  next: () => any;
+  next(): any;
 }
 declare interface DirectoryIteratorConstructable {
   new (path: string): DirectoryIterator; // eslint-disable-line @typescript-eslint/prefer-function-type
@@ -40,7 +40,7 @@ declare namespace OS {
 declare const OS: {
   // https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/OSFile.jsm/OS.File_for_the_main_thread
   File: {
-    exists: (path: string) => boolean | Promise<boolean>;
+    exists(path: string): boolean | Promise<boolean>;
     read: (
       path: string | BufferSource,
       options?: { encoding?: string }
@@ -50,7 +50,7 @@ declare const OS: {
       | Uint8Array
       | Promise<Uint8Array>
       | Promise<BufferSource>;
-    move: (from: string, to: string) => void | Promise<void>;
+    move(from: string, to: string): void | Promise<void>;
     remove: (
       path: string,
       options?: { ignoreAbsent: boolean }
@@ -64,7 +64,7 @@ declare const OS: {
       path: string,
       options?: { ignoreExisting?: boolean }
     ) => void | Promise<void>;
-    stat: (path: string) => OS.File.FileInfo | Promise<OS.File.FileInfo>;
+    stat(path: string): OS.File.FileInfo | Promise<OS.File.FileInfo>;
     copy: (
       src: string,
       tgt: string,
@@ -80,16 +80,16 @@ declare const OS: {
 
   // https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/OSFile.jsm/OS.Path
   Path: {
-    join: (...args: string[]) => string;
-    dirname: (path: string) => string;
-    basename: (path: string) => string;
-    normalize: (path: string) => string;
+    join(...args: string[]): string;
+    dirname(path: string): string;
+    basename(path: string): string;
+    normalize(path: string): string;
     split: (path: string) => {
       absolute: boolean;
       components: string[];
       winDrive?: string;
     };
-    toFileURI: (path: string) => string;
+    toFileURI(path: string): string;
   };
 };
 

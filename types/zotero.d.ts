@@ -50,7 +50,7 @@ declare const Zotero: {
    *   If true, stack is displayed starting from the caller. If an integer,
    *   that many stack levels will be omitted starting from the caller.
    */
-  debug: (message: any, level?: number, maxDepth?: number, stack?: number | boolean) => void;
+  debug(message: any, level?: number, maxDepth?: number, stack?: number | boolean): void;
 
   /**
    * Log a message to the Mozilla JS error console

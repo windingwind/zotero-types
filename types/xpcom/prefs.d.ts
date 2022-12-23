@@ -8,5 +8,5 @@ declare interface _ZoteroPrefs {
     value: boolean | string | number,
     global?: boolean | undefined
   ) => any;
-  clear: (pref: string, global?: boolean | undefined) => void;
+  clear(pref: string, global?: boolean | undefined): void;
 }

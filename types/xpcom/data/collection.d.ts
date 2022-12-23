@@ -6,8 +6,8 @@ declare class _ZoteroCollection extends _ZoteroDataObject {
     synced: boolean;
     treeViewID: string;
     treeViewImage: string;
-    getName: () => string;
-    loadFromRow: (row: object[]) => void;
+    getName(): string;
+    loadFromRow(row: object[]): void;
     hasChildCollections: (
       /**
        * Include trashed items.
@@ -15,7 +15,7 @@ declare class _ZoteroCollection extends _ZoteroDataObject {
        */
       includeTrashed?: boolean
     ) => boolean;
-    hasChildItems: () => boolean;
+    hasChildItems(): boolean;
     getChildCollections: (
       /**
        * Return as ID(number).
@@ -35,15 +35,15 @@ declare class _ZoteroCollection extends _ZoteroDataObject {
        */
       includeDeleted?: boolean
     ) => _ZoteroItem[] | number[];
-    addItem: (itemID: number, options?: object) => Promise<any>; // do not require save
-    addItems: (itemIDs: number[], options?: object) => Promise<any>; // do not require save
-    removeItem: (itemID: number, options?: object) => Promise<any>;
-    removeItems: (itemIDs: number[], options?: object) => Promise<any>;
-    hasItem: (item: number | _ZoteroItem) => boolean;
-    hasDescendent: (type: string, id: number) => boolean;
-    diff: (collection: _ZoteroCollection, includeMatches: boolean) => Array<any>;
-    clone: (libraryID: number) => _ZoteroCollection; // not saved
-    isCollection: () => true;
+    addItem(itemID: number, options?: object): Promise<any>; // do not require save
+    addItems(itemIDs: number[], options?: object): Promise<any>; // do not require save
+    removeItem(itemID: number, options?: object): Promise<any>;
+    removeItems(itemIDs: number[], options?: object): Promise<any>;
+    hasItem(item: number | _ZoteroItem): boolean;
+    hasDescendent(type: string, id: number): boolean;
+    diff(collection: _ZoteroCollection, includeMatches: boolean): Array<any>;
+    clone(libraryID: number): _ZoteroCollection; // not saved
+    isCollection(): true;
     serialize: (
       /**
        * Nested.
@@ -64,8 +64,8 @@ declare class _ZoteroCollection extends _ZoteroDataObject {
       childItems: _ZoteroItem[];
       descendents: object[];
     };
-    fromJSON: (json: JSON, options?: object) => void;
-    toJSON: (options?: object) => JSON;
+    fromJSON(json: JSON, options?: object): void;
+    toJSON(options?: object): JSON;
     getDescendents: (
       nested: boolean,
       type: string,
@@ -84,6 +84,6 @@ declare class _ZoteroCollection extends _ZoteroDataObject {
       libraryID: number,
       bidrectional: boolean
     ) => Promise<_ZoteroCollection>;
-    addLinkedCollection: (collection: _ZoteroCollection) => Promise<any>;
+    addLinkedCollection(collection: _ZoteroCollection): Promise<any>;
   }
   

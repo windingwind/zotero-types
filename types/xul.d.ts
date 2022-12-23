@@ -33,9 +33,9 @@ declare namespace XUL {
     placeholder: string;
     size: number;
     readonly inputField: HTMLInputElement;
-    reset: () => void;
-    select: () => void;
-    setSelectionRange: (start: number, end: number) => void;
+    reset(): void;
+    select(): void;
+    setSelectionRange(start: number, end: number): void;
   }
 
   interface Checkbox extends Element, ILabel, IDisabled {
@@ -50,13 +50,13 @@ declare namespace XUL {
   interface RadioGroup extends Element, IDisabled, IValue, ISelectedIndex {
     focusedItem: Radio;
     selectedItem: Radio;
-    appendItem: (lable: string, value?: string) => Radio;
+    appendItem(lable: string, value?: string): Radio;
     insertItemAt: (
       index: number,
       label: string,
       value?: string
     ) => Radio;
-    removeItemAt: (index: number) => Radio;
+    removeItemAt(index: number): Radio;
   }
 
   interface GroupBox extends Element, ICrop, ILabel { }
@@ -84,7 +84,7 @@ declare namespace XUL {
     /**
      * Closes the popup menu immediately.
      */
-    hidePopup: () => void;
+    hidePopup(): void;
 
     /**
      * menupopup.showPopup (someButton,-1,-1,"popup","bottomleft","topleft");
@@ -101,12 +101,12 @@ declare namespace XUL {
     /**
      * Changes the current size of the popup to a new width and height.
      */
-    sizeTo: (width: number, height: number) => void;
+    sizeTo(width: number, height: number): void;
 
     /**
      * Moves the popup to a new location.
      */
-    moveTo: (x: number, y: number) => void;
+    moveTo(x: number, y: number): void;
 
     position: 'after_start' | 'after_end' | 'before_start' | 'before_end' | 'end_after' | 'end_before' | 'start_after' | 'start_before' | 'overlap' | 'at_pointer' | 'after_pointer';
   }
@@ -124,7 +124,7 @@ declare namespace XUL {
     open: false;
     readonly inputField: Textbox;
 
-    getItemAtIndex: (i: number) => XUL.MenuItem;
+    getItemAtIndex(i: number): XUL.MenuItem;
     appendItem: (
       label: string,
       value?: string,
@@ -189,27 +189,27 @@ declare namespace XUL {
      * @param wrap
      * If the wrap argument is true, the adjustment will wrap around when the first or last tab is reached.
      */
-    advanceSelectedTab: (dir: number, wrap: boolean) => void;
+    advanceSelectedTab(dir: number, wrap: boolean): void;
 
     /**
      * Creates a new item and adds it to the end of the existing list of items.
      * You may optionally set a value.
      * @returns The function returns the newly created element.
      */
-    appendItem: (label: string, value: string) => Tab;
+    appendItem(label: string, value: string): Tab;
 
     /**
      * This method creates a new item and inserts it at the specified position.
      * You may optionally set a value.
      * @returns The new item element is returned.
      */
-    insertItemAt: (index: number, label: string, value: string) => Tab;
+    insertItemAt(index: number, label: string, value: string): Tab;
 
     /**
      * Removes the child item in the element at the specified index.
      * @returns The method returns the removed item.
      */
-    removeItemAt: (index: number) => Tab;
+    removeItemAt(index: number): Tab;
   }
 
   interface TabPanels extends Element, ISelectedIndex {
@@ -324,7 +324,7 @@ declare namespace XUL {
   }
 
   interface Command extends Element, ILabel {
-    oncommand: () => any;
+    oncommand(): any;
   }
 
   interface XULWindow extends Window {
