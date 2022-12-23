@@ -1,5 +1,5 @@
 declare interface _ZoteroPromise {
-  method(fn: Function) => (): _PromiseWithResolved<any>;
+  method(fn: Function): ()=> _PromiseWithResolved<any>;
   defer(): _ZoteroPromiseObject;
   delay(timeout: number): Promise<void>;
 }
