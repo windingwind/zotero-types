@@ -2,8 +2,8 @@
 /// <reference path="collection.d.ts" />
 
 declare class _ZoteroCollections {
-    getName: () => string;
-    getChildItems: (arg1: boolean, arg2: boolean) => Array<_ZoteroItem>;
+    getName(): string;
+    getChildItems(arg1: boolean, arg2: boolean): Array<_ZoteroItem>;
     getByLibrary: (
       libraryID: number,
       /**
@@ -28,7 +28,7 @@ declare class _ZoteroCollections {
        */
       asIDs?: boolean
     ) => _ZoteroItem[] | number[];
-    getLoaded: () => _ZoteroCollection[];
+    getLoaded(): _ZoteroCollection[];
     registerChildCollection: (
       collectionID: number,
       childCollectionID: number
@@ -37,6 +37,6 @@ declare class _ZoteroCollections {
       collectionID: number,
       childCollectionID: number
     ) => void;
-    registerChildItem: (collectionID: number, itemID: number) => void;
-    unregisterChildItem: (collectionID: number, itemID: number) => void;
+    registerChildItem(collectionID: number, itemID: number): void;
+    unregisterChildItem(collectionID: number, itemID: number): void;
   }

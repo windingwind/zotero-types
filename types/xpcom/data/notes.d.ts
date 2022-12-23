@@ -11,9 +11,9 @@ declare class _ZoteroNotes {
   noteSuffix: string;
   _editorInstances: _ZoteroEditorInstance[];
   _downloadInProgressPromise: Promise<any>;
-  registerEditorInstance: (instance: _ZoteroEditorInstance) => void;
-  unregisterEditorInstance: (instance: _ZoteroEditorInstance) => Promise<void>;
-  updateUser: (fromUserID: number, toUserID: number) => Promise<void>;
+  registerEditorInstance(instance: _ZoteroEditorInstance): void;
+  unregisterEditorInstance(instance: _ZoteroEditorInstance): Promise<void>;
+  updateUser(fromUserID: number, toUserID: number): Promise<void>;
   replaceAllItemKeys: (
     item: _ZoteroItem,
     itemKeyMap: Map<string, string>
@@ -23,13 +23,13 @@ declare class _ZoteroNotes {
     fromItemKey: string,
     toItemKey: string
   ) => void;
-  getableNote: (item: _ZoteroItem) => Promise<string>;
-  ensureEmbeddedImagesAreAvailable: (item: _ZoteroItem) => Promise<boolean>;
+  getableNote(item: _ZoteroItem): Promise<string>;
+  ensureEmbeddedImagesAreAvailable(item: _ZoteroItem): Promise<boolean>;
   copyEmbeddedImages: (
     fromNote: _ZoteroItem,
     toNote: _ZoteroItem
   ) => Promise<void>;
-  promptToIgnoreMissingImage: () => boolean;
-  deleteUnusedEmbeddedImages: (item: _ZoteroItem) => Promise<void>;
-  hasSchemaVersion: (note: _ZoteroItem) => boolean;
+  promptToIgnoreMissingImage(): boolean;
+  deleteUnusedEmbeddedImages(item: _ZoteroItem): Promise<void>;
+  hasSchemaVersion(note: _ZoteroItem): boolean;
 }

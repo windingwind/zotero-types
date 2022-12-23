@@ -5,7 +5,7 @@ declare interface _ZoteroNotifier {
     id?: string,
     priority?: null
   ) => string;
-  unregisterObserver: (id: String) => void;
+  unregisterObserver(id: String): void;
   trigger: (
     event: string,
     type: string,

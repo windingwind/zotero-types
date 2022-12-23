@@ -1,25 +1,25 @@
 /// <reference path="dataObject.d.ts" />
 
 declare class _ZoteroItem extends _ZoteroDataObject {
-  isRegularItem: () => boolean;
-  isAttachment: () => boolean;
-  isAnnotation: () => boolean;
-  isPDFAttachment: () => boolean;
-  isEmbeddedImageAttachment: () => boolean;
-  getTags: () => { tag: string; type: number }[];
-  addTag: (name: string, type: number) => boolean;
-  removeTag: (tag: string) => boolean;
+  isRegularItem(): boolean;
+  isAttachment(): boolean;
+  isAnnotation(): boolean;
+  isPDFAttachment(): boolean;
+  isEmbeddedImageAttachment(): boolean;
+  getTags(): { tag: string; type: number }[];
+  addTag(name: string, type: number): boolean;
+  removeTag(tag: string): boolean;
   // Only regular item
-  addToCollection: (id: number) => void;
-  getNotes: () => number[];
-  getCollections: () => number[];
-  getAttachments: () => number[];
+  addToCollection(id: number): void;
+  getNotes(): number[];
+  getCollections(): number[];
+  getAttachments(): number[];
   getField: (
     name: string,
     unformatted?: boolean,
     includeBaseMapped?: boolean
   ) => any;
-  setField: (name: string, value: string | number) => void;
+  setField(name: string, value: string | number): void;
   getCreators: () => {
     firstName?: string;
     lastName: string;
@@ -32,17 +32,17 @@ declare class _ZoteroItem extends _ZoteroDataObject {
     name?: string;
     creatorType: string;
   }[];
-  getBestAttachment: () => Promise<_ZoteroItem>;
-  getBestAttachments: () => Promise<_ZoteroItem[]>;
-  getBestAttachmentState: () => Promise<object>;
+  getBestAttachment(): Promise<_ZoteroItem>;
+  getBestAttachments(): Promise<_ZoteroItem[]>;
+  getBestAttachmentState(): Promise<object>;
   // Only image annotation & attachment item
-  getFilePath: () => string;
-  getFilePathAsync: () => Promise<string>;
+  getFilePath(): string;
+  getFilePathAsync(): Promise<string>;
   // Only notes
-  isNote: () => boolean;
-  getNote: () => string;
-  setNote: (content: string) => void;
-  getNoteTitle: () => string;
+  isNote(): boolean;
+  getNote(): string;
+  setNote(content: string): void;
+  getNoteTitle(): string;
   // Only Annotation
   getAnnotations: (
     /**
