@@ -50,7 +50,12 @@ declare const Zotero: {
    *   If true, stack is displayed starting from the caller. If an integer,
    *   that many stack levels will be omitted starting from the caller.
    */
-  debug(message: any, level?: number, maxDepth?: number, stack?: number | boolean): void;
+  debug(
+    message: any,
+    level?: number,
+    maxDepth?: number,
+    stack?: number | boolean
+  ): void;
 
   /**
    * Log a message to the Mozilla JS error console
@@ -58,14 +63,17 @@ declare const Zotero: {
    * |type| is a string with one of the flag types in nsIScriptError:
    *    'error', 'warning', 'exception', 'strict'
    */
-  log: (
+  log(
     message: any,
-    type?: 'error' | 'warning' | 'exception' | 'strict',
+    type?: "error" | "warning" | "exception" | "strict",
     sourceName?: string,
     sourceLine?: string | number,
     lineNumber?: number,
     columnNumber?: number
-  ) => void;
+  ): void;
+
+  getMainWindow(): Window;
+  getActiveZoteroPane(): _ZoteroPaneConstructable;
 
   Prefs: _ZoteroPrefs;
   Notifier: _ZoteroNotifier;
