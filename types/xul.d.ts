@@ -1,10 +1,22 @@
 declare namespace XUL {
-  interface IDisabled { disabled: boolean; }
-  interface ICrop { crop: "start" | "end" | "center" | "none"; }
-  interface IValue { value: string; }
-  interface ILabel { label: string; }
-  interface ISelectedIndex { selectedIndex: number }
-  interface IProperties { properties: string }
+  interface IDisabled {
+    disabled: boolean;
+  }
+  interface ICrop {
+    crop: "start" | "end" | "center" | "none";
+  }
+  interface IValue {
+    value: string;
+  }
+  interface ILabel {
+    label: string;
+  }
+  interface ISelectedIndex {
+    selectedIndex: number;
+  }
+  interface IProperties {
+    properties: string;
+  }
 
   interface Element extends HTMLElement {
     width: number | string;
@@ -20,7 +32,7 @@ declare namespace XUL {
     control: string;
   }
 
-  interface Label extends Description { }
+  interface Label extends Description {}
 
   interface Textbox extends Element, IValue, ILabel, IDisabled {
     readOnly: boolean;
@@ -51,34 +63,30 @@ declare namespace XUL {
     focusedItem: Radio;
     selectedItem: Radio;
     appendItem(lable: string, value?: string): Radio;
-    insertItemAt: (
-      index: number,
-      label: string,
-      value?: string
-    ) => Radio;
+    insertItemAt: (index: number, label: string, value?: string) => Radio;
     removeItemAt(index: number): Radio;
   }
 
-  interface GroupBox extends Element, ICrop, ILabel { }
+  interface GroupBox extends Element, ICrop, ILabel {}
 
-  interface StatusBar extends Element { }
+  interface StatusBar extends Element {}
 
-  interface StatusBarPanel extends Element, ILabel { }
+  interface StatusBarPanel extends Element, ILabel {}
 
-  interface Separator extends Element { }
+  interface Separator extends Element {}
 
-  interface Spacer extends Element { }
+  interface Spacer extends Element {}
 
   interface ProgressMeter extends Element {
-    mode: 'determined' | 'undetermined';
+    mode: "determined" | "undetermined";
     value: number;
   }
 
-  interface MenuBar extends Element { }
+  interface MenuBar extends Element {}
 
-  interface Menu extends Element, IValue { }
+  interface Menu extends Element, IValue {}
 
-  interface MenuPopup extends Popup { }
+  interface MenuPopup extends Popup {}
 
   interface Popup extends Element {
     /**
@@ -93,7 +101,7 @@ declare namespace XUL {
       element: Element,
       x: number,
       y: number,
-      popupType: 'popup' | 'context' | 'tooltip',
+      popupType: "popup" | "context" | "tooltip",
       anchor: string,
       align: string
     ) => void;
@@ -108,7 +116,18 @@ declare namespace XUL {
      */
     moveTo(x: number, y: number): void;
 
-    position: 'after_start' | 'after_end' | 'before_start' | 'before_end' | 'end_after' | 'end_before' | 'start_after' | 'start_before' | 'overlap' | 'at_pointer' | 'after_pointer';
+    position:
+      | "after_start"
+      | "after_end"
+      | "before_start"
+      | "before_end"
+      | "end_after"
+      | "end_before"
+      | "start_after"
+      | "start_before"
+      | "overlap"
+      | "at_pointer"
+      | "after_pointer";
   }
 
   interface MenuItem extends Element, ICrop, IValue, ILabel, IDisabled {
@@ -117,7 +136,13 @@ declare namespace XUL {
     selected: boolean;
   }
 
-  interface MenuList extends Element, ICrop, IValue, IDisabled, ILabel, ISelectedIndex {
+  interface MenuList
+    extends Element,
+      ICrop,
+      IValue,
+      IDisabled,
+      ILabel,
+      ISelectedIndex {
     selectedItem: MenuItem;
     itemCount: number;
     description: string;
@@ -138,29 +163,29 @@ declare namespace XUL {
     ) => XUL.MenuItem;
   }
 
-  interface MenuSeparator extends Element { }
+  interface MenuSeparator extends Element {}
 
-  interface Tooltip extends ILabel, Popup { }
+  interface Tooltip extends ILabel, Popup {}
 
-  interface ToolBox extends Element { }
+  interface ToolBox extends Element {}
 
-  interface ToolBar extends Element { }
+  interface ToolBar extends Element {}
 
-  interface ToolBarPalette extends Element { }
+  interface ToolBarPalette extends Element {}
 
-  interface ToolBarSet extends Element { }
+  interface ToolBarSet extends Element {}
 
-  interface ToolBarButton extends Button { }
+  interface ToolBarButton extends Button {}
 
-  interface ToolBarItem extends Element { }
+  interface ToolBarItem extends Element {}
 
-  interface ToolBarSeparator extends Separator { }
+  interface ToolBarSeparator extends Separator {}
 
-  interface ToolBarSpacer extends Spacer { }
+  interface ToolBarSpacer extends Spacer {}
 
-  interface ToolBarSpring extends Element { }
+  interface ToolBarSpring extends Element {}
 
-  interface ToolBarGrippy extends Grippy { }
+  interface ToolBarGrippy extends Grippy {}
 
   interface Box extends Element {
     maxHeight: number;
@@ -212,6 +237,8 @@ declare namespace XUL {
     removeItemAt(index: number): Tab;
   }
 
+  interface TabPanel extends Element {}
+
   interface TabPanels extends Element, ISelectedIndex {
     selectedPanel: Element;
   }
@@ -244,14 +271,14 @@ declare namespace XUL {
   /**
    * Used to place a seperator row in a tree.
    */
-  interface TreeSeparator extends Element, IProperties { }
+  interface TreeSeparator extends Element, IProperties {}
 
   /**
    * A single row in a tree. It should be placed inside a treeitem element.
    * Children of the treerow should be treecell elements.
    * If child rows are necessary, they should be placed in a treechildren element inside the parent treeitem.
    */
-  interface TreeRow extends Element, IProperties { }
+  interface TreeRow extends Element, IProperties {}
 
   /**
    * A single cell in a tree. This element should be placed inside a treerow.
@@ -313,11 +340,11 @@ declare namespace XUL {
     firstOrdinalColumn: TreeCol;
   }
 
-  interface ScrollBar extends Element { }
+  interface ScrollBar extends Element {}
 
-  interface Grippy extends Element { }
+  interface Grippy extends Element {}
 
-  interface Splitter extends Element { }
+  interface Splitter extends Element {}
 
   interface ColorPicker extends Element, IDisabled {
     color: string;
