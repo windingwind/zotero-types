@@ -40,14 +40,15 @@ declare class _ZoteroProgressWindow {
      */
     close(): void;
 
+    ItemProgress: _ZoteroItemProgress;
 }
 
-declare class ItemProgress {
+declare type _ZoteroItemProgress = {
     /**
      * Creates a new object representing a line in the progressWindow. This is the OO
      * version of addLines() above.
      */
-    constructor(iconSrc: string, text: string, parentItemProgress?: ItemProgress);
+    new(iconSrc: string, text: string, parentItemProgress?: _ZoteroItemProgress): _ZoteroItemProgress;
 
     /**
      * Sets the current save progress for this item.
