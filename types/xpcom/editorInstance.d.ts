@@ -1,7 +1,7 @@
 /// <reference path="../zotero.d.ts" />
 // chrome/content/zotero/xpcom/editorInstance.js
 
-declare interface _ZoteroEditorInstance {
+declare class _ZoteroEditorInstance {
   [attr: string]: any;
   init: (options: {
     onNavigate?: Function;
