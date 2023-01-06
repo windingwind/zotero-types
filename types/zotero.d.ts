@@ -33,6 +33,7 @@ declare namespace Zotero {
   type Collection = _ZoteroCollection;
   type Library = _ZoteroLibrary;
   type EditorInstance = _ZoteroEditorInstance;
+  type ProgressWindow = _ZoteroProgressWindow;
 }
 
 declare const Zotero: {
@@ -86,4 +87,11 @@ declare const Zotero: {
   Reader: _ZoteroReader;
   EditorInstanceUtilities: _ZoteroEditorInstanceUtilities;
   Notes: _ZoteroNotes;
+
+  DataObject: typeof _ZoteroDataObject;
+  Item: typeof _ZoteroItem;
+  Collection: typeof _ZoteroCollection;
+  Library: typeof _ZoteroLibrary;
+  EditorInstance: typeof _ZoteroEditorInstance;
+  ProgressWindow: typeof _ZoteroProgressWindow;
 };
