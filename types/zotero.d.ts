@@ -12,12 +12,14 @@
 /// <reference path="xpcom/prefs.d.ts" />
 /// <reference path="xpcom/reader.d.ts" />
 /// <reference path="xpcom/uri.d.ts" />
+/// <reference path="xpcom/data/feedItem.d.ts" />
 /// <reference path="xpcom/data/item.d.ts" />
 /// <reference path="xpcom/data/items.d.ts" />
 /// <reference path="xpcom/data/library.d.ts" />
 /// <reference path="xpcom/data/libraries.d.ts" />
 /// <reference path="xpcom/data/collection.d.ts" />
 /// <reference path="xpcom/data/collections.d.ts" />
+/// <reference path="xpcom/data/cachedTypes.d.ts" />
 
 /**
  * @example
@@ -30,6 +32,7 @@ declare type _ZoteroConstructable = typeof Zotero;
 declare namespace Zotero {
   type DataObject = _ZoteroDataObject;
   type Item = _ZoteroItem;
+  type FeedItem = _ZoteroFeedItem;
   type Collection = _ZoteroCollection;
   type Library = _ZoteroLibrary;
   type EditorInstance = _ZoteroEditorInstance;
@@ -87,6 +90,12 @@ declare const Zotero: {
   Reader: _ZoteroReader;
   EditorInstanceUtilities: _ZoteroEditorInstanceUtilities;
   Notes: _ZoteroNotes;
+  ItemTypes: _ZoteroItemTypes;
+  CreatorTypes: _ZoteroCreatorTypes;
+  FileTypes: _ZoteroFileTypes;
+  CharacterSets: _ZoteroCharacterSets;
+  RelationPredicates: _ZoteroRelationPredicates;
+  Annotations: _ZoteroAnnotations;
 
   DataObject: typeof _ZoteroDataObject;
   Item: typeof _ZoteroItem;
@@ -94,4 +103,5 @@ declare const Zotero: {
   Library: typeof _ZoteroLibrary;
   EditorInstance: typeof _ZoteroEditorInstance;
   ProgressWindow: typeof _ZoteroProgressWindow;
+  CachedTypes: typeof _ZoteroCachedTypes;
 };

@@ -1,7 +1,7 @@
 /// <reference path="data/collection.d.ts" />
 
 declare class _ZoteroProgressWindow {
-    constructor(options: { window?: Window, closeOnClick?: boolean });
+    constructor(options?: { window?: Window, closeOnClick?: boolean });
 
     /**
      * Shows the progress window
