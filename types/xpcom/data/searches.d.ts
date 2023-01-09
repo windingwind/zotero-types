@@ -1,6 +1,7 @@
 /// <reference path="dataObjects.d.ts" />
 
-interface _ZoteroSearches extends _ZoteroDataObjects {
-    ObjectClass: _ZoteroSearch;
-    
+declare namespace _ZoteroTypes {
+    interface Searches extends DataObjects {
+        ObjectClass: Zotero.Search;
+    }
 }

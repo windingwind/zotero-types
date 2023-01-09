@@ -1,14 +1,15 @@
 /// <reference path="library.d.ts" />
 
-declare class _ZoteroLibraries {
+declare namespace _ZoteroTypes {
+  interface Libraries {
     [attr: string]: any;
-    userLibraryID: number;
-    userLibrary: _ZoteroLibrary;
-    register(library: _ZoteroLibrary): void;
+    readonly userLibraryID: number;
+    readonly userLibrary: Zotero.Library;
+    register(library: Zotero.Library): void;
     unregister(libraryID: number): void;
     init(): void;
     exists(libraryID: number): boolean;
-    getAll(): _ZoteroLibrary[];
-    get(libraryID: number): _ZoteroLibrary;
+    getAll(): Zotero.Library[];
+    get(libraryID: number): Zotero.Library;
   }
-  
+}

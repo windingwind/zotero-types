@@ -1,12 +1,14 @@
 /// <reference path="zotero.d.ts" />
 // chrome/content/zotero/tabs.js
 
-declare interface TabInstance {
-  id: string;
-  type: string;
-  title: string;
-  data?: any;
-  selected?: boolean;
+declare namespace _ZoteroTypes {
+  interface TabInstance {
+    id: string;
+    type: string;
+    title: string;
+    data?: any;
+    selected?: boolean;
+  }
 }
 
 declare const Zotero_Tabs: {
@@ -14,14 +16,14 @@ declare const Zotero_Tabs: {
   selectedType: string;
   selectedIndex: number;
   deck: Element;
-  _tabs: TabInstance[];
+  _tabs: _ZoteroTypes.TabInstance[];
 
-  _getTab(tabId: string): { tab: TabInstance; tabIndex: number };
+  _getTab(tabId: string): { tab: _ZoteroTypes.TabInstance; tabIndex: number };
   _update(): void;
   getTabIDByItemID(itemID: number): string;
   init(): void;
-  getState(): TabInstance[];
-  restoreState(tabs: TabInstance[]): void;
+  getState(): _ZoteroTypes.TabInstance[];
+  restoreState(tabs: _ZoteroTypes.TabInstance[]): void;
   add: (options: {
     id?: string;
     type: string;

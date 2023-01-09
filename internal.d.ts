@@ -1,8 +1,8 @@
-declare namespace __ZoteroTypes {
+declare namespace _ZoteroTypes {
     type anyObj = { [key: string]: any };
     type ZoteroObjectURI = string;
     type RelationsPredicate = "dc:relation" | "owl:sameAs" | "dc:replaces";
-    type ObjectRelations = Record<__ZoteroTypes.RelationsPredicate, __ZoteroTypes.ZoteroObjectURI[]>;
+    type ObjectRelations = Record<_ZoteroTypes.RelationsPredicate, _ZoteroTypes.ZoteroObjectURI[]>;
 
     type IconFile = (
           'annotation-close.png'
