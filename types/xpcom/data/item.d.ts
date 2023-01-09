@@ -527,7 +527,7 @@ declare namespace Zotero {
      * Possible values specified as constants in Zotero.Attachments
      * (e.g. Zotero.Attachments.LINK_MODE_LINKED_FILE)
      */
-    attachmentLinkMode: _ZoteroAttachments.LinkMode;
+    attachmentLinkMode: _ZoteroTypes.Attachments.LinkMode;
 
     /**
      * Content type of an attachment (e.g. 'text/plain')
@@ -672,7 +672,7 @@ declare namespace Zotero {
       includeTrashed?: boolean
     ): Zotero.Item[];
 
-    annotationType: _ZoteroAnnotations.AnnotationType;
+    annotationType: _ZoteroTypes.Annotations.AnnotationType;
     annotationAuthorName: string;
     annotationComment: string;
     annotationText: string;
@@ -839,7 +839,7 @@ declare namespace Zotero {
      */
     setPublications(inPublications: boolean): void;
 
-    getImageSrc(): string;
+    getImageSrc(): _ZoteroTypes.IconURI;
 
     /**
      * Return tags and colors

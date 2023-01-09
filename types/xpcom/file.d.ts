@@ -97,7 +97,8 @@ declare namespace _ZoteroTypes {
     reveal(file: string): Promise<void>;
   }
 
-  const Zotero_File_Interface: {
-    exportItemsToClipboard(items: Zotero.Item[], translatorID: string): void;
-  };
 }
+
+declare const Zotero_File_Interface: {
+  exportItemsToClipboard(items: Zotero.Item[], translatorID: string): void;
+};
