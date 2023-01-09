@@ -250,16 +250,16 @@ declare class _ZoteroPaneConstructable {
    * If asIDs is true, return an array of itemIDs instead
    * @param {boolean} [asIDs = false]
    */
-  getSelectedItems(): Array<_ZoteroItem>;
-  getSelectedItems(asIDs: boolean): Array<_ZoteroItem | number>;
+  getSelectedItems(asIDs?: false): Array<_ZoteroItem>;
+  getSelectedItems(asIDs: true): Array<number>;
 
   /**
    * Returns an array of Zotero.Item objects of visible items in current sort order
    *
    * If asIDs is true, return an array of itemIDs instead
    */
-  getSortedItems(): Array<_ZoteroItem>;
-  getSortedItems(asIDs: boolean): Array<_ZoteroItem | number>;
+  getSortedItems(asIDs?: false): Array<_ZoteroItem>;
+  getSortedItems(asIDs: true): Array<number>;
 
   /**
    * Loads a URL following the standard modifier key behavior
@@ -295,7 +295,7 @@ declare class _ZoteroPaneConstructable {
    */
   addItemFromDocument: (
     doc: Document,
-    itemType?: keyof typeof _ZoteroItemType,
+    itemType?: _ZoteroItem.ItemType,
     saveSnapshot?: boolean,
     row?: _ZoteroCollection
   ) => Promise<_ZoteroItem> | false;
@@ -308,7 +308,7 @@ declare class _ZoteroPaneConstructable {
    */
   addItemFromURL: (
     url: string,
-    itemType?: keyof typeof _ZoteroItemType,
+    itemType?: _ZoteroItem.ItemType,
     saveSnapshot?: boolean,
     row?: _ZoteroCollection
   ) => Promise<_ZoteroItem> | false;

@@ -1,49 +1,210 @@
 /// <reference path="item.d.ts" />
+/// <reference path="dataObjects.d.ts" />
 
-declare class _ZoteroItems {
-    [attr: string]: any;
-    get(ids: number | string): _ZoteroItem;
-    get(ids: number[] | string[]): _ZoteroItem[];
-    getAll: (
-      libraryID: number,
-      /**
-       * Only get top level items.
-       * @default false
-       */
-      onlyTopLevel?: boolean,
-      /**
-       * Include deleted items.
-       * @default false
-       */
-      includeDeleted?: boolean,
-      /**
-       * Return as ID(number).
-       * @default false
-       */
-      asIDs?: boolean
-    ) => Promise<Array<_ZoteroItem | number>>;
-    getAPIData(libraryID, apiPath): string; // item data in web API format
-    apiDataGenerator(params: object): Promise<string>;
-    copyChildItems(fromItem: _ZoteroItem, toItem: _ZoteroItem): Promise<void>;
-    moveChildItems: (
-      fromItem: _ZoteroItem,
-      toItem: _ZoteroItem,
-      /**
-       * Include trashed items.
-       * @default false
-       */
-      includeTrashed?: boolean
-    ) => Promise<void>;
-    merge(item: _ZoteroItem, otherItems: _ZoteroItem[]): Promise<any>;
-    trash(ids: number[]): Promise<void>;
-    trashTx(ids: number[]): Promise<void>;
-    emptyTrash(libraryID: number, options?: object): Promise<number>; // return deleted items count
-    addToPublications(items: _ZoteroItem[], options?: object): Promise<void>;
-    removeFromPublications(items: _ZoteroItem[]): Promise<void>;
-    purge(): Promise<void>; // Purge unused data values
-    getFirstCreatorFromJSON(json: JSON): any;
-    getFirstCreatorFromData(itemTypeID: number, creatorsData: object): string;
-    keepParents(items: _ZoteroItem[]): _ZoteroItem[]; // Returns an array of items with children of selected parents removed
-    getSortTitle(title: string | number): string;
-  }
-  
+/*
+ * Primary interface for accessing Zotero items
+ */
+interface _ZoteroItems extends _ZoteroDataObjects {
+  [attr: string]: any;
+  _ZDO_object: 'item';
+  _objectCache: { [i: number]: Zotero.Item };
+  ObjectClass: _ZoteroItem;
+
+  /**
+   * This needs to wait until all Zotero components are loaded to initialize,
+   * but otherwise it can be just a simple property
+   */
+  _primaryDataSQLParts: {
+    itemID: "O.itemID",
+    itemTypeID: "O.itemTypeID",
+    dateAdded: "O.dateAdded",
+    dateModified: "O.dateModified",
+    libraryID: "O.libraryID",
+    key: "O.key",
+    version: "O.version",
+    synced: "O.synced",
+
+    createdByUserID: "createdByUserID",
+    lastModifiedByUserID: "lastModifiedByUserID",
+
+    firstCreator: string,
+    sortCreator: string,
+
+    deleted: "DI.itemID IS NOT NULL AS deleted",
+    inPublications: "PI.itemID IS NOT NULL AS inPublications",
+
+    parentID: string,
+
+    attachmentCharset: "CS.charset AS attachmentCharset",
+    attachmentLinkMode: "IA.linkMode AS attachmentLinkMode",
+    attachmentContentType: "IA.contentType AS attachmentContentType",
+    attachmentPath: "IA.path AS attachmentPath",
+    attachmentSyncState: "IA.syncState AS attachmentSyncState",
+    attachmentSyncedModificationTime: "IA.storageModTime AS attachmentSyncedModificationTime",
+    attachmentSyncedHash: "IA.storageHash AS attachmentSyncedHash",
+    attachmentLastProcessedModificationTime: "IA.lastProcessedModificationTime AS attachmentLastProcessedModificationTime",
+  };
+
+  _relationsTable: "itemRelations";
+
+  /**
+   * @param {Integer} libraryID
+   * @return {Promise<Boolean>} - True if library has items in trash, false otherwise
+   */
+  hasDeleted(libraryID: number): Promise<boolean>;
+
+  get(ids: number | string): _ZoteroItem;
+  get(ids: number[] | string[]): _ZoteroItem[];
+
+  /**
+   * Returns all items in a given library
+   *
+   * @param  {Integer}  libraryID
+   * @param  {Boolean}  [onlyTopLevel=false]   If true, don't include child items
+   * @param  {Boolean}  [includeDeleted=false] If true, include deleted items
+   * @param  {Boolean}  [asIDs=false] 		 If true, resolves only with IDs
+   * @return {Promise<Array<Zotero.Item|Integer>>}
+   */
+  getAll(libraryID: number, onlyTopLevel?: boolean, includeDeleted?: boolean, asIDs?: false): Promise<_ZoteroItem[]>;
+  getAll(libraryID: number, onlyTopLevel: boolean, includeDeleted: boolean, asIDs: true): Promise<number[]>;
+
+  /**
+   * Zotero.Utilities.Internal.getAsyncInputStream-compatible generator that yields item data
+   * in web API format as strings
+   *
+   * @param {Object} params - Request parameters from Zotero.API.parsePath()
+   */
+  apiDataGenerator(params: object): Promise<string>;
+
+  /**
+   * Copy child items from one item to another (e.g., in another library)
+   *
+   * Requires a transaction
+   */
+  copyChildItems(fromItem: _ZoteroItem, toItem: _ZoteroItem): Promise<void>;
+
+  /**
+   * Move child items from one item to another
+   *
+   * Requires a transaction
+   *
+   * @param {Zotero.Item} fromItem
+   * @param {Zotero.Item} toItem
+   * @param {Boolean} [includeTrashed=false]
+   * @return {Promise}
+   */
+  moveChildItems(fromItem: _ZoteroItem, toItem: _ZoteroItem, includeTrashed?: boolean): Promise<void>;
+
+  merge(item: _ZoteroItem, otherItems: _ZoteroItem[]): Promise<any>;
+
+  /**
+   * Hash each attachment of the provided item. Return a map from hashes to
+   * attachment IDs.
+   *
+   * @param {Zotero.Item} item
+   * @param {String} hashType 'bytes' or 'text'
+   * @return {Promise<Map<String, String>>}
+   */
+  _hashItem(item: Zotero.Item, hashType: 'bytes' | 'text'): Promise<Map<string, string>>;
+
+  /**
+   * Hash an attachment by the most common words in its text.
+   * @param {Zotero.Item} attachment
+   * @return {Promise<String>}
+   */
+  _hashAttachmentText(attachment: Zotero.Item): Promise<string>;
+
+  /**
+   * Get the n most common words in s in descending order of frequency.
+   * If s contains fewer than n unique words, the size of the returned array
+   * will be less than n.
+   *
+   * @param {String} s
+   * @param {Number} n
+   * @return {String[]}
+   */
+  _getMostCommonWords(s: string, n: number): string[];
+
+  /**
+   * Move fromItem's embedded note, if it has one, to toItem.
+   * If toItem already has an embedded note, the note will be added as a new
+   * child note item on toItem's parent.
+   * Requires a transaction.
+   */
+  _moveEmbeddedNote(fromItem: _ZoteroItem, toItem: _ZoteroItem): Promise<void>;
+
+  /**
+   * Move fromItem's relations to toItem as part of a merge.
+   * Requires a transaction.
+   *
+   * @param {Zotero.Item} fromItem
+   * @param {Zotero.Item} toItem
+   * @return {Promise}
+   */
+  _moveRelations(fromItem: _ZoteroItem, toItem: _ZoteroItem): Promise<void>;
+
+
+  trash(ids: number[]): Promise<void>;
+  trashTx(ids: number[]): Promise<void>;
+
+  /**
+   * @param {Integer} libraryID - Library to delete from
+   * @param {Object} [options]
+   * @param {Function} [options.onProgress] - fn(progress, progressMax)
+   * @param {Integer} [options.days] - Only delete items deleted more than this many days ago
+   * @param {Integer} [options.limit] - Number of items to delete
+   * @returns deleted items count
+   */
+  emptyTrash(
+    libraryID: number,
+    options?: {
+      onProgress?: (progress: number, progressMax: number) => void,
+      days?: number,
+      limit?: number
+    }
+  ): Promise<number>;
+
+  addToPublications(items: _ZoteroItem[], options?: object): Promise<void>;
+  removeFromPublications(items: _ZoteroItem[]): Promise<void>;
+  purge(): Promise<void>; // Purge unused data values
+
+  /**
+   * Return a firstCreator string from internal creators data (from Zotero.Item::getCreators()).
+   *
+   * Used in Zotero.Item::getField() for unsaved items
+   *
+   * @param {Integer} itemTypeID
+   * @param {Object} creatorsData
+   * @return {String}
+   */
+  getFirstCreatorFromData(itemTypeID: number, creatorsData: _ZoteroItem.Creator[]): string;
+
+  /**
+   * Get the top-level items of all passed items
+   *
+   * @param {Zotero.Item[]} items
+   * @return {Zotero.Item[]}
+   */
+  getTopLevel(items: Zotero.Item[]): Zotero.Item[];
+
+  /**
+   * Return an array of items with descendants of selected top-level items removed
+   *
+   * Non-top-level items that aren't descendents of selected items are kept.
+   *
+   * @param {Zotero.Item[]}
+   * @return {Zotero.Item[]}
+   */
+  keepTopLevel(items: Zotero.Item[]): Zotero.Item[];
+
+  getSortTitle(title: string | number): string;
+
+  /**
+   * Find attachment items whose paths begin with the passed `pathPrefix` and don't exist on disk
+   *
+   * @param {Number} libraryID
+   * @param {String} pathPrefix
+   * @return {Zotero.Item[]}
+   */
+  findMissingLinkedFiles(libraryID: number, pathPrefix: string): Promise<Zotero.Item[]>;
+}
