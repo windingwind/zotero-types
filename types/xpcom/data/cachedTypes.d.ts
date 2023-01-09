@@ -97,7 +97,7 @@ declare namespace _ZoteroTypes {
         getSecondaryTypes(): Zotero.CachedTypes.Type[];
         getHiddenTypes(): Zotero.CachedTypes.Type[];
         getLocalizedString(idOrName: number | string): string;
-        getImageSrc(itemType: Zotero.Item.ItemType): string;
+        getImageSrc(itemType: Zotero.Item.ItemType): _ZoteroTypes.IconURI;
     }
 
     interface FileTypes extends Zotero.CachedTypes {
