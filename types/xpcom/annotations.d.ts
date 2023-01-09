@@ -1,7 +1,11 @@
-declare namespace _ZoteroAnnotations {
-    type AnnotationType = 'highlight' | 'image' | 'ink' | 'note';
-}
+declare namespace _ZoteroTypes {
 
-declare class _ZoteroAnnotations {
-    [key: string]: unknown
+    namespace Annotations {
+        type AnnotationType = 'highlight' | 'image' | 'ink' | 'note';
+    }
+
+    interface Annotations {
+        [key: string]: unknown
+    }
+
 }

@@ -29,16 +29,6 @@
  */
 declare type _ZoteroConstructable = typeof Zotero;
 
-declare namespace Zotero {
-  type DataObject = _ZoteroDataObject;
-  type Item = _ZoteroItem;
-  type FeedItem = _ZoteroFeedItem;
-  type Collection = _ZoteroCollection;
-  type Library = _ZoteroLibrary;
-  type EditorInstance = _ZoteroEditorInstance;
-  type ProgressWindow = _ZoteroProgressWindow;
-}
-
 declare const Zotero: {
   [attr: string]: any;
 
@@ -77,31 +67,36 @@ declare const Zotero: {
   ): void;
 
   getMainWindow(): Window;
-  getActiveZoteroPane(): _ZoteroPaneConstructable;
+  getActiveZoteroPane(): _ZoteroTypes.ZoteroPane;
 
-  Prefs: _ZoteroPrefs;
-  Notifier: _ZoteroNotifier;
-  Promise: _ZoteroPromise;
-  File: _ZoteroFile;
-  URI: _ZoteroURI;
-  Items: _ZoteroItems;
-  Collections: _ZoteroCollections;
-  Libraries: _ZoteroLibraries;
-  Reader: _ZoteroReader;
-  EditorInstanceUtilities: _ZoteroEditorInstanceUtilities;
-  Notes: _ZoteroNotes;
-  ItemTypes: _ZoteroItemTypes;
-  CreatorTypes: _ZoteroCreatorTypes;
-  FileTypes: _ZoteroFileTypes;
-  CharacterSets: _ZoteroCharacterSets;
-  RelationPredicates: _ZoteroRelationPredicates;
-  Annotations: _ZoteroAnnotations;
+  // Objects - defined in namespace _ZoteroTypes
+  Prefs: _ZoteroTypes.Prefs;
+  Notifier: _ZoteroTypes.Notifier;
+  File: _ZoteroTypes.File;
+  URI: _ZoteroTypes.URI;
+  Items: _ZoteroTypes.Items;
+  Collections: _ZoteroTypes.Collections;
+  Libraries: _ZoteroTypes.Libraries;
+  Reader: _ZoteroTypes.Reader;
+  EditorInstanceUtilities: _ZoteroTypes.EditorInstanceUtilities;
+  Notes: _ZoteroTypes.Notes;
+  Searches: _ZoteroTypes.Searches;
+  ItemTypes: _ZoteroTypes.ItemTypes;
+  CreatorTypes: _ZoteroTypes.CreatorTypes;
+  FileTypes: _ZoteroTypes.FileTypes;
+  CharacterSets: _ZoteroTypes.CharacterSets;
+  RelationPredicates: _ZoteroTypes.RelationPredicates;
+  Annotations: _ZoteroTypes.Annotations;
+  Attachments: _ZoteroTypes.Attachments;
 
-  DataObject: typeof _ZoteroDataObject;
-  Item: typeof _ZoteroItem;
-  Collection: typeof _ZoteroCollection;
-  Library: typeof _ZoteroLibrary;
-  EditorInstance: typeof _ZoteroEditorInstance;
-  ProgressWindow: typeof _ZoteroProgressWindow;
-  CachedTypes: typeof _ZoteroCachedTypes;
-};
+  // Classes - defined in namespace Zotero
+  DataObject: Zotero.DataObject;
+  Item: Zotero.Item;
+  Promise: Zotero.Promise;
+  Collection: Zotero.Collection;
+  Library: Zotero.Library;
+  CachedTypes: Zotero.CachedTypes;
+  Search: Zotero.Search;
+  EditorInstance: Zotero.EditorInstance;
+  ProgressWindow: Zotero.ProgressWindow;
+}

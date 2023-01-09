@@ -1,6 +1,8 @@
 /// <reference path="item.d.ts" />
 
-declare class _ZoteroLibrary {
+declare namespace Zotero {
+  interface Library {
+    new():this;
     libraryID: number;
     id: number;
     libraryType: "user" | "group" | "feed";
@@ -36,6 +38,6 @@ declare class _ZoteroLibrary {
     hasSearches(): boolean;
     updateSearches(): Promise<any>;
     hasItems(): Promise<boolean>;
-    hasItem(item: _ZoteroItem): boolean;
+    hasItem(item: Zotero.Item): boolean;
   }
-  
+}

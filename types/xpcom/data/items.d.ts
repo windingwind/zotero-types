@@ -1,14 +1,15 @@
 /// <reference path="item.d.ts" />
 /// <reference path="dataObjects.d.ts" />
 
+declare namespace _ZoteroTypes{
 /*
  * Primary interface for accessing Zotero items
  */
-interface _ZoteroItems extends _ZoteroDataObjects {
+interface Items extends DataObjects {
   [attr: string]: any;
   _ZDO_object: 'item';
   _objectCache: { [i: number]: Zotero.Item };
-  ObjectClass: _ZoteroItem;
+  ObjectClass: Zotero.Item;
 
   /**
    * This needs to wait until all Zotero components are loaded to initialize,
@@ -53,8 +54,8 @@ interface _ZoteroItems extends _ZoteroDataObjects {
    */
   hasDeleted(libraryID: number): Promise<boolean>;
 
-  get(ids: number | string): _ZoteroItem;
-  get(ids: number[] | string[]): _ZoteroItem[];
+  get(ids: number | string): Zotero.Item;
+  get(ids: number[] | string[]): Zotero.Item[];
 
   /**
    * Returns all items in a given library
@@ -65,7 +66,7 @@ interface _ZoteroItems extends _ZoteroDataObjects {
    * @param  {Boolean}  [asIDs=false] 		 If true, resolves only with IDs
    * @return {Promise<Array<Zotero.Item|Integer>>}
    */
-  getAll(libraryID: number, onlyTopLevel?: boolean, includeDeleted?: boolean, asIDs?: false): Promise<_ZoteroItem[]>;
+  getAll(libraryID: number, onlyTopLevel?: boolean, includeDeleted?: boolean, asIDs?: false): Promise<Zotero.Item[]>;
   getAll(libraryID: number, onlyTopLevel: boolean, includeDeleted: boolean, asIDs: true): Promise<number[]>;
 
   /**
@@ -81,7 +82,7 @@ interface _ZoteroItems extends _ZoteroDataObjects {
    *
    * Requires a transaction
    */
-  copyChildItems(fromItem: _ZoteroItem, toItem: _ZoteroItem): Promise<void>;
+  copyChildItems(fromItem: Zotero.Item, toItem: Zotero.Item): Promise<void>;
 
   /**
    * Move child items from one item to another
@@ -93,9 +94,9 @@ interface _ZoteroItems extends _ZoteroDataObjects {
    * @param {Boolean} [includeTrashed=false]
    * @return {Promise}
    */
-  moveChildItems(fromItem: _ZoteroItem, toItem: _ZoteroItem, includeTrashed?: boolean): Promise<void>;
+  moveChildItems(fromItem: Zotero.Item, toItem: Zotero.Item, includeTrashed?: boolean): Promise<void>;
 
-  merge(item: _ZoteroItem, otherItems: _ZoteroItem[]): Promise<any>;
+  merge(item: Zotero.Item, otherItems: Zotero.Item[]): Promise<any>;
 
   /**
    * Hash each attachment of the provided item. Return a map from hashes to
@@ -131,7 +132,7 @@ interface _ZoteroItems extends _ZoteroDataObjects {
    * child note item on toItem's parent.
    * Requires a transaction.
    */
-  _moveEmbeddedNote(fromItem: _ZoteroItem, toItem: _ZoteroItem): Promise<void>;
+  _moveEmbeddedNote(fromItem: Zotero.Item, toItem: Zotero.Item): Promise<void>;
 
   /**
    * Move fromItem's relations to toItem as part of a merge.
@@ -141,7 +142,7 @@ interface _ZoteroItems extends _ZoteroDataObjects {
    * @param {Zotero.Item} toItem
    * @return {Promise}
    */
-  _moveRelations(fromItem: _ZoteroItem, toItem: _ZoteroItem): Promise<void>;
+  _moveRelations(fromItem: Zotero.Item, toItem: Zotero.Item): Promise<void>;
 
 
   trash(ids: number[]): Promise<void>;
@@ -164,8 +165,8 @@ interface _ZoteroItems extends _ZoteroDataObjects {
     }
   ): Promise<number>;
 
-  addToPublications(items: _ZoteroItem[], options?: object): Promise<void>;
-  removeFromPublications(items: _ZoteroItem[]): Promise<void>;
+  addToPublications(items: Zotero.Item[], options?: object): Promise<void>;
+  removeFromPublications(items: Zotero.Item[]): Promise<void>;
   purge(): Promise<void>; // Purge unused data values
 
   /**
@@ -177,7 +178,7 @@ interface _ZoteroItems extends _ZoteroDataObjects {
    * @param {Object} creatorsData
    * @return {String}
    */
-  getFirstCreatorFromData(itemTypeID: number, creatorsData: _ZoteroItem.Creator[]): string;
+  getFirstCreatorFromData(itemTypeID: number, creatorsData: Zotero.Item.Creator[]): string;
 
   /**
    * Get the top-level items of all passed items
@@ -207,4 +208,5 @@ interface _ZoteroItems extends _ZoteroDataObjects {
    * @return {Zotero.Item[]}
    */
   findMissingLinkedFiles(libraryID: number, pathPrefix: string): Promise<Zotero.Item[]>;
+}
 }

@@ -1,15 +1,19 @@
-declare interface _ZoteroPromise {
-  method(fn: Function): ()=> _PromiseWithResolved<any>;
-  defer(): _ZoteroPromiseObject;
-  delay(timeout: number): Promise<void>;
+declare namespace Zotero {
+  interface Promise<T> extends globalThis.Promise<T> {
+    method(fn: Function): () => _ZoteroTypes.PromiseWithResolved<T>;
+    defer(): _ZoteroTypes.PromiseObject;
+    delay(timeout: number): globalThis.Promise<void>;
+  }
 }
 
-declare interface _ZoteroPromiseObject {
-  promise: Promise<void>;
-  resolve(): void;
-  reject(): void;
-}
+declare namespace _ZoteroTypes {
+  interface PromiseObject {
+    promise: Promise<void>;
+    resolve(): void;
+    reject(): void;
+  }
 
-declare class _PromiseWithResolved<T> extends Promise<T> {
-  isResolved: boolean;
+  class PromiseWithResolved<T> extends Promise<T> {
+    isResolved: boolean;
+  }
 }
