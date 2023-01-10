@@ -31,7 +31,7 @@ declare type _ZoteroConstructable = typeof Zotero;
 
 declare const Zotero: {
   [attr: string]: any;
-
+  
   /**
    * Debug logging function
    *
@@ -70,33 +70,33 @@ declare const Zotero: {
   getActiveZoteroPane(): _ZoteroTypes.ZoteroPane;
 
   // Objects - defined in namespace _ZoteroTypes
-  Prefs: _ZoteroTypes.Prefs;
-  Notifier: _ZoteroTypes.Notifier;
-  File: _ZoteroTypes.File;
-  URI: _ZoteroTypes.URI;
-  Items: _ZoteroTypes.Items;
-  Collections: _ZoteroTypes.Collections;
-  Libraries: _ZoteroTypes.Libraries;
-  Reader: _ZoteroTypes.Reader;
+  URI:                     _ZoteroTypes.URI;
+  File:                    _ZoteroTypes.File;
+  Prefs:                   _ZoteroTypes.Prefs;
+  Items:                   _ZoteroTypes.Items;
+  Notes:                   _ZoteroTypes.Notes;
+  Reader:                  _ZoteroTypes.Reader;
+  Notifier:                _ZoteroTypes.Notifier;
+  Searches:                _ZoteroTypes.Searches;
+  Libraries:               _ZoteroTypes.Libraries;
+  ItemTypes:               _ZoteroTypes.ItemTypes;
+  FileTypes:               _ZoteroTypes.FileTypes;
+  Collections:             _ZoteroTypes.Collections;
+  Annotations:             _ZoteroTypes.Annotations;
+  Attachments:             _ZoteroTypes.Attachments;
+  CreatorTypes:            _ZoteroTypes.CreatorTypes;
+  CharacterSets:           _ZoteroTypes.CharacterSets;
+  RelationPredicates:      _ZoteroTypes.RelationPredicates;
   EditorInstanceUtilities: _ZoteroTypes.EditorInstanceUtilities;
-  Notes: _ZoteroTypes.Notes;
-  Searches: _ZoteroTypes.Searches;
-  ItemTypes: _ZoteroTypes.ItemTypes;
-  CreatorTypes: _ZoteroTypes.CreatorTypes;
-  FileTypes: _ZoteroTypes.FileTypes;
-  CharacterSets: _ZoteroTypes.CharacterSets;
-  RelationPredicates: _ZoteroTypes.RelationPredicates;
-  Annotations: _ZoteroTypes.Annotations;
-  Attachments: _ZoteroTypes.Attachments;
 
   // Classes - defined in namespace Zotero
-  DataObject: Zotero.DataObject;
-  Item: Zotero.Item;
-  Promise: Zotero.Promise;
-  Collection: Zotero.Collection;
-  Library: Zotero.Library;
-  CachedTypes: Zotero.CachedTypes;
-  Search: Zotero.Search;
+  Library:        _ZoteroTypes.Library;
+  Item:           Zotero.Item;
+  Search:         Zotero.Search;
+  Promise:        Zotero.Promise;
+  DataObject:     Zotero.DataObject;
+  Collection:     Zotero.Collection;
+  CachedTypes:    Zotero.CachedTypes;
   EditorInstance: Zotero.EditorInstance;
   ProgressWindow: Zotero.ProgressWindow;
 }
