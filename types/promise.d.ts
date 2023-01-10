@@ -1,5 +1,5 @@
 declare namespace Zotero {
-  interface Promise<T> extends globalThis.Promise<T> {
+  interface Promise<T = void> extends globalThis.Promise<T> {
     method(fn: Function): () => _ZoteroTypes.PromiseWithResolved<T>;
     defer(): _ZoteroTypes.PromiseObject;
     delay(timeout: number): globalThis.Promise<void>;
