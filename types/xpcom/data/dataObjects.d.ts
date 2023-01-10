@@ -221,4 +221,6 @@ declare namespace _ZoteroTypes {
 
         _loadIDsAndKeys(): Promise<void>;
     }
+
+    type ObjectType = 'collection' | 'item' | 'search';
 }

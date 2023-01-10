@@ -1,42 +1,96 @@
 /// <reference path="item.d.ts" />
 
+declare namespace _ZoteroTypes {
+  interface Library {
+    // Converts DB column name to (internal) object property
+    _colToProp(c: string): string;
+
+    readonly _dbColumns: ['type', 'editable', 'filesEditable', 'version', 'storageVersion', 'lastSync', 'archived'];
+
+    // Select all columns in a unique manner, so we can JOIN tables with same column names (e.g. version)
+    readonly _rowSQLSelect: string;
+
+    // The actual select statement for above columns
+    readonly _rowSQL: string;
+
+    prototype: Zotero.Library;
+    new(params?: {
+      libraryType?: string,
+      editable?: boolean,
+      filesEditable?: boolean,
+      libraryVersion?: number,
+      storageVersion?: number,
+      lastSync?: Date,
+      archived?: boolean
+    }): Zotero.Library;
+  }
+}
 declare namespace Zotero {
   interface Library {
-    new():this;
-    libraryID: number;
+    readonly _objectType: 'library';
+    readonly _childObjectTypes: ['item', 'collection', 'search'];
+
+    // Immutable libraries
+    readonly fixedLibraries: ['user'];
+
+    // Valid library types
+    readonly libraryTypes: ['user'];
+
+    readonly libraryID: number;
     id: number;
     libraryType: "user" | "group" | "feed";
-    libraryTypeID: number;
-    isGroup: boolean;
+
+    /**
+     * Get the library-type-specific id for the library (e.g., userID for user library,
+     * groupID for group library)
+     *
+     * @property
+     */
+    readonly libraryTypeID: number;
+
+    readonly isGroup: boolean;
     libraryVersion: number;
-    syncable: boolean;
-    lastSync: string;
-    name: string;
-    treeViewID: string;
-    treeViewImage: string;
-    hasTrash: boolean;
-    allowsLinkedFiles: boolean;
+    readonly syncable: boolean;
+    readonly lastSync: Date;
+    readonly name: string;
+    readonly treeViewID: string;
+    readonly treeViewImage: _ZoteroTypes.IconURI;
+    readonly hasTrash: true;
+    readonly allowsLinkedFiles: true;
     editable: boolean;
     filesEditable: boolean;
     storageVersion: number;
     archived: boolean;
     storageDownloadNeeded: boolean;
-    loadAllDataTypes(): Promise<any>;
-    getDataLoaded(objectType: string): boolean;
-    setDataLoading(objectType: string): void;
-    getDataLoadedPromise(objectType: string): Promise<any>;
-    setDataLoaded(objectType: string): void;
-    waitForDataLoad(objectType: string): Promise<any>;
-    isChildObjectAllowed(type: string): boolean;
+    _isValidProp(prop: string): boolean;
+    _loadDataFromRow(row: object): void;
+    _reloadFromDB(): Promise<void>;
+
+    /**
+     * Load object data in this library
+     */
+    loadAllDataTypes(): Promise<void>;
+
+    getDataLoaded(objectType: _ZoteroTypes.ObjectType): boolean;
+    setDataLoading(objectType: _ZoteroTypes.ObjectType): void;
+    getDataLoadedPromise(objectType: _ZoteroTypes.ObjectType): Promise<unknown> | null;
+    setDataLoaded(objectType: _ZoteroTypes.ObjectType): void;
+
+    /**
+     * Wait for a given data type to load, loading it now if necessary
+     */
+    waitForDataLoad(objectType: _ZoteroTypes.ObjectType): Promise<void>;
+
+    isChildObjectAllowed(type: _ZoteroTypes.ObjectType): boolean;
     updateLastSyncTime(): void;
-    save(options?: any): Promise<boolean>;
-    saveTx(options?: any): Promise<boolean>;
-    eraseTx(options?: any): Promise<boolean>;
-    erase(options?: any): Promise<boolean>;
+    save(options?: object): Promise<false | void>;
+    saveTx(options?: object): Promise<false | void>;
+    eraseTx(options?: object): Promise<false | void>;
+    erase(options?: object): Promise<false | void>;
     hasCollections(): boolean;
-    updateCollections(): Promise<any>;
+    updateCollections(): Promise<void>;
     hasSearches(): boolean;
-    updateSearches(): Promise<any>;
+    updateSearches(): Promise<void>;
     hasItems(): Promise<boolean>;
     hasItem(item: Zotero.Item): boolean;
   }
