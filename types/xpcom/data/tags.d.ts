@@ -140,15 +140,15 @@ declare namespace _ZoteroTypes {
 		removeColoredTagsFromItems(items: Zotero.Item[]): Promise<void>;
 
 		/**
-	 * A tree cell can show only one image, and (as of Fx19) it can't be an SVG,
-	 * so we need to generate a composite image containing the existing item type
-	 * icon and one or more tag color swatches.
-	 *
-	 * @params {String[]} colors - Array of swatch colors
-	 * @params {String} extraImage - chrome:// URL of image to add to final image
-	 * @params {Boolean} [retracted = false] - If true, show an icon indicating the item was retracted
-	 * @return {Promise<String>} - A promise for a data: URL for a PNG
-	 */
+		 * A tree cell can show only one image, and (as of Fx19) it can't be an SVG,
+		 * so we need to generate a composite image containing the existing item type
+		 * icon and one or more tag color swatches.
+		 *
+		 * @params {String[]} colors - Array of swatch colors
+		 * @params {String} extraImage - chrome:// URL of image to add to final image
+		 * @params {Boolean} [retracted = false] - If true, show an icon indicating the item was retracted
+		 * @return {Promise<String>} - A promise for a data: URL for a PNG
+		 */
 		generateItemsListImage(colors, extraImage, retracted): Promise<string>;
 
 		/**
