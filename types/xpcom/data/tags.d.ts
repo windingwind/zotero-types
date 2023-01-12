@@ -1,10 +1,13 @@
 /// <reference path="item.d.ts" />
 
 declare namespace _ZoteroTypes {
-	interface TagJson {
-		tag: number,
-		type?: number
+	namespace Tags {
+		interface TagJson {
+			tag: number,
+			type?: number
+		}
 	}
+
 	interface Tags {
 		[attr: string]: any;
 		MAX_COLORED_TAGS: number;
@@ -53,7 +56,7 @@ declare namespace _ZoteroTypes {
 		 * @return {Promise<Array>}   A promise for an array containing tag objects in API JSON format
 		 *                            [{ tag: "foo" }, { tag: "bar", type: 1 }]
 		 */
-		getAll(libraryID: number, types: number[]): Promise<TagJson[]>
+		getAll(libraryID: number, types: number[]): Promise<Tags.TagJson[]>
 		
 		/**
 		 * Get all tags within the items of a temporary table of search results
@@ -65,7 +68,7 @@ declare namespace _ZoteroTypes {
 		 * @param {Object.Number[]} [tagIDs] - Array of tagIDs to limit the result to
 		 * @return {Promise<Array[]>} - Promise for an array of tag objects in API JSON format
 		 */
-		getAllWithin(object: { libraryID: number, tmpTable: string, types: number[], tagIDs: number[] }): Promise<TagJson[]> 
+		getAllWithin(object: { libraryID: number, tmpTable: string, types: number[], tagIDs: number[] }): Promise<Tags.TagJson[]> 
 		
 		/**
 		 * Get the items associated with the given tag
@@ -121,7 +124,7 @@ declare namespace _ZoteroTypes {
 		 * @return {Object|false} An object containing 'color' as a hex string (e.g., '#990000') and
 		 *     'position', or false if no colored tag with that name
 		 */
-		getColor(libraryID, name): TagJson | false;
+		getColor(libraryID, name): Tags.TagJson | false;
 
 		/**
 		 * Get color data by position (number key - 1)
