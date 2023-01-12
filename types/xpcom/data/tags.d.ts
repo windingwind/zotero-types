@@ -1,20 +1,30 @@
+/// <reference path="item.d.ts" />
+
 declare namespace _ZoteroTypes {
-	interface Tags extends DataObjects {
+	interface TagJson {
+		tag: number,
+		type?: number
+	}
+	interface Tags {
 		[attr: string]: any;
+		MAX_COLORED_TAGS: number;
+		MAX_SYNC_LENGTH: number;
 		_initialized: boolean;
-		_tagsByID: Set<any>;
-		_idsByTag: Set<any>;
+		_tagsByID: Map<number, string>;
+		_idsByTag: Map<string, number>;
 		_libraryColors: {};
 		_libraryColorsByName: {};
 		_itemsListImagePromises: {};
 		init(): Promise<void>;
+		
 		/**
 		 * Returns a tag for a given tagID
 		 *
 		 * @param {Integer} tagID
 		 * @return {Promise<String|false>} - A tag name, or false if tag with id not found
 		 */
-		getName(): string | false;
+		getName(tagID: number): Promise<string|false>;
+		
 		/**
 		 * Returns the tagID matching given fields, or false if none
 		 *
@@ -22,6 +32,7 @@ declare namespace _ZoteroTypes {
 		 * @return {Integer} tagID
 		 */
 		getID(name: string): number | false;
+		
 		/**
 		 * Returns the tagID matching given fields, or creates one and returns its id
 		 *
@@ -40,9 +51,22 @@ declare namespace _ZoteroTypes {
 		 * @param {Number} libraryID
 		 * @param {Number[]} [types] - Tag types to fetch
 		 * @return {Promise<Array>}   A promise for an array containing tag objects in API JSON format
-		 *                            [{ { tag: "foo" }, { tag: "bar", type: 1 }]
+		 *                            [{ tag: "foo" }, { tag: "bar", type: 1 }]
 		 */
-		getAll(libraryID: number, types: number[]): Promise<{ tag: string, type: number }[]>
+		getAll(libraryID: number, types: number[]): Promise<TagJson[]>
+		
+		/**
+		 * Get all tags within the items of a temporary table of search results
+		 *
+		 * @param {Object}
+		 * @param {Object.Number} libraryID
+		 * @param {Object.String} tmpTable - Temporary table with items to use
+		 * @param {Object.Number[]} [types] - Array of tag types to fetch
+		 * @param {Object.Number[]} [tagIDs] - Array of tagIDs to limit the result to
+		 * @return {Promise<Array[]>} - Promise for an array of tag objects in API JSON format
+		 */
+		getAllWithin(object: { libraryID: number, tmpTable: string, types: number[], tagIDs: number[] }): Promise<TagJson[]> 
+		
 		/**
 		 * Get the items associated with the given tag
 		 *
@@ -88,7 +112,7 @@ declare namespace _ZoteroTypes {
 		 * @param {Number|Number[]} [tagIDs] - tagID or array of tagIDs to purge
 		 * @return {Promise}
 		 */
-		purge(tagIDs): Promise<void>;
+		purge(tagIDs: number[]): Promise<void>;
 
 		/**
 		 *
@@ -97,7 +121,7 @@ declare namespace _ZoteroTypes {
 		 * @return {Object|false} An object containing 'color' as a hex string (e.g., '#990000') and
 		 *     'position', or false if no colored tag with that name
 		 */
-		getColor(libraryID, name): string | false;
+		getColor(libraryID, name): TagJson | false;
 
 		/**
 		 * Get color data by position (number key - 1)
@@ -116,7 +140,7 @@ declare namespace _ZoteroTypes {
 		 * @return {Map} - A Map with tag names as keys and objects containing 'color' and 'position'
 		 *     as values
 		 */
-		getColors(libraryID: number): Set<{color: string, position: number}>
+		getColors(libraryID: number): Map<string, number>;
 		
 		/**
 		 * Assign a color to a tag
@@ -176,5 +200,4 @@ declare namespace _ZoteroTypes {
 
 		cleanData(data: object): object
 	}
-
 }
