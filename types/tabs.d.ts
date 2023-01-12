@@ -27,11 +27,11 @@ declare const Zotero_Tabs: {
   add: (options: {
     id?: string;
     type: string;
-    data: any;
     title: string;
-    index: number;
-    select: boolean;
-    onClose: Function | undefined;
+    data?: any;
+    index?: number;
+    select?: boolean;
+    onClose?: Function;
   }) => { id: string; container: HTMLElement };
   rename(id: string, title: string): void;
   updateLibraryTabIcon(): void;
