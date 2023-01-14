@@ -131,7 +131,7 @@ declare namespace _ZoteroTypes {
     setSidebarWidth(width: number): void;
     setSidebarOpen(open: boolean): void;
     setBottomPlaceholderHeight(height: number): void;
-    notify(event, type, ids, extraData): void;
+    notify(event: Notifier.Event, type: Notifier.Type, ids: string[], extraData: anyObj): void;
     getByTabID(tabID: string): _ZoteroTypes.ReaderInstance;
     getWindowStates(): { type: "reader"; itemID: number; title: string }[];
     openURI: (
