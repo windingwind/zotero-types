@@ -12,22 +12,16 @@ declare namespace _ZoteroTypes {
 		[attr: string]: any;
 		MAX_COLORED_TAGS: number;
 		MAX_SYNC_LENGTH: number;
-		_initialized: boolean;
-		_tagsByID: Map<number, string>;
-		_idsByTag: Map<string, number>;
-		_libraryColors: {};
-		_libraryColorsByName: {};
-		_itemsListImagePromises: {};
 		init(): Promise<void>;
-		
+
 		/**
 		 * Returns a tag for a given tagID
 		 *
 		 * @param {Integer} tagID
 		 * @return {Promise<String|false>} - A tag name, or false if tag with id not found
 		 */
-		getName(tagID: number): Promise<string|false>;
-		
+		getName(tagID: number): Promise<string | false>;
+
 		/**
 		 * Returns the tagID matching given fields, or false if none
 		 *
@@ -35,7 +29,7 @@ declare namespace _ZoteroTypes {
 		 * @return {Integer} tagID
 		 */
 		getID(name: string): number | false;
-		
+
 		/**
 		 * Returns the tagID matching given fields, or creates one and returns its id
 		 *
@@ -57,7 +51,7 @@ declare namespace _ZoteroTypes {
 		 *                            [{ tag: "foo" }, { tag: "bar", type: 1 }]
 		 */
 		getAll(libraryID: number, types: number[]): Promise<Tags.TagJson[]>
-		
+
 		/**
 		 * Get all tags within the items of a temporary table of search results
 		 *
@@ -68,8 +62,8 @@ declare namespace _ZoteroTypes {
 		 * @param {Object.Number[]} [tagIDs] - Array of tagIDs to limit the result to
 		 * @return {Promise<Array[]>} - Promise for an array of tag objects in API JSON format
 		 */
-		getAllWithin(object: { libraryID: number, tmpTable: string, types: number[], tagIDs: number[] }): Promise<Tags.TagJson[]> 
-		
+		getAllWithin(object: { libraryID: number, tmpTable: string, types: number[], tagIDs: number[] }): Promise<Tags.TagJson[]>
+
 		/**
 		 * Get the items associated with the given tag
 		 *
@@ -77,9 +71,9 @@ declare namespace _ZoteroTypes {
 		 * @return {Promise<Number[]>}  A promise for an array of itemIDs
 		 */
 		getTagItems(libraryID: number, tagID: number): Promise<Number[]>;
-	
+
 		search(str: string): Promise<{ tag: string, type: number }[]>;
-		
+
 		/**
 		 * Rename a tag and update the tag colors setting accordingly if necessary
 		 *
@@ -88,7 +82,7 @@ declare namespace _ZoteroTypes {
 		 * @return {Promise}
 		 */
 		rename(libraryID: number, oldName: string, newName: string): Promise<void>;
-		
+
 		/**
 		 * @param {Integer} libraryID
 		 * @param {Integer[]} tagIDs
@@ -108,7 +102,7 @@ declare namespace _ZoteroTypes {
 		 * Remove all automatic tags in the given library
 		 */
 		removeAutomaticFromLibrary(libraryID: number, onProgress: Function): Promise<void>;
-		
+
 		/**
 		 * Delete obsolete tags from database
 		 *
@@ -124,7 +118,7 @@ declare namespace _ZoteroTypes {
 		 * @return {Object|false} An object containing 'color' as a hex string (e.g., '#990000') and
 		 *     'position', or false if no colored tag with that name
 		 */
-		getColor(libraryID, name): Tags.TagJson | false;
+		getColor(libraryID: number, name: string): Tags.TagJson | false;
 
 		/**
 		 * Get color data by position (number key - 1)
@@ -144,7 +138,7 @@ declare namespace _ZoteroTypes {
 		 *     as values
 		 */
 		getColors(libraryID: number): Map<string, number>;
-		
+
 		/**
 		 * Assign a color to a tag
 		 *

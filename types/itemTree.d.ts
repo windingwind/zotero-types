@@ -1,9 +1,14 @@
 /// <reference path="libraryTree.d.ts" />
+/// <reference path="xpcom/data/item.d.ts" />
 
-interface ItemTree extends LibraryTree {
-  [attr: string]: any;
+declare namespace _ZoteroTypes {
+  interface ItemTree extends LibraryTree {
+    [attr: string]: any;
+  }
+
+  interface ItemTreeRow extends TreeRow {
+    new(ref: Zotero.DataObject, level: number, isOpen: boolean): this;
+    getField(field: Zotero.Item.ItemField | number, unformatted?: boolean): string;
+    numNotes(): number;
+  }
 }
-
-declare const ItemTreeRow: {
-  [attr: string]: any;
-};
