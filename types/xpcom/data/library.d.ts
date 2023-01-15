@@ -1,6 +1,17 @@
 /// <reference path="item.d.ts" />
 
 declare namespace _ZoteroTypes {
+  namespace Library {
+    interface Params {
+      libraryType?: string,
+      editable?: boolean,
+      filesEditable?: boolean,
+      libraryVersion?: number,
+      storageVersion?: number,
+      lastSync?: Date,
+      archived?: boolean
+    }
+  }
   interface Library {
     // Converts DB column name to (internal) object property
     _colToProp(c: string): string;
@@ -14,15 +25,7 @@ declare namespace _ZoteroTypes {
     readonly _rowSQL: string;
 
     prototype: Zotero.Library;
-    new(params?: {
-      libraryType?: string,
-      editable?: boolean,
-      filesEditable?: boolean,
-      libraryVersion?: number,
-      storageVersion?: number,
-      lastSync?: Date,
-      archived?: boolean
-    }): Zotero.Library;
+    new(params?: Library.Params): Zotero.Library;
   }
 }
 declare namespace Zotero {
