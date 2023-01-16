@@ -11,7 +11,7 @@ declare namespace _ZoteroTypes {
       'collection-item' | 'item-tag' | 'tag' | 'setting' | 'group' | 'trash' |
       'bucket' | 'relation' | 'feed' | 'feedItem' | 'sync' | 'api-key' | 'tab'
     );
-    type Notify = (event: Event, type: Type, ids: string[], extraData: anyObj) => void;
+    type Notify = (event: Event, type: Type, ids: string[], extraData: anyObj) => void | Promise<void>;
     interface Queue {
       id: string;
       _queue: { [type in Type]: Array<{ ids: string[], data: anyObj }> };
