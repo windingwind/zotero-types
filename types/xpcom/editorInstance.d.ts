@@ -17,12 +17,12 @@ declare namespace Zotero {
       popup?: any;
       state?: any;
       placeholder?: any;
-    }) => globalThis.Promise<void>;
-    uninit(): globalThis.Promise<void>;
+    }) => Promise<void>;
+    uninit(): Promise<void>;
     focus(): void;
-    notify(event, type, ids, extraData): globalThis.Promise<void>;
+    notify: _ZoteroTypes.Notifier.Notify;
     saveSync(): void;
-    insertAnnotations(annotations: any): globalThis.Promise<void>;
+    insertAnnotations(annotations: any): Promise<void>;
     _postMessage(message: any): void;
     _isReadOnly(): boolean;
     _getFont(): { fontSize: number; fontFamily: string };
@@ -30,38 +30,38 @@ declare namespace Zotero {
     _handleStyleChange(): void;
     _handleSpellCheckChange(): void;
     _showInLibrary(ids: number | number[]): void;
-    importImages(annotations: any): globalThis.Promise<void>;
+    importImages(annotations: any): Promise<void>;
     _digestItems(ids: number[]): string | null;
-    _messageHandler(e: MessageEvent): globalThis.Promise<void>;
-    _updateCitationItems(citationItemsList: object[]): globalThis.Promise<void>;
-    _feedSubscription(subscription: object): globalThis.Promise<void>;
-    _importImage(src: string, download: boolean): globalThis.Promise<string>;
+    _messageHandler(e: MessageEvent): Promise<void>;
+    _updateCitationItems(citationItemsList: object[]): Promise<void>;
+    _feedSubscription(subscription: object): Promise<void>;
+    _importImage(src: string, download: boolean): Promise<string>;
     _openPopup: (
       x: number,
       y: number,
       pos: any,
       itemGroups: any
-    ) => globalThis.Promise<void>;
+    ) => Promise<void>;
     _getSpellChecker(): any;
-    _ensureNoteCreated(): globalThis.Promise<void>;
-    _save(noteData: object, skipDateModifiedUpdate: boolean): globalThis.Promise<void>;
+    _ensureNoteCreated(): Promise<void>;
+    _save(noteData: object, skipDateModifiedUpdate: boolean): Promise<void>;
     _arrayBufferToBase64: (buffer: BufferSource) => string;
     _dataURLtoBlob(dataurl: string): Blob | null;
-    _getDataURL(item: Zotero.Item): globalThis.Promise<string>;
+    _getDataURL(item: Zotero.Item): Promise<string>;
     _openQuickFormatDialog: (
       nodeID: number,
       citationData: any,
       filterLibraryIDs: any,
       openedEmpty: any
-    ) => globalThis.Promise<void>;
-    getItemFromURIs(uris: string[]): globalThis.Promise<Zotero.Item>;
+    ) => Promise<void>;
+    getItemFromURIs(uris: string[]): Promise<Zotero.Item>;
     createNoteFromAnnotations: (
       annotations: Zotero.Item[],
       parentID: number
-    ) => globalThis.Promise<Zotero.Item>;
+    ) => Promise<Zotero.Item>;
     _iframeWindow: Window;
     _item: Zotero.Item;
-    _initPromise: globalThis.Promise<any>;
+    _initPromise: Promise<any>;
     _viewMode: string;
     _reloaded: boolean;
     _readOnly: boolean;
