@@ -8,6 +8,7 @@
 /// <reference path="xpcom/editorInstance.d.ts" />
 /// <reference path="xpcom/file.d.ts" />
 /// <reference path="xpcom/notifier.d.ts" />
+/// <reference path="xpcom/users.d.ts" />
 /// <reference path="xpcom/prefs.d.ts" />
 /// <reference path="xpcom/reader.d.ts" />
 /// <reference path="xpcom/uri.d.ts" />
@@ -69,6 +70,7 @@ declare const Zotero: {
   URI: _ZoteroTypes.URI;
   Tags: _ZoteroTypes.Tags;
   File: _ZoteroTypes.File;
+  Users: _ZoteroTypes.Users;
   Feeds: _ZoteroTypes.Feeds;
   Prefs: _ZoteroTypes.Prefs;
   Items: _ZoteroTypes.Items;
