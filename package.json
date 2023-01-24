@@ -1,6 +1,6 @@
 {
   "name": "zotero-types",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "This package contains type definitions for Zotero (https://www.zotero.org/) plugin.",
   "main": "",
   "types": "index.d.ts",
