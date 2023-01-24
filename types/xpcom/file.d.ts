@@ -55,7 +55,7 @@ declare namespace _ZoteroTypes {
     moveDirectory: (
       oldDir: string,
       newDir: string,
-      options?
+      options?:object
     ) => Promise<void | Error[]>;
     generateDataURI(file: string, contentType: string): string;
     setNormalFilePermissions(file: string): void | Promise<void>;

@@ -2,24 +2,43 @@
 // chrome/content/zotero/xpcom/reader.js
 
 declare namespace _ZoteroTypes {
-  interface ReaderState {
-    pageIndex: number;
-    scale: string;
-    rotation: number;
-    top: number;
-    left: number;
-    sidebarView: number;
-    sidebarWidth: number;
-    scrollMode: number;
-    spreadMode: number;
-  }
+  namespace Reader {
+    interface State {
+      pageIndex: number;
+      scale: number;
+      // rotation?: number;
+      top: number;
+      left: number;
+      // sidebarView?: number;
+      // sidebarWidth?: number;
+      scrollMode: number;
+      spreadMode: number;
+    }
+    interface SecondViewState {
+      splitSize: string;
+      splitType: string;
+      pageIndex: number;
+      scale: number;
+      top: number;
+      left: number;
+    }
 
-  interface ReaderLocation {
-    annotationKey?: string;
-    id?: string;
-    pageIndex: number;
-    pageLabel?: string;
-    position: { rects: any, paths: any };
+    interface Location {
+      annotationKey?: string;
+      id?: string;
+      pageIndex: number;
+      pageLabel?: string;
+      position: { rects: unknown, paths: unknown };
+    }
+
+    interface OpenOptions {
+      title?: string;
+      tabIndex?: number;
+      tabID?: string;
+      openInBackground?: boolean;
+      openInWindow?: boolean;
+      allowDuplicate?: boolean;
+    }
   }
 
   class ReaderInstance {
@@ -27,7 +46,7 @@ declare namespace _ZoteroTypes {
     pdfStateFileName: string;
     annotationItemIDs: number[];
     itemID: number;
-    state: ReaderState;
+    state: Reader.State;
     _instanceID: string;
     _window: Window;
     _iframeWindow: Window;
@@ -36,20 +55,27 @@ declare namespace _ZoteroTypes {
     _showItemPaneToggle: boolean;
     _initPromise: Promise<any>;
     focus(): void;
-    open: (options: {
+    getSecondViewState(): Reader.SecondViewState | undefined;
+    migrateMendeleyColors(
+      libraryID: number,
+      annotations: Array<{ id: string, color: string }>
+    ): Promise<boolean>;
+    open(options: {
       itemID: number;
-      state: ReaderState;
-      location: ReaderLocation;
-    }) => Promise<boolean>;
+      state: Reader.State;
+      location?: Reader.Location;
+      secondViewState?: Reader.SecondViewState;
+    }): Promise<boolean>;
+    uninit(): void;
     updateTitle(): void;
     setAnnotations(items: Zotero.Item[]): void;
-    unsetAnnotations(keys: number[] | string[]): void;
-    navigate(location: ReaderLocation): Promise<void>;
+    unsetAnnotations(keys: readonly number[] | string[]): void;
+    navigate(location: Reader.Location): Promise<void>;
     enableAddToNote(enable: boolean): void;
     setSidebarWidth(width: number): void;
     setSidebarOpen(open: boolean): void;
     focusLastToolbarButton(): void;
-    tabToolbar(reverse: any): void;
+    tabToolbar(reverse: boolean): void;
     focusFirst(): void;
     setBottomPlaceholderHeight(height: number): Promise<void>;
     setToolbarPlaceholderWidth(height: number): Promise<void>;
@@ -57,30 +83,51 @@ declare namespace _ZoteroTypes {
     isZoomAutoActive(): boolean;
     isZoomPageWidthActive(): boolean;
     isZoomPageHeightActive(): boolean;
+    isSplitVerticallyActive(): boolean;
+    isSplitHorizontallyActive(): boolean;
     allowNavigateFirstPage(): boolean;
     allowNavigateLastPage(): boolean;
     allowNavigateBack(): boolean;
     allowNavigateForward(): boolean;
     promptToTransferAnnotations(): boolean;
     promptToDeletePages(num: number): boolean;
-    reload(): void;
-    menuCmd(cmd: "transferFromPDF" | "" | "showInLibrary"): Promise<void>;
+    reload(data: { rotatedPageIndexes: number[] }): Promise<void>;
+    menuCmd(cmd: "transferFromPDF"
+      | "export"
+      | "showInLibrary"
+      | "rotateLeft"
+      | "rotateRight"
+      | "rotate180"
+      | "splitVertically"
+      | "splitHorizontally"
+    ): Promise<void>;
     _initIframeWindow(): boolean;
-    _setState(state: ReaderState): Promise<void>;
-    _getState(): Promise<ReaderState>;
+    _setState(state: Reader.State): Promise<void>;
+    _getState(): Promise<Reader.State | null>;
     _isReadOnly(): boolean;
     _dataURLtoBlob(dataurl: string): Blob;
     _getColorIcon(color: string, selected: boolean): string;
+    _rotateCurrentPage(degrees: number): Promise<void>;
+    _splitVertically(): void;
+    _splitHorizontally(): void;
     _openTagsPopup(item: Zotero.Item, selector: string): void;
-    _openPagePopup(data: any): void;
-    _openAnnotationPopup(data: any): void;
-    _openColorPopup(data: any): void;
-    _openThumbnailPopup(data: any): void;
-    _openSelectorPopup(data: any): void;
-    _postMessage(message: object, transfer?: any): Promise<void>;
+    _openPagePopup(data: unknown, secondView?: boolean): void;
+    _openAnnotationPopup(data: unknown): void;
+    _openColorPopup(data: unknown): void;
+    _openThumbnailPopup(data: unknown): void;
+    _openSelectorPopup(data: unknown): void;
+    _postMessage(message: object, transfer?: unknown[], secondView?: boolean): Promise<void>;
     _handleMessage(event: MessageEvent): Promise<void>;
+    _updateSecondViewState(): void;
     _waitForReader(): Promise<void>;
-    _getAnnotation(item: Zotero.Item): JSON | null;
+
+    /**
+     * Return item JSON in the pdf-reader ready format
+     *
+     * @param {Zotero.Item} item
+     * @returns {Object|null}
+     */
+    _getAnnotation(item: Zotero.Item): _ZoteroTypes.anyObj | null;
   }
 
   class ReaderTab extends ReaderInstance {
@@ -97,14 +144,14 @@ declare namespace _ZoteroTypes {
     close(): void;
     _toggleNoteSidebar(isToggled?: boolean): void;
     _setTitleValue(title: string): void;
-    _addToNote(annotations: any): void;
+    _addToNote(annotations: unknown): void;
   }
 
   class ReaderWindow extends ReaderInstance {
     constructor(options: {
       sidebarWidth: number;
       sidebarOpen: boolean;
-      bottomPlaceholderHeigh: number;
+      bottomPlaceholderHeigh?: number;
     });
     init(): void;
     close(): void;
@@ -133,24 +180,24 @@ declare namespace _ZoteroTypes {
     setBottomPlaceholderHeight(height: number): void;
     notify: _ZoteroTypes.Notifier.Notify;
     getByTabID(tabID: string): _ZoteroTypes.ReaderInstance;
-    getWindowStates(): { type: "reader"; itemID: number; title: string }[];
+    getWindowStates(): { type: "reader"; itemID: number; title: string; secondViewState: Reader.SecondViewState }[];
     openURI: (
-      itemURI: string,
-      location: _ZoteroTypes.ReaderLocation,
-      options: any
+      itemURI: _ZoteroTypes.ZoteroObjectURI,
+      location?: _ZoteroTypes.Reader.Location,
+      options?: Reader.OpenOptions
     ) => Promise<void>;
     open: (
       itemID: number,
-      location: _ZoteroTypes.ReaderLocation,
-      options?: {
-        title?: string;
-        tabIndex?: number;
-        tabID?: string;
-        openInBackground?: boolean;
-        openInWindow?: boolean;
-        allowDuplicate?: boolean;
-      }
+      location?: _ZoteroTypes.Reader.Location,
+      options?: Reader.OpenOptions
     ) => Promise<void>;
+
+    /**
+     * Trigger annotations import
+     *
+     * @param {Integer} itemID Attachment item id
+     * @returns {Promise}
+     */
     triggerAnnotationsImportCheck(itemID: number): Promise<void>;
   }
 }
