@@ -1,7 +1,7 @@
 declare namespace _ZoteroTypes {
   interface TreeRow {
-    isOpen: boolean,
-    level: number
+    isOpen: boolean;
+    level: number;
   }
   interface LibraryTree extends React.Component {
     [attr: string]: any;
@@ -36,7 +36,11 @@ declare namespace _ZoteroTypes {
      * @param {TreeRow} treeRow
      * @param {Number} [beforeRow] - Row index to insert new row before
      */
-    _addRow(treeRow: TreeRow, beforeRow: number, skipRowMapRefresh?: boolean): void;
+    _addRow(
+      treeRow: TreeRow,
+      beforeRow: number,
+      skipRowMapRefresh?: boolean
+    ): void;
 
     /**
      * Remove a row from the main array and parent row children arrays,
@@ -75,5 +79,4 @@ declare namespace _ZoteroTypes {
      */
     setDropEffect(event: unknown, effect: unknown): void;
   }
-
 }

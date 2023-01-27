@@ -10,7 +10,7 @@ declare interface DirectoryIterator {
   next(): any;
 }
 declare interface DirectoryIteratorConstructable {
-  new(path: string): DirectoryIterator; // eslint-disable-line @typescript-eslint/prefer-function-type
+  new (path: string): DirectoryIterator; // eslint-disable-line @typescript-eslint/prefer-function-type
 }
 
 // http://www.devdoc.net/web/developer.mozilla.org/en-US/docs/XPCOM_Interface_Reference/nsIFile.html

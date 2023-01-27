@@ -2,26 +2,55 @@
 
 declare namespace _ZoteroTypes {
   namespace Notifier {
-    type Event = (
-      'add' | 'modify' | 'delete' | 'move' | 'remove' | 'refresh' |
-      'redraw' | 'trash' | 'unreadCountUpdated' | 'index' | 'close' | 'select'
-    );
-    type Type = (
-      'collection' | 'search' | 'share' | 'share-items' | 'item' | 'file' |
-      'collection-item' | 'item-tag' | 'tag' | 'setting' | 'group' | 'trash' |
-      'bucket' | 'relation' | 'feed' | 'feedItem' | 'sync' | 'api-key' | 'tab'
-    );
-    type Notify = (event: Event, type: Type, ids: string[], extraData: anyObj) => void | Promise<void>;
+    type Event =
+      | "add"
+      | "modify"
+      | "delete"
+      | "move"
+      | "remove"
+      | "refresh"
+      | "redraw"
+      | "trash"
+      | "unreadCountUpdated"
+      | "index"
+      | "close"
+      | "select";
+    type Type =
+      | "collection"
+      | "search"
+      | "share"
+      | "share-items"
+      | "item"
+      | "file"
+      | "collection-item"
+      | "item-tag"
+      | "tag"
+      | "setting"
+      | "group"
+      | "trash"
+      | "bucket"
+      | "relation"
+      | "feed"
+      | "feedItem"
+      | "sync"
+      | "api-key"
+      | "tab";
+    type Notify = (
+      event: Event,
+      type: Type,
+      ids: string[],
+      extraData: anyObj
+    ) => void | Promise<void>;
     interface Queue {
       id: string;
-      _queue: { [type in Type]: Array<{ ids: string[], data: anyObj }> };
+      _queue: { [type in Type]: Array<{ ids: string[]; data: anyObj }> };
       size: number;
       options: object;
-      new(options?: object): this;
+      new (options?: object): this;
     }
   }
   interface Notifier {
-    readonly EVENT_LEVEL_OPTIONS: ['autoSyncDelay', 'skipAutoSync'];
+    readonly EVENT_LEVEL_OPTIONS: ["autoSyncDelay", "skipAutoSync"];
 
     /**
      * @param {Object} [ref] signature {notify: function(event, type, ids, extraData) {}}
@@ -40,23 +69,23 @@ declare namespace _ZoteroTypes {
     unregisterObserver(id: String): void;
 
     /**
-    * Trigger a notification to the appropriate observers
-    *
-    * Possible values:
-    *
-    * 	event: 'add', 'modify', 'delete', 'move' ('c', for changing parent),
-    *		'remove' (ci, it), 'refresh', 'redraw', 'trash', 'unreadCountUpdated', 'index'
-    * 	type - 'collection', 'search', 'item', 'collection-item', 'item-tag', 'tag',
-    *		'group', 'relation', 'feed', 'feedItem'
-    * 	ids - single id or array of ids
-    *
-    * Notes:
-    *
-    * - If event queuing is on, events will not fire until commit() is called
-    * unless _force_ is true.
-    *
-    * - New events and types should be added to the order arrays in commit()
-    **/
+     * Trigger a notification to the appropriate observers
+     *
+     * Possible values:
+     *
+     * 	event: 'add', 'modify', 'delete', 'move' ('c', for changing parent),
+     *		'remove' (ci, it), 'refresh', 'redraw', 'trash', 'unreadCountUpdated', 'index'
+     * 	type - 'collection', 'search', 'item', 'collection-item', 'item-tag', 'tag',
+     *		'group', 'relation', 'feed', 'feedItem'
+     * 	ids - single id or array of ids
+     *
+     * Notes:
+     *
+     * - If event queuing is on, events will not fire until commit() is called
+     * unless _force_ is true.
+     *
+     * - New events and types should be added to the order arrays in commit()
+     **/
     trigger(
       event: Notifier.Event,
       type: Notifier.Type,
@@ -76,7 +105,7 @@ declare namespace _ZoteroTypes {
       event: Notifier.Event,
       type: Notifier.Type,
       ids: string[],
-      extraData: { [option in ('autoSyncDelay' | 'skipAutoSync')]: unknown },
+      extraData: { [option in "autoSyncDelay" | "skipAutoSync"]: unknown },
       queue: Notifier.Queue
     ): void;
 

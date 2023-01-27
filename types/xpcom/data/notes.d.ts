@@ -8,7 +8,7 @@ declare namespace _ZoteroTypes {
     MAX_TITLE_LENGTH: 120;
     defaultNote: '<div class="zotero-note znv1"></div>';
     notePrefix: '<div class="zotero-note znv1">';
-    noteSuffix: '</div>';
+    noteSuffix: "</div>";
     _editorInstances: Zotero.EditorInstance[];
     _downloadInProgressPromise: Promise<void> | null;
     registerEditorInstance(instance: Zotero.EditorInstance): void;
@@ -66,7 +66,7 @@ declare namespace _ZoteroTypes {
      * item keys in note HTML.
      *
      * Must be called after copying a note
-       *
+     *
      * @param {Zotero.Item} fromNote
      * @param {Zotero.Item} toNote
      * @returns {Promise}

@@ -78,7 +78,10 @@ declare namespace _ZoteroTypes {
     ) => Array<Zotero.Item>;
     isAttachmentWithExtractableAnnotations(item: Zotero.Item): boolean;
     openNoteWindow(itemID: number, col?: number, parentKey?: string): void;
-    viewPDF(itemID: number, location: _ZoteroTypes.ReaderLocation): Promise<void>;
+    viewPDF(
+      itemID: number,
+      location: _ZoteroTypes.ReaderLocation
+    ): Promise<void>;
     showAttachmentInFilesystem: (
       itemID: number,
       noLocateOnMissing?: boolean

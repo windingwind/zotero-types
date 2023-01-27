@@ -68,7 +68,9 @@ declare namespace _ZoteroTypes {
     getURICollectionLibraryKey: (
       collectionURI: _ZoteroTypes.ZoteroObjectURI
     ) => { libraryID: number; key?: string; objectType?: string } | false;
-    getURICollectionID(collectionURI: _ZoteroTypes.ZoteroObjectURI): number | false;
+    getURICollectionID(
+      collectionURI: _ZoteroTypes.ZoteroObjectURI
+    ): number | false;
     getURILibrary(libraryURI: _ZoteroTypes.ZoteroObjectURI): number | false;
     getURIFeed(feedURI: _ZoteroTypes.ZoteroObjectURI): Zotero.Library | false;
     /**
@@ -81,11 +83,15 @@ declare namespace _ZoteroTypes {
     /**
      * Convert an object URI into a Zotero.Library that the object is in
      */
-    _getURIObjectLibrary(objectURI: _ZoteroTypes.ZoteroObjectURI): Zotero.Library | false;
+    _getURIObjectLibrary(
+      objectURI: _ZoteroTypes.ZoteroObjectURI
+    ): Zotero.Library | false;
     /**
      * Convert an object URI into a libraryID from the database, without relying on global state
      */
-    _getURIObjectLibraryID(objectURI: _ZoteroTypes.ZoteroObjectURI): Promise<number | false>;
+    _getURIObjectLibraryID(
+      objectURI: _ZoteroTypes.ZoteroObjectURI
+    ): Promise<number | false>;
     /**
      * Convert an object URI into a libraryID and key from the database, without relying on global state
      *

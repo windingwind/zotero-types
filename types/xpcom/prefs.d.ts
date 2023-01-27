@@ -3,19 +3,12 @@ declare namespace _ZoteroTypes {
     /**
      * Retrieve a preference
      */
-    get(
-      pref: string,
-      global?: boolean
-    ): boolean | string | number | undefined;
+    get(pref: string, global?: boolean): boolean | string | number | undefined;
 
     /**
      * Set a preference
      */
-    set(
-      pref: string,
-      value: boolean | string | number,
-      global?: boolean
-    ): any;
+    set(pref: string, value: boolean | string | number, global?: boolean): any;
 
     clear(pref: string, global?: boolean): void;
 
@@ -31,7 +24,5 @@ declare namespace _ZoteroTypes {
      * @param {Symbol} symbol - Symbol returned from registerObserver()
      */
     unregisterObserver(symbol: Symbol): void;
-
-
   }
 }

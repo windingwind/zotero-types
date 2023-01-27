@@ -7,7 +7,7 @@ declare namespace _ZoteroTypes {
    */
   interface Items extends DataObjects {
     [attr: string]: any;
-    _ZDO_object: 'item';
+    _ZDO_object: "item";
     _objectCache: { [i: number]: Zotero.Item };
     ObjectClass: Zotero.Item;
 
@@ -16,34 +16,34 @@ declare namespace _ZoteroTypes {
      * but otherwise it can be just a simple property
      */
     _primaryDataSQLParts: {
-      itemID: "O.itemID",
-      itemTypeID: "O.itemTypeID",
-      dateAdded: "O.dateAdded",
-      dateModified: "O.dateModified",
-      libraryID: "O.libraryID",
-      key: "O.key",
-      version: "O.version",
-      synced: "O.synced",
+      itemID: "O.itemID";
+      itemTypeID: "O.itemTypeID";
+      dateAdded: "O.dateAdded";
+      dateModified: "O.dateModified";
+      libraryID: "O.libraryID";
+      key: "O.key";
+      version: "O.version";
+      synced: "O.synced";
 
-      createdByUserID: "createdByUserID",
-      lastModifiedByUserID: "lastModifiedByUserID",
+      createdByUserID: "createdByUserID";
+      lastModifiedByUserID: "lastModifiedByUserID";
 
-      firstCreator: string,
-      sortCreator: string,
+      firstCreator: string;
+      sortCreator: string;
 
-      deleted: "DI.itemID IS NOT NULL AS deleted",
-      inPublications: "PI.itemID IS NOT NULL AS inPublications",
+      deleted: "DI.itemID IS NOT NULL AS deleted";
+      inPublications: "PI.itemID IS NOT NULL AS inPublications";
 
-      parentID: string,
+      parentID: string;
 
-      attachmentCharset: "CS.charset AS attachmentCharset",
-      attachmentLinkMode: "IA.linkMode AS attachmentLinkMode",
-      attachmentContentType: "IA.contentType AS attachmentContentType",
-      attachmentPath: "IA.path AS attachmentPath",
-      attachmentSyncState: "IA.syncState AS attachmentSyncState",
-      attachmentSyncedModificationTime: "IA.storageModTime AS attachmentSyncedModificationTime",
-      attachmentSyncedHash: "IA.storageHash AS attachmentSyncedHash",
-      attachmentLastProcessedModificationTime: "IA.lastProcessedModificationTime AS attachmentLastProcessedModificationTime",
+      attachmentCharset: "CS.charset AS attachmentCharset";
+      attachmentLinkMode: "IA.linkMode AS attachmentLinkMode";
+      attachmentContentType: "IA.contentType AS attachmentContentType";
+      attachmentPath: "IA.path AS attachmentPath";
+      attachmentSyncState: "IA.syncState AS attachmentSyncState";
+      attachmentSyncedModificationTime: "IA.storageModTime AS attachmentSyncedModificationTime";
+      attachmentSyncedHash: "IA.storageHash AS attachmentSyncedHash";
+      attachmentLastProcessedModificationTime: "IA.lastProcessedModificationTime AS attachmentLastProcessedModificationTime";
     };
 
     _relationsTable: "itemRelations";
@@ -66,8 +66,18 @@ declare namespace _ZoteroTypes {
      * @param  {Boolean}  [asIDs=false] 		 If true, resolves only with IDs
      * @return {Promise<Array<Zotero.Item|Integer>>}
      */
-    getAll(libraryID: number, onlyTopLevel?: boolean, includeDeleted?: boolean, asIDs?: false): Promise<Zotero.Item[]>;
-    getAll(libraryID: number, onlyTopLevel: boolean, includeDeleted: boolean, asIDs: true): Promise<number[]>;
+    getAll(
+      libraryID: number,
+      onlyTopLevel?: boolean,
+      includeDeleted?: boolean,
+      asIDs?: false
+    ): Promise<Zotero.Item[]>;
+    getAll(
+      libraryID: number,
+      onlyTopLevel: boolean,
+      includeDeleted: boolean,
+      asIDs: true
+    ): Promise<number[]>;
 
     /**
      * Zotero.Utilities.Internal.getAsyncInputStream-compatible generator that yields item data
@@ -94,7 +104,11 @@ declare namespace _ZoteroTypes {
      * @param {Boolean} [includeTrashed=false]
      * @return {Promise}
      */
-    moveChildItems(fromItem: Zotero.Item, toItem: Zotero.Item, includeTrashed?: boolean): Promise<void>;
+    moveChildItems(
+      fromItem: Zotero.Item,
+      toItem: Zotero.Item,
+      includeTrashed?: boolean
+    ): Promise<void>;
 
     merge(item: Zotero.Item, otherItems: Zotero.Item[]): Promise<any>;
 
@@ -106,7 +120,10 @@ declare namespace _ZoteroTypes {
      * @param {String} hashType 'bytes' or 'text'
      * @return {Promise<Map<String, String>>}
      */
-    _hashItem(item: Zotero.Item, hashType: 'bytes' | 'text'): Promise<Map<string, string>>;
+    _hashItem(
+      item: Zotero.Item,
+      hashType: "bytes" | "text"
+    ): Promise<Map<string, string>>;
 
     /**
      * Hash an attachment by the most common words in its text.
@@ -132,7 +149,10 @@ declare namespace _ZoteroTypes {
      * child note item on toItem's parent.
      * Requires a transaction.
      */
-    _moveEmbeddedNote(fromItem: Zotero.Item, toItem: Zotero.Item): Promise<void>;
+    _moveEmbeddedNote(
+      fromItem: Zotero.Item,
+      toItem: Zotero.Item
+    ): Promise<void>;
 
     /**
      * Move fromItem's relations to toItem as part of a merge.
@@ -143,7 +163,6 @@ declare namespace _ZoteroTypes {
      * @return {Promise}
      */
     _moveRelations(fromItem: Zotero.Item, toItem: Zotero.Item): Promise<void>;
-
 
     trash(ids: number | number[]): Promise<void>;
     trashTx(ids: number | number[]): Promise<void>;
@@ -159,9 +178,9 @@ declare namespace _ZoteroTypes {
     emptyTrash(
       libraryID: number,
       options?: {
-        onProgress?: (progress: number, progressMax: number) => void,
-        days?: number,
-        limit?: number
+        onProgress?: (progress: number, progressMax: number) => void;
+        days?: number;
+        limit?: number;
       }
     ): Promise<number>;
 
@@ -178,7 +197,10 @@ declare namespace _ZoteroTypes {
      * @param {Object} creatorsData
      * @return {String}
      */
-    getFirstCreatorFromData(itemTypeID: number, creatorsData: Zotero.Item.Creator[]): string;
+    getFirstCreatorFromData(
+      itemTypeID: number,
+      creatorsData: Zotero.Item.Creator[]
+    ): string;
 
     /**
      * Get the top-level items of all passed items
@@ -207,6 +229,9 @@ declare namespace _ZoteroTypes {
      * @param {String} pathPrefix
      * @return {Zotero.Item[]}
      */
-    findMissingLinkedFiles(libraryID: number, pathPrefix: string): Promise<Zotero.Item[]>;
+    findMissingLinkedFiles(
+      libraryID: number,
+      pathPrefix: string
+    ): Promise<Zotero.Item[]>;
   }
 }

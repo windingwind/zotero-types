@@ -28,7 +28,7 @@ declare namespace _ZoteroTypes {
       id?: string;
       pageIndex: number;
       pageLabel?: string;
-      position: { rects: unknown, paths: unknown };
+      position: { rects: unknown; paths: unknown };
     }
 
     interface OpenOptions {
@@ -58,7 +58,7 @@ declare namespace _ZoteroTypes {
     getSecondViewState(): Reader.SecondViewState | undefined;
     migrateMendeleyColors(
       libraryID: number,
-      annotations: Array<{ id: string, color: string }>
+      annotations: Array<{ id: string; color: string }>
     ): Promise<boolean>;
     open(options: {
       itemID: number;
@@ -92,14 +92,16 @@ declare namespace _ZoteroTypes {
     promptToTransferAnnotations(): boolean;
     promptToDeletePages(num: number): boolean;
     reload(data: { rotatedPageIndexes: number[] }): Promise<void>;
-    menuCmd(cmd: "transferFromPDF"
-      | "export"
-      | "showInLibrary"
-      | "rotateLeft"
-      | "rotateRight"
-      | "rotate180"
-      | "splitVertically"
-      | "splitHorizontally"
+    menuCmd(
+      cmd:
+        | "transferFromPDF"
+        | "export"
+        | "showInLibrary"
+        | "rotateLeft"
+        | "rotateRight"
+        | "rotate180"
+        | "splitVertically"
+        | "splitHorizontally"
     ): Promise<void>;
     _initIframeWindow(): boolean;
     _setState(state: Reader.State): Promise<void>;
@@ -116,7 +118,11 @@ declare namespace _ZoteroTypes {
     _openColorPopup(data: unknown): void;
     _openThumbnailPopup(data: unknown): void;
     _openSelectorPopup(data: unknown): void;
-    _postMessage(message: object, transfer?: unknown[], secondView?: boolean): Promise<void>;
+    _postMessage(
+      message: object,
+      transfer?: unknown[],
+      secondView?: boolean
+    ): Promise<void>;
     _handleMessage(event: MessageEvent): Promise<void>;
     _updateSecondViewState(): void;
     _waitForReader(): Promise<void>;
@@ -180,7 +186,12 @@ declare namespace _ZoteroTypes {
     setBottomPlaceholderHeight(height: number): void;
     notify: _ZoteroTypes.Notifier.Notify;
     getByTabID(tabID: string): _ZoteroTypes.ReaderInstance;
-    getWindowStates(): { type: "reader"; itemID: number; title: string; secondViewState: Reader.SecondViewState }[];
+    getWindowStates(): {
+      type: "reader";
+      itemID: number;
+      title: string;
+      secondViewState: Reader.SecondViewState;
+    }[];
     openURI: (
       itemURI: _ZoteroTypes.ZoteroObjectURI,
       location?: _ZoteroTypes.Reader.Location,
