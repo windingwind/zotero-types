@@ -55,7 +55,7 @@ declare namespace _ZoteroTypes {
     moveDirectory: (
       oldDir: string,
       newDir: string,
-      options?:object
+      options?: object
     ) => Promise<void | Error[]>;
     generateDataURI(file: string, contentType: string): string;
     setNormalFilePermissions(file: string): void | Promise<void>;
@@ -96,7 +96,6 @@ declare namespace _ZoteroTypes {
     isCloudStorageFolder(path: string): boolean;
     reveal(file: string): Promise<void>;
   }
-
 }
 
 declare const Zotero_File_Interface: {

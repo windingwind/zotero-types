@@ -4,7 +4,7 @@ declare namespace Zotero {
   // chrome/content/zotero/xpcom/editorInstance.js
   interface EditorInstance {
     [attr: string]: any;
-    new(): this;
+    new (): this;
     init: (options: {
       onNavigate?: Function;
       item?: Zotero.Item;

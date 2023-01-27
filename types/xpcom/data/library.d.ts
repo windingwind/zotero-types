@@ -3,20 +3,28 @@
 declare namespace _ZoteroTypes {
   namespace Library {
     interface Params {
-      libraryType?: string,
-      editable?: boolean,
-      filesEditable?: boolean,
-      libraryVersion?: number,
-      storageVersion?: number,
-      lastSync?: Date,
-      archived?: boolean
+      libraryType?: string;
+      editable?: boolean;
+      filesEditable?: boolean;
+      libraryVersion?: number;
+      storageVersion?: number;
+      lastSync?: Date;
+      archived?: boolean;
     }
   }
   interface Library {
     // Converts DB column name to (internal) object property
     _colToProp(c: string): string;
 
-    readonly _dbColumns: ['type', 'editable', 'filesEditable', 'version', 'storageVersion', 'lastSync', 'archived'];
+    readonly _dbColumns: [
+      "type",
+      "editable",
+      "filesEditable",
+      "version",
+      "storageVersion",
+      "lastSync",
+      "archived"
+    ];
 
     // Select all columns in a unique manner, so we can JOIN tables with same column names (e.g. version)
     readonly _rowSQLSelect: string;
@@ -25,19 +33,19 @@ declare namespace _ZoteroTypes {
     readonly _rowSQL: string;
 
     prototype: Zotero.Library;
-    new(params?: Library.Params): Zotero.Library;
+    new (params?: Library.Params): Zotero.Library;
   }
 }
 declare namespace Zotero {
   interface Library {
-    readonly _objectType: 'library';
-    readonly _childObjectTypes: ['item', 'collection', 'search'];
+    readonly _objectType: "library";
+    readonly _childObjectTypes: ["item", "collection", "search"];
 
     // Immutable libraries
-    readonly fixedLibraries: ['user'];
+    readonly fixedLibraries: ["user"];
 
     // Valid library types
-    readonly libraryTypes: ['user'];
+    readonly libraryTypes: ["user"];
 
     readonly libraryID: number;
     id: number;
@@ -76,7 +84,9 @@ declare namespace Zotero {
 
     getDataLoaded(objectType: _ZoteroTypes.ObjectType): boolean;
     setDataLoading(objectType: _ZoteroTypes.ObjectType): void;
-    getDataLoadedPromise(objectType: _ZoteroTypes.ObjectType): Promise<unknown> | null;
+    getDataLoadedPromise(
+      objectType: _ZoteroTypes.ObjectType
+    ): Promise<unknown> | null;
     setDataLoaded(objectType: _ZoteroTypes.ObjectType): void;
 
     /**

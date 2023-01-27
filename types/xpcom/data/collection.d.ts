@@ -2,33 +2,32 @@
 
 declare namespace Zotero {
   namespace Collection {
-    type DataType = (
-      "primaryData"
+    type DataType =
+      | "primaryData"
       | "childCollections"
       | "childItems"
-      | "relations"
-    );
-    type DescendentType = ('item' | 'collection');
+      | "relations";
+    type DescendentType = "item" | "collection";
     interface Descendent {
-      id: number,
-      key: string,
-      level: number,
-      name: string,
-      parent: number,
-      type: Collection.DescendentType
+      id: number;
+      key: string;
+      level: number;
+      name: string;
+      parent: number;
+      type: Collection.DescendentType;
     }
   }
 
   interface Collection extends Zotero.DataObject {
-    new(params?: {
-      name?: string,
-      libraryID?: number,
-      parentID?: number,
-      parentKey?: string
-    }):this;
+    new (params?: {
+      name?: string;
+      libraryID?: number;
+      parentID?: number;
+      parentKey?: string;
+    }): this;
     _childCollections: Set<number>;
     _childItems: Set<number>;
-    _objectType: 'collection';
+    _objectType: "collection";
     _dataTypes: Array<Collection.DataType>;
     ChildObjects: _ZoteroTypes.Items;
     name: string;
@@ -83,7 +82,10 @@ declare namespace Zotero {
      * @param {Number[]} itemIDs
      * @return {Promise}
      */
-    addItems(itemIDs: number[], options?: DataObject.SaveOptions): Promise<void>; // do not require save
+    addItems(
+      itemIDs: number[],
+      options?: DataObject.SaveOptions
+    ): Promise<void>; // do not require save
 
     /**
      * Remove a item from the collection. The item is not deleted from the library.
@@ -93,14 +95,20 @@ declare namespace Zotero {
      *
      * @return {Promise}
      */
-    removeItem(itemID: number, options?: DataObject.SaveOptions & { skipEditCheck?: boolean }): Promise<void>;
+    removeItem(
+      itemID: number,
+      options?: DataObject.SaveOptions & { skipEditCheck?: boolean }
+    ): Promise<void>;
     /**
      * Remove multiple items from the collection in batch.
      * The items are not deleted from the library.
      *
      * Does not require a separate save()
      */
-    removeItems(itemIDs: number[], options?: DataObject.SaveOptions & { skipEditCheck?: boolean }): Promise<void>;
+    removeItems(
+      itemIDs: number[],
+      options?: DataObject.SaveOptions & { skipEditCheck?: boolean }
+    ): Promise<void>;
 
     /**
      * Check if an item belongs to the collection
@@ -146,11 +154,11 @@ declare namespace Zotero {
      */
     fromJSON(json: object, options?: { strict: boolean }): void;
     toJSON(options?: object): {
-      key: string,
-      name: string,
-      version: 68,
-      parentCollection: boolean,
-      relations: _ZoteroTypes.ObjectRelations
+      key: string;
+      name: string;
+      version: 68;
+      parentCollection: boolean;
+      relations: _ZoteroTypes.ObjectRelations;
     };
 
     /**
@@ -176,7 +184,10 @@ declare namespace Zotero {
      *
      * @return {Promise<Zotero.Collection>}
      */
-    getLinkedCollection(libraryID: number, bidrectional?: boolean): Promise<Zotero.Collection | false>;
+    getLinkedCollection(
+      libraryID: number,
+      bidrectional?: boolean
+    ): Promise<Zotero.Collection | false>;
     /**
      * Add a linked-object relation pointing to the given collection
      *

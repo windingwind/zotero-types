@@ -22,10 +22,10 @@
   },
   "prettier": {},
   "devDependencies": {
-    "release-it": "^15.4.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
-    "prettier": "2.8.3"
+    "prettier": "2.8.3",
+    "release-it": "^15.4.0"
   },
   "dependencies": {
     "@types/react": "^18.0.26"
@@ -35,6 +35,6 @@
     "registry": "https://registry.npmjs.org"
   },
   "lint-staged": {
-    "*.{d.ts}": "prettier --write src"
+    "*.{d.ts}": "prettier --write types"
   }
 }

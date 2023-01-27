@@ -7,8 +7,8 @@ declare namespace Zotero {
    * Constructor for Item object
    */
   namespace Item {
-    type DataType = (
-      "primaryData"
+    type DataType =
+      | "primaryData"
       | "creators"
       | "itemData"
       | "note"
@@ -17,210 +17,206 @@ declare namespace Zotero {
       | "childItems"
       | "tags"
       | "collections"
-      | "relations"
-    );
-    type ItemType = (
-      'attachment-file'
-      | 'document'
-      | 'attachment-link'
-      | 'attachment-pdf'
-      | 'attachment-pdf-link'
-      | 'attachment-snapshot'
-      | 'attachment-web-link'
-      | 'artwork'
-      | 'audioRecording'
-      | 'bill'
-      | 'blogPost'
-      | 'book'
-      | 'bookSection'
-      | 'case'
-      | 'computerProgram'
-      | 'conferencePaper'
-      | 'dictionaryEntry'
-      | 'email'
-      | 'encyclopediaArticle'
-      | 'film'
-      | 'forumPost'
-      | 'hearing'
-      | 'instantMessage'
-      | 'interview'
-      | 'journalArticle'
-      | 'letter'
-      | 'magazineArticle'
-      | 'manuscript'
-      | 'newspaperArticle'
-      | 'note'
-      | 'patent'
-      | 'preprint'
-      | 'presentation'
-      | 'report'
-      | 'statute'
-      | 'thesis'
-      | 'webpage'
-      | 'map'
-      | 'podcast'
-      | 'radioBroadcast'
-      | 'tvBroadcast'
-      | 'videoRecording'
-    );
-    type PrimaryField = (
-      'itemID'
-      | 'itemTypeID'
-      | 'dateAdded'
-      | 'dateModified'
-      | 'libraryID'
-      | 'key'
-      | 'version'
-      | 'synced'
-      | 'createdByUserID'
-      | 'lastModifiedByUserID'
-      | 'firstCreator'
-      | 'sortCreator'
-      | 'deleted'
-      | 'inPublications'
-      | 'parentID'
-      | 'parentKey'
-      | 'attachmentCharset'
-      | 'attachmentLinkMode'
-      | 'attachmentContentType'
-      | 'attachmentPath'
-      | 'attachmentSyncState'
-      | 'attachmentSyncedModificationTime'
-      | 'attachmentSyncedHash'
-      | 'attachmentLastProcessedModificationTime'
-      | 'feedItemGUID'
-      | 'feedItemReadTime'
-      | 'feedItemTranslatedTime'
-    );
-    type ItemField = (
-      'title'
-      | 'firstCreator'
-      | 'abstractNote'
-      | 'artworkMedium'
-      | 'medium'
-      | 'artworkSize'
-      | 'date'
-      | 'language'
-      | 'shortTitle'
-      | 'archive'
-      | 'archiveLocation'
-      | 'libraryCatalog'
-      | 'callNumber'
-      | 'url'
-      | 'accessDate'
-      | 'rights'
-      | 'extra'
-      | 'audioRecordingFormat'
-      | 'seriesTitle'
-      | 'volume'
-      | 'numberOfVolumes'
-      | 'place'
-      | 'label'
-      | 'publisher'
-      | 'runningTime'
-      | 'ISBN'
-      | 'billNumber'
-      | 'number'
-      | 'code'
-      | 'codeVolume'
-      | 'section'
-      | 'codePages'
-      | 'pages'
-      | 'legislativeBody'
-      | 'session'
-      | 'history'
-      | 'blogTitle'
-      | 'publicationTitle'
-      | 'websiteType'
-      | 'type'
-      | 'series'
-      | 'seriesNumber'
-      | 'edition'
-      | 'numPages'
-      | 'bookTitle'
-      | 'caseName'
-      | 'court'
-      | 'dateDecided'
-      | 'docketNumber'
-      | 'reporter'
-      | 'reporterVolume'
-      | 'firstPage'
-      | 'versionNumber'
-      | 'system'
-      | 'company'
-      | 'programmingLanguage'
-      | 'proceedingsTitle'
-      | 'conferenceName'
-      | 'DOI'
-      | 'dictionaryTitle'
-      | 'subject'
-      | 'encyclopediaTitle'
-      | 'distributor'
-      | 'genre'
-      | 'videoRecordingFormat'
-      | 'forumTitle'
-      | 'postType'
-      | 'committee'
-      | 'documentNumber'
-      | 'interviewMedium'
-      | 'issue'
-      | 'seriesText'
-      | 'journalAbbreviation'
-      | 'ISSN'
-      | 'letterType'
-      | 'manuscriptType'
-      | 'mapType'
-      | 'scale'
-      | 'country'
-      | 'assignee'
-      | 'issuingAuthority'
-      | 'patentNumber'
-      | 'filingDate'
-      | 'applicationNumber'
-      | 'priorityNumbers'
-      | 'issueDate'
-      | 'references'
-      | 'legalStatus'
-      | 'episodeNumber'
-      | 'audioFileType'
-      | 'repository'
-      | 'archiveID'
-      | 'citationKey'
-      | 'presentationType'
-      | 'meetingName'
-      | 'programTitle'
-      | 'network'
-      | 'reportNumber'
-      | 'reportType'
-      | 'institution'
-      | 'nameOfAct'
-      | 'codeNumber'
-      | 'publicLawNumber'
-      | 'dateEnacted'
-      | 'thesisType'
-      | 'university'
-      | 'studio'
-      | 'websiteTitle'
-      | 'id'
-      | 'year'
-    );
+      | "relations";
+    type ItemType =
+      | "attachment-file"
+      | "document"
+      | "attachment-link"
+      | "attachment-pdf"
+      | "attachment-pdf-link"
+      | "attachment-snapshot"
+      | "attachment-web-link"
+      | "artwork"
+      | "audioRecording"
+      | "bill"
+      | "blogPost"
+      | "book"
+      | "bookSection"
+      | "case"
+      | "computerProgram"
+      | "conferencePaper"
+      | "dictionaryEntry"
+      | "email"
+      | "encyclopediaArticle"
+      | "film"
+      | "forumPost"
+      | "hearing"
+      | "instantMessage"
+      | "interview"
+      | "journalArticle"
+      | "letter"
+      | "magazineArticle"
+      | "manuscript"
+      | "newspaperArticle"
+      | "note"
+      | "patent"
+      | "preprint"
+      | "presentation"
+      | "report"
+      | "statute"
+      | "thesis"
+      | "webpage"
+      | "map"
+      | "podcast"
+      | "radioBroadcast"
+      | "tvBroadcast"
+      | "videoRecording";
+    type PrimaryField =
+      | "itemID"
+      | "itemTypeID"
+      | "dateAdded"
+      | "dateModified"
+      | "libraryID"
+      | "key"
+      | "version"
+      | "synced"
+      | "createdByUserID"
+      | "lastModifiedByUserID"
+      | "firstCreator"
+      | "sortCreator"
+      | "deleted"
+      | "inPublications"
+      | "parentID"
+      | "parentKey"
+      | "attachmentCharset"
+      | "attachmentLinkMode"
+      | "attachmentContentType"
+      | "attachmentPath"
+      | "attachmentSyncState"
+      | "attachmentSyncedModificationTime"
+      | "attachmentSyncedHash"
+      | "attachmentLastProcessedModificationTime"
+      | "feedItemGUID"
+      | "feedItemReadTime"
+      | "feedItemTranslatedTime";
+    type ItemField =
+      | "title"
+      | "firstCreator"
+      | "abstractNote"
+      | "artworkMedium"
+      | "medium"
+      | "artworkSize"
+      | "date"
+      | "language"
+      | "shortTitle"
+      | "archive"
+      | "archiveLocation"
+      | "libraryCatalog"
+      | "callNumber"
+      | "url"
+      | "accessDate"
+      | "rights"
+      | "extra"
+      | "audioRecordingFormat"
+      | "seriesTitle"
+      | "volume"
+      | "numberOfVolumes"
+      | "place"
+      | "label"
+      | "publisher"
+      | "runningTime"
+      | "ISBN"
+      | "billNumber"
+      | "number"
+      | "code"
+      | "codeVolume"
+      | "section"
+      | "codePages"
+      | "pages"
+      | "legislativeBody"
+      | "session"
+      | "history"
+      | "blogTitle"
+      | "publicationTitle"
+      | "websiteType"
+      | "type"
+      | "series"
+      | "seriesNumber"
+      | "edition"
+      | "numPages"
+      | "bookTitle"
+      | "caseName"
+      | "court"
+      | "dateDecided"
+      | "docketNumber"
+      | "reporter"
+      | "reporterVolume"
+      | "firstPage"
+      | "versionNumber"
+      | "system"
+      | "company"
+      | "programmingLanguage"
+      | "proceedingsTitle"
+      | "conferenceName"
+      | "DOI"
+      | "dictionaryTitle"
+      | "subject"
+      | "encyclopediaTitle"
+      | "distributor"
+      | "genre"
+      | "videoRecordingFormat"
+      | "forumTitle"
+      | "postType"
+      | "committee"
+      | "documentNumber"
+      | "interviewMedium"
+      | "issue"
+      | "seriesText"
+      | "journalAbbreviation"
+      | "ISSN"
+      | "letterType"
+      | "manuscriptType"
+      | "mapType"
+      | "scale"
+      | "country"
+      | "assignee"
+      | "issuingAuthority"
+      | "patentNumber"
+      | "filingDate"
+      | "applicationNumber"
+      | "priorityNumbers"
+      | "issueDate"
+      | "references"
+      | "legalStatus"
+      | "episodeNumber"
+      | "audioFileType"
+      | "repository"
+      | "archiveID"
+      | "citationKey"
+      | "presentationType"
+      | "meetingName"
+      | "programTitle"
+      | "network"
+      | "reportNumber"
+      | "reportType"
+      | "institution"
+      | "nameOfAct"
+      | "codeNumber"
+      | "publicLawNumber"
+      | "dateEnacted"
+      | "thesisType"
+      | "university"
+      | "studio"
+      | "websiteTitle"
+      | "id"
+      | "year";
     interface CreatorJSON {
-      creatorType: string,
-      firstName?: string,
+      creatorType: string;
+      firstName?: string;
       name?: string;
-      lastName?: string
+      lastName?: string;
     }
     interface Creator {
-      creatorTypeID: number,
-      fieldMode: number,
-      firstName?: string,
-      lastName?: string
+      creatorTypeID: number;
+      fieldMode: number;
+      firstName?: string;
+      lastName?: string;
     }
   }
 
   interface Item extends Zotero.DataObject {
-    new(itemTypeOrID?: Item.ItemType | number): this;
-    _objectType: 'item';
+    new (itemTypeOrID?: Item.ItemType | number): this;
+    _objectType: "item";
     readonly ContainerObjectsClass: typeof Zotero.Collection;
     dateAdded: string;
     dateModified: string;
@@ -282,7 +278,11 @@ declare namespace Zotero {
      *   (e.g. 'label' for 'publisher' in 'audioRecording')
      * @return {String} Value as string or empty string if value is not present
      */
-    getField(field: Item.ItemField | number, unformatted?: boolean, includeBaseMapped?: boolean): string | number | boolean;
+    getField(
+      field: Item.ItemField | number,
+      unformatted?: boolean,
+      includeBaseMapped?: boolean
+    ): string | number | boolean;
 
     getExtraField(fieldName: string): string;
 
@@ -296,7 +296,10 @@ declare namespace Zotero {
     /*
      * Populate basic item data from a database row
      */
-    loadFromRow(row: { [col in Item.PrimaryField]?: unknown }, reload?: boolean): void;
+    loadFromRow(
+      row: { [col in Item.PrimaryField]?: unknown },
+      reload?: boolean
+    ): void;
 
     /*
      * Set or change the item's type
@@ -309,14 +312,21 @@ declare namespace Zotero {
      * If _allowBaseConversion_, don't return fields that can be converted
      * via base fields (e.g. label => publisher => studio)
      */
-    getFieldsNotInType(itemTypeID: number, allowBaseConversion?: boolean): number[];
+    getFieldsNotInType(
+      itemTypeID: number,
+      allowBaseConversion?: boolean
+    ): number[];
 
     /*
      * Set a field value, loading existing itemData first if necessary
      *
      * Field can be passed as fieldID or fieldName
      */
-    setField(field: Item.ItemField | number, value: string | number | boolean, loadIn?: boolean): void;
+    setField(
+      field: Item.ItemField | number,
+      value: string | number | boolean,
+      loadIn?: boolean
+    ): void;
 
     /*
      * Get the title for an item for display in the interface
@@ -377,12 +387,19 @@ declare namespace Zotero {
      * @param {Object} [options]
      * @param {Boolean} [options.strict] - Throw on invalid creator type
      */
-    setCreator(orderIndex: number, data: Item.CreatorJSON | Item.Creator, options?: { strict: boolean }): boolean;
+    setCreator(
+      orderIndex: number,
+      data: Item.CreatorJSON | Item.Creator,
+      options?: { strict: boolean }
+    ): boolean;
 
     /**
      * @param {Object[]} data - An array of creator data in internal or API JSON format
      */
-    setCreators(data: Array<Item.CreatorJSON | Item.Creator>, options?: { strict: boolean }): void;
+    setCreators(
+      data: Array<Item.CreatorJSON | Item.Creator>,
+      options?: { strict: boolean }
+    ): void;
 
     /*
      * Remove a creator and shift others down
@@ -403,7 +420,7 @@ declare namespace Zotero {
      * @param {String} [op='edit'] - Operation to check; if not provided, check edit privileges for
      *     library
      */
-    isEditable(op?: 'edit' | 'erase'): boolean;
+    isEditable(op?: "edit" | "erase"): boolean;
 
     /**
      * Returns child attachments of this item
@@ -437,7 +454,10 @@ declare namespace Zotero {
      * @return {Promise<Object>} - Promise for object with string 'type' ('none'|'pdf'|'snapshot'|'other')
      *     and boolean 'exists'
      */
-    getBestAttachmentState(): Promise<{ type: ('none' | 'pdf' | 'snapshot' | 'other'), exists: boolean }>;
+    getBestAttachmentState(): Promise<{
+      type: "none" | "pdf" | "snapshot" | "other";
+      exists: boolean;
+    }>;
 
     /**
      * Return cached state of best attachment for use in items view
@@ -445,7 +465,9 @@ declare namespace Zotero {
      * @return {Object|null} - Resolved value from getBestAttachmentState() or { type: null } if
      *     unavailable
      */
-    getBestAttachmentStateCached(): { type: ('none' | 'pdf' | 'snapshot' | 'other'), exists: boolean } | { type: null };
+    getBestAttachmentStateCached():
+      | { type: "none" | "pdf" | "snapshot" | "other"; exists: boolean }
+      | { type: null };
 
     clearBestAttachmentState(): void;
 
@@ -503,7 +525,11 @@ declare namespace Zotero {
      *                           -2 - Error renaming
      *                           false - Attachment file not found
      */
-    renameAttachmentFile(newName: string, overwrite?: boolean, unique?: boolean): Promise<boolean | -1 | -2>;
+    renameAttachmentFile(
+      newName: string,
+      overwrite?: boolean,
+      unique?: boolean
+    ): Promise<boolean | -1 | -2>;
 
     /**
      * @param {string} path  File path
@@ -512,7 +538,10 @@ declare namespace Zotero {
      *     access to modify the attachment metadata. This also allows a save when the library is
      *     read-only.
      */
-    relinkAttachmentFile(path: string, skipItemUpdate?: boolean): Promise<boolean>;
+    relinkAttachmentFile(
+      path: string,
+      skipItemUpdate?: boolean
+    ): Promise<boolean>;
 
     deleteAttachmentFile(): Promise<boolean>;
 
@@ -555,14 +584,16 @@ declare namespace Zotero {
      */
     attachmentPath: string;
 
-    attachmentSyncState: number | (
-      'to_upload'
-      | 'to_download'
-      | 'in_sync'
-      | 'force_upload'
-      | 'force_download'
-      | 'in_conflict'
-    );
+    attachmentSyncState:
+      | number
+      | (
+          | "to_upload"
+          | "to_download"
+          | "in_sync"
+          | "force_upload"
+          | "force_download"
+          | "in_conflict"
+        );
     attachmentSyncedModificationTime: number;
     attachmentSyncedHash: string;
     attachmentLastProcessedModificationTime: number;
@@ -614,7 +645,6 @@ declare namespace Zotero {
      */
     readonly attachmentDataURI: Promise<string>;
 
-
     // Only notes
     /**
      * Set an item note
@@ -662,7 +692,6 @@ declare namespace Zotero {
 
     hasNote(): Promise<boolean>;
 
-
     // Only Annotation
     getAnnotations(
       /**
@@ -700,7 +729,6 @@ declare namespace Zotero {
      */
     hasEmbeddedAnnotations(): Promise<boolean>;
 
-
     //
     // Methods dealing with item tags
     //
@@ -710,7 +738,7 @@ declare namespace Zotero {
      *
      * @return {Array} Array of tag data in API JSON format
      */
-    getTags(): Array<{ tag: string, type: number }>;
+    getTags(): Array<{ tag: string; type: number }>;
 
     /**
      * Check if the item has a given tag
@@ -733,7 +761,7 @@ declare namespace Zotero {
      * @param {String[]|Object[]} tags - Array of strings or object in API JSON format
      *                                   (e.g., [{tag: 'tag', type: 1}])
      */
-    setTags(tags: Array<string | { tag: string, type: number }>): void;
+    setTags(tags: Array<string | { tag: string; type: number }>): void;
 
     /**
      * Add a single tag to the item. If type is 1 and an automatic tag with the same name already
@@ -846,16 +874,21 @@ declare namespace Zotero {
      *
      * @return {Object[]} - Array of object with 'tag' and 'color' properties
      */
-    getColoredTags(): { tag: string, color: string };
+    getColoredTags(): { tag: string; color: string };
 
     /**
      * Compare multiple items against this item and return fields that differ
      *
      * Currently compares only item data, not primary fields
      */
-    multiDiff(otherItems: Zotero.Item[], ignoreFields?: string[]): false | {
-      [field in Item.ItemField]?: Array<string | _ZoteroTypes.anyObj>
-    };
+    multiDiff(
+      otherItems: Zotero.Item[],
+      ignoreFields?: string[]
+    ):
+      | false
+      | {
+          [field in Item.ItemField]?: Array<string | _ZoteroTypes.anyObj>;
+        };
 
     /**
      * Returns an unsaved copy of the item without itemID and key
@@ -867,13 +900,19 @@ declare namespace Zotero {
      * @param {Boolean} [options.includeCollections=false] - Add new item to all collections
      * @return {Zotero.Item}
      */
-    clone(libraryID: number, options?: { skipTags?: boolean, includeCollections?: boolean }): Zotero.Item;
+    clone(
+      libraryID: number,
+      options?: { skipTags?: boolean; includeCollections?: boolean }
+    ): Zotero.Item;
 
     /**
      * @param {Integer} libraryID
      * @return {Zotero.Item} - New item
      */
-    moveToLibrary(libraryID: number, onSkippedAttachment?: boolean): Promise<Zotero.Item>;
+    moveToLibrary(
+      libraryID: number,
+      onSkippedAttachment?: boolean
+    ): Promise<Zotero.Item>;
 
     isCollection(): false;
 
@@ -900,7 +939,10 @@ declare namespace Zotero {
      *
      * @return {Promise<Zotero.Item>}
      */
-    getLinkedItem(libraryID: number, bidirectional?: boolean): Promise<Zotero.Item | false>;
+    getLinkedItem(
+      libraryID: number,
+      bidirectional?: boolean
+    ): Promise<Zotero.Item | false>;
 
     /**
      * Add a linked-object relation pointing to the given item
@@ -916,6 +958,9 @@ declare namespace Zotero {
      *
      * Used by sync code
      */
-    updateCreatedByUser(createdByUserID: number, lastModifiedByUserID: number): Promise<void>;
+    updateCreatedByUser(
+      createdByUserID: number,
+      lastModifiedByUserID: number
+    ): Promise<void>;
   }
 }
