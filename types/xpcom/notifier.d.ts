@@ -4,7 +4,7 @@ declare namespace _ZoteroTypes {
   namespace Notifier {
     type Event = (
       'add' | 'modify' | 'delete' | 'move' | 'remove' | 'refresh' |
-      'redraw' | 'trash' | 'unreadCountUpdated' | 'index'
+      'redraw' | 'trash' | 'unreadCountUpdated' | 'index' | 'close' | 'select'
     );
     type Type = (
       'collection' | 'search' | 'share' | 'share-items' | 'item' | 'file' |
