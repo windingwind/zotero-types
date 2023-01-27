@@ -55,10 +55,10 @@ declare namespace Zotero {
     interface DataObject {
         readonly objectType: string;
         readonly libraryKey: string;
-        id: number;
-        libraryID: number;
-        library: Zotero.Library;
-        key: string;
+        readonly id: number;
+        readonly libraryID: number;
+        readonly library: Zotero.Library;
+        readonly key: string;
 
         /**
          *  @property {Integer|false|undefined} parentKey - False if no parent, or undefined if not
@@ -72,7 +72,7 @@ declare namespace Zotero {
          */
         parentID: number | false | undefined;
 
-        _canHaveParent: boolean;
+        readonly _canHaveParent: boolean;
         ObjectsClass: typeof this extends Zotero.Item ? _ZoteroTypes.Items :
         (typeof this extends Zotero.Collection ? _ZoteroTypes.Collections :
             (typeof this extends Zotero.Search ? _ZoteroTypes.Searches : _ZoteroTypes.DataObjects));

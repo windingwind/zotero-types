@@ -2,6 +2,7 @@
 
 declare namespace _ZoteroTypes {
     interface Searches extends DataObjects {
-        ObjectClass: Zotero.Search;
+        readonly ObjectClass: Zotero.Search;
+        readonly primaryFields: ["savedSearchID", "name", "libraryID", "key", "version", "synced", "deleted"];
     }
 }
