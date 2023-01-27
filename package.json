@@ -35,6 +35,6 @@
     "registry": "https://registry.npmjs.org"
   },
   "lint-staged": {
-    "*.{d.ts}": "prettier --write types"
+    "*.{d.ts}": "prettier --write ./**.d.ts"
   }
 }
