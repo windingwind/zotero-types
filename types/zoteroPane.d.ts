@@ -21,8 +21,8 @@ declare namespace _ZoteroTypes {
     getSelectedGroup(asID: boolean): Zotero.Collection | number;
     getSelectedSavedSearch(): Zotero.Collection;
     getSelectedSavedSearch(asID: boolean): Zotero.Collection | number;
-    getSelectedCollection(): Zotero.Collection;
-    getSelectedCollection(asID: boolean): Zotero.Collection | number;
+    getSelectedCollection(asID?: false): Zotero.Collection | undefined;
+    getSelectedCollection(asID: true): number | undefined;
     selectItem(itemID: number, inLibraryRoot?: boolean): undefined | boolean;
     selectItems: (
       itemIDs: Array<number>,
