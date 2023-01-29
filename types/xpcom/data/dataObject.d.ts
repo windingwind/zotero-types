@@ -29,6 +29,12 @@ declare namespace Zotero {
        * Don't automatically set 'synced' to false
        */
       skipSyncedUpdate?: boolean;
+
+      /**
+       * Pass along any 'notifierData' values, which become 'extraData' in notifier events
+       */
+      notifierData?: any;
+      
       tx?: boolean;
     }
     interface EraseOptions {
