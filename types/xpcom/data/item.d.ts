@@ -218,6 +218,9 @@ declare namespace Zotero {
     new (itemTypeOrID?: Item.ItemType | number): this;
     _objectType: "item";
     readonly ContainerObjectsClass: typeof Zotero.Collection;
+    id:number;
+    key:string;
+    libraryID: number;
     dateAdded: string;
     dateModified: string;
     version: number;
