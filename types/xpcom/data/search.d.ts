@@ -3,7 +3,7 @@
 declare namespace Zotero {
   interface Search extends Zotero.DataObject {
     [prop: string]: unknown;
-    new (params?: { name: string; libraryID: number }): this;
+    new (params?: { name?: string; libraryID?: number }): this;
     _name: string | null;
     _scope?: Search;
     _scopeIncludeChildren?: boolean;
