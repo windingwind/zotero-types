@@ -38,7 +38,7 @@ declare namespace _ZoteroTypes {
     type Notify = (
       event: Event,
       type: Type,
-      ids: string[],
+      ids: string[] | number[],
       extraData: anyObj
     ) => void | Promise<void>;
     interface Queue {
