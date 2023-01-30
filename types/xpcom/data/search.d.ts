@@ -31,12 +31,18 @@ declare namespace Zotero {
     _eraseData(env: Search.EnvType): Promise<void>;
 
     addCondition(
-      condition: Search.Conditions | string,
-      operator: string,
+      condition: Search.Conditions,
+      operator: Search.Operator,
       value: string,
-      required: boolean
+      required?: boolean
     ): number;
-
+    addCondition(
+      condition: string,
+      operator: Search.Operator,
+      value: string,
+      required?: boolean
+    ): number;
+    
     /**
      * Sets scope of search to the results of the passed Search object
      */
@@ -111,6 +117,7 @@ declare namespace Zotero {
       transactionOptions: object;
       isNew: boolean;
     };
+    type Operator = 'is' | 'isNot' | 'true' | 'false' | 'isInTheLast' | 'isBefore' | 'isAfter' | 'contains' | 'doesNotContain' | 'beginsWith';
     type Conditions =
       | "deleted"
       | "noChildren"
