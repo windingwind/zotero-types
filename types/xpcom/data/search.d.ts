@@ -108,7 +108,7 @@ declare namespace Zotero {
       id: number;
       condition: Conditions;
       mode: boolean;
-      operator: string;
+      operator: Operator;
       value: string;
       required: boolean;
     };
