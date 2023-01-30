@@ -76,7 +76,7 @@ declare namespace Zotero {
      * Returns an object of conditions/operator/value sets used in the search,
      * indexed by searchConditionID
      */
-    getConditions(): Search.ConditionType;
+    getConditions(): { [id: number]: Search.ConditionType };
 
     hasPostSearchFilter(): boolean;
 
