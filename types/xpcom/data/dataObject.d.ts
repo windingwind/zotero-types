@@ -65,6 +65,7 @@ declare namespace Zotero {
     readonly libraryID: number;
     readonly library: Zotero.Library;
     readonly key: string;
+    deleted: boolean;
 
     /**
      *  @property {Integer|false|undefined} parentKey - False if no parent, or undefined if not
