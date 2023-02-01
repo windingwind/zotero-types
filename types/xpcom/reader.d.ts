@@ -45,11 +45,11 @@ declare namespace _ZoteroTypes {
     [attr: string]: any;
     pdfStateFileName: string;
     annotationItemIDs: number[];
-    itemID: number;
+    itemID?: number;
     state: Reader.State;
     _instanceID: string;
-    _window: Window;
-    _iframeWindow: Window;
+    _window?: Window;
+    _iframeWindow?: Window;
     _title: string;
     _isReaderInitialized: boolean;
     _showItemPaneToggle: boolean;
