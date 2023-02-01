@@ -3,7 +3,7 @@
 declare namespace Zotero {
   interface Search extends Zotero.DataObject {
     [prop: string]: unknown;
-    new (params?: { name: string; libraryID: number }): this;
+    new (params?: { name?: string; libraryID?: number }): this;
     _name: string | null;
     _scope?: Search;
     _scopeIncludeChildren?: boolean;
@@ -31,12 +31,18 @@ declare namespace Zotero {
     _eraseData(env: Search.EnvType): Promise<void>;
 
     addCondition(
-      condition: Search.Conditions | string,
-      operator: string,
+      condition: Search.Conditions,
+      operator: Search.Operator,
       value: string,
-      required: boolean
+      required?: boolean
     ): number;
-
+    addCondition(
+      condition: string,
+      operator: Search.Operator,
+      value: string,
+      required?: boolean
+    ): number;
+    
     /**
      * Sets scope of search to the results of the passed Search object
      */
@@ -70,7 +76,7 @@ declare namespace Zotero {
      * Returns an object of conditions/operator/value sets used in the search,
      * indexed by searchConditionID
      */
-    getConditions(): Search.ConditionType;
+    getConditions(): { [id: number]: Search.ConditionType };
 
     hasPostSearchFilter(): boolean;
 
@@ -102,7 +108,7 @@ declare namespace Zotero {
       id: number;
       condition: Conditions;
       mode: boolean;
-      operator: string;
+      operator: Operator;
       value: string;
       required: boolean;
     };
@@ -111,6 +117,7 @@ declare namespace Zotero {
       transactionOptions: object;
       isNew: boolean;
     };
+    type Operator = 'is' | 'isNot' | 'true' | 'false' | 'isInTheLast' | 'isBefore' | 'isAfter' | 'contains' | 'doesNotContain' | 'beginsWith';
     type Conditions =
       | "deleted"
       | "noChildren"
