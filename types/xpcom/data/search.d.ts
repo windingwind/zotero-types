@@ -42,7 +42,7 @@ declare namespace Zotero {
       value: string,
       required?: boolean
     ): number;
-    
+
     /**
      * Sets scope of search to the results of the passed Search object
      */
@@ -117,7 +117,17 @@ declare namespace Zotero {
       transactionOptions: object;
       isNew: boolean;
     };
-    type Operator = 'is' | 'isNot' | 'true' | 'false' | 'isInTheLast' | 'isBefore' | 'isAfter' | 'contains' | 'doesNotContain' | 'beginsWith';
+    type Operator =
+      | "is"
+      | "isNot"
+      | "true"
+      | "false"
+      | "isInTheLast"
+      | "isBefore"
+      | "isAfter"
+      | "contains"
+      | "doesNotContain"
+      | "beginsWith";
     type Conditions =
       | "deleted"
       | "noChildren"

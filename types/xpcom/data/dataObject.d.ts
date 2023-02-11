@@ -34,7 +34,7 @@ declare namespace Zotero {
        * Pass along any 'notifierData' values, which become 'extraData' in notifier events
        */
       notifierData?: any;
-      
+
       tx?: boolean;
     }
     interface EraseOptions {
