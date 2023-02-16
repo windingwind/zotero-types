@@ -57,6 +57,9 @@ declare namespace _ZoteroTypes {
     get(ids: number | string): Zotero.Item;
     get(ids: number[] | string[]): Zotero.Item[];
 
+    getAsync(ids: number | string): Promise<Zotero.Item>;
+    getAsync(ids: number[] | string[]): Promise<Zotero.Item[]>;
+
     /**
      * Returns all items in a given library
      *
