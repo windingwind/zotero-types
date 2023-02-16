@@ -13,6 +13,7 @@ declare namespace _ZoteroTypes {
       | "trash"
       | "unreadCountUpdated"
       | "index"
+      | "open"
       | "close"
       | "select";
     type Type =
