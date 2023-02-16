@@ -13,7 +13,7 @@ declare namespace _ZoteroTypes {
      * @param delay {Integer} number of milliseconds to delay the function execution
      * @returns {Function}
      */
-    debounce(fn: Function, delay?: number): Function;
+    debounce<F extends Function>(fn: F, delay?: number): F;
 
     /**
      *  Creates and returns a new, throttled version of the
