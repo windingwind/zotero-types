@@ -9,8 +9,8 @@ declare namespace Zotero {
 declare namespace _ZoteroTypes {
   interface PromiseObject {
     promise: Promise<any>;
-    resolve(reason: any): void;
-    reject(reason: any): void;
+    resolve(reason?: any): void;
+    reject(reason?: any): void;
   }
 
   class PromiseWithResolved<T> extends Promise<T> {
