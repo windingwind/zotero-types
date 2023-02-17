@@ -248,6 +248,7 @@ declare const Zotero: {
   Items: _ZoteroTypes.Items;
   Notes: _ZoteroTypes.Notes;
   Reader: _ZoteroTypes.Reader;
+  Creators: _ZoteroTypes.Creators;
   Notifier: _ZoteroTypes.Notifier;
   Searches: _ZoteroTypes.Searches;
   Utilities: _ZoteroTypes.Utilities;
