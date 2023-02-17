@@ -25,7 +25,7 @@ declare namespace _ZoteroTypes {
     getIDFromData(
       data: Zotero.Item.CreatorJSON,
       create?: boolean
-    ): Promise<number>;
+    ): Promise<number | null>;
 
     updateCreator(
       creatorID: number,
