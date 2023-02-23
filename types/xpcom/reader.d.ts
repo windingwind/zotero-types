@@ -5,14 +5,11 @@ declare namespace _ZoteroTypes {
   namespace Reader {
     interface State {
       pageIndex: number;
-      scale: number;
-      // rotation?: number;
+      scale: number | 'auto' | 'page-width' | 'page-fit';
       top: number;
       left: number;
-      // sidebarView?: number;
-      // sidebarWidth?: number;
       scrollMode: number;
-      spreadMode: number;
+      spreadMode: 0 | 1 | 2;
     }
     interface SecondViewState {
       splitSize: string;
