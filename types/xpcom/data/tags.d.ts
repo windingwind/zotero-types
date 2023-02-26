@@ -3,8 +3,8 @@
 declare namespace _ZoteroTypes {
   namespace Tags {
     interface TagJson {
-      tag: number;
-      type?: number;
+      tag: string;
+      type?: 0 | 1;
     }
   }
 
@@ -50,7 +50,7 @@ declare namespace _ZoteroTypes {
      * @return {Promise<Array>}   A promise for an array containing tag objects in API JSON format
      *                            [{ tag: "foo" }, { tag: "bar", type: 1 }]
      */
-    getAll(libraryID: number, types: number[]): Promise<Tags.TagJson[]>;
+    getAll(libraryID: number, types?: number[]): Promise<Tags.TagJson[]>;
 
     /**
      * Get all tags within the items of a temporary table of search results
@@ -64,9 +64,9 @@ declare namespace _ZoteroTypes {
      */
     getAllWithin(object: {
       libraryID: number;
-      tmpTable: string;
-      types: number[];
-      tagIDs: number[];
+      tmpTable?: string;
+      types?: number[];
+      tagIDs?: number[];
     }): Promise<Tags.TagJson[]>;
 
     /**
