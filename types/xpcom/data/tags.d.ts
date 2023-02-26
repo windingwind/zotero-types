@@ -20,7 +20,7 @@ declare namespace _ZoteroTypes {
      * @param {Integer} tagID
      * @return {Promise<String|false>} - A tag name, or false if tag with id not found
      */
-    getName(tagID: number): Promise<string | false>;
+    getName(tagID: number): string | false;
 
     /**
      * Returns the tagID matching given fields, or false if none
@@ -75,7 +75,7 @@ declare namespace _ZoteroTypes {
      * @param  {Number} tagID
      * @return {Promise<Number[]>}  A promise for an array of itemIDs
      */
-    getTagItems(libraryID: number, tagID: number): Promise<Number[]>;
+    getTagItems(libraryID: number, tagID: number): Promise<number[]>;
 
     search(str: string): Promise<{ tag: string; type: number }[]>;
 
