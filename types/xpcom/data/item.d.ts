@@ -251,7 +251,6 @@ declare namespace Zotero {
     isAnnotation(): boolean;
     isPDFAttachment(): boolean;
     isEmbeddedImageAttachment(): boolean;
-    getTags(): { tag: string; type: number }[];
     addTag(name: string, type: number): boolean;
     removeTag(tag: string): boolean;
     // Only regular item
