@@ -15,6 +15,7 @@
 /// <reference path="xpcom/uri.d.ts" />
 /// <reference path="xpcom/collectionTreeRow.d.ts" />
 /// <reference path="xpcom/data/notes.d.ts" />
+/// <reference path="xpcom/data/creators.d.ts" />
 /// <reference path="xpcom/data/tags.d.ts" />
 /// <reference path="xpcom/data/feedItem.d.ts" />
 /// <reference path="xpcom/data/feed.d.ts" />
