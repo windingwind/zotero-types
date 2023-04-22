@@ -1,5 +1,5 @@
-/// <reference path="data/item.d.ts" />
-/// <reference path="utilities_internal.d.ts" />
+/// <reference path="../data/item.d.ts" />
+/// <reference path="../utilities_internal.d.ts" />
 
 declare namespace _ZoteroTypes {
   interface Utilities {

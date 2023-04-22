@@ -11,7 +11,6 @@
 /// <reference path="xpcom/users.d.ts" />
 /// <reference path="xpcom/prefs.d.ts" />
 /// <reference path="xpcom/reader.d.ts" />
-/// <reference path="xpcom/utilities.d.ts" />
 /// <reference path="xpcom/uri.d.ts" />
 /// <reference path="xpcom/collectionTreeRow.d.ts" />
 /// <reference path="xpcom/data/notes.d.ts" />
@@ -27,6 +26,8 @@
 /// <reference path="xpcom/data/collection.d.ts" />
 /// <reference path="xpcom/data/collections.d.ts" />
 /// <reference path="xpcom/data/cachedTypes.d.ts" />
+/// <reference path="xpcom/utilities/utilities.d.ts" />
+/// <reference path="xpcom/utilities/date.d.ts" />
 
 declare const Zotero: {
   [attr: string]: any;
@@ -253,6 +254,7 @@ declare const Zotero: {
   Notifier: _ZoteroTypes.Notifier;
   Searches: _ZoteroTypes.Searches;
   Utilities: _ZoteroTypes.Utilities;
+  Date: _ZoteroTypes.Utilities_Date;
   Libraries: _ZoteroTypes.Libraries;
   ItemTypes: _ZoteroTypes.ItemTypes;
   FileTypes: _ZoteroTypes.FileTypes;
