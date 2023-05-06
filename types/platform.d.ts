@@ -2,6 +2,7 @@
 
 declare const Components: any;
 declare const Services: any;
+declare const ChromeUtils: any;
 
 // https://github.com/retorquere/zotero-better-bibtex/blob/master/typings/global.d.ts
 declare interface DirectoryIterator {
