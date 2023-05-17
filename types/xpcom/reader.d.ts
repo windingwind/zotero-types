@@ -5,7 +5,7 @@ declare namespace _ZoteroTypes {
   namespace Reader {
     interface State {
       pageIndex: number;
-      scale: number | 'auto' | 'page-width' | 'page-fit';
+      scale: number | "auto" | "page-width" | "page-fit";
       top: number;
       left: number;
       scrollMode: number;
@@ -193,12 +193,12 @@ declare namespace _ZoteroTypes {
       itemURI: _ZoteroTypes.ZoteroObjectURI,
       location?: _ZoteroTypes.Reader.Location,
       options?: Reader.OpenOptions
-    ) => Promise<void>;
+    ) => Promise<void | ReaderInstance>;
     open: (
       itemID: number,
       location?: _ZoteroTypes.Reader.Location,
       options?: Reader.OpenOptions
-    ) => Promise<void>;
+    ) => Promise<void | ReaderInstance>;
 
     /**
      * Trigger annotations import
