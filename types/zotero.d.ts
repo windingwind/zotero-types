@@ -84,6 +84,7 @@ declare const Zotero: {
   alert(window: Window, title: string, msg: string): void;
 
   getMainWindow(): Window;
+  getMainWindows(): Window[];
   getZoteroPanes(): _ZoteroTypes.ZoteroPane[];
   getActiveZoteroPane(): _ZoteroTypes.ZoteroPane;
   getStorageDirectory(): nsIFile;
