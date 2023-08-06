@@ -164,6 +164,7 @@ declare const OS: {
  * In other cases, it is likely sufficient to allow the error to be caught and
  * reported elsewhere.
  *
+ * @since Firefox 83, Zotero 7.0
  * @see https://searchfox.org/mozilla-central/source/dom/chrome-webidl/IOUtils.webidl
  * @see {@link https://firefox-source-docs.mozilla.org/dom/ioutils_migration.html | Migration from OS.File}
  */
@@ -549,6 +550,7 @@ declare namespace IOUtils {
 
 /**
  * PathUtils is a set of utilities for operating on absolute paths.
+ * @since Firefox 83, Zotero 7.0
  * @see https://searchfox.org/mozilla-esr102/source/dom/chrome-webidl/PathUtils.webidl
  */
 declare namespace PathUtils {
