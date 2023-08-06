@@ -80,7 +80,13 @@ declare namespace OS {
   }
 }
 declare const OS: {
-  // https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/OSFile.jsm/OS.File_for_the_main_thread
+  /**
+   * @deprecated This namespace is deprecated and is removed in Firefox 115.
+   * Please use the `Zotero.File` or `IOUtils` instead.
+   * @see {@link https://groups.google.com/g/zotero-dev/c/t0oP9NECX54}
+   * @see {@link https://firefox-source-docs.mozilla.org/dom/ioutils_migration.html | Migration Guide}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/OSFile.jsm/OS.File_for_the_main_thread}
+   */
   File: {
     exists(path: string): boolean | Promise<boolean>;
     read: (
@@ -120,7 +126,13 @@ declare const OS: {
     DirectoryIterator: DirectoryIteratorConstructable;
   };
 
-  // https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/OSFile.jsm/OS.Path
+  /**
+   * @deprecated This namespace is deprecated and is removed in Firefox 115.
+   * Please use the `Zotero.File` or `PathUtils` instead.
+   * @see {@link https://groups.google.com/g/zotero-dev/c/t0oP9NECX54}
+   * @see {@link https://firefox-source-docs.mozilla.org/dom/ioutils_migration.html | Migration Guide}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/OSFile.jsm/OS.Path}
+   */
   Path: {
     join(...args: string[]): string;
     dirname(path: string): string;
