@@ -11,6 +11,38 @@ declare namespace _ZoteroTypes {
       scrollMode: number;
       spreadMode: 0 | 1 | 2;
     }
+
+    interface Stats {
+      canCopy: number;
+      pagesCount: number;
+      scrollMode: number;
+      spreadMode: number;
+      pageIndex: number;
+      pageLabel: string;
+      canNavigateBack: boolean;
+      canNavigateForward: boolean;
+      canNavigateToFirstPage: boolean;
+      canNavigateToLastPage: boolean;
+      canNavigateToNextPage: boolean;
+      canNavigateToPreviousPage: boolean;
+      canZoomIn: boolean;
+      canZoomOut: boolean;
+      canZoomReset: boolean;
+      zoomAutoEnabled: boolean;
+      zoomPageHeightEnabled: boolean;
+      zoomPageWidthEnabled: boolean;
+    }
+
+    interface FindState {
+      popupOpen: boolean;
+      active: boolean;
+      highlightAll: boolean;
+      caseSensitive: boolean;
+      entireWord: boolean;
+      query: string;
+      result?: unknown;
+    }
+
     interface SecondViewState {
       splitSize: string;
       splitType: string;
@@ -36,10 +68,178 @@ declare namespace _ZoteroTypes {
       openInWindow?: boolean;
       allowDuplicate?: boolean;
     }
+
+    interface SnapshotView { }
+    interface PDFView { }
+    interface EPUBView { }
+
+    interface InternalReaderTools {
+      pointer: {
+        type: 'pointer'
+      },
+      hand: {
+        type: 'hand'
+      },
+      highlight: {
+        type: 'highlight',
+        color: string,
+      },
+      underline: {
+        type: 'underline',
+        color: string,
+      },
+      note: {
+        type: 'note',
+        color: string,
+      },
+      image: {
+        type: 'image',
+        color: string,
+      },
+      text: {
+        type: 'text',
+        color: string,
+      },
+      ink: {
+        type: 'ink',
+        color: string,
+        size: number
+      },
+      eraser: {
+        type: 'eraser',
+        size: number
+      }
+    }
+
+    interface InternalReaderOutline {
+      expanded: boolean;
+      title: string;
+      location: { href: string };
+      items: Array<InternalReaderOutline>
+    }
+
+    interface InternalReader {
+      _type: 'pdf' | 'epub';
+      _platform: 'zotero';
+      _readerRef: React.RefObject<anyObj>;
+      _primaryView, _secondaryView: PDFView | EPUBView | SnapshotView;
+      _lastViewPrimary: boolean;
+      _splitViewContainer, _primaryViewContainer, _secondaryViewContainer, _portalViewContainer: HTMLDivElement;
+      _lastPortalRect: [number, number, number, number];
+      _enableAnnotationDeletionFromComment: boolean;
+      _annotationSelectionTriggeredFromView: boolean;
+      _tools: InternalReaderTools;
+      _state: {
+        splitType?: 'horizontal' | 'vertical',
+        splitSize?: string,
+        primary: boolean,
+        freeze: boolean,
+        errorMessages: string,
+        annotations: anyObj[],
+        selectedAnnotationIDs: string[],
+        filter: {
+          query: string,
+          colors: string[],
+          tags: string[],
+          authors: string[]
+        },
+        readOnly: boolean,
+        authorName: string,
+        fontSize: number,
+        fontFamily: string,
+        showAnnotations: boolean,
+        tool: InternalReaderTools[keyof InternalReaderTools],
+        thumbnails: [],
+        outline: Array<InternalReaderOutline>,
+        pageLabels: anyObj,
+        sidebarOpen: boolean,
+        sidebarWidth: number,
+        sidebarView: 'annotations' | 'outline' | 'thumbnails',
+        bottomPlaceholderHeight: number,
+        toolbarPlaceholderWidth: number,
+        enableAddToNote: boolean,
+        primaryViewState: State,
+        primaryViewStats: Stats,
+        primaryViewFindState: FindState,
+        secondaryViewState: State,
+        secondaryViewStats: Stats,
+        secondaryViewFindState: FindState,
+      };
+      _focusManager: anyObj;
+      _keyboardManager: anyObj;
+      _annotationManager: anyObj;
+
+      readonly _lastView: PDFView | EPUBView | SnapshotView;
+      readonly splitType: 'horizontal' | 'vertical';
+      readonly toolType: keyof InternalReaderTools;
+      readonly zoomAutoEnabled: boolean;
+      readonly zoomPageHeightEnabled: boolean;
+      readonly zoomPageWidthEnabled: boolean;
+      readonly canCopy: boolean;
+      readonly canNavigateBack: boolean;
+      readonly canNavigateForward: boolean;
+      readonly canNavigateToFirstPage: boolean;
+      readonly canNavigateToLastPage: boolean;
+      readonly canNavigateToNextPage: boolean;
+      readonly canNavigateToPreviousPage: boolean;
+      readonly canZoomIn: boolean;
+      readonly canZoomOut: boolean;
+      readonly canZoomReset: boolean;
+      readonly canNavigateToPreviousSection: boolean;
+      readonly canNavigateToNextSection: boolean;
+      flowMode: 'paginated' | 'scrolled';
+      scrollMode: number;
+      spreadMode: number;
+
+      disableSplitView(): void;
+      toggleHorizontalSplit(enable: boolean): void;
+      toggleVerticalSplit(enable: boolean): void;
+      showAnnotations(enable: boolean): void;
+      setReadOnly(enable: boolean): void;
+      toggleHandTool(enable: boolean): void;
+      enableAddToNote(enable: boolean): void;
+      closeContextMenu(): void;
+      findNext(primary: boolean): void;
+      findPrevious(primary: boolean): void;
+      toggleFindPopup({ primary, open }?: { primary: boolean, open: boolean }): void;
+      _getString(name: string): string;
+      setErrorMessage(errorMessage: string): void;
+      copy(): void;
+      zoomIn(): void;
+      zoomOut(): void;
+      zoomReset(): void;
+      zoomAuto(): void;
+      zoomPageWidth(): void;
+      zoomPageHeight(): void;
+      navigateBack(): void;
+      navigateForward(): void;
+      navigateToFirstPage(): void;
+      navigateToLastPage(): void;
+      navigateToNextPage(): void;
+      navigateToPreviousPage(): void;
+      navigateToNextSection(): void;
+      navigateToPreviousSection(): void;
+      setFontSize(fontSize: number): void;
+      setFontFamily(fontFamily: string): void;
+      toggleSidebar(open: boolean): void;
+      setSidebarWidth(width: number): void;
+      setSplitViewSize(size: string): void;
+      setBottomPlaceholderHeight(height: number): void;
+      setToolbarPlaceholderWidth(width: number): void;
+      focusView(primary?: boolean): void;
+      focus(): void;
+      freeze(): void;
+      unfreeze(): void;
+      print(): void;
+      abortPrint(): void;
+      rotatePageLeft(): void;
+      rotatePageRight(): void;
+      rotatePages(pageIndexes: number[], degrees: number): void;
+      deletePages(pageIndexes: number[], degrees: number): void;
+    }
   }
 
-  class ReaderInstance {
-    [attr: string]: any;
+  interface ReaderInstance extends Reader.InternalReader {
     pdfStateFileName: string;
     annotationItemIDs: number[];
     itemID?: number;
@@ -51,6 +251,15 @@ declare namespace _ZoteroTypes {
     _isReaderInitialized: boolean;
     _showItemPaneToggle: boolean;
     _initPromise: Promise<any>;
+    _internalReader: Reader.InternalReader;
+    _item: Zotero.Item;
+    _bottomPlaceholderHeight: number;
+    _sidebarOpen: boolean;
+    _sidebarWidth: number;
+    _tabContainer: XUL.Box;
+    _type: 'pdf' | 'epub';
+    stateFileName: string;
+    tabID: string;
     focus(): void;
     getSecondViewState(): Reader.SecondViewState | undefined;
     migrateMendeleyColors(
@@ -133,8 +342,8 @@ declare namespace _ZoteroTypes {
     _getAnnotation(item: Zotero.Item): _ZoteroTypes.anyObj | null;
   }
 
-  class ReaderTab extends ReaderInstance {
-    constructor(options: {
+  interface ReaderTab extends ReaderInstance {
+    new(options: {
       itemID: number;
       title: string;
       sidebarWidth: number;
@@ -143,19 +352,19 @@ declare namespace _ZoteroTypes {
       index: number;
       tabID: string;
       background: boolean;
-    });
+    }): this;
     close(): void;
     _toggleNoteSidebar(isToggled?: boolean): void;
     _setTitleValue(title: string): void;
     _addToNote(annotations: unknown): void;
   }
 
-  class ReaderWindow extends ReaderInstance {
-    constructor(options: {
+  interface ReaderWindow extends ReaderInstance {
+    new(options: {
       sidebarWidth: number;
       sidebarOpen: boolean;
       bottomPlaceholderHeigh?: number;
-    });
+    }): this;
     init(): void;
     close(): void;
     _setTitleValue(title: string): void;
