@@ -18,7 +18,8 @@
     "url": "git+https://github.com/windingwind/zotero-types.git"
   },
   "scripts": {
-    "release": "release-it"
+    "release": "release-it",
+    "prepare": "husky install"
   },
   "prettier": {},
   "devDependencies": {
