@@ -3,6 +3,8 @@
 
 declare namespace _ZoteroTypes {
   namespace Reader {
+    type FlowMode = 'paginated' | 'scrolled';
+
     interface State {
       pageIndex: number;
       scale: number | "auto" | "page-width" | "page-fit";
@@ -69,9 +71,54 @@ declare namespace _ZoteroTypes {
       allowDuplicate?: boolean;
     }
 
-    interface SnapshotView { }
-    interface PDFView { }
-    interface EPUBView { }
+    interface DOMViewState {
+      scale?: number;
+    }
+    interface DOMView<State extends DOMViewState, Data> { }
+    interface EPUBViewState extends DOMViewState {
+      cfi?: string;
+      cfiElementOffset?: number;
+      savedPageMapping?: string;
+      flowMode?: FlowMode;
+    }
+    interface EPUBViewData {
+      book?: anyObj;
+    }
+    interface EPUBView extends DOMView<EPUBViewState, EPUBViewData> { }
+
+    interface SnapshotViewState extends DOMViewState {
+      scrollYPercent?: number;
+    }
+    interface SnapshotViewData {
+      srcDoc?: string;
+    }
+    interface SnapshotView extends DOMView<SnapshotViewState, SnapshotViewData> { }
+
+    interface PDFView {
+      _iframe: HTMLIFrameElement;
+      _iframeWindow?: Window & {
+        PDFViewerApplication: anyObj;
+        PDFViewerApplicationConstants: anyObj;
+        pdfjsLib: anyObj;
+      };
+      initializedPromise: Promise<unknown>;
+      focus(): void;
+      findNext(): void;
+      findPrevious(): void;
+      zoomReset(): void;
+      zoomIn(): void;
+      zoomOut(): void;
+      zoomPageWidth(): void;
+      zoomPageHeight(): void;
+      zoomAuto(): void;
+      navigateBack(): void;
+      navigateForward(): void;
+      navigateToFirstPage(): void;
+      navigateToLastPage(): void;
+      navigateToNextPage(): void;
+      navigateToPreviousPage(): void;
+      getSelectedAnnotations(): anyObj[];
+    }
 
     interface InternalReaderTools {
       pointer: {
@@ -187,7 +234,7 @@ declare namespace _ZoteroTypes {
       readonly canZoomReset: boolean;
       readonly canNavigateToPreviousSection: boolean;
       readonly canNavigateToNextSection: boolean;
-      flowMode: 'paginated' | 'scrolled';
+      flowMode: FlowMode;
       scrollMode: number;
       spreadMode: number;
 
@@ -258,6 +305,7 @@ declare namespace _ZoteroTypes {
     _sidebarWidth: number;
     _tabContainer: XUL.Box;
     _type: 'pdf' | 'epub';
+    readonly type: 'pdf' | 'epub';
     stateFileName: string;
     tabID: string;
     focus(): void;
