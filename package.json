@@ -24,12 +24,12 @@
   "prettier": {},
   "devDependencies": {
     "husky": "^8.0.3",
-    "lint-staged": "^13.1.0",
+    "lint-staged": "^13.2.3",
     "prettier": "2.8.3",
-    "release-it": "^15.4.0"
+    "release-it": "^15.11.0"
   },
   "dependencies": {
-    "@types/react": "^18.0.26"
+    "@types/react": "^18.2.20"
   },
   "publishConfig": {
     "access": "public",
