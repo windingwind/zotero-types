@@ -256,7 +256,7 @@ declare namespace _ZoteroTypes {
      * @return {Promise}
      */
     erase(
-      ids: number|number[],
+      ids: number | number[],
       options?: Zotero.DataObject.EraseOptions & {
         onProgress?: (progress: number, progressMax: number) => void;
       }
