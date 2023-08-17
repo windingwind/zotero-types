@@ -80,7 +80,7 @@ declare namespace _ZoteroTypes {
     openNoteWindow(itemID: number, col?: number, parentKey?: string): void;
     viewPDF(
       itemID: number,
-      location: _ZoteroTypes.ReaderLocation
+      location: _ZoteroTypes.Reader.Location
     ): Promise<void>;
     showAttachmentInFilesystem: (
       itemID: number,
