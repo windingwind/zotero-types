@@ -431,24 +431,32 @@ declare namespace _ZoteroTypes {
 
     /**
      * Find HTML elements by input xpath string.
-     * 
+     *
      * @param node, document or HTML elements
-     * @param xstring, xpath string 
-     * @param namespaces 
+     * @param xstring, xpath string
+     * @param namespaces
      */
-    xpath(node: HTMLElement|Document, xstring: string, namespaces: any): HTMLElement[]|[];
-
+    xpath(
+      node: HTMLElement | Document,
+      xstring: string,
+      namespaces: any
+    ): HTMLElement[] | [];
 
     /**
      * Input xpath string, find corresponding HTML elements value/textContent/innerText/text/nodeValue.
      * When node is an array of element, the returned output is obtained by concatenating
      * the string of each element, and the default separator is ', '.
-     * 
+     *
      * @param node, document or HTML elements
-     * @param xstring, xpath string 
-     * @param namespaces 
-     * @param delimiter,  
+     * @param xstring, xpath string
+     * @param namespaces
+     * @param delimiter,
      */
-    xpathText(node: HTMLElement|Document, xstring: string, namespaces: any, delimiter: undefined|string): string;
+    xpathText(
+      node: HTMLElement | Document,
+      xstring: string,
+      namespaces: any,
+      delimiter: undefined | string
+    ): string;
   }
 }

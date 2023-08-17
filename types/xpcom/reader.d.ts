@@ -59,8 +59,8 @@ declare namespace _ZoteroTypes {
     _sidebarOpen: boolean;
     _sidebarWidth: number;
     _tabContainer: XUL.Box;
-    _type: 'pdf' | 'epub';
-    readonly type: 'pdf' | 'epub';
+    _type: "pdf" | "epub";
+    readonly type: "pdf" | "epub";
     stateFileName: string;
     tabID: string;
     focus(): void;
@@ -146,7 +146,7 @@ declare namespace _ZoteroTypes {
   }
 
   interface ReaderTab extends ReaderInstance {
-    new(options: {
+    new (options: {
       itemID: number;
       title: string;
       sidebarWidth: number;
@@ -163,7 +163,7 @@ declare namespace _ZoteroTypes {
   }
 
   interface ReaderWindow extends ReaderInstance {
-    new(options: {
+    new (options: {
       sidebarWidth: number;
       sidebarOpen: boolean;
       bottomPlaceholderHeigh?: number;
