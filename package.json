@@ -29,7 +29,8 @@
     "release-it": "^15.11.0"
   },
   "dependencies": {
-    "@types/react": "^18.2.20"
+    "@types/react": "^18.2.20",
+    "epubjs": "^0.3.93"
   },
   "publishConfig": {
     "access": "public",
