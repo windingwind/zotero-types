@@ -4,8 +4,7 @@
 /// <reference path="flow.d.ts" />
 /// <reference path="section-view.d.ts" />
 /// <reference path="lib/page-mapping.d.ts" />
-
-declare type Book = import("epubjs").Book;
+/// <reference path="epubjs.d.ts" />
 
 declare namespace _ZoteroTypes {
   namespace Reader {
@@ -17,7 +16,7 @@ declare namespace _ZoteroTypes {
       flowMode?: FlowMode;
     }
     interface EPUBViewData {
-      book?: Book;
+      book?: ePubJS.Book;
     }
 
     /**
@@ -31,7 +30,7 @@ declare namespace _ZoteroTypes {
      */
     class EPUBView extends DOMView<EPUBViewState, EPUBViewData> {
       protected _find: EPUBFindProcessor | null;
-      readonly book: Book;
+      readonly book: ePubJS.Book;
       flow: Flow;
       private _sectionsContainer: HTMLElement;
       private readonly _sectionViews: SectionView[];
@@ -44,7 +43,7 @@ declare namespace _ZoteroTypes {
       private _savedPageMapping: string;
       constructor(options: DOMViewOptions<EPUBViewState, EPUBViewData>);
       protected _getSrcDoc(): "<!DOCTYPE html><html><body></body></html>";
-      getData(): { book: Book };
+      getData(): { book: ePubJS.Book };
       protected _onInitialDisplay(
         viewState: Partial<Readonly<EPUBViewState>>
       ): Promise<void>;
@@ -52,8 +51,8 @@ declare namespace _ZoteroTypes {
         viewState: Partial<Readonly<EPUBViewState>>
       ): Promise<void>;
       private _initOutline(): void;
-      getCFI(rangeOrNode: Range | Node): EpubCFI | null;
-      getRange(cfi: EpubCFI | string): Range | null;
+      getCFI(rangeOrNode: Range | Node): ePubJS.EpubCFI | null;
+      getRange(cfi: ePubJS.EpubCFI | string): Range | null;
       override toSelector(range: Range): FragmentSelector | null;
       override toDisplayedRange(selector: Selector): Range | null;
       readonly views: SectionView[];

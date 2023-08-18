@@ -1,12 +1,11 @@
 /// <reference types="../common/lib/dom-text-search.d.ts" />
 /// <reference types="../epub/lib/sanitize-and-render.d.ts" />
-
-declare type Section = import("epubjs/types/section").default;
+/// <reference path="epubjs.d.ts" />
 
 declare namespace _ZoteroTypes {
   namespace Reader {
     class SectionView {
-      readonly section: Section;
+      readonly section: ePubJS.Section;
       readonly container: HTMLElement;
       body: HTMLElement;
       private readonly _window: Window & typeof globalThis;
@@ -14,7 +13,7 @@ declare namespace _ZoteroTypes {
       private readonly _styleScoper: StyleScoper;
       private _searchContext: SearchContext | null;
       constructor(options: {
-        section: Section;
+        section: ePubJS.Section;
         container: HTMLElement;
         window: Window & typeof globalThis;
         document: Document;

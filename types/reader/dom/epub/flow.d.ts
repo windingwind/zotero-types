@@ -2,15 +2,14 @@
 /// <reference types="./lib/page-mapping.d.ts" />
 /// <reference types="../common/dom-view.d.ts" />
 /// <reference types="../../common/lib/debounce.d.ts" />
-
-declare type EpubCFI = import("epubjs").EpubCFI;
+/// <reference path="epubjs.d.ts" />
 
 declare namespace _ZoteroTypes {
   namespace Reader {
     interface Flow {
       readonly startView: SectionView | null;
       readonly startRange: Range | null;
-      readonly startCFI: EpubCFI | null;
+      readonly startCFI: ePubJS.EpubCFI | null;
       readonly startCFIOffsetY: number | null;
       readonly startRangeIsBeforeFirstMapping: boolean;
       readonly endView: SectionView | null;
@@ -33,7 +32,7 @@ declare namespace _ZoteroTypes {
     abstract class AbstractFlow implements Flow {
       protected _cachedStartView: SectionView | null;
       protected _cachedStartRange: Range | null;
-      protected _cachedStartCFI: EpubCFI | null;
+      protected _cachedStartCFI: ePubJS.EpubCFI | null;
       protected _cachedStartCFIOffsetY: number | null;
       protected _cachedEndView: SectionView | null;
       protected _sectionViews: SectionView[];
@@ -58,7 +57,7 @@ declare namespace _ZoteroTypes {
 
       readonly startView: SectionView | null;
       readonly startRange: Range | null;
-      readonly startCFI: EpubCFI | null;
+      readonly startCFI: ePubJS.EpubCFI | null;
       readonly startCFIOffsetY: number | null;
       readonly startRangeIsBeforeFirstMapping: boolean;
       readonly endView: SectionView | null;
