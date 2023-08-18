@@ -59,8 +59,8 @@ declare namespace _ZoteroTypes {
     _sidebarOpen: boolean;
     _sidebarWidth: number;
     _tabContainer: XUL.Box;
-    _type: "pdf" | "epub";
-    readonly type: "pdf" | "epub";
+    _type: "pdf" | "epub" | "snapshot";
+    readonly type: "pdf" | "epub" | "snapshot";
     stateFileName: string;
     tabID: string;
     focus(): void;

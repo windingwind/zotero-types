@@ -52,7 +52,7 @@ declare namespace _ZoteroTypes {
     }
 
     interface InternalReader {
-      _type: "pdf" | "epub";
+      _type: "pdf" | "epub" | "snapshot";
       _platform: "zotero";
       _readerRef: React.RefObject<anyObj>;
       _primaryView;
