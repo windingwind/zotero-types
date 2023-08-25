@@ -48,6 +48,7 @@ declare namespace _ZoteroTypes {
     state: Reader.State;
     _instanceID: string;
     _window?: Window;
+    _iframe?: XUL.Element & _ZoteroTypes.anyObj;
     _iframeWindow?: Window;
     _title: string;
     _isReaderInitialized: boolean;

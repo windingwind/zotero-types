@@ -6,6 +6,7 @@
 /// <reference path="promise.d.ts" />
 /// <reference path="xpcom/progressWindow.d.ts" />
 /// <reference path="xpcom/editorInstance.d.ts" />
+/// <reference path="xpcom/itemTreeManager.d.ts" />
 /// <reference path="xpcom/file.d.ts" />
 /// <reference path="xpcom/notifier.d.ts" />
 /// <reference path="xpcom/users.d.ts" />
@@ -264,6 +265,7 @@ declare const Zotero: {
   Attachments: _ZoteroTypes.Attachments;
   CreatorTypes: _ZoteroTypes.CreatorTypes;
   CharacterSets: _ZoteroTypes.CharacterSets;
+  ItemTreeManager: _ZoteroTypes.ItemTreeManager;
   RelationPredicates: _ZoteroTypes.RelationPredicates;
   CollectionTreeCache: _ZoteroTypes.CollectionTreeCache;
   EditorInstanceUtilities: _ZoteroTypes.EditorInstanceUtilities;
