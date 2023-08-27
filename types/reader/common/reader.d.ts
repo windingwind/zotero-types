@@ -55,12 +55,12 @@ declare namespace _ZoteroTypes {
       _type: "pdf" | "epub" | "snapshot";
       _platform: "zotero";
       _readerRef: React.RefObject<anyObj>;
-      _primaryView;
-      _secondaryView: PDFView | EPUBView | SnapshotView;
+      _primaryView: PDFView | EPUBView | SnapshotView;
+      _secondaryView?: PDFView | EPUBView | SnapshotView;
       _lastViewPrimary: boolean;
-      _splitViewContainer;
-      _primaryViewContainer;
-      _secondaryViewContainer;
+      _splitViewContainer: HTMLDivElement;
+      _primaryViewContainer: HTMLDivElement;
+      _secondaryViewContainer: HTMLDivElement;
       _portalViewContainer: HTMLDivElement;
       _lastPortalRect: [number, number, number, number];
       _enableAnnotationDeletionFromComment: boolean;
