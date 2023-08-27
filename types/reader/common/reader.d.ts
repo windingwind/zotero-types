@@ -72,7 +72,7 @@ declare namespace _ZoteroTypes {
         primary: boolean;
         freeze: boolean;
         errorMessages: string;
-        annotations: anyObj[];
+        annotations: Reader.Annotation[];
         selectedAnnotationIDs: string[];
         filter: Filter;
         readOnly: boolean;
@@ -90,10 +90,10 @@ declare namespace _ZoteroTypes {
         bottomPlaceholderHeight: number;
         toolbarPlaceholderWidth: number;
         enableAddToNote: boolean;
-        primaryViewState: State;
+        primaryViewState: State | DOMViewState;
         primaryViewStats: ViewStats;
         primaryViewFindState: FindState;
-        secondaryViewState: State;
+        secondaryViewState: State | DOMViewState;
         secondaryViewStats: ViewStats;
         secondaryViewFindState: FindState;
       };
