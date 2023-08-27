@@ -55,12 +55,12 @@ declare namespace _ZoteroTypes {
       _type: "pdf" | "epub" | "snapshot";
       _platform: "zotero";
       _readerRef: React.RefObject<anyObj>;
-      _primaryView;
-      _secondaryView: PDFView | EPUBView | SnapshotView;
+      _primaryView: PDFView | EPUBView | SnapshotView;
+      _secondaryView?: PDFView | EPUBView | SnapshotView;
       _lastViewPrimary: boolean;
-      _splitViewContainer;
-      _primaryViewContainer;
-      _secondaryViewContainer;
+      _splitViewContainer: HTMLDivElement;
+      _primaryViewContainer: HTMLDivElement;
+      _secondaryViewContainer: HTMLDivElement;
       _portalViewContainer: HTMLDivElement;
       _lastPortalRect: [number, number, number, number];
       _enableAnnotationDeletionFromComment: boolean;
@@ -72,7 +72,7 @@ declare namespace _ZoteroTypes {
         primary: boolean;
         freeze: boolean;
         errorMessages: string;
-        annotations: anyObj[];
+        annotations: Reader.Annotation[];
         selectedAnnotationIDs: string[];
         filter: Filter;
         readOnly: boolean;
@@ -90,10 +90,10 @@ declare namespace _ZoteroTypes {
         bottomPlaceholderHeight: number;
         toolbarPlaceholderWidth: number;
         enableAddToNote: boolean;
-        primaryViewState: State;
+        primaryViewState: State | DOMViewState;
         primaryViewStats: ViewStats;
         primaryViewFindState: FindState;
-        secondaryViewState: State;
+        secondaryViewState: State | DOMViewState;
         secondaryViewStats: ViewStats;
         secondaryViewFindState: FindState;
       };
@@ -102,7 +102,7 @@ declare namespace _ZoteroTypes {
       _annotationManager: AnnotationManager;
 
       readonly _lastView: PDFView | EPUBView | SnapshotView;
-      readonly splitType: "horizontal" | "vertical";
+      readonly splitType: "horizontal" | "vertical" | null;
       readonly toolType: keyof InternalReaderTools;
       readonly zoomAutoEnabled: boolean;
       readonly zoomPageHeightEnabled: boolean;
@@ -120,8 +120,8 @@ declare namespace _ZoteroTypes {
       readonly canNavigateToPreviousSection: boolean;
       readonly canNavigateToNextSection: boolean;
       flowMode: FlowMode;
-      scrollMode: number;
-      spreadMode: number;
+      scrollMode?: 0 | 1 | 2;
+      spreadMode: SpreadMode;
 
       disableSplitView(): void;
       toggleHorizontalSplit(enable: boolean): void;

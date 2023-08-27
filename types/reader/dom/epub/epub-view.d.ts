@@ -18,6 +18,12 @@ declare namespace _ZoteroTypes {
     interface EPUBViewData {
       book?: ePubJS.Book;
     }
+    enum SpreadMode {
+      Unknown = -1,
+      None = 0,
+      Odd = 1,
+      Even = 2,
+    }
 
     /**
      * - All views use iframe to render and isolate the view from the parent window
@@ -32,6 +38,9 @@ declare namespace _ZoteroTypes {
       protected _find: EPUBFindProcessor | null;
       readonly book: ePubJS.Book;
       flow: Flow;
+      spreadMode: SpreadMode.None | SpreadMode.Odd;
+      readonly pageMapping: PageMapping;
+      scale: number;
       private _sectionsContainer: HTMLElement;
       private readonly _sectionViews: SectionView[];
       private readonly _navStack: NavStack<string>;
