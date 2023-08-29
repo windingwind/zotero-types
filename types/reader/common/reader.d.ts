@@ -102,7 +102,7 @@ declare namespace _ZoteroTypes {
       _annotationManager: AnnotationManager;
 
       readonly _lastView: PDFView | EPUBView | SnapshotView;
-      readonly splitType: "horizontal" | "vertical";
+      readonly splitType: "horizontal" | "vertical" | null;
       readonly toolType: keyof InternalReaderTools;
       readonly zoomAutoEnabled: boolean;
       readonly zoomPageHeightEnabled: boolean;
@@ -120,8 +120,8 @@ declare namespace _ZoteroTypes {
       readonly canNavigateToPreviousSection: boolean;
       readonly canNavigateToNextSection: boolean;
       flowMode: FlowMode;
-      scrollMode: number;
-      spreadMode: number;
+      scrollMode?: 0 | 1 | 2;
+      spreadMode: SpreadMode;
 
       disableSplitView(): void;
       toggleHorizontalSplit(enable: boolean): void;
