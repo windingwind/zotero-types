@@ -24,6 +24,7 @@ declare namespace _ZoteroTypes {
      * @property {boolean} [primary] - Should only be one column at the time. Title is the primary column
      * @property {boolean} [custom] - Set automatically to true when the column is added by the user
      * @property {(item: Zotero.Item, dataKey: string) => string} [dataProvider] - Custom data provider that is called when rendering cells
+     * @property {(index: number, data: string, column: ItemTreeColumnOptions & {className: string}) => HTMLElement} [renderCell] - The cell renderer function
      * @property {string[]} [zoteroPersist] - Which column properties should be persisted between zotero close
      */
     interface ItemTreeColumnOptions {
@@ -47,6 +48,11 @@ declare namespace _ZoteroTypes {
       primary?: boolean;
       custom?: boolean;
       dataProvider?: (item: Zotero.Item, dataKey: string) => string;
+      renderCell?: (
+        index: number,
+        data: string,
+        column: ItemTreeColumnOptions & { className: string }
+      ) => HTMLElement;
       zoteroPersist?: string[];
     }
 
@@ -115,6 +121,17 @@ declare namespace _ZoteroTypes {
      *         // dataKey: the dataKey of the column
      *         // return: the data to display in the column
      *         return item.getField('title').split('').reverse().join('');
+     *     },
+     * 	   renderCell: (index, data, column) => {
+     *         // index: the index of the row
+     *         // data: the data to display in the column, return of `dataProvider`
+     *         // column: the column options
+     *         // return: the HTML to display in the cell
+     *         const cell = document.createElement('span');
+     *         cell.className = `cell ${column.className}`;
+     *         cell.textContent = data;
+     *         cell.style.color = 'red';
+     *         return cell;
      *     },
      *     zoteroPersist: ['width', 'hidden', 'sortDirection'], // persist the column properties
      * });
