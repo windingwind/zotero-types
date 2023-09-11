@@ -48,6 +48,7 @@ declare namespace _ZoteroTypes {
     state: Reader.State;
     _instanceID: string;
     _window?: Window;
+    _iframe?: XUL.Element & _ZoteroTypes.anyObj;
     _iframeWindow?: Window;
     _title: string;
     _isReaderInitialized: boolean;
@@ -59,8 +60,8 @@ declare namespace _ZoteroTypes {
     _sidebarOpen: boolean;
     _sidebarWidth: number;
     _tabContainer: XUL.Box;
-    _type: "pdf" | "epub";
-    readonly type: "pdf" | "epub";
+    _type: "pdf" | "epub" | "snapshot";
+    readonly type: "pdf" | "epub" | "snapshot";
     stateFileName: string;
     tabID: string;
     focus(): void;
