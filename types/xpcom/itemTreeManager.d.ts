@@ -40,9 +40,9 @@ declare namespace _ZoteroTypes {
       fixedWidth?: boolean;
       staticWidth?: boolean;
       minWidth?: number;
-      iconLabel?: React.Component;
+      iconLabel?: React.ReactElement;
       iconPath?: string;
-      htmlLabel?: string | React.Component;
+      htmlLabel?: string | React.ReactElement;
       showInColumnPicker?: boolean;
       columnPickerSubMenu?: boolean;
       primary?: boolean;
