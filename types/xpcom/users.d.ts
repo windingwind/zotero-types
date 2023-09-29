@@ -8,7 +8,7 @@ declare namespace _ZoteroTypes {
     getCurrentName(): string;
     setCurrentName(name: string): Promise<void>;
     getLocalUserKey(): string;
-    getName(): string;
+    getName(userID: number | string): string;
     setName(userID: number, name: string): Promise<void>;
   }
 }
