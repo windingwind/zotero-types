@@ -2,7 +2,6 @@
 
 declare namespace _ZoteroTypes {
   interface Libraries {
-    // [attr: string]: any;
     readonly userLibraryID: number;
     readonly userLibrary: Zotero.Library;
     _cache?: { [i: number]: Zotero.Library };
@@ -39,5 +38,14 @@ declare namespace _ZoteroTypes {
      * @return {Zotero.Library[] | Zotero.Library}
      */
     get(libraryID: number): Zotero.Library | false;
+
+    getName(libraryID: number): string;
+    getType(libraryID: number): "group" | "user" | "feed";
+    getLastSyncTime(libraryID: number): Date;
+    getVersion(libraryID: number): number;
+    hasTrash(libraryID: number): boolean;
+    isEditable(libraryID: number): boolean;
+    isFilesEditable(libraryID: number): boolean;
+    isGroupLibrary(libraryID: number): boolean;
   }
 }
