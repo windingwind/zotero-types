@@ -106,7 +106,7 @@ declare namespace _ZoteroTypes {
      * @param {Integer} libraryID
      * @return {Integer[]} - An array of tagIDs
      */
-    getAutomaticInLibrary(libraryID: number): number[];
+    getAutomaticInLibrary(libraryID: number): Promise<number[]>;
 
     /**
      * Remove all automatic tags in the given library
