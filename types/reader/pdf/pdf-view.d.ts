@@ -5,9 +5,9 @@ declare namespace _ZoteroTypes {
     interface PDFView {
       _iframe: HTMLIFrameElement;
       _iframeWindow?: Window & {
-        PDFViewerApplication: anyObj;
+        PDFViewerApplication: PDFViewerApplication;
         PDFViewerApplicationConstants: anyObj;
-        pdfjsLib: anyObj;
+        pdfjsLib: pdfjs;
       };
       initializedPromise: Promise<unknown>;
       focus(): void;
