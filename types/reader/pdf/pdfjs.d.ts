@@ -4,27 +4,25 @@ declare namespace _ZoteroTypes {
   namespace Reader {
     type pdfjs = typeof import("pdfjs-dist");
     type PromiseCapability =
-      typeof import("pdfjs-dist/types/src/shared/util").PromiseCapability;
-    type PDFPageProxy =
-      typeof import("pdfjs-dist/types/src/display/api").PDFPageProxy;
+      import("pdfjs-dist/types/src/shared/util").PromiseCapability;
+    type PDFPageProxy = import("pdfjs-dist/types/src/display/api").PDFPageProxy;
     type PDFDocumentProxy =
-      typeof import("pdfjs-dist/types/src/display/api").PDFDocumentProxy;
+      import("pdfjs-dist/types/src/display/api").PDFDocumentProxy;
     type PDFDocumentLoadingTask =
-      typeof import("pdfjs-dist/types/src/display/api").PDFDocumentLoadingTask;
-    type PDFViewer = typeof import("pdfjs-dist/types/web/pdf_viewer").PDFViewer;
+      import("pdfjs-dist/types/src/display/api").PDFDocumentLoadingTask;
+    type PDFViewer = import("pdfjs-dist/types/web/pdf_viewer").PDFViewer;
     type PDFThumbnailViewer =
-      typeof import("pdfjs-dist/types/web/pdf_thumbnail_viewer").PDFThumbnailViewer;
+      import("pdfjs-dist/types/web/pdf_thumbnail_viewer").PDFThumbnailViewer;
     type PDFLinkService =
-      typeof import("pdfjs-dist/types/web/pdf_link_service").PDFLinkService;
-    type PDFHistory =
-      typeof import("pdfjs-dist/types/web/pdf_history").PDFHistory;
+      import("pdfjs-dist/types/web/pdf_link_service").PDFLinkService;
+    type PDFHistory = import("pdfjs-dist/types/web/pdf_history").PDFHistory;
     type PDFFindController =
-      typeof import("pdfjs-dist/types/web/pdf_find_controller").PDFFindController;
+      import("pdfjs-dist/types/web/pdf_find_controller").PDFFindController;
     type PDFRenderingQueue =
-      typeof import("pdfjs-dist/types/web/pdf_rendering_queue").PDFRenderingQueue;
+      import("pdfjs-dist/types/web/pdf_rendering_queue").PDFRenderingQueue;
     type PDFScriptingManager =
-      typeof import("pdfjs-dist/types/web/pdf_scripting_manager").PDFScriptingManager;
-    type EventBus = typeof import("pdfjs-dist/types/web/event_utils").EventBus;
+      import("pdfjs-dist/types/web/pdf_scripting_manager").PDFScriptingManager;
+    type EventBus = import("pdfjs-dist/types/web/event_utils").EventBus;
 
     interface PDFViewerApplication extends anyObj {
       pdfDocument?: PDFDocumentProxy;
