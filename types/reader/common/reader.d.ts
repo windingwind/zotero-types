@@ -149,6 +149,7 @@ declare namespace _ZoteroTypes {
       zoomAuto(): void;
       zoomPageWidth(): void;
       zoomPageHeight(): void;
+      navigate(location: Location): Promise<void>;
       navigateBack(): void;
       navigateForward(): void;
       navigateToFirstPage(): void;

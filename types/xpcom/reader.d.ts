@@ -26,9 +26,13 @@ declare namespace _ZoteroTypes {
     interface Location {
       annotationKey?: string;
       id?: string;
-      pageIndex: number;
+      pageIndex?: number;
       pageLabel?: string;
-      position: { rects: unknown; paths: unknown };
+      position?: {
+        pageIndex?: number;
+        rects?: Array<number[]>;
+        paths?: unknown;
+      };
     }
 
     interface OpenOptions {
