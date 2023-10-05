@@ -1,5 +1,5 @@
 /// <reference path="../../../internal.d.ts" />
-/// <reference path="./pdfjs.d.ts" />
+/// <reference path="pdfjs.d.ts" />
 
 declare namespace _ZoteroTypes {
   namespace Reader {
