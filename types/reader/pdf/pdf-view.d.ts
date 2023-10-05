@@ -1,13 +1,14 @@
 /// <reference path="../../../internal.d.ts" />
+/// <reference path="./pdfjs.d.ts" />
 
 declare namespace _ZoteroTypes {
   namespace Reader {
     interface PDFView {
       _iframe: HTMLIFrameElement;
       _iframeWindow?: Window & {
-        PDFViewerApplication: anyObj;
+        PDFViewerApplication: PDFViewerApplication;
         PDFViewerApplicationConstants: anyObj;
-        pdfjsLib: anyObj;
+        pdfjsLib: pdfjs;
       };
       initializedPromise: Promise<unknown>;
       focus(): void;
