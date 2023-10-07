@@ -39,7 +39,7 @@ declare namespace Zotero {
     addCondition(
       condition: string,
       operator: Search.Operator,
-      value: string,
+      value?: string,
       required?: boolean
     ): number;
 
