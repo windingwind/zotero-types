@@ -355,7 +355,7 @@ declare namespace Zotero {
      * @param  {Integer} pos
      * @return {Object|Boolean} The internal creator data object at the given position, or FALSE if none
      */
-    getCreator(pos: number): Item.Creator;
+    getCreator(pos: number): Item.Creator | false;
 
     /**
      * @param  {Integer} pos
