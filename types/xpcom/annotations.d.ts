@@ -5,6 +5,7 @@ declare namespace _ZoteroTypes {
     type AnnotationType = "highlight" | "image" | "ink" | "note";
     interface AnnotationJson {
       id: string;
+      text: string;
       libraryID: number;
       key: string;
       type: Annotations.AnnotationType;
