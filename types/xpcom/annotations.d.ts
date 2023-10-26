@@ -4,6 +4,7 @@ declare namespace _ZoteroTypes {
   namespace Annotations {
     type AnnotationType = "highlight" | "image" | "ink" | "note";
     interface AnnotationJson {
+      id: string;
       libraryID: number;
       key: string;
       type: Annotations.AnnotationType;
@@ -17,7 +18,7 @@ declare namespace _ZoteroTypes {
       pageLabel: string;
       color: string;
       sortIndex: string;
-      position: { pageIndex: number; rects: number[][] };
+      position: { pageIndex: number; rects: number[][]; [key: string]: any };
       tags?: { name: string; color: string };
       dateModified: string;
       relations?: Record<RelationsPredicate, ZoteroObjectURI>;

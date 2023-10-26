@@ -43,6 +43,38 @@ declare namespace _ZoteroTypes {
       openInWindow?: boolean;
       allowDuplicate?: boolean;
     }
+
+    type ReaderEventHandler<ParamsType = {}, EventType = ""> = (event: {
+      reader: _ZoteroTypes.ReaderInstance;
+      doc: Document;
+      params: ParamsType;
+      append: (...node: Array<Node | string>) => void;
+      type: EventType;
+    }) => void | Promise<void>;
+
+    interface ReaderEventMap {
+      renderTextSelectionPopup: {
+        annotation: _ZoteroTypes.Annotations.AnnotationJson;
+      };
+      renderSidebarAnnotationHeader: {
+        annotation: _ZoteroTypes.Annotations.AnnotationJson;
+      };
+      renderToolbar: {};
+      createColorContextMenu: { x: number; y: number };
+      createViewContextMenu: { x: number; y: number };
+      createAnnotationContextMenu: {
+        ids: string[];
+        currentID: string;
+        x: number;
+        y: number;
+      };
+      createThumbnailContextMenu: {
+        x: number;
+        y: number;
+        pageIndexes: number[];
+      };
+      createSelectorContextMenu: { x: number; y: number };
+    }
   }
 
   interface ReaderInstance extends Reader.InternalReader {
@@ -224,5 +256,52 @@ declare namespace _ZoteroTypes {
      * @returns {Promise}
      */
     triggerAnnotationsImportCheck(itemID: number): Promise<void>;
+
+    /**
+     * Inject DOM nodes to reader UI parts:
+     * - renderTextSelectionPopup
+     * - renderSidebarAnnotationHeader
+     * - renderToolbar
+     *
+     * Zotero.Reader.registerEventListener('renderTextSelectionPopup', (event) => {
+     * 	let { reader, doc, params, append } = event;
+     * 	let container = doc.createElement('div');
+     * 	container.append('Loading…');
+     * 	append(container);
+     * 	setTimeout(() => container.replaceChildren('Translated text: ' + params.annotation.text), 1000);
+     * });
+     *
+     *
+     * Add options to context menus:
+     * - createColorContextMenu
+     * - createViewContextMenu
+     * - createAnnotationContextMenu
+     * - createThumbnailContextMenu
+     * - createSelectorContextMenu
+     *
+     * Zotero.Reader.registerEventListener('createAnnotationContextMenu', (event) => {
+     * 	let { reader, params, append } = event;
+     * 	append({
+     * 		label: 'Test',
+     * 		onCommand(){ reader._iframeWindow.alert('Selected annotations: ' + params.ids.join(', ')); }
+     * 	});
+     * });
+     */
+    registerEventListener<T extends keyof _ZoteroTypes.Reader.ReaderEventMap>(
+      type: T,
+      handler: _ZoteroTypes.Reader.ReaderEventHandler<
+        _ZoteroTypes.Reader.ReaderEventMap[T],
+        T
+      >,
+      pluginID?: string
+    ): void;
+
+    unregisterEventListener<T extends keyof _ZoteroTypes.Reader.ReaderEventMap>(
+      type: T,
+      handler: _ZoteroTypes.Reader.ReaderEventHandler<
+        _ZoteroTypes.Reader.ReaderEventMap[T],
+        T
+      >
+    ): void;
   }
 }
