@@ -19,7 +19,7 @@ declare namespace _ZoteroTypes {
       pageLabel: string;
       color: string;
       sortIndex: string;
-      position: { pageIndex: number; rects: number[][]; [key: string]: any };
+      position: { pageIndex: number; rects: number[][] } & anyObj;
       tags?: { name: string; color: string };
       dateModified: string;
       relations?: Record<RelationsPredicate, ZoteroObjectURI>;
