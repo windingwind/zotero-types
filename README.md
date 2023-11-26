@@ -1,8 +1,8 @@
 # Zotero Types
 
-This package contains type definitions for Zotero (https://www.zotero.org/) plugin.
+This package contains type definitions for Zotero (<https://www.zotero.org/>) plugin.
 
-npm package: https://www.npmjs.com/package/zotero-types
+npm package: <https://www.npmjs.com/package/zotero-types>
 
 ## Usage
 
@@ -10,12 +10,12 @@ npm package: https://www.npmjs.com/package/zotero-types
 
 2. No need to import the type declaration in your TypeScript code. If your IDE does not recognize the definitions, add the path to typing file in the include of `tsconfig.json`:
 
-```json
-// tsconfig.json
-{
-  "include": ["src", "typing", "node_modules/zotero-types"]
-}
-```
+    ```json
+    // tsconfig.json
+    {
+      "include": ["src", "typing", "node_modules/zotero-types"]
+    }
+    ```
 
 **Example**:
 
@@ -38,13 +38,23 @@ if (await OS.File.exists(filepath)) {
 }
 ```
 
+> [!NOTE]
+>
+> If you are using `pnpm` as the package manager for your project, you need to add `public-hoist-pattern[]=*@types/bluebird*` to `.npmrc`.  
+> Alternatively, you need to also add `@types/bulebird` to the `devDependency`.
+>
+> See also:
+>
+> - `@types` are not hoisted by default in pnpm v7: <https://github.com/pnpm/pnpm/issues/4920#issuecomment-1225961351>
+> - Dependency Hoisting Settings: <https://pnpm.io/npmrc#public-hoist-pattern>
+
 ## Contributing
 
 This type definition only contains frequently used typings and is not complete. Please check the source code of Zotero here: [https://github.com/zotero/zotero](https://github.com/zotero/zotero).
 
 The `d.ts` files of Zotero are set accordingly to their corresponding file in the Zotero repository.
 
-Planning to merge to https://github.com/DefinitelyTyped/DefinitelyTyped/
+Planning to merge to <https://github.com/DefinitelyTyped/DefinitelyTyped/>
 
 To release this to the npm package, use `npm run release`.
 
@@ -52,7 +62,7 @@ To release this to the npm package, use `npm run release`.
 
 Use this code under MIT License. No warranties are provided. Keep the laws of your locality in mind!
 
-If you want to change the license, please contact me at wyzlshx@foxmail.com
+If you want to change the license, please contact me at <wyzlshx@foxmail.com>
 
 Part of the code of this repo refers to other open-source projects within the allowed scope.
 
