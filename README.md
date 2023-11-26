@@ -10,7 +10,7 @@ npm package: <https://www.npmjs.com/package/zotero-types>
 
 2. No need to import the type declaration in your TypeScript code. If your IDE does not recognize the definitions, add the path to typing file in the include of `tsconfig.json`:
 
-    ```json
+    ```jsonc
     // tsconfig.json
     {
       "include": ["src", "typing", "node_modules/zotero-types"]
