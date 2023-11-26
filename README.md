@@ -40,8 +40,10 @@ if (await OS.File.exists(filepath)) {
 
 > [!NOTE]
 >
-> If you are using `pnpm` as the package manager for your project, you need to add `public-hoist-pattern[]=*@types/bluebird*` to `.npmrc`.  
-> Alternatively, you need to also add `@types/bulebird` to the `devDependency`.
+> If you are using `pnpm` as the package manager for your project, you need to additionally do one of the following things:
+>
+> - Add `public-hoist-pattern[]=*@types/bluebird*` to `.npmrc`.
+> - Add `@types/bulebird` to the `devDependencies`.
 >
 > See also:
 >
