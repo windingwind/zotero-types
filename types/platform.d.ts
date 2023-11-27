@@ -685,3 +685,14 @@ declare namespace PathUtils {
 }
 
 declare const NetUtil: any;
+
+declare interface Window {
+  openDialog(
+    url?: string | URL,
+    target?: string,
+    features?: string,
+    ...args: any
+  ): Window;
+}
+
+declare class Localization {}
