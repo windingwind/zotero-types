@@ -44,11 +44,15 @@ declare namespace _ZoteroTypes {
       allowDuplicate?: boolean;
     }
 
-    type ReaderEventHandler<ParamsType = {}, EventType = ""> = (event: {
+    type ReaderEventHandler<
+      ParamsType = {},
+      AppendType = () => void,
+      EventType = ""
+    > = (event: {
       reader: _ZoteroTypes.ReaderInstance;
       doc: Document;
       params: ParamsType;
-      append: (...node: Array<Node | string>) => void;
+      append: AppendType;
       type: EventType;
     }) => void | Promise<void>;
 
@@ -74,6 +78,29 @@ declare namespace _ZoteroTypes {
         pageIndexes: number[];
       };
       createSelectorContextMenu: { x: number; y: number };
+    }
+
+    interface ReaderAppendType {
+      appendDOM: (...node: Array<Node | string>) => void;
+      appendMenu: (params: {
+        slider?: boolean;
+        size?: number;
+        label: string;
+        disabled?: boolean;
+        persistent?: boolean;
+        onCommand: (width?: number) => void;
+      }) => void;
+    }
+
+    interface ReaderAppendMap {
+      renderTextSelectionPopup: ReaderAppendType["appendDOM"];
+      renderSidebarAnnotationHeader: ReaderAppendType["appendDOM"];
+      renderToolbar: ReaderAppendType["appendDOM"];
+      createColorContextMenu: ReaderAppendType["appendMenu"];
+      createViewContextMenu: ReaderAppendType["appendMenu"];
+      createAnnotationContextMenu: ReaderAppendType["appendMenu"];
+      createThumbnailContextMenu: ReaderAppendType["appendMenu"];
+      createSelectorContextMenu: ReaderAppendType["appendMenu"];
     }
   }
 
@@ -291,6 +318,7 @@ declare namespace _ZoteroTypes {
       type: T,
       handler: _ZoteroTypes.Reader.ReaderEventHandler<
         _ZoteroTypes.Reader.ReaderEventMap[T],
+        _ZoteroTypes.Reader.ReaderAppendMap[T],
         T
       >,
       pluginID?: string
@@ -300,6 +328,7 @@ declare namespace _ZoteroTypes {
       type: T,
       handler: _ZoteroTypes.Reader.ReaderEventHandler<
         _ZoteroTypes.Reader.ReaderEventMap[T],
+        _ZoteroTypes.Reader.ReaderAppendMap[T],
         T
       >
     ): void;
