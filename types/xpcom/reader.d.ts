@@ -60,13 +60,16 @@ declare namespace _ZoteroTypes {
       type: EventType;
     }) => void | Promise<void>;
     type _EventKey = keyof _ZoteroTypes.Reader.ReaderEventMap; // internal type
-    type EventHandler<T extends _EventKey> = (event: {
-      reader: _ZoteroTypes.ReaderInstance;
+    type EventParams<T extends _EventKey> = {
+      reader: ReaderInstance;
       doc: Document;
       params: _ZoteroTypes.Reader.ReaderEventMap[T];
       append: _ZoteroTypes.Reader.ReaderAppendMap[T];
       type: T;
-    }) => void | Promise<void>;
+    };
+    type EventHandler<T extends _EventKey> = (
+      event: EventParams<T>
+    ) => void | Promise<void>;
 
     interface ReaderEventMap {
       renderTextSelectionPopup: {
