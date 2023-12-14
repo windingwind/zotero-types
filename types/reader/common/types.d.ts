@@ -90,8 +90,9 @@ declare namespace _ZoteroTypes {
       dateCreated: string;
       dateModified: string;
       readOnly?: boolean;
-      authorName: string;
-      isAuthorNameAuthoritative: boolean;
+      authorName?: string;
+      isAuthorNameAuthoritative?: boolean;
+      image?: string;
     }
 
     interface PDFAnnotation extends Annotation {
