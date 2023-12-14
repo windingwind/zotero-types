@@ -249,6 +249,7 @@ declare const Zotero: {
   File: _ZoteroTypes.File;
   Users: _ZoteroTypes.Users;
   Feeds: _ZoteroTypes.Feeds;
+  PreferencePanes: _ZoteroTypes.PreferencePanes;
   Prefs: _ZoteroTypes.Prefs;
   Items: _ZoteroTypes.Items;
   Notes: _ZoteroTypes.Notes;
