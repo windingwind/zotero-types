@@ -11,6 +11,7 @@
 /// <reference path="xpcom/notifier.d.ts" />
 /// <reference path="xpcom/users.d.ts" />
 /// <reference path="xpcom/prefs.d.ts" />
+/// <reference path="xpcom/preferencePanes.d.ts" />
 /// <reference path="xpcom/reader.d.ts" />
 /// <reference path="xpcom/uri.d.ts" />
 /// <reference path="xpcom/collectionTreeRow.d.ts" />
