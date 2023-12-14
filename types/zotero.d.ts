@@ -10,6 +10,7 @@
 /// <reference path="xpcom/file.d.ts" />
 /// <reference path="xpcom/notifier.d.ts" />
 /// <reference path="xpcom/users.d.ts" />
+/// <reference path="xpcom/plugins.d.ts" />
 /// <reference path="xpcom/prefs.d.ts" />
 /// <reference path="xpcom/preferencePanes.d.ts" />
 /// <reference path="xpcom/reader.d.ts" />
@@ -249,6 +250,7 @@ declare const Zotero: {
   File: _ZoteroTypes.File;
   Users: _ZoteroTypes.Users;
   Feeds: _ZoteroTypes.Feeds;
+  Plugins: _ZoteroTypes.Plugins;
   PreferencePanes: _ZoteroTypes.PreferencePanes;
   Prefs: _ZoteroTypes.Prefs;
   Items: _ZoteroTypes.Items;
