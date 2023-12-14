@@ -5,28 +5,21 @@ declare namespace _ZoteroTypes {
     resolveURI(id: string, uri: string | URL): Promise<string>;
     getName(id: string): Promise<string>;
     getIconURI(id: string, idealSize: number): Promise<string | null>;
-    addObserver(observer: _ZoteroTypes._PluginObserver): void;
-    removeObserver(observer: _ZoteroTypes._PluginObserver): void;
+    addObserver(observer: Plugins.observer): void;
+    removeObserver(observer: Plugins.observer): void;
   }
-}
 
-declare namespace _ZoteroTypes {
-  type _PluginObserver = {
-    install?(
+  namespace Plugins {
+    type _observerFunction = (
       params: { id: string; version: string; rootURI: string },
       reason: number
-    ): void;
-    startup?(
-      params: { id: string; version: string; rootURI: string },
-      reason: number
-    ): void;
-    shutdown?(
-      params: { id: string; version: string; rootURI: string },
-      reason: number
-    ): void;
-    uninstall?(
-      params: { id: string; version: string; rootURI: string },
-      reason: number
-    ): void;
-  };
+    ) => void;
+
+    type observer = {
+      install?: _observerFunction;
+      startup?: _observerFunction;
+      shutdown?: _observerFunction;
+      uninstall?: _observerFunction;
+    };
+  }
 }
