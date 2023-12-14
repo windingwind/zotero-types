@@ -44,6 +44,10 @@ declare namespace _ZoteroTypes {
       allowDuplicate?: boolean;
     }
 
+    /**
+     * @deprecated Use `EventHandler` instead.
+     * @see EventHandler
+     */
     type ReaderEventHandler<
       ParamsType = {},
       AppendType = () => void,
@@ -54,6 +58,14 @@ declare namespace _ZoteroTypes {
       params: ParamsType;
       append: AppendType;
       type: EventType;
+    }) => void | Promise<void>;
+    type _EventKey = keyof _ZoteroTypes.Reader.ReaderEventMap; // internal type
+    type EventHandler<T extends _EventKey> = (event: {
+      reader: _ZoteroTypes.ReaderInstance;
+      doc: Document;
+      params: _ZoteroTypes.Reader.ReaderEventMap[T];
+      append: _ZoteroTypes.Reader.ReaderAppendMap[T];
+      type: T;
     }) => void | Promise<void>;
 
     interface ReaderEventMap {
@@ -314,23 +326,15 @@ declare namespace _ZoteroTypes {
      * 	});
      * });
      */
-    registerEventListener<T extends keyof _ZoteroTypes.Reader.ReaderEventMap>(
+    registerEventListener<T extends Reader._EventKey>(
       type: T,
-      handler: _ZoteroTypes.Reader.ReaderEventHandler<
-        _ZoteroTypes.Reader.ReaderEventMap[T],
-        _ZoteroTypes.Reader.ReaderAppendMap[T],
-        T
-      >,
+      handler: Reader.EventHandler<T>,
       pluginID?: string
     ): void;
 
-    unregisterEventListener<T extends keyof _ZoteroTypes.Reader.ReaderEventMap>(
+    unregisterEventListener<T extends Reader._EventKey>(
       type: T,
-      handler: _ZoteroTypes.Reader.ReaderEventHandler<
-        _ZoteroTypes.Reader.ReaderEventMap[T],
-        _ZoteroTypes.Reader.ReaderAppendMap[T],
-        T
-      >
+      handler: Reader.EventHandler<T>
     ): void;
   }
 }
