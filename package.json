@@ -18,10 +18,10 @@
     "url": "git+https://github.com/windingwind/zotero-types.git"
   },
   "scripts": {
-    "release": "release-it",
-    "prepare": "husky install"
+    "release": "release-it --only-version --preReleaseId=beta",
+    "prepare": "husky install",
+    "lint": "prettier --write **/*.d.ts"
   },
-  "prettier": {},
   "devDependencies": {
     "husky": "^8.0.3",
     "lint-staged": "^13.3.0",
@@ -38,7 +38,32 @@
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
+  "prettier": {
+    "printWidth": 80,
+    "tabWidth": 2,
+    "endOfLine": "lf"
+  },
+  "release-it": {
+    "git": {
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": false
+    },
+    "github": {
+      "release": false,
+      "comments": {
+        "submit": true,
+        "issue": ":rocket: _This issue has been resolved in v${version}. See [${releaseName}](${releaseUrl}) for release notes._",
+        "pr": ":rocket: _This pull request is included in v${version}. See [${releaseName}](${releaseUrl}) for release notes._"
+      }
+    },
+    "hooks": {
+      "before:init": "npm run lint",
+      "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
+    }
+  },
   "lint-staged": {
-    "*.{d.ts}": "prettier --write ./**.d.ts"
+    "*.d.ts": "prettier --write **/*.d.ts"
   }
 }
