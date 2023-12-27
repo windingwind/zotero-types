@@ -430,16 +430,18 @@ declare namespace _ZoteroTypes {
     ): string;
 
     /**
-     * Find HTML elements by input xpath string.
+     * Evaluate an XPath
      *
-     * @param node, document or HTML elements
-     * @param xstring, xpath string
-     * @param namespaces
+     * @param {element|element[]} node The element(s) to use as the context for the XPath
+     * @param {String} xstring The XPath expression
+     * @param {Object} [namespaces] An object whose keys represent namespace prefixes, and whose
+     *                              values represent their URIs
+     * @return {element[]} DOM elements matching XPath
      */
     xpath(
       node: HTMLElement | Document,
       xstring: string,
-      namespaces: any
+      namespaces?: any
     ): HTMLElement[] | [];
 
     /**
@@ -447,16 +449,17 @@ declare namespace _ZoteroTypes {
      * When node is an array of element, the returned output is obtained by concatenating
      * the string of each element, and the default separator is ', '.
      *
-     * @param node, document or HTML elements
-     * @param xstring, xpath string
-     * @param namespaces
-     * @param delimiter,
+     * @param node The node representing the document and context
+     * @param xstring, xpath The XPath expression
+     * @param namespaces An object whose keys represent namespace prefixes, and whose values represent their URIs
+     * @param delimiter The string with which to join multiple matching nodes
+     * @returns DOM elements matching XPath, or null if no elements exist
      */
     xpathText(
       node: HTMLElement | Document,
       xstring: string,
-      namespaces: any,
-      delimiter: undefined | string
-    ): string;
+      namespaces?: any,
+      delimiter?: undefined | string
+    ): string | null;
   }
 }
