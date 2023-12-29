@@ -160,7 +160,7 @@ declare const Zotero: {
    * @param {String} uri
    * @param {Function} [onLoad] - Function to run once URI is loaded; passed the loaded document
    */
-  openInViewer(uri: string, onLoad: (doc: Document) => void): void;
+  openInViewer(uri: string, onLoad?: (doc: Document) => void): void;
 
   /**
    * Display an error message saying that an error has occurred and Zotero needs to be restarted.
