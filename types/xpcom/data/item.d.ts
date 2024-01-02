@@ -233,6 +233,11 @@ declare namespace Zotero {
       29: "castMember";
     };
 
+    /**
+     * Creator json for API
+     * When Creator.fieldMode == 1, CreatorJSON.name == string,
+     * else CreatosJSON.firstName and Creator.lastName == string
+     */
     interface CreatorJSON {
       creatorType: CreatorTypeMapping[keyof CreatorTypeMapping];
       firstName?: string;
@@ -241,9 +246,9 @@ declare namespace Zotero {
     }
     interface Creator {
       creatorTypeID: keyof CreatorTypeMapping;
-      fieldMode: number;
-      firstName?: string;
-      lastName?: string;
+      fieldMode: 0 | 1;
+      firstName: string;
+      lastName: string;
     }
   }
 
@@ -317,7 +322,7 @@ declare namespace Zotero {
       field: Item.ItemField | number,
       unformatted?: boolean,
       includeBaseMapped?: boolean
-    ): string | number | boolean;
+    ): string;
 
     getExtraField(fieldName: string): string;
 
