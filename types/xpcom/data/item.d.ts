@@ -200,14 +200,47 @@ declare namespace Zotero {
       | "websiteTitle"
       | "id"
       | "year";
+
+    type CreatorTypeMapping = {
+      1: "artist";
+      2: "contributor";
+      3: "performer";
+      4: "composer";
+      5: "wordsBy";
+      6: "sponsor";
+      7: "cosponsor";
+      8: "author";
+      9: "commenter";
+      10: "editor";
+      11: "translator";
+      12: "seriesEditor";
+      13: "bookAuthor";
+      14: "counsel";
+      15: "programmer";
+      16: "reviewedAuthor";
+      17: "recipient";
+      18: "director";
+      19: "scriptwriter";
+      20: "producer";
+      21: "interviewee";
+      22: "interviewer";
+      23: "cartographer";
+      24: "inventor";
+      25: "attorneyAgent";
+      26: "podcaster";
+      27: "guest";
+      28: "presenter";
+      29: "castMember";
+    };
+
     interface CreatorJSON {
-      creatorType: string;
+      creatorType: CreatorTypeMapping[keyof CreatorTypeMapping];
       firstName?: string;
       name?: string;
       lastName?: string;
     }
     interface Creator {
-      creatorTypeID: number;
+      creatorTypeID: keyof CreatorTypeMapping;
       fieldMode: number;
       firstName?: string;
       lastName?: string;
