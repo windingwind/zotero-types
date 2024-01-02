@@ -233,6 +233,9 @@ declare namespace Zotero {
       29: "castMember";
     };
 
+    type CreatorTypeID = keyof CreatorTypeMapping;
+    type CreatorType = CreatorTypeMapping[keyof CreatorTypeMapping];
+
     /**
      * Creator json for API
      * When Creator.fieldMode == 1, CreatorJSON.name == string,
