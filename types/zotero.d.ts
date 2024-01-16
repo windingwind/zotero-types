@@ -9,6 +9,7 @@
 /// <reference path="xpcom/itemTreeManager.d.ts" />
 /// <reference path="xpcom/file.d.ts" />
 /// <reference path="xpcom/http.d.ts" />
+/// <reference path="xpcom/server.d.ts" />
 /// <reference path="xpcom/notifier.d.ts" />
 /// <reference path="xpcom/users.d.ts" />
 /// <reference path="xpcom/plugins.d.ts" />
@@ -252,6 +253,7 @@ declare const Zotero: {
   HTTP: _ZoteroTypes.HTTP;
   Users: _ZoteroTypes.Users;
   Feeds: _ZoteroTypes.Feeds;
+  Server: _ZoteroTypes.Server;
   Plugins: _ZoteroTypes.Plugins;
   PreferencePanes: _ZoteroTypes.PreferencePanes;
   Prefs: _ZoteroTypes.Prefs;
