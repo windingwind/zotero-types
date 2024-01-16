@@ -37,11 +37,11 @@ declare namespace _ZoteroTypes {
      *
      * See connector/server_connector.js for examples
      */
-    Endpoints: Record<string, any>;
+    Endpoints: Record<string, typeof Server.Endpoint>;
   }
 
   namespace Server {
-    interface Endpoint {
+    class Endpoint {
       supportedMethods?: Array<"GET" | "POST">;
       supportedDataTypes?: Array<
         | "application/json"
@@ -51,7 +51,7 @@ declare namespace _ZoteroTypes {
       >;
       permitBookmarklet?: boolean;
 
-      init(
+      init?(
         data: string,
         sendResponseCallback: (
           code: number,
@@ -59,7 +59,7 @@ declare namespace _ZoteroTypes {
           body?: string
         ) => void
       ): void;
-      init(options: {
+      init?(options: {
         method: "GET" | "POST";
         pathname: string;
         query: Record<string, string>;
