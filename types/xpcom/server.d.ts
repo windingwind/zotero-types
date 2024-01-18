@@ -37,12 +37,12 @@ declare namespace _ZoteroTypes {
      *
      * See connector/server_connector.js for examples
      */
-    Endpoints: Record<string, new (...args: any[]) => Server.Endpoint>;
+    Endpoints: Record<string, typeof Server.Endpoint | Function>;
   }
 
   namespace Server {
     class Endpoint {
-      supportedMethods?: Array<"GET" | "POST">;
+      supportedMethods?: string[];
       supportedDataTypes?: Array<
         | "application/json"
         | "application/x-www-form-urlencoded"
@@ -51,29 +51,32 @@ declare namespace _ZoteroTypes {
       >;
       permitBookmarklet?: boolean;
 
-      init?(
-        data: string,
-        sendResponseCallback: (
+      init: initMethodCallback | initMethodAsync;
+    }
+
+    type initMethodAsync = (options: {
+      method: "GET" | "POST";
+      pathname: string;
+      query: Record<string, string>;
+      headers: Record<string, string>;
+      data: any;
+    }) => MaybePromise<
+      | number
+      | [
           code: number,
           contentTypeOrHeaders?: string | Record<string, string>,
           body?: string
-        ) => void
-      ): void;
-      init?(options: {
-        method: "GET" | "POST";
-        pathname: string;
-        query: Record<string, string>;
-        headers: Record<string, string>;
-        data: any;
-      }): MaybePromise<
-        | number
-        | [
-            code: number,
-            contentTypeOrHeaders?: string | Record<string, string>,
-            body?: string
-          ]
-      >;
-    }
+        ]
+    >;
+
+    type initMethodCallback = (
+      data: string,
+      sendResponseCallback: (
+        code: number,
+        contentTypeOrHeaders?: string | Record<string, string>,
+        body?: string
+      ) => void
+    ) => void;
 
     type MaybePromise<T> = T | Promise<T>;
     type MaybeArray<T> = T | Array<T>;
