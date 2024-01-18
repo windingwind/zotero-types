@@ -37,7 +37,7 @@ declare namespace _ZoteroTypes {
      *
      * See connector/server_connector.js for examples
      */
-    Endpoints: Record<string, typeof Server.Endpoint>;
+    Endpoints: Record<string, new (...args: any[]) => Server.Endpoint>;
   }
 
   namespace Server {
