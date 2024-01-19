@@ -51,10 +51,10 @@ declare namespace _ZoteroTypes {
       >;
       permitBookmarklet?: boolean;
 
-      init: initMethodCallback | initMethodAsync;
+      init: initMethodEvent | initMethodPromise;
     }
 
-    type initMethodAsync = (options: {
+    type initMethodPromise = (options: {
       method: "GET" | "POST";
       pathname: string;
       query: Record<string, string>;
@@ -69,7 +69,7 @@ declare namespace _ZoteroTypes {
         ]
     >;
 
-    type initMethodCallback = (
+    type initMethodEvent = (
       data: string,
       sendResponseCallback: (
         code: number,
