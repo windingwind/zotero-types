@@ -43,6 +43,8 @@ declare namespace _ZoteroTypes {
       wait: number,
       options?: { leading: boolean; trailing: boolean }
     ): Function;
+    
+    sentenceCase(str: string): string;
 
     /**
      * Fixes author name capitalization.
