@@ -160,9 +160,19 @@ declare const Zotero: {
    * Opens a URL in the basic viewer, and optionally run a callback on load
    *
    * @param {String} uri
-   * @param {Function} [onLoad] - Function to run once URI is loaded; passed the loaded document
+   * @param {Object} [options]
+   * @param {Function} [options.onLoad] - Function to run once URI is loaded; passed the loaded document
+   * @param {Object} [options.cookieSandbox] - Attach a cookie sandbox to the browser
+   * @param {Boolean} [options.allowJavaScript] - Set to false to disable JavaScript
    */
-  openInViewer(uri: string, onLoad?: (doc: Document) => void): void;
+  openInViewer(
+    uri: string,
+    options?: {
+      onLoad: (doc: Document) => void;
+      cookieSandbox: Zotero.CookieSandbox;
+      allowJavaScript: boolean;
+    }
+  ): void;
 
   /**
    * Display an error message saying that an error has occurred and Zotero needs to be restarted.
