@@ -23,13 +23,13 @@
     "lint": "prettier --write **/*.d.ts"
   },
   "devDependencies": {
-    "husky": "^8.0.3",
-    "lint-staged": "^13.3.0",
-    "prettier": "2.8.3",
-    "release-it": "^15.11.0"
+    "husky": "^9.0.6",
+    "lint-staged": "^15.2.0",
+    "prettier": "3.2.4",
+    "release-it": "^17.0.3"
   },
   "dependencies": {
-    "@types/bluebird": "^3.5.39",
+    "@types/bluebird": "^3.5.42",
     "@types/react": "17.0.2",
     "pdfjs-dist": "^3.11.174",
     "epubjs": "^0.3.93"
