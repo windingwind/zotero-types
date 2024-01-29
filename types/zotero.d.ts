@@ -168,9 +168,9 @@ declare const Zotero: {
   openInViewer(
     uri: string,
     options?: {
-      onLoad: (doc: Document) => void;
-      cookieSandbox: Zotero.CookieSandbox;
-      allowJavaScript: boolean;
+      onLoad?: (doc: Document) => void;
+      cookieSandbox?: Zotero.CookieSandbox;
+      allowJavaScript?: boolean;
     }
   ): void;
 
