@@ -218,10 +218,11 @@ declare namespace _ZoteroTypes {
       options?: { cookieSandbox?: object }
     ): Promise<boolean>;
 
-    InvalidPDFException: Error & {
+    InvalidPDFException: typeof Error & {
       message: "Downloaded PDF was not a PDF";
       stack: string;
     };
+
     canFindPDFForItem(item: Zotero.Item): boolean;
 
     /**
