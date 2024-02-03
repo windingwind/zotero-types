@@ -91,9 +91,9 @@ declare namespace _ZoteroTypes {
       /** Lifecycle hook called when section incoming data change received */
       onDataChange?: (options: SectionDataChangeHookArgs) => boolean;
       /** Lifecycle hook called when section should do primary render */
-      onRender: (options: SectionHookArgs) => void | Promise<void>;
+      onRender: (options: SectionHookArgs) => MaybePromise<void>;
       /** Lifecycle hook called when section should do secondary render */
-      onSecondaryRender?: (options: SectionHookArgs) => void | Promise<void>;
+      onSecondaryRender?: (options: SectionHookArgs) => MaybePromise<void>;
       /** Called when section is toggled */
       onToggle?: (options: SectionEventHookArgs) => void;
       /** Section button options */

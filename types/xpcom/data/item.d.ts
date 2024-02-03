@@ -201,6 +201,50 @@ declare namespace Zotero {
       | "id"
       | "year";
 
+    // [...new Set(Object.values(Zotero.ItemTypes._types).map(t => `${t.id}: "${t.name}"`))].join(';\n')
+    type ItemTypeMapping = {
+      1: "annotation";
+      2: "artwork";
+      3: "attachment";
+      4: "audioRecording";
+      5: "bill";
+      6: "blogPost";
+      7: "book";
+      8: "bookSection";
+      9: "case";
+      10: "computerProgram";
+      11: "conferencePaper";
+      12: "dictionaryEntry";
+      13: "document";
+      14: "email";
+      15: "encyclopediaArticle";
+      16: "film";
+      17: "forumPost";
+      18: "hearing";
+      19: "instantMessage";
+      20: "interview";
+      21: "journalArticle";
+      22: "letter";
+      23: "magazineArticle";
+      24: "manuscript";
+      25: "map";
+      26: "newspaperArticle";
+      27: "note";
+      28: "patent";
+      29: "podcast";
+      30: "preprint";
+      31: "presentation";
+      32: "radioBroadcast";
+      33: "report";
+      34: "statute";
+      35: "thesis";
+      36: "tvBroadcast";
+      37: "videoRecording";
+      38: "webpage";
+      39: "dataset";
+      40: "standard";
+    };
+
     type CreatorTypeMapping = {
       1: "artist";
       2: "contributor";
@@ -256,7 +300,11 @@ declare namespace Zotero {
   }
 
   interface Item extends Zotero.DataObject {
-    new (itemTypeOrID?: Item.ItemType | number): this;
+    new (
+      itemTypeOrID?:
+        | keyof Item.ItemTypeMapping
+        | Item.ItemTypeMapping[keyof Item.ItemTypeMapping]
+    ): this;
     _objectType: "item";
     readonly ContainerObjectsClass: typeof Zotero.Collection;
     id: number;

@@ -35,7 +35,7 @@ declare namespace _ZoteroTypes {
     getContentsFromURLAsync(url: string, options?: any): Promise<string>;
     getResource(url: string): string;
     getResourceAsync(url: string): Promise<string>;
-    putContents(file: typeof OS.File, str: string): void;
+    putContents(file: nsIFile, str: string): void;
     putContentsAsync: (
       path: string | nsIFile,
       data: string | nsIInputStream | ArrayBuffer,
