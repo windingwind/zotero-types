@@ -12,10 +12,13 @@ declare namespace _ZoteroTypes {
 }
 
 declare const Zotero_Tabs: {
-  selectedID: string;
-  selectedType: string;
-  selectedIndex: number;
-  deck: Element;
+  readonly selectedID: string;
+  readonly selectedType: string;
+  readonly selectedIndex: number;
+  readonly deck: XUL.Element;
+  readonly numTabs: number;
+  readonly tabsMenuList: XUL.Box;
+  readonly tabsMenuPanel: XUL.Element;
   _tabs: _ZoteroTypes.TabInstance[];
 
   _getTab(tabId: string): { tab: _ZoteroTypes.TabInstance; tabIndex: number };
