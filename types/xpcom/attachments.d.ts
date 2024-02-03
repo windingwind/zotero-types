@@ -32,6 +32,11 @@ declare namespace _ZoteroTypes {
   }
   interface Attachments {
     [key: string]: unknown;
+    LINK_MODE_IMPORTED_FILE: 0;
+    LINK_MODE_IMPORTED_URL: 1;
+    LINK_MODE_LINKED_FILE: 2;
+    LINK_MODE_LINKED_URL: 3;
+    LINK_MODE_EMBEDDED_IMAGE: 4;
     BASE_PATH_PLACEHOLDER: "attachments:";
 
     /**
