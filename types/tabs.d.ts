@@ -12,10 +12,14 @@ declare namespace _ZoteroTypes {
 }
 
 declare const Zotero_Tabs: {
-  selectedID: string;
-  selectedType: string;
-  selectedIndex: number;
-  deck: Element;
+  readonly selectedID: string;
+  readonly selectedType: string;
+  readonly selectedIndex: number;
+  readonly deck: XUL.Element;
+  readonly numTabs: number;
+  readonly tabsMenuList: XUL.Box;
+  readonly tabsMenuPanel: XUL.Element;
+  _tabsMenuFilter: string;
   _tabs: _ZoteroTypes.TabInstance[];
 
   _getTab(tabId: string): { tab: _ZoteroTypes.TabInstance; tabIndex: number };
@@ -50,4 +54,11 @@ declare const Zotero_Tabs: {
   _updateTabBar(): void;
   _showTabBar(): void;
   _hideTabBar(): void;
+
+  /**
+   * Create the list of opened tabs in tabs menu.
+   */
+  refreshTabsMenuList(): void;
+
+  isTabsMenuVisible(): boolean;
 };
