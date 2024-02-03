@@ -1,5 +1,7 @@
 declare namespace _ZoteroTypes {
   type anyObj = { [key: string]: any };
+  type MaybePromise<T> = T | Promise<T>;
+  type MaybeArray<T> = T | Array<T>;
   type ZoteroObjectURI = string;
   type RelationsPredicate = "dc:relation" | "owl:sameAs" | "dc:replaces";
   type ObjectRelations = Record<

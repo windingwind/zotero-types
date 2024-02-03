@@ -1,3 +1,5 @@
+/// <reference path="../../internal.d.ts" />
+
 declare namespace _ZoteroTypes {
   interface Server {
     responseCodes: {
@@ -77,8 +79,5 @@ declare namespace _ZoteroTypes {
         body?: string
       ) => void
     ) => void;
-
-    type MaybePromise<T> = T | Promise<T>;
-    type MaybeArray<T> = T | Array<T>;
   }
 }
