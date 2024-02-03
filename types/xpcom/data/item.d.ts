@@ -910,6 +910,7 @@ declare namespace Zotero {
      */
     setPublications(inPublications: boolean): void;
 
+    getItemTypeIconName(): Item.ItemType;
     getImageSrc(): _ZoteroTypes.IconURI;
 
     /**
