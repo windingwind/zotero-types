@@ -19,6 +19,7 @@ declare const Zotero_Tabs: {
   readonly numTabs: number;
   readonly tabsMenuList: XUL.Box;
   readonly tabsMenuPanel: XUL.Element;
+  _tabsMenuFilter: string;
   _tabs: _ZoteroTypes.TabInstance[];
 
   _getTab(tabId: string): { tab: _ZoteroTypes.TabInstance; tabIndex: number };
@@ -53,4 +54,11 @@ declare const Zotero_Tabs: {
   _updateTabBar(): void;
   _showTabBar(): void;
   _hideTabBar(): void;
+
+  /**
+   * Create the list of opened tabs in tabs menu.
+   */
+  refreshTabsMenuList(): void;
+
+  isTabsMenuVisible(): boolean;
 };
