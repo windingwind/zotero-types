@@ -35,7 +35,9 @@ declare namespace _ZoteroTypes {
       | "feedItem"
       | "sync"
       | "api-key"
-      | "tab";
+      | "tab"
+      | "itemtree"
+      | "itempane";
     type Notify = (
       event: Event,
       type: Type,
