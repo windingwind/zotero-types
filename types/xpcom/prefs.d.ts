@@ -18,11 +18,11 @@ declare namespace _ZoteroTypes {
      * @param {Boolean} [global]
      * @return {Symbol} - Symbol to pass to unregisterObserver()
      */
-    registerObserver(name: string, handler: Function, global?: boolean): Symbol;
+    registerObserver(name: string, handler: Function, global?: boolean): symbol;
 
     /**
      * @param {Symbol} symbol - Symbol returned from registerObserver()
      */
-    unregisterObserver(symbol: Symbol): void;
+    unregisterObserver(symbol: symbol): void;
   }
 }
