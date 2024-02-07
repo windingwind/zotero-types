@@ -672,4 +672,9 @@ declare interface Window {
   ): Window;
 }
 
+declare interface Document {
+  // @ts-ignore overwrite definition in gecko-types
+  createXULElement: XUL.XULDocument["createXULElement"];
+}
+
 declare class Localization {}
