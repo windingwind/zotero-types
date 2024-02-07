@@ -40,17 +40,17 @@ declare namespace _ZoteroTypes {
     getGroupsURL(): string;
     getGroupURI(group: Zotero.Collection): _ZoteroTypes.ZoteroObjectURI;
     _getObjectPath: (
-      obj: Zotero.Library | Zotero.Collection | Zotero.Item
+      obj: Zotero.Library | Zotero.Collection | Zotero.Item,
     ) => string;
     _getObjectURI: (
-      obj: Zotero.Library | Zotero.Collection | Zotero.Item
+      obj: Zotero.Library | Zotero.Collection | Zotero.Item,
     ) => _ZoteroTypes.ZoteroObjectURI;
     /**
      * Convert an item URI into an item
      */
     getURIItem(itemURI: _ZoteroTypes.ZoteroObjectURI): Promise<Zotero.Item>;
     getURIItemLibraryKey: (
-      itemURI: _ZoteroTypes.ZoteroObjectURI
+      itemURI: _ZoteroTypes.ZoteroObjectURI,
     ) => { libraryID: number; key?: string; objectType?: string } | false;
     /**
      * Convert an item URI into a libraryID and key from the database, without relying on global state
@@ -63,13 +63,13 @@ declare namespace _ZoteroTypes {
      * Convert a collection URI into a collection
      */
     getURICollection: (
-      collectionURI: _ZoteroTypes.ZoteroObjectURI
+      collectionURI: _ZoteroTypes.ZoteroObjectURI,
     ) => Promise<Zotero.Collection | false>;
     getURICollectionLibraryKey: (
-      collectionURI: _ZoteroTypes.ZoteroObjectURI
+      collectionURI: _ZoteroTypes.ZoteroObjectURI,
     ) => { libraryID: number; key?: string; objectType?: string } | false;
     getURICollectionID(
-      collectionURI: _ZoteroTypes.ZoteroObjectURI
+      collectionURI: _ZoteroTypes.ZoteroObjectURI,
     ): number | false;
     getURILibrary(libraryURI: _ZoteroTypes.ZoteroObjectURI): number | false;
     getURIFeed(feedURI: _ZoteroTypes.ZoteroObjectURI): Zotero.Library | false;
@@ -78,19 +78,19 @@ declare namespace _ZoteroTypes {
      */
     _getURIObject: (
       objectURI: _ZoteroTypes.ZoteroObjectURI,
-      type: string
+      type: string,
     ) => { libraryID: number; key?: string; objectType?: string } | false;
     /**
      * Convert an object URI into a Zotero.Library that the object is in
      */
     _getURIObjectLibrary(
-      objectURI: _ZoteroTypes.ZoteroObjectURI
+      objectURI: _ZoteroTypes.ZoteroObjectURI,
     ): Zotero.Library | false;
     /**
      * Convert an object URI into a libraryID from the database, without relying on global state
      */
     _getURIObjectLibraryID(
-      objectURI: _ZoteroTypes.ZoteroObjectURI
+      objectURI: _ZoteroTypes.ZoteroObjectURI,
     ): Promise<number | false>;
     /**
      * Convert an object URI into a libraryID and key from the database, without relying on global state
@@ -99,7 +99,7 @@ declare namespace _ZoteroTypes {
      */
     _getURIObjectLibraryKeyFromDB: (
       objectURI: _ZoteroTypes.ZoteroObjectURI,
-      type: string
+      type: string,
     ) => Promise<
       { libraryID: number; key?: string; objectType?: string } | false
     >;

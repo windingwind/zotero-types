@@ -26,7 +26,7 @@ declare namespace _ZoteroTypes {
     selectItem(itemID: number, inLibraryRoot?: boolean): undefined | boolean;
     selectItems: (
       itemIDs: Array<number>,
-      inLibraryRoot?: boolean
+      inLibraryRoot?: boolean,
     ) => undefined | boolean;
     copySelectedItemsToClipboard(asCitations: boolean): void;
     refreshFeed(): undefined | Promise<any>;
@@ -52,7 +52,7 @@ declare namespace _ZoteroTypes {
     createParentItemsFromSelected(): Promise<void | false>;
     addNoteFromAnnotationsForAttachment: (
       attachment: Zotero.Item,
-      opt?: { skipSelect?: boolean }
+      opt?: { skipSelect?: boolean },
     ) => Promise<Zotero.Item>;
     createStandaloneNoteFromAnnotationsFromSelected(): Promise<void>;
     createEmptyParent(item: Zotero.Item): Promise<void>;
@@ -71,20 +71,20 @@ declare namespace _ZoteroTypes {
     setItemPaneMessage(content: XUL.Element | string): void;
     addSelectedItemsToCollection: (
       collection: Zotero.Collection | null,
-      createNew?: boolean
+      createNew?: boolean,
     ) => Promise<void>;
     attachmentsWithExtractableAnnotations: (
-      item: Zotero.Item
+      item: Zotero.Item,
     ) => Array<Zotero.Item>;
     isAttachmentWithExtractableAnnotations(item: Zotero.Item): boolean;
     openNoteWindow(itemID: number, col?: number, parentKey?: string): void;
     viewPDF(
       itemID: number,
-      location: _ZoteroTypes.Reader.Location
+      location: _ZoteroTypes.Reader.Location,
     ): Promise<void>;
     showAttachmentInFilesystem: (
       itemID: number,
-      noLocateOnMissing?: boolean
+      noLocateOnMissing?: boolean,
     ) => Promise<void>;
     getSortField(): false | string;
     getSortDirection(): false | 1 | -1;
@@ -147,7 +147,7 @@ declare namespace _ZoteroTypes {
      */
     showSyncReminder: (
       reminderType: string,
-      options?: { learnMoreURL: string }
+      options?: { learnMoreURL: string },
     ) => void;
 
     /**
@@ -246,7 +246,7 @@ declare namespace _ZoteroTypes {
     showLinkedFileFoundAutomaticallyDialog: (
       item: Zotero.Item,
       path: string,
-      numOthers: number
+      numOthers: number,
     ) => "one" | "all" | "manual" | "cancel";
 
     /**
@@ -280,7 +280,7 @@ declare namespace _ZoteroTypes {
       popup?: boolean,
       parentKey?: string,
       text?: string,
-      citeURI?: string
+      citeURI?: string,
     ) => Promise<number>;
 
     /**
@@ -301,7 +301,7 @@ declare namespace _ZoteroTypes {
       doc: Document,
       itemType?: Zotero.Item.ItemType,
       saveSnapshot?: boolean,
-      row?: Zotero.Collection
+      row?: Zotero.Collection,
     ) => Promise<Zotero.Item> | false;
 
     /**
@@ -314,7 +314,7 @@ declare namespace _ZoteroTypes {
       url: string,
       itemType?: Zotero.Item.ItemType,
       saveSnapshot?: boolean,
-      row?: Zotero.Collection
+      row?: Zotero.Collection,
     ) => Promise<Zotero.Item> | false;
 
     /**

@@ -23,7 +23,7 @@ declare namespace _ZoteroTypes {
       "version",
       "storageVersion",
       "lastSync",
-      "archived"
+      "archived",
     ];
 
     // Select all columns in a unique manner, so we can JOIN tables with same column names (e.g. version)
@@ -85,7 +85,7 @@ declare namespace Zotero {
     getDataLoaded(objectType: _ZoteroTypes.ObjectType): boolean;
     setDataLoading(objectType: _ZoteroTypes.ObjectType): void;
     getDataLoadedPromise(
-      objectType: _ZoteroTypes.ObjectType
+      objectType: _ZoteroTypes.ObjectType,
     ): Promise<unknown> | null;
     setDataLoaded(objectType: _ZoteroTypes.ObjectType): void;
 

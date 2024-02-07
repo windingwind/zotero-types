@@ -53,7 +53,7 @@ declare const Zotero: {
     message: any,
     level?: number,
     maxDepth?: number,
-    stack?: number | boolean
+    stack?: number | boolean,
   ): void;
 
   /**
@@ -68,7 +68,7 @@ declare const Zotero: {
     sourceName?: string,
     sourceLine?: string | number,
     lineNumber?: number,
-    columnNumber?: number
+    columnNumber?: number,
   ): void;
 
   /**
@@ -171,7 +171,7 @@ declare const Zotero: {
       onLoad?: (doc: Document) => void;
       cookieSandbox?: Zotero.CookieSandbox;
       allowJavaScript?: boolean;
-    }
+    },
   ): void;
 
   /**
@@ -198,7 +198,7 @@ declare const Zotero: {
     obj: object,
     prop: string,
     desc: object,
-    opts?: { lazy: boolean }
+    opts?: { lazy: boolean },
   ): void;
   extendClass(superClass: object, newClass: object): void;
   randomString(len?: number, chars?: string): string;
@@ -226,7 +226,7 @@ declare const Zotero: {
   showZoteroPaneProgressMeter(
     msg: string,
     determinate?: boolean,
-    modalOnly?: boolean
+    modalOnly?: boolean,
   ): void;
 
   /**
@@ -304,7 +304,7 @@ declare const Zotero: {
   Locale: {
     readonly availableLocales: _ZoteroTypes.AvailableLocales;
     defaultScriptDirection(
-      locale: _ZoteroTypes.AvailableLocales
+      locale: _ZoteroTypes.AvailableLocales,
     ): "ltr" | "rtl";
   };
 };

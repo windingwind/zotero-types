@@ -51,7 +51,7 @@ declare namespace _ZoteroTypes {
     type ReaderEventHandler<
       ParamsType = {},
       AppendType = () => void,
-      EventType = ""
+      EventType = "",
     > = (event: {
       reader: _ZoteroTypes.ReaderInstance;
       doc: Document;
@@ -68,7 +68,7 @@ declare namespace _ZoteroTypes {
       type: T;
     };
     type EventHandler<T extends _EventKey> = (
-      event: EventParams<T>
+      event: EventParams<T>,
     ) => void | Promise<void>;
 
     interface ReaderEventMap {
@@ -146,7 +146,7 @@ declare namespace _ZoteroTypes {
     getSecondViewState(): Reader.SecondViewState | undefined;
     migrateMendeleyColors(
       libraryID: number,
-      annotations: Array<{ id: string; color: string }>
+      annotations: Array<{ id: string; color: string }>,
     ): Promise<boolean>;
     open(options: {
       itemID: number;
@@ -189,7 +189,7 @@ declare namespace _ZoteroTypes {
         | "rotateRight"
         | "rotate180"
         | "splitVertically"
-        | "splitHorizontally"
+        | "splitHorizontally",
     ): Promise<void>;
     _initIframeWindow(): boolean;
     _setState(state: Reader.State): Promise<void>;
@@ -209,7 +209,7 @@ declare namespace _ZoteroTypes {
     _postMessage(
       message: object,
       transfer?: unknown[],
-      secondView?: boolean
+      secondView?: boolean,
     ): Promise<void>;
     _handleMessage(event: MessageEvent): Promise<void>;
     _updateSecondViewState(): void;
@@ -283,12 +283,12 @@ declare namespace _ZoteroTypes {
     openURI: (
       itemURI: _ZoteroTypes.ZoteroObjectURI,
       location?: _ZoteroTypes.Reader.Location,
-      options?: Reader.OpenOptions
+      options?: Reader.OpenOptions,
     ) => Promise<void | ReaderInstance>;
     open: (
       itemID: number,
       location?: _ZoteroTypes.Reader.Location,
-      options?: Reader.OpenOptions
+      options?: Reader.OpenOptions,
     ) => Promise<void | ReaderInstance>;
 
     /**
@@ -332,12 +332,12 @@ declare namespace _ZoteroTypes {
     registerEventListener<T extends Reader._EventKey>(
       type: T,
       handler: Reader.EventHandler<T>,
-      pluginID?: string
+      pluginID?: string,
     ): void;
 
     unregisterEventListener<T extends Reader._EventKey>(
       type: T,
-      handler: Reader.EventHandler<T>
+      handler: Reader.EventHandler<T>,
     ): void;
   }
 }

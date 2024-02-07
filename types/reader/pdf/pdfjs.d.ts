@@ -81,7 +81,7 @@ declare namespace _ZoteroTypes {
         initialDest,
       }: anyObj): void;
       _initializeAnnotationStorageCallbacks(
-        pdfDocument: PDFDocumentProxy
+        pdfDocument: PDFDocumentProxy,
       ): void;
       _cleanup(): void;
       forceRendering(): void;

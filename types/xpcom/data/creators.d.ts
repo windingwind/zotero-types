@@ -24,12 +24,12 @@ declare namespace _ZoteroTypes {
      */
     getIDFromData(
       data: Zotero.Item.CreatorJSON,
-      create?: boolean
+      create?: boolean,
     ): Promise<number | null>;
 
     updateCreator(
       creatorID: number,
-      creatorData: Zotero.Item.Creator
+      creatorData: Zotero.Item.Creator,
     ): Promise<unknown>;
 
     /**
@@ -42,7 +42,7 @@ declare namespace _ZoteroTypes {
     equals(data1: Zotero.Item.Creator, data2: Zotero.Item.Creator): boolean;
     cleanData(
       data: Zotero.Item.Creator,
-      options?: { strict: boolean }
+      options?: { strict: boolean },
     ): Zotero.Item.Creator;
     internalToJSON(fields: Zotero.Item.Creator): Zotero.Item.CreatorJSON;
   }

@@ -67,7 +67,7 @@ declare namespace _ZoteroTypes {
       | [
           code: number,
           contentTypeOrHeaders?: string | Record<string, string>,
-          body?: string
+          body?: string,
         ]
     >;
 
@@ -76,8 +76,8 @@ declare namespace _ZoteroTypes {
       sendResponseCallback: (
         code: number,
         contentTypeOrHeaders?: string | Record<string, string>,
-        body?: string
-      ) => void
+        body?: string,
+      ) => void,
     ) => void;
   }
 }

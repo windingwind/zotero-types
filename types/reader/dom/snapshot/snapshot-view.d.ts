@@ -21,12 +21,12 @@ declare namespace _ZoteroTypes {
       protected _getSrcDoc(): string;
       getData(): { srcDoc: string; baseURI?: string };
       protected _onInitialDisplay(
-        viewState: Partial<Readonly<SnapshotViewState>>
+        viewState: Partial<Readonly<SnapshotViewState>>,
       ): void;
       protected _getAnnotationFromRange(
         range: Range,
         type: AnnotationType,
-        color?: string
+        color?: string,
       ): NewAnnotation<WADMAnnotation> | null;
       private _getSortIndex(range: Range): string;
       toSelector(range: Range): Selector | null;
@@ -43,7 +43,7 @@ declare namespace _ZoteroTypes {
       _pushCurrentLocationToNavStack(): void;
       protected _navigateToSelector(
         selector: Selector,
-        options?: NavigateOptions
+        options?: NavigateOptions,
       ): void;
       protected override _updateViewState(): void;
       protected override _updateViewStats(): void;

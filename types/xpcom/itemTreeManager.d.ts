@@ -51,7 +51,7 @@ declare namespace _ZoteroTypes {
       renderCell?: (
         index: number,
         data: string,
-        column: ItemTreeColumnOptions & { className: string }
+        column: ItemTreeColumnOptions & { className: string },
       ) => HTMLElement;
       zoteroPersist?: string[];
     }
@@ -162,10 +162,10 @@ declare namespace _ZoteroTypes {
      * ```
      */
     registerColumns(
-      options: ItemTreeManager.ItemTreeCustomColumnOptions
+      options: ItemTreeManager.ItemTreeCustomColumnOptions,
     ): Promise<string | false>;
     registerColumns(
-      options: ItemTreeManager.ItemTreeCustomColumnOptions[]
+      options: ItemTreeManager.ItemTreeCustomColumnOptions[],
     ): Promise<string[] | false>;
 
     /**
@@ -176,10 +176,10 @@ declare namespace _ZoteroTypes {
      * @returns {string | string[] | false} - The dataKey(s) of the added column(s) or false if no columns were added
      */
     _addColumns(
-      options: ItemTreeManager.ItemTreeCustomColumnOptions
+      options: ItemTreeManager.ItemTreeCustomColumnOptions,
     ): string | false;
     _addColumns(
-      options: ItemTreeManager.ItemTreeCustomColumnOptions[]
+      options: ItemTreeManager.ItemTreeCustomColumnOptions[],
     ): string[] | false;
 
     /**
@@ -202,7 +202,7 @@ declare namespace _ZoteroTypes {
      */
     getColumn(
       filterTreeIDs?: string | string[],
-      options?: ItemTreeManager.ItemTreeCustomColumnFilters
+      options?: ItemTreeManager.ItemTreeCustomColumnFilters,
     ): ItemTreeManager.ItemTreeCustomColumnOptions[];
 
     /**
@@ -227,7 +227,7 @@ declare namespace _ZoteroTypes {
      * @returns {boolean} true if the options are valid
      */
     _validateColumnOption(
-      options: ItemTreeManager.ItemTreeCustomColumnOptions[]
+      options: ItemTreeManager.ItemTreeCustomColumnOptions[],
     ): boolean;
 
     /**
@@ -238,10 +238,10 @@ declare namespace _ZoteroTypes {
      * @returns {string | string[] | false} - The dataKey(s) of the added column(s) or false if no columns were added
      */
     _addColumns(
-      options: ItemTreeManager.ItemTreeCustomColumnOptions
+      options: ItemTreeManager.ItemTreeCustomColumnOptions,
     ): string | false;
     _addColumns(
-      options: ItemTreeManager.ItemTreeCustomColumnOptions[]
+      options: ItemTreeManager.ItemTreeCustomColumnOptions[],
     ): string[] | false;
 
     /**
@@ -257,7 +257,7 @@ declare namespace _ZoteroTypes {
      * @returns {string}
      */
     _namespacedDataKey(
-      options: ItemTreeManager.ItemTreeCustomColumnOptions
+      options: ItemTreeManager.ItemTreeCustomColumnOptions,
     ): string;
 
     /**

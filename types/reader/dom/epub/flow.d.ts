@@ -16,7 +16,7 @@ declare namespace _ZoteroTypes {
       readonly visibleViews: SectionView[];
       scrollIntoView(
         target: Range | HTMLElement,
-        options?: CustomScrollIntoViewOptions
+        options?: CustomScrollIntoViewOptions,
       ): void;
       canNavigateToPreviousPage(): boolean;
       canNavigateToNextPage(): boolean;
@@ -65,7 +65,7 @@ declare namespace _ZoteroTypes {
 
       abstract scrollIntoView(
         target: Range | HTMLElement,
-        options?: CustomScrollIntoViewOptions
+        options?: CustomScrollIntoViewOptions,
       ): void;
       abstract canNavigateToNextPage(): boolean;
       abstract canNavigateToPreviousPage(): boolean;
@@ -83,7 +83,7 @@ declare namespace _ZoteroTypes {
       static readonly SCROLL_PADDING_UNSCALED = 35;
       scrollIntoView(
         target: Range | HTMLElement,
-        options?: CustomScrollIntoViewOptions
+        options?: CustomScrollIntoViewOptions,
       ): void;
       readonly scrollPadding: number;
       canNavigateToPreviousPage(): boolean;

@@ -40,7 +40,7 @@ declare namespace Zotero {
       x: number,
       y: number,
       pos: any,
-      itemGroups: any
+      itemGroups: any,
     ) => Promise<void>;
     _getSpellChecker(): any;
     _ensureNoteCreated(): Promise<void>;
@@ -52,12 +52,12 @@ declare namespace Zotero {
       nodeID: number,
       citationData: any,
       filterLibraryIDs: any,
-      openedEmpty: any
+      openedEmpty: any,
     ) => Promise<void>;
     getItemFromURIs(uris: string[]): Promise<Zotero.Item>;
     createNoteFromAnnotations: (
       annotations: Zotero.Item[],
-      parentID: number
+      parentID: number,
     ) => Promise<Zotero.Item>;
     _iframeWindow: Window;
     _item: Zotero.Item;
@@ -82,7 +82,7 @@ declare namespace _ZoteroTypes {
   interface EditorInstanceUtilities {
     serializeAnnotations: (
       annotations: object[],
-      skipEmbeddingItemData?: boolean
+      skipEmbeddingItemData?: boolean,
     ) => { html: string; citationItems: Zotero.Item[] };
     _transformTextToHTML(text: string): string;
     _formatCitationItemPreview(citationItem: Zotero.Item): string;
