@@ -50,13 +50,18 @@ declare namespace _ZoteroTypes {
         size: number;
       };
     }
+    interface ViewTypeMap {
+      pdf: PDFView;
+      epub: EPUBView;
+      snapshot: SnapshotView;
+    }
 
-    interface InternalReader {
-      _type: "pdf" | "epub" | "snapshot";
+    interface InternalReader<T extends keyof ViewTypeMap> {
+      _type: T;
       _platform: "zotero";
       _readerRef: React.RefObject<anyObj>;
-      _primaryView: PDFView | EPUBView | SnapshotView;
-      _secondaryView?: PDFView | EPUBView | SnapshotView;
+      _primaryView: ViewTypeMap[T];
+      _secondaryView?: ViewTypeMap[T];
       _lastViewPrimary: boolean;
       _splitViewContainer: HTMLDivElement;
       _primaryViewContainer: HTMLDivElement;
@@ -101,7 +106,7 @@ declare namespace _ZoteroTypes {
       _keyboardManager: anyObj;
       _annotationManager: AnnotationManager;
 
-      readonly _lastView: PDFView | EPUBView | SnapshotView;
+      readonly _lastView: ViewTypeMap[T];
       readonly splitType: "horizontal" | "vertical" | null;
       readonly toolType: keyof InternalReaderTools;
       readonly zoomAutoEnabled: boolean;
