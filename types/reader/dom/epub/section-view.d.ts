@@ -22,7 +22,7 @@ declare namespace _ZoteroTypes {
       render(requestFn: Function): Promise<void>;
       getFirstVisibleRange(
         isHorizontal: boolean,
-        textNodesOnly: boolean
+        textNodesOnly: boolean,
       ): Range | null;
       get searchContext(): SearchContext;
     }

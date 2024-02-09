@@ -7,7 +7,7 @@ declare namespace Zotero {
       type: CollectionTreeRow.Type,
       ref: unknown,
       level: number,
-      isOpen: boolean
+      isOpen: boolean,
     ): this;
     view: _ZoteroTypes.CollectionTree;
     type: CollectionTreeRow.Type;
@@ -56,7 +56,7 @@ declare namespace Zotero {
      */
     getTags(
       types: number[],
-      tagIDs: number[]
+      tagIDs: number[],
     ): Promise<_ZoteroTypes.Tags.TagJson[]>;
 
     searchText?: string;

@@ -54,10 +54,10 @@ declare namespace _ZoteroTypes {
       protected _getSrcDoc(): "<!DOCTYPE html><html><body></body></html>";
       getData(): { book: ePubJS.Book };
       protected _onInitialDisplay(
-        viewState: Partial<Readonly<EPUBViewState>>
+        viewState: Partial<Readonly<EPUBViewState>>,
       ): Promise<void>;
       private _initPageMapping(
-        viewState: Partial<Readonly<EPUBViewState>>
+        viewState: Partial<Readonly<EPUBViewState>>,
       ): Promise<void>;
       private _initOutline(): void;
       getCFI(rangeOrNode: Range | Node): ePubJS.EpubCFI | null;
@@ -68,12 +68,12 @@ declare namespace _ZoteroTypes {
       private _pushCurrentLocationToNavStack(): void;
       protected _navigateToSelector(
         selector: Selector,
-        options?: NavigateOptions
+        options?: NavigateOptions,
       ): void;
       protected _getAnnotationFromRange(
         range: Range,
         type: AnnotationType,
-        color?: string
+        color?: string,
       ): NewAnnotation<WADMAnnotation> | null;
 
       // ***

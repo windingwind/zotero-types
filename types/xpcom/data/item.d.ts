@@ -303,7 +303,7 @@ declare namespace Zotero {
     new (
       itemTypeOrID?:
         | keyof Item.ItemTypeMapping
-        | Item.ItemTypeMapping[keyof Item.ItemTypeMapping]
+        | Item.ItemTypeMapping[keyof Item.ItemTypeMapping],
     ): this;
     _objectType: "item";
     readonly ContainerObjectsClass: typeof Zotero.Collection;
@@ -372,7 +372,7 @@ declare namespace Zotero {
     getField(
       field: Item.ItemField | number,
       unformatted?: boolean,
-      includeBaseMapped?: boolean
+      includeBaseMapped?: boolean,
     ): string;
 
     getExtraField(fieldName: string): string;
@@ -389,7 +389,7 @@ declare namespace Zotero {
      */
     loadFromRow(
       row: { [col in Item.PrimaryField]?: unknown },
-      reload?: boolean
+      reload?: boolean,
     ): void;
 
     /*
@@ -405,7 +405,7 @@ declare namespace Zotero {
      */
     getFieldsNotInType(
       itemTypeID: number,
-      allowBaseConversion?: boolean
+      allowBaseConversion?: boolean,
     ): number[];
 
     /*
@@ -416,7 +416,7 @@ declare namespace Zotero {
     setField(
       field: Item.ItemField | number,
       value: string | number | boolean,
-      loadIn?: boolean
+      loadIn?: boolean,
     ): void;
 
     /*
@@ -481,7 +481,7 @@ declare namespace Zotero {
     setCreator(
       orderIndex: number,
       data: Item.CreatorJSON | Item.Creator,
-      options?: { strict: boolean }
+      options?: { strict: boolean },
     ): boolean;
 
     /**
@@ -489,7 +489,7 @@ declare namespace Zotero {
      */
     setCreators(
       data: Array<Item.CreatorJSON | Item.Creator>,
-      options?: { strict: boolean }
+      options?: { strict: boolean },
     ): void;
 
     /*
@@ -619,7 +619,7 @@ declare namespace Zotero {
     renameAttachmentFile(
       newName: string,
       overwrite?: boolean,
-      unique?: boolean
+      unique?: boolean,
     ): Promise<boolean | -1 | -2>;
 
     /**
@@ -631,7 +631,7 @@ declare namespace Zotero {
      */
     relinkAttachmentFile(
       path: string,
-      skipItemUpdate?: boolean
+      skipItemUpdate?: boolean,
     ): Promise<boolean>;
 
     deleteAttachmentFile(): Promise<boolean>;
@@ -789,7 +789,7 @@ declare namespace Zotero {
        * Include trashed items.
        * @default true
        */
-      includeTrashed?: boolean
+      includeTrashed?: boolean,
     ): Zotero.Item[];
 
     annotationType: _ZoteroTypes.Annotations.AnnotationType;
@@ -975,7 +975,7 @@ declare namespace Zotero {
      */
     multiDiff(
       otherItems: Zotero.Item[],
-      ignoreFields?: string[]
+      ignoreFields?: string[],
     ):
       | false
       | {
@@ -994,7 +994,7 @@ declare namespace Zotero {
      */
     clone(
       libraryID: number,
-      options?: { skipTags?: boolean; includeCollections?: boolean }
+      options?: { skipTags?: boolean; includeCollections?: boolean },
     ): Zotero.Item;
 
     /**
@@ -1003,7 +1003,7 @@ declare namespace Zotero {
      */
     moveToLibrary(
       libraryID: number,
-      onSkippedAttachment?: boolean
+      onSkippedAttachment?: boolean,
     ): Promise<Zotero.Item>;
 
     isCollection(): false;
@@ -1033,7 +1033,7 @@ declare namespace Zotero {
      */
     getLinkedItem(
       libraryID: number,
-      bidirectional?: boolean
+      bidirectional?: boolean,
     ): Promise<Zotero.Item | false>;
 
     /**
@@ -1052,7 +1052,7 @@ declare namespace Zotero {
      */
     updateCreatedByUser(
       createdByUserID: number,
-      lastModifiedByUserID: number
+      lastModifiedByUserID: number,
     ): Promise<void>;
   }
 }

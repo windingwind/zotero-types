@@ -73,13 +73,13 @@ declare namespace _ZoteroTypes {
       libraryID: number,
       onlyTopLevel?: boolean,
       includeDeleted?: boolean,
-      asIDs?: false
+      asIDs?: false,
     ): Promise<Zotero.Item[]>;
     getAll(
       libraryID: number,
       onlyTopLevel: boolean,
       includeDeleted: boolean,
-      asIDs: true
+      asIDs: true,
     ): Promise<number[]>;
 
     /**
@@ -110,7 +110,7 @@ declare namespace _ZoteroTypes {
     moveChildItems(
       fromItem: Zotero.Item,
       toItem: Zotero.Item,
-      includeTrashed?: boolean
+      includeTrashed?: boolean,
     ): Promise<void>;
 
     merge(item: Zotero.Item, otherItems: Zotero.Item[]): Promise<any>;
@@ -125,7 +125,7 @@ declare namespace _ZoteroTypes {
      */
     _hashItem(
       item: Zotero.Item,
-      hashType: "bytes" | "text"
+      hashType: "bytes" | "text",
     ): Promise<Map<string, string>>;
 
     /**
@@ -154,7 +154,7 @@ declare namespace _ZoteroTypes {
      */
     _moveEmbeddedNote(
       fromItem: Zotero.Item,
-      toItem: Zotero.Item
+      toItem: Zotero.Item,
     ): Promise<void>;
 
     /**
@@ -184,7 +184,7 @@ declare namespace _ZoteroTypes {
         onProgress?: (progress: number, progressMax: number) => void;
         days?: number;
         limit?: number;
-      }
+      },
     ): Promise<number>;
 
     addToPublications(items: Zotero.Item[], options?: object): Promise<void>;
@@ -202,7 +202,7 @@ declare namespace _ZoteroTypes {
      */
     getFirstCreatorFromData(
       itemTypeID: number,
-      creatorsData: Zotero.Item.Creator[]
+      creatorsData: Zotero.Item.Creator[],
     ): string;
 
     /**
@@ -234,7 +234,7 @@ declare namespace _ZoteroTypes {
      */
     findMissingLinkedFiles(
       libraryID: number,
-      pathPrefix: string
+      pathPrefix: string,
     ): Promise<Zotero.Item[]>;
   }
 }

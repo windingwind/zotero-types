@@ -10,7 +10,7 @@ declare namespace _ZoteroTypes {
     new (ref: Zotero.DataObject, level: number, isOpen: boolean): this;
     getField(
       field: Zotero.Item.ItemField | number,
-      unformatted?: boolean
+      unformatted?: boolean,
     ): string;
     numNotes(): number;
   }

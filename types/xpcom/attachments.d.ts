@@ -56,7 +56,7 @@ declare namespace _ZoteroTypes {
       options: Attachments.OptionsFromFile & {
         libraryID?: number;
         fileBaseName?: string;
-      }
+      },
     ): Promise<Zotero.Item>;
 
     /**
@@ -81,7 +81,7 @@ declare namespace _ZoteroTypes {
      * @return {Promise<Zotero.Item>}
      */
     linkFromFileWithRelativePath(
-      options: Attachments.OptionsFromFile
+      options: Attachments.OptionsFromFile,
     ): Promise<Zotero.Item>;
 
     /**
@@ -208,7 +208,7 @@ declare namespace _ZoteroTypes {
     downloadFile(
       url: string,
       path: string,
-      options?: { cookieSandbox?: object; referrer?: string }
+      options?: { cookieSandbox?: object; referrer?: string },
     ): Promise<boolean>;
 
     /**
@@ -220,7 +220,7 @@ declare namespace _ZoteroTypes {
     downloadPDFViaBrowser(
       url: string,
       path: string,
-      options?: { cookieSandbox?: object }
+      options?: { cookieSandbox?: object },
     ): Promise<boolean>;
 
     InvalidPDFException: typeof Error & {
@@ -241,7 +241,7 @@ declare namespace _ZoteroTypes {
     getPDFResolvers(
       item: Zotero.Item,
       methods?: Attachments.AccessMethod[],
-      automatic?: boolean
+      automatic?: boolean,
     ): Attachments.UrlResolver[];
 
     /**
@@ -259,7 +259,7 @@ declare namespace _ZoteroTypes {
       options?: {
         methods?: Attachments.AccessMethod;
         sameDomainRequestDelay?: number;
-      }
+      },
     ): Promise<void>;
 
     /**
@@ -272,7 +272,7 @@ declare namespace _ZoteroTypes {
      */
     addAvailablePDF(
       item: Zotero.Item,
-      options?: { methods: Attachments.AccessMethod }
+      options?: { methods: Attachments.AccessMethod },
     ): Promise<Zotero.Item | false>;
 
     /**
@@ -288,7 +288,7 @@ declare namespace _ZoteroTypes {
     addPDFFromURLs(
       item: Zotero.Item,
       urlResolvers: Attachments.UrlResolver[],
-      options?: { onAccessMethodStart: Function }
+      options?: { onAccessMethodStart: Function },
     ): Promise<Zotero.Item | false>;
 
     /**
@@ -322,7 +322,7 @@ declare namespace _ZoteroTypes {
         onBeforeRequest: Function;
         onAfterRequest: Function;
         onRequestError: Function;
-      }
+      },
     ): Promise<false | { url: string; props: unknown }>;
 
     /**
@@ -350,7 +350,7 @@ declare namespace _ZoteroTypes {
     getRenamedFileTypes(): string[];
     getRenamedFileBaseNameIfAllowedType(
       parentItem: Zotero.Item,
-      file: string
+      file: string,
     ): Promise<string>;
 
     /**
@@ -407,7 +407,7 @@ declare namespace _ZoteroTypes {
     moveAttachmentToLibrary(
       attachment: Zotero.Item,
       libraryID: number,
-      parentItemID?: number
+      parentItemID?: number,
     ): Promise<number>;
 
     /**
@@ -418,12 +418,12 @@ declare namespace _ZoteroTypes {
     copyAttachmentToLibrary(
       attachment: Zotero.Item,
       libraryID: number,
-      parentItemID?: number
+      parentItemID?: number,
     ): Promise<Zotero.Item>;
 
     convertLinkedFileToStoredFile(
       item: Zotero.Item,
-      options?: { move: boolean }
+      options?: { move: boolean },
     ): Promise<Zotero.Item>;
     _getFileNameFromURL(url: string, contentType: string): string;
     _getExtensionFromURL(url: string, contentType: string): string;

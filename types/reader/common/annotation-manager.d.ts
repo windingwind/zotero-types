@@ -38,7 +38,7 @@ declare namespace _ZoteroTypes {
       unsetAnnotations(ids: string[]): void;
 
       addAnnotation(
-        annotation: Partial<Annotation> & { color: string; sortIndex: string }
+        annotation: Partial<Annotation> & { color: string; sortIndex: string },
       ): Required<Annotation> | null;
       updateAnnotations(annotations: Annotation[]): void;
       deleteAnnotations(ids: string[]): void;

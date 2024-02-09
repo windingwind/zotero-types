@@ -14,7 +14,7 @@ declare namespace Zotero {
       browser: unknown,
       uri: string | URL,
       cookieData: string,
-      userAgent: string
+      userAgent: string,
     ): this;
 
     /**

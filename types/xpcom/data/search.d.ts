@@ -34,13 +34,13 @@ declare namespace Zotero {
       condition: Search.Conditions,
       operator: Search.Operator,
       value: string,
-      required?: boolean
+      required?: boolean,
     ): number;
     addCondition(
       condition: string,
       operator: Search.Operator,
       value?: string,
-      required?: boolean
+      required?: boolean,
     ): number;
 
     /**
@@ -61,7 +61,7 @@ declare namespace Zotero {
       condition: string,
       operator: string,
       value: string,
-      required: boolean
+      required: boolean,
     ): void;
 
     removeCondition(searchConditionID: number): void;

@@ -4,7 +4,7 @@
 declare namespace _ZoteroTypes {
   interface ItemPaneManager {
     registerSections(
-      options: MaybeArray<ItemPaneManager.ItemDetailsSectionOptions>
+      options: MaybeArray<ItemPaneManager.ItemDetailsSectionOptions>,
     ): void;
   }
   namespace ItemPaneManager {

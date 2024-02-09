@@ -29,7 +29,7 @@ declare namespace _ZoteroTypes {
        */
       md5Async(
         file: typeof OS.File | nsIFile | string,
-        base64?: boolean
+        base64?: boolean,
       ): Promise<string>;
 
       /**
@@ -129,7 +129,7 @@ declare namespace _ZoteroTypes {
           updateHTMLInXUL?: unknown;
           shiftKey?: boolean;
           callback?: Function;
-        }
+        },
       ): void;
 
       /**
@@ -151,7 +151,7 @@ declare namespace _ZoteroTypes {
       itemToExportFormat(
         zoteroItem: Zotero.Item,
         legacy?: boolean,
-        skipChildItems?: boolean
+        skipChildItems?: boolean,
       ): _ZoteroTypes.anyObj;
 
       /**
@@ -173,7 +173,7 @@ declare namespace _ZoteroTypes {
       extractExtraFields(
         extra: string,
         item?: Zotero.Item,
-        additionalFields?: string[]
+        additionalFields?: string[],
       ): {
         itemType?: Zotero.Item.ItemType;
         fields: Map<keyof Zotero.Item.ItemField, unknown>;
@@ -188,7 +188,7 @@ declare namespace _ZoteroTypes {
        */
       combineExtraFields(
         extra: string,
-        fieldMap: Map<keyof Zotero.Item.ItemField, unknown>
+        fieldMap: Map<keyof Zotero.Item.ItemField, unknown>,
       ): string;
 
       _normalizeExtraKey(key: string): string;
@@ -206,7 +206,7 @@ declare namespace _ZoteroTypes {
        */
       getOpenAccessPDFURLs(
         doi: string,
-        options?: { timeout: number }
+        options?: { timeout: number },
       ): Array<{
         url?: string;
         pageURL?: string;
@@ -245,7 +245,7 @@ declare namespace _ZoteroTypes {
 
       resolveLocale(
         locale: _ZoteroTypes.AvailableLocales,
-        locales: _ZoteroTypes.AvailableLocales[]
+        locales: _ZoteroTypes.AvailableLocales[],
       ): _ZoteroTypes.AvailableLocales;
 
       /**
@@ -260,7 +260,7 @@ declare namespace _ZoteroTypes {
       getNextName(
         name: string,
         existingNames: string[],
-        trim?: boolean
+        trim?: boolean,
       ): string;
 
       /**
@@ -282,7 +282,7 @@ declare namespace _ZoteroTypes {
         elem: XUL.MenuPopup,
         currentTarget: Zotero.Library | Zotero.Collection,
         clickAction: Function,
-        disabledPred?: Function
+        disabledPred?: Function,
       ): XUL.MenuItem | XUL.Menu;
 
       openPreferences(paneID: string, options?: object): Window | null;
@@ -314,7 +314,7 @@ declare namespace _ZoteroTypes {
         obj: object,
         prop: string,
         desc: object,
-        opts?: { lazy: boolean }
+        opts?: { lazy: boolean },
       ): void;
 
       extendClass(superClass: object, newClass: object): void;
@@ -356,7 +356,7 @@ declare namespace _ZoteroTypes {
        * Gets the icon for a JSON-style attachment
        */
       determineAttachmentIcon(
-        attachment: object & { linkMode: string; mimeType: string }
+        attachment: object & { linkMode: string; mimeType: string },
       ): string;
 
       /**

@@ -24,11 +24,11 @@ declare namespace _ZoteroTypes {
       private _processViews(
         views: SectionView[],
         startRange?: Range,
-        maxResults?: number
+        maxResults?: number,
       ): void;
       private _getOrCreateProcessor(
         view: SectionView,
-        startRange?: Range
+        startRange?: Range,
       ): DefaultFindProcessor;
       private _setFindState(): void;
     }

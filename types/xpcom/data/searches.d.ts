@@ -10,7 +10,7 @@ declare namespace _ZoteroTypes {
       "key",
       "version",
       "synced",
-      "deleted"
+      "deleted",
     ];
   }
 }

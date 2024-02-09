@@ -35,7 +35,7 @@ declare namespace _ZoteroTypes {
      */
     replaceAllItemKeys(
       item: Zotero.Item,
-      itemKeyMap: Map<string, string>
+      itemKeyMap: Map<string, string>,
     ): void;
 
     /**
@@ -48,7 +48,7 @@ declare namespace _ZoteroTypes {
     replaceItemKey(
       item: Zotero.Item,
       fromItemKey: string,
-      toItemKey: string
+      toItemKey: string,
     ): void;
 
     getExportableNote(item: Zotero.Item): Promise<string>;
@@ -73,7 +73,7 @@ declare namespace _ZoteroTypes {
      */
     copyEmbeddedImages(
       fromNote: Zotero.Item,
-      toNote: Zotero.Item
+      toNote: Zotero.Item,
     ): Promise<void>;
 
     promptToIgnoreMissingImage(): boolean;

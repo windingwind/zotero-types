@@ -37,11 +37,11 @@ declare namespace _ZoteroTypes {
      */
     getAsync(
       id: number,
-      options?: { noCache: boolean }
+      options?: { noCache: boolean },
     ): Promise<Zotero.DataObject>;
     getAsync(
       ids: number[],
-      options?: { noCache: boolean }
+      options?: { noCache: boolean },
     ): Promise<Zotero.DataObject[]>;
 
     /**
@@ -64,7 +64,7 @@ declare namespace _ZoteroTypes {
       libraryID: number,
       asIDs?: boolean,
       days?: number,
-      limit?: number
+      limit?: number,
     ): Promise<Array<number | Zotero.DataObject>>;
 
     getAllIDs(libraryID: number): Promise<number[]>;
@@ -81,7 +81,7 @@ declare namespace _ZoteroTypes {
     getByLibraryAndKey(
       libraryID: number,
       key: string,
-      options?: unknown
+      options?: unknown,
     ): Zotero.DataObject | false;
 
     /**
@@ -96,7 +96,7 @@ declare namespace _ZoteroTypes {
     getByLibraryAndKeyAsync(
       libraryID: number,
       key: string,
-      options?: { noCache: boolean }
+      options?: { noCache: boolean },
     ): Promise<Zotero.DataObject | false>;
 
     exists(id: number): boolean;
@@ -105,7 +105,7 @@ declare namespace _ZoteroTypes {
      * @return {Object} Object with 'libraryID' and 'key'
      */
     getLibraryAndKeyFromID(
-      id: number
+      id: number,
     ): false | { libraryID: number; key: string };
 
     getIDFromLibraryAndKey(libraryID: number, key: string): number | false;
@@ -120,7 +120,7 @@ declare namespace _ZoteroTypes {
     getNewer(
       libraryID: number,
       date: Date,
-      ignoreFutureDates?: boolean
+      ignoreFutureDates?: boolean,
     ): Promise<number[]>;
 
     /**
@@ -131,7 +131,7 @@ declare namespace _ZoteroTypes {
      */
     getObjectVersions(
       libraryID: number,
-      keys?: string[]
+      keys?: string[],
     ): Promise<{ [key: string]: number }>;
 
     /**
@@ -146,7 +146,7 @@ declare namespace _ZoteroTypes {
      */
     loadDataTypes(
       objects: Zotero.DataObject[],
-      dataTypes?: string[]
+      dataTypes?: string[],
     ): Promise<void>;
 
     /**
@@ -158,7 +158,7 @@ declare namespace _ZoteroTypes {
     _loadDataTypeInLibrary(
       dataType: string,
       libraryID: number,
-      ids: number[]
+      ids: number[],
     ): Promise<void>;
 
     loadAll(libraryID: number, ids?: number[]): Promise<void>;
@@ -198,7 +198,7 @@ declare namespace _ZoteroTypes {
      * @return {Array[]} - Predicate-object pairs
      */
     flattenRelations(
-      relations: ObjectRelations
+      relations: ObjectRelations,
     ): Array<[RelationsPredicate, ZoteroObjectURI]>;
 
     /**
@@ -214,7 +214,7 @@ declare namespace _ZoteroTypes {
     reload(
       ids: number,
       dataTypes: string[],
-      reloadUnchanged?: boolean
+      reloadUnchanged?: boolean,
     ): Promise<undefined | true>;
 
     reloadAll(libraryID: number): Promise<void>;
@@ -259,7 +259,7 @@ declare namespace _ZoteroTypes {
       ids: number | number[],
       options?: Zotero.DataObject.EraseOptions & {
         onProgress?: (progress: number, progressMax: number) => void;
-      }
+      },
     ): Promise<void>;
 
     _loadIDsAndKeys(): Promise<void>;

@@ -31,21 +31,21 @@ declare namespace _ZoteroTypes {
       singleSelection: boolean;
       onPointerDown?: (
         annotation: DisplayedAnnotation,
-        event: React.PointerEvent
+        event: React.PointerEvent,
       ) => void;
       onPointerUp?: (
         annotation: DisplayedAnnotation,
-        event: React.PointerEvent
+        event: React.PointerEvent,
       ) => void;
       onDragStart?: (
         annotation: DisplayedAnnotation,
-        dataTransfer: DataTransfer
+        dataTransfer: DataTransfer,
       ) => void;
       onResizeStart?: (annotation: DisplayedAnnotation) => void;
       onResizeEnd?: (
         annotation: DisplayedAnnotation,
         range: Range,
-        cancelled: boolean
+        cancelled: boolean,
       ) => void;
       pointerEventsSuppressed: boolean;
       widgetContainer: Element | null;
@@ -56,15 +56,15 @@ declare namespace _ZoteroTypes {
       selected: boolean;
       onPointerDown?: (
         annotation: DisplayedAnnotation,
-        event: React.PointerEvent
+        event: React.PointerEvent,
       ) => void;
       onPointerUp?: (
         annotation: DisplayedAnnotation,
-        event: React.PointerEvent
+        event: React.PointerEvent,
       ) => void;
       onDragStart?: (
         annotation: DisplayedAnnotation,
-        dataTransfer: DataTransfer
+        dataTransfer: DataTransfer,
       ) => void;
       disablePointerEvents: boolean;
     };
@@ -76,15 +76,15 @@ declare namespace _ZoteroTypes {
       selectedAnnotationIDs: string[];
       onPointerDown: (
         annotation: DisplayedAnnotation,
-        event: React.PointerEvent
+        event: React.PointerEvent,
       ) => void;
       onPointerUp: (
         annotation: DisplayedAnnotation,
-        event: React.PointerEvent
+        event: React.PointerEvent,
       ) => void;
       onDragStart: (
         annotation: DisplayedAnnotation,
-        dataTransfer: DataTransfer
+        dataTransfer: DataTransfer,
       ) => void;
       pointerEventsSuppressed: boolean;
     };
@@ -101,7 +101,7 @@ declare namespace _ZoteroTypes {
       onResizeStart: (annotation: DisplayedAnnotation) => void;
       onResizeEnd: (
         annotation: DisplayedAnnotation,
-        cancelled: boolean
+        cancelled: boolean,
       ) => void;
       onResize: (annotation: DisplayedAnnotation, range: Range) => void;
     };

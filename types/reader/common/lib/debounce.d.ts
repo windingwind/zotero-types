@@ -7,7 +7,7 @@ declare namespace _ZoteroTypes {
         leading?: boolean;
         maxWait?: number;
         trailing?: boolean;
-      }
+      },
     ): F & DebounceResult;
 
     interface DebounceResult {

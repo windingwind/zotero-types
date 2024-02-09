@@ -19,7 +19,7 @@ declare namespace Zotero {
      */
     addLines(
       labels: string | { [key: string | number | symbol]: string },
-      icons: string | { [key: string | number | symbol]: string }
+      icons: string | { [key: string | number | symbol]: string },
     ): void;
 
     /**
@@ -55,7 +55,7 @@ declare namespace Zotero {
     new (
       iconSrc: string,
       text: string,
-      parentItemProgress?: ItemProgress
+      parentItemProgress?: ItemProgress,
     ): ItemProgress;
 
     /**

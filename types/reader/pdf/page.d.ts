@@ -31,7 +31,7 @@ declare namespace _ZoteroTypes {
       render(): void;
       renderAnnotationOnCanvas(
         annotation: Annotation,
-        canvas: HTMLCanvasElement
+        canvas: HTMLCanvasElement,
       ): void;
     }
   }

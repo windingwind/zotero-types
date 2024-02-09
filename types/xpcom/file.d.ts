@@ -9,7 +9,7 @@ declare namespace _ZoteroTypes {
     getExtension(file: string | nsIFile): string;
     getClosestDirectory(file: string): string | false;
     getSample: (
-      file: nsIFile | string
+      file: nsIFile | string,
     ) =>
       | string
       | Promise<string>
@@ -18,12 +18,12 @@ declare namespace _ZoteroTypes {
       | Promise<BufferSource>;
     getBinaryContentsAsync: (
       source: string | nsIFile,
-      maxLength?: number
+      maxLength?: number,
     ) => Promise<string>;
     getContentsAsync: (
       source: string | nsIFile | nsIInputStream,
       charset?: string,
-      maxLength?: number
+      maxLength?: number,
     ) =>
       | string
       | Promise<string>
@@ -39,13 +39,13 @@ declare namespace _ZoteroTypes {
     putContentsAsync: (
       path: string | nsIFile,
       data: string | nsIInputStream | ArrayBuffer,
-      charset?: string
+      charset?: string,
     ) => Promise<void>;
     download(uri: string, path: string): Promise<void>;
     rename: (
       file: string,
       newName: string,
-      options?: { overwrite?: boolean; unique: boolean }
+      options?: { overwrite?: boolean; unique: boolean },
     ) => Promise<string | false>;
     removeIfExists(path: string): Promise<void>;
     directoryIsEmpty(path: string): Promise<boolean>;
@@ -55,7 +55,7 @@ declare namespace _ZoteroTypes {
     moveDirectory: (
       oldDir: string,
       newDir: string,
-      options?: object
+      options?: object,
     ) => Promise<void | Error[]>;
     generateDataURI(file: string, contentType: string): string;
     setNormalFilePermissions(file: string): void | Promise<void>;
@@ -63,13 +63,13 @@ declare namespace _ZoteroTypes {
       file: string,
       type: any,
       mode: any,
-      maxBytes: number
+      maxBytes: number,
     ) => string;
     moveToUnique(file: string, newFile: string): Promise<string>;
     copyToUnique(file: string, newFile: string): Promise<OS.File.Entry>;
     copyDirectory: (
       source: string | nsIFile,
-      target: string | nsIFile
+      target: string | nsIFile,
     ) => Promise<void>;
     createDirectoryIfMissing(dir: string): void;
     createDirectoryIfMissingAsync(path: string, options?: any): Promise<void>;
@@ -78,19 +78,19 @@ declare namespace _ZoteroTypes {
     zipDirectory: (
       dirPath: string,
       zipPath: string,
-      observer: any
+      observer: any,
     ) => Promise<void | false>;
     truncateFileName(fileName: string, maxLength: number): string;
     getCharsetFromFile: (
       file: typeof OS.File,
       mimeType: string,
       callback: Function,
-      args: any
+      args: any,
     ) => void;
     checkFileAccessError: (
       e: Error | any,
       file: string | nsIFile,
-      operation: "create" | "delete" | any
+      operation: "create" | "delete" | any,
     ) => void;
     getEvictedICloudPath(path: string): string;
     isCloudStorageFolder(path: string): boolean;
