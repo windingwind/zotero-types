@@ -83,10 +83,10 @@ declare namespace Zotero {
     ObjectsClass: typeof this extends Zotero.Item
       ? _ZoteroTypes.Items
       : typeof this extends Zotero.Collection
-      ? _ZoteroTypes.Collections
-      : typeof this extends Zotero.Search
-      ? _ZoteroTypes.Searches
-      : _ZoteroTypes.DataObjects;
+        ? _ZoteroTypes.Collections
+        : typeof this extends Zotero.Search
+          ? _ZoteroTypes.Searches
+          : _ZoteroTypes.DataObjects;
     itemTypeID: number;
 
     /**
@@ -100,7 +100,7 @@ declare namespace Zotero {
      * @return {String[]} - URIs linked to this object with the given predicate
      */
     getRelationsByPredicate(
-      predicate: _ZoteroTypes.RelationsPredicate
+      predicate: _ZoteroTypes.RelationsPredicate,
     ): _ZoteroTypes.ZoteroObjectURI[];
 
     /**
@@ -108,16 +108,16 @@ declare namespace Zotero {
      */
     addRelation(
       predicate: _ZoteroTypes.RelationsPredicate,
-      object: _ZoteroTypes.ZoteroObjectURI
+      object: _ZoteroTypes.ZoteroObjectURI,
     ): boolean;
 
     hasRelation(
       predicate: _ZoteroTypes.RelationsPredicate,
-      object: _ZoteroTypes.ZoteroObjectURI
+      object: _ZoteroTypes.ZoteroObjectURI,
     ): boolean;
     removeRelation(
       predicate: _ZoteroTypes.RelationsPredicate,
-      object: _ZoteroTypes.ZoteroObjectURI
+      object: _ZoteroTypes.ZoteroObjectURI,
     ): boolean;
 
     /**

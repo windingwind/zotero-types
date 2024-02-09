@@ -39,7 +39,7 @@ declare namespace _ZoteroTypes {
     _addRow(
       treeRow: TreeRow,
       beforeRow: number,
-      skipRowMapRefresh?: boolean
+      skipRowMapRefresh?: boolean,
     ): void;
 
     /**

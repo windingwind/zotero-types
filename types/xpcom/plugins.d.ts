@@ -12,7 +12,7 @@ declare namespace _ZoteroTypes {
   namespace Plugins {
     type _observerFunction = (
       params: { id: string; version: string; rootURI: string },
-      reason: number
+      reason: number,
     ) => void;
 
     type observer = {

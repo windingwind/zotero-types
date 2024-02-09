@@ -91,7 +91,7 @@ declare const OS: {
     exists(path: string): boolean | Promise<boolean>;
     read: (
       path: string | BufferSource,
-      options?: { encoding?: string }
+      options?: { encoding?: string },
     ) =>
       | string
       | Promise<string>
@@ -101,26 +101,26 @@ declare const OS: {
     move(from: string, to: string): void | Promise<void>;
     remove: (
       path: string,
-      options?: { ignoreAbsent: boolean }
+      options?: { ignoreAbsent: boolean },
     ) => Promise<void>;
     writeAtomic: (
       path: string,
       data: Uint8Array | string,
-      options?: { tmpPath?: string; encoding?: string }
+      options?: { tmpPath?: string; encoding?: string },
     ) => void | Promise<void>;
     makeDir: (
       path: string,
-      options?: { ignoreExisting?: boolean }
+      options?: { ignoreExisting?: boolean },
     ) => void | Promise<void>;
     stat(path: string): OS.File.FileInfo | Promise<OS.File.FileInfo>;
     copy: (
       src: string,
       tgt: string,
-      options?: { noOverwrite?: boolean }
+      options?: { noOverwrite?: boolean },
     ) => void;
     removeDir: (
       path: string,
-      options?: { ignoreAbsent?: boolean; ignorePermissions?: boolean }
+      options?: { ignoreAbsent?: boolean; ignorePermissions?: boolean },
     ) => void;
 
     DirectoryIterator: DirectoryIteratorConstructable;
@@ -301,7 +301,7 @@ declare namespace IOUtils {
   function write(
     path: String,
     data: Uint8Array,
-    options?: WriteOptions
+    options?: WriteOptions,
   ): Promise<number>;
   /**
    * Attempts to encode |string| to UTF-8, then safely write the result to a
@@ -317,7 +317,7 @@ declare namespace IOUtils {
   function writeUTF8(
     path: string,
     string: string,
-    options?: WriteOptions
+    options?: WriteOptions,
   ): Promise<number>;
   /**
    * Attempts to serialize |value| into a JSON string and encode it as into a
@@ -334,7 +334,7 @@ declare namespace IOUtils {
   function writeJSON(
     path: string,
     value: any,
-    options?: WriteOptions
+    options?: WriteOptions,
   ): Promise<number>;
   /**
    * Moves the file from |sourcePath| to |destPath|, creating necessary parents.
@@ -352,7 +352,7 @@ declare namespace IOUtils {
   function move(
     sourcePath: string,
     destPath: string,
-    options?: MoveOptions
+    options?: MoveOptions,
   ): Promise<void>;
   /**
    * Removes a file or directory at |path| according to |options|.
@@ -374,7 +374,7 @@ declare namespace IOUtils {
    */
   function makeDirectory(
     path: string,
-    options?: MakeDirectoryOptions
+    options?: MakeDirectoryOptions,
   ): Promise<void>;
   /**
    * Obtains information about a file, such as size, modification dates, etc.
@@ -403,7 +403,7 @@ declare namespace IOUtils {
   function copy(
     sourcePath: string,
     destPath: string,
-    options?: CopyOptions
+    options?: CopyOptions,
   ): Promise<void>;
   /**
    * Updates the access time for the file at |path|.
@@ -438,7 +438,7 @@ declare namespace IOUtils {
    */
   function setModificationTime(
     path: string,
-    modification?: number
+    modification?: number,
   ): Promise<number>;
   /**
    * Retrieves a (possibly empty) list of immediate children of the directory at
@@ -452,7 +452,7 @@ declare namespace IOUtils {
    */
   function getChildren(
     path: string,
-    options?: GetChildrenOptions
+    options?: GetChildrenOptions,
   ): Promise<string[]>;
   /**
    * Set the permissions of the file at |path|.
@@ -476,7 +476,7 @@ declare namespace IOUtils {
   function setPermissions(
     path: string,
     permissions: number,
-    honorUmask?: boolean
+    honorUmask?: boolean,
   ): Promise<void>;
   /**
    * Return whether or not the file exists at the given path.
@@ -498,7 +498,7 @@ declare namespace IOUtils {
   function createUniqueFile(
     parent: string,
     prefix: string,
-    permissions?: number
+    permissions?: number,
   ): Promise<string>;
   /**
    * Create a directory with a unique name and return its path.
@@ -512,7 +512,7 @@ declare namespace IOUtils {
   function createUniqueDirectory(
     parent: string,
     prefix: string,
-    permissions?: number
+    permissions?: number,
   ): Promise<string>;
   /**
    * Compute the hash of a file as a hex digest.
@@ -524,7 +524,7 @@ declare namespace IOUtils {
    */
   function computeHexDigest(
     path: string,
-    method: HashAlgorithm
+    method: HashAlgorithm,
   ): Promise<string>;
 
   // Methods that are only applicable to specific platforms are omitted.

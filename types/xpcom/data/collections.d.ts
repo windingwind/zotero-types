@@ -48,30 +48,30 @@ declare namespace _ZoteroTypes {
      */
     getByParent(
       parentCollectionID: number,
-      recursive?: boolean
+      recursive?: boolean,
     ): Zotero.Collection[];
 
     getCollectionsContainingItems(
       itemIDs: number[],
-      asIDs?: false
+      asIDs?: false,
     ): Promise<Zotero.Item[]>;
     getCollectionsContainingItems(
       itemIDs: number[],
-      asIDs: true
+      asIDs: true,
     ): Promise<number[]>;
     _loadChildCollections(libraryID: number, ids: number[]): Promise<void>;
     _loadChildItems(
       libraryID: number,
       ids: number[],
-      idSQL: string
+      idSQL: string,
     ): Promise<void>;
     registerChildCollection(
       collectionID: number,
-      childCollectionID: number
+      childCollectionID: number,
     ): void;
     unregisterChildCollection(
       collectionID: number,
-      childCollectionID: number
+      childCollectionID: number,
     ): void;
     registerChildItem(collectionID: number, itemID: number): void;
     unregisterChildItem(collectionID: number, itemID: number): void;

@@ -25,23 +25,23 @@ declare namespace _ZoteroTypes {
         annotation:
           | NewAnnotation<WADMAnnotation>
           | NewAnnotation<WADMAnnotation>[],
-        fromText?: boolean
+        fromText?: boolean,
       ) => void;
       onAddAnnotation: (
         annotation: NewAnnotation<WADMAnnotation>,
-        select?: boolean
+        select?: boolean,
       ) => void;
       onUpdateAnnotations: (annotations: Annotation[]) => void;
       onOpenLink: (url: string) => void;
       onSelectAnnotations: (
         ids: string[],
-        triggeringEvent?: KeyboardEvent | MouseEvent
+        triggeringEvent?: KeyboardEvent | MouseEvent,
       ) => void;
       onSetSelectionPopup: (
-        params?: SelectionPopupParams<WADMAnnotation> | null
+        params?: SelectionPopupParams<WADMAnnotation> | null,
       ) => void;
       onSetAnnotationPopup: (
-        params?: AnnotationPopupParams<WADMAnnotation> | null
+        params?: AnnotationPopupParams<WADMAnnotation> | null,
       ) => void;
       onSetOverlayPopup: (params?: OverlayPopupParams) => void;
       onSetFindState: (state?: FindState) => void;
@@ -110,7 +110,7 @@ declare namespace _ZoteroTypes {
       protected abstract _getSrcDoc(): string;
       abstract getData(): Data;
       protected abstract _onInitialDisplay(
-        viewState: Partial<Readonly<State>>
+        viewState: Partial<Readonly<State>>,
       ): MaybePromise<void>;
 
       // ***
@@ -120,7 +120,7 @@ declare namespace _ZoteroTypes {
       abstract toDisplayedRange(selector: Selector): Range | null;
       protected abstract _navigateToSelector(
         selector: Selector,
-        options?: NavigateOptions
+        options?: NavigateOptions,
       ): void;
 
       // ***
@@ -129,7 +129,7 @@ declare namespace _ZoteroTypes {
       protected abstract _getAnnotationFromRange(
         range: Range,
         type: AnnotationType,
-        color?: string
+        color?: string,
       ): NewAnnotation<WADMAnnotation> | null;
       protected abstract _updateViewState(): void;
       protected abstract _updateViewStats(): void;
@@ -141,7 +141,7 @@ declare namespace _ZoteroTypes {
       protected _getViewportBoundingRect(range: Range): DOMRect;
       protected _getAnnotationFromTextSelection(
         type: AnnotationType,
-        color?: string
+        color?: string,
       ): NewAnnotation<WADMAnnotation> | null;
       protected _tryUseTool(): void;
       protected _tryUseToolDebounced: typeof this._tryUseTool;
@@ -151,7 +151,7 @@ declare namespace _ZoteroTypes {
       protected _openSelectionPopup(selection: Selection): void;
       protected _openAnnotationPopup(annotation: WADMAnnotation): void;
       protected _openExternalLinkOverlayPopup(
-        linkNode: HTMLAnchorElement
+        linkNode: HTMLAnchorElement,
       ): void;
 
       /**
@@ -168,11 +168,11 @@ declare namespace _ZoteroTypes {
       protected _handleDragOver(event: DragEvent): void;
       protected _handleDrop(): void;
       protected _getNoteTargetRange(
-        event: PointerEvent | DragEvent
+        event: PointerEvent | DragEvent,
       ): Range | null;
       protected _handleClick(event: MouseEvent): void;
       protected abstract _handleInternalLinkClick(
-        link: HTMLAnchorElement
+        link: HTMLAnchorElement,
       ): void;
       protected _handleKeyDown(event: KeyboardEvent): void;
       private _handleDragStart(event: DragEvent): void;
@@ -181,25 +181,25 @@ declare namespace _ZoteroTypes {
       private _handleSelectionChange(): void;
       private _handleAnnotationPointerDown(
         id: string,
-        event: React.PointerEvent
+        event: React.PointerEvent,
       ): void;
       private _handleAnnotationPointerUp(
         id: string,
-        event: React.PointerEvent
+        event: React.PointerEvent,
       ): void;
       private _getAnnotationsAtPoint(
         clientX: number,
-        clientY: number
+        clientY: number,
       ): string[];
       private _handleAnnotationDragStart(
         id: string,
-        dataTransfer: DataTransfer
+        dataTransfer: DataTransfer,
       ): void;
       private _handleAnnotationResizeStart(_id: string): void;
       private _handleAnnotationResizeEnd(
         id: string,
         range: Range,
-        cancelled: boolean
+        cancelled: boolean,
       ): void;
       protected _handleCopy(event: ClipboardEvent): void;
       protected _handlePointerDown(event: PointerEvent): void;

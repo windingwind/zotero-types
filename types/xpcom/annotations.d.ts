@@ -41,21 +41,21 @@ declare namespace _ZoteroTypes {
       "color",
       "pageLabel",
       "sortIndex",
-      "position"
+      "position",
     ];
 
     getCacheImagePath(
-      annotation: object & { libraryID: number; key: string }
+      annotation: object & { libraryID: number; key: string },
     ): string;
     hasCacheImage(
-      item: object & { libraryID: number; key: string }
+      item: object & { libraryID: number; key: string },
     ): Promise<boolean>;
     saveCacheImage(
       annotation: object & { libraryID: number; key: string },
-      blob: Blob
+      blob: Blob,
     ): Promise<string>;
     removeCacheImage(
-      annotation: object & { libraryID: number; key: string }
+      annotation: object & { libraryID: number; key: string },
     ): Promise<void>;
 
     /**
@@ -79,7 +79,7 @@ declare namespace _ZoteroTypes {
     saveFromJSON(
       attachment: Zotero.Item,
       json: Annotations.AnnotationJson,
-      saveOptions?: Zotero.DataObject.SaveOptions
+      saveOptions?: Zotero.DataObject.SaveOptions,
     ): Promise<Zotero.Item>;
 
     /**
@@ -89,7 +89,7 @@ declare namespace _ZoteroTypes {
      * @returns {Array<Object>} annotations
      */
     splitAnnotationJSON(
-      annotation: Zotero.Item | Annotations.AnnotationJson
+      annotation: Zotero.Item | Annotations.AnnotationJson,
     ): Annotations.AnnotationJson[];
 
     /**

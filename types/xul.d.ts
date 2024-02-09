@@ -103,7 +103,7 @@ declare namespace XUL {
       y: number,
       popupType: "popup" | "context" | "tooltip",
       anchor: string,
-      align: string
+      align: string,
     ) => void;
 
     /**
@@ -153,13 +153,13 @@ declare namespace XUL {
     appendItem: (
       label: string,
       value?: string,
-      description?: string
+      description?: string,
     ) => XUL.MenuItem;
     insertItemAt: (
       index: number,
       label: string,
       value?: string,
-      description?: string
+      description?: string,
     ) => XUL.MenuItem;
   }
 
@@ -361,7 +361,7 @@ declare namespace XUL {
       target: string,
       type: string,
       params: string,
-      extraParams?: object
+      extraParams?: object,
     ) => XULWindow;
   }
 

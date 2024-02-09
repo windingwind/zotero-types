@@ -65,7 +65,7 @@ declare namespace _ZoteroTypes {
         timeout?: number;
         errorDelayIntervals?: number[];
         errorDelayMax?: number;
-      }
+      },
     ): Promise<XMLHttpRequest>;
 
     /**
@@ -85,7 +85,7 @@ declare namespace _ZoteroTypes {
       onDone: (xhr: XMLHttpRequest) => void | Promise<void>,
       responseCharset: string,
       cookieSandbox?: Zotero.CookieSandbox,
-      requestHeaders?: Record<string, string>
+      requestHeaders?: Record<string, string>,
     ): XMLHttpRequest;
 
     /**
@@ -107,7 +107,7 @@ declare namespace _ZoteroTypes {
       onDone: (xhr: XMLHttpRequest) => void | Promise<void>,
       headers: Record<string, string>,
       responseCharset: string,
-      cookieSandbox?: Zotero.CookieSandbox
+      cookieSandbox?: Zotero.CookieSandbox,
     ): XMLHttpRequest;
 
     /**
@@ -125,7 +125,7 @@ declare namespace _ZoteroTypes {
       url: string | URL,
       onDone: (xhr: XMLHttpRequest) => void | Promise<void>,
       requestHeaders: Record<string, string>,
-      cookieSandbox?: Zotero.CookieSandbox
+      cookieSandbox?: Zotero.CookieSandbox,
     ): XMLHttpRequest;
 
     /**
@@ -138,7 +138,7 @@ declare namespace _ZoteroTypes {
      */
     doOptions(
       url: string | URL,
-      onDone: (xhr: XMLHttpRequest) => void | Promise<void>
+      onDone: (xhr: XMLHttpRequest) => void | Promise<void>,
     ): XMLHttpRequest;
 
     /**
@@ -178,7 +178,7 @@ declare namespace _ZoteroTypes {
       options?: {
         cookieSandbox?: Zotero.CookieSandbox;
         headers?: Record<string, string>;
-      }
+      },
     ): Promise<T[]>;
 
     /**

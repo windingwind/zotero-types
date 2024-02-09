@@ -84,7 +84,7 @@ declare namespace Zotero {
      */
     addItems(
       itemIDs: number[],
-      options?: DataObject.SaveOptions
+      options?: DataObject.SaveOptions,
     ): Promise<void>; // do not require save
 
     /**
@@ -97,7 +97,7 @@ declare namespace Zotero {
      */
     removeItem(
       itemID: number,
-      options?: DataObject.SaveOptions & { skipEditCheck?: boolean }
+      options?: DataObject.SaveOptions & { skipEditCheck?: boolean },
     ): Promise<void>;
     /**
      * Remove multiple items from the collection in batch.
@@ -107,7 +107,7 @@ declare namespace Zotero {
      */
     removeItems(
       itemIDs: number[],
-      options?: DataObject.SaveOptions & { skipEditCheck?: boolean }
+      options?: DataObject.SaveOptions & { skipEditCheck?: boolean },
     ): Promise<void>;
 
     /**
@@ -176,7 +176,7 @@ declare namespace Zotero {
       nested?: boolean,
       type?: Collection.DescendentType | null,
       includeDeletedItems?: boolean,
-      level?: number
+      level?: number,
     ): Collection.Descendent[];
 
     /**
@@ -186,7 +186,7 @@ declare namespace Zotero {
      */
     getLinkedCollection(
       libraryID: number,
-      bidrectional?: boolean
+      bidrectional?: boolean,
     ): Promise<Zotero.Collection | false>;
     /**
      * Add a linked-object relation pointing to the given collection

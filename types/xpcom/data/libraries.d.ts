@@ -9,7 +9,7 @@ declare namespace _ZoteroTypes {
     unregister(libraryID: number): void;
     _addToCache(
       cache: { [i: number]: Zotero.Library },
-      library: Zotero.Library
+      library: Zotero.Library,
     ): void;
 
     /**

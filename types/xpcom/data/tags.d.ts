@@ -99,7 +99,7 @@ declare namespace _ZoteroTypes {
       libraryID: number,
       tagIDs: number[],
       onProgress: Function,
-      types: number[]
+      types: number[],
     ): Promise<void>;
 
     /**
@@ -113,7 +113,7 @@ declare namespace _ZoteroTypes {
      */
     removeAutomaticFromLibrary(
       libraryID: number,
-      onProgress: Function
+      onProgress: Function,
     ): Promise<void>;
 
     /**
@@ -143,7 +143,7 @@ declare namespace _ZoteroTypes {
      */
     getColorByPosition(
       libraryID: number,
-      position: number
+      position: number,
     ): { name: string; color: string } | false;
 
     /**
@@ -164,7 +164,7 @@ declare namespace _ZoteroTypes {
       libraryID: number,
       name: string,
       color: string,
-      position: number
+      position: number,
     ): Promise<void>;
 
     /**
@@ -175,7 +175,7 @@ declare namespace _ZoteroTypes {
       event: string,
       type: string,
       ids: string[],
-      extraData: { [key: string]: any }
+      extraData: { [key: string]: any },
     ): Promise<void>;
 
     toggleItemsListTags(items: Zotero.Item[], tagName: string): Promise<void>;
@@ -222,7 +222,7 @@ declare namespace _ZoteroTypes {
       height: number,
       radius: number,
       fill: boolean,
-      stroke: boolean
+      stroke: boolean,
     ): void;
 
     /**

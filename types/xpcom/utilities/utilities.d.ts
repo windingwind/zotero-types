@@ -41,7 +41,7 @@ declare namespace _ZoteroTypes {
     throttle(
       func: Function,
       wait: number,
-      options?: { leading: boolean; trailing: boolean }
+      options?: { leading: boolean; trailing: boolean },
     ): Function;
 
     sentenceCase(str: string): string;
@@ -70,7 +70,7 @@ declare namespace _ZoteroTypes {
     cleanAuthor(
       author: string,
       type: string,
-      useComma?: boolean
+      useComma?: boolean,
     ): { firstName: string; lastName: string; creatorType: string };
 
     /**
@@ -268,7 +268,7 @@ declare namespace _ZoteroTypes {
       str: string,
       len: number,
       wordBoundary?: boolean,
-      countChars?: boolean
+      countChars?: boolean,
     ): string;
 
     /**
@@ -304,7 +304,7 @@ declare namespace _ZoteroTypes {
       number: number,
       decimals: number,
       dec_point?: string,
-      thousands_sep?: string
+      thousands_sep?: string,
     ): string;
 
     /**
@@ -428,7 +428,7 @@ declare namespace _ZoteroTypes {
         visitOtherElement?: Function;
         visitDataAttribute?: Function;
         visitURI?: Function;
-      }
+      },
     ): string;
 
     /**
@@ -443,7 +443,7 @@ declare namespace _ZoteroTypes {
     xpath(
       node: HTMLElement | Document,
       xstring: string,
-      namespaces?: any
+      namespaces?: any,
     ): HTMLElement[] | [];
 
     /**
@@ -461,7 +461,7 @@ declare namespace _ZoteroTypes {
       node: HTMLElement | Document,
       xstring: string,
       namespaces?: any,
-      delimiter?: undefined | string
+      delimiter?: undefined | string,
     ): string | null;
   }
 }
