@@ -10,7 +10,7 @@ declare namespace _ZoteroTypes {
         PDFViewerApplicationConstants: anyObj;
         pdfjsLib: pdfjs;
       };
-      initializedPromise: Promise<unknown>;
+      initializedPromise: Promise<void>;
       focus(): void;
       findNext(): void;
       findPrevious(): void;
