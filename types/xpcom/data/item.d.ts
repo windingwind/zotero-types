@@ -641,6 +641,8 @@ declare namespace Zotero {
      */
     getLocalFileURL(): string;
 
+    readonly attachmentReaderType: keyof _ZoteroTypes.Reader.ViewTypeMap;
+
     /**
      * Link mode of an attachment
      *
