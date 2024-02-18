@@ -1,9 +1,5 @@
 // Type definitions for Zotero platform (Mozilla Firefox 60/102)
 
-declare const Components: any;
-declare const Services: any;
-declare const ChromeUtils: any;
-
 // https://github.com/retorquere/zotero-better-bibtex/blob/master/typings/global.d.ts
 declare interface DirectoryIterator {
   forEach(handler: any): Promise<void>;
@@ -542,10 +538,6 @@ declare namespace IOUtils {
   // function delMacXAttr(path: string, attr: string): Promise<void>;
   // function getFile(...components: string[]): Promise<nsIFile>;
   // function getDirectory(...components: string[]): Promise<nsIFile>;
-
-  // Shutdown clients
-  const profileBeforeChange: any;
-  const sendTelemetry: any;
 }
 
 /**
@@ -641,21 +633,6 @@ declare namespace PathUtils {
 // [Exposed=Window]
 declare namespace PathUtils {
   /**
-   * The profile directory.
-   */
-  const profileDir: string;
-
-  /**
-   * The local-specific profile directory.
-   */
-  const localProfileDir: string;
-
-  /**
-   * The temporary directory for the process.
-   */
-  const tempDir: string;
-
-  /**
    * The OS temporary directory.
    */
   const osTempDir: string;
@@ -693,6 +670,11 @@ declare interface Window {
     features?: string,
     ...args: any
   ): Window;
+}
+
+declare interface Document {
+  // @ts-ignore overwrite definition in gecko-types
+  createXULElement: XUL.XULDocument["createXULElement"];
 }
 
 declare class Localization {}

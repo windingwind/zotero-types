@@ -1,3 +1,5 @@
+/// <reference path="../node_modules/gecko-types/types/gen/xulElements.d.ts" />
+
 declare namespace XUL {
   interface IDisabled {
     disabled: boolean;
@@ -350,6 +352,8 @@ declare namespace XUL {
     color: string;
   }
 
+  interface CommandSet extends Element {}
+
   interface Command extends Element, ILabel {
     oncommand(): any;
   }
@@ -363,6 +367,69 @@ declare namespace XUL {
       params: string,
       extraParams?: object,
     ) => XULWindow;
+  }
+
+  type _XULElementTypes = XULElementTypes & {
+    ["description"]: Description;
+    ["label"]: Label;
+    ["textbox"]: Textbox;
+    ["checkbox"]: MozCheckbox & Checkbox;
+    ["radio"]: MozRadio & Radio;
+    ["radiogrounp"]: MozRadiogroup & RadioGroup;
+    ["groupbox"]: GroupBox;
+    ["statusbar"]: StatusBar;
+    ["statusbarpanel"]: StatusBarPanel;
+    ["separator"]: Separator;
+    ["spacer"]: Spacer;
+    ["progressmeter"]: ProgressMeter;
+    ["menubar"]: MenuBar;
+    ["menu"]: MozMenu & Menu;
+    ["menupopup"]: MozMenuPopup & MenuPopup;
+    ["popup"]: Popup;
+    ["menuitem"]: MozMenuItem & MenuItem;
+    ["menulist"]: MozMenuList & MenuList;
+    ["menuseparator"]: MenuSeparator;
+    ["tooltip"]: Tooltip;
+    ["toolbox"]: ToolBox;
+    ["toolbar"]: ToolBar;
+    ["toolbarpalette"]: ToolBarPalette;
+    ["toolbarset"]: ToolBarSet;
+    ["toolbarbuttoon"]: MozToolbarbutton & ToolBarButton;
+    ["toolbaritem"]: ToolBarItem;
+    ["toolbarseparator"]: ToolBarSeparator;
+    ["toolbarspacer"]: ToolBarSpacer;
+    ["toolbarspring"]: ToolBarSpring;
+    ["toolbargrippy"]: ToolBarGrippy;
+    ["box"]: Box;
+    ["vbox"]: Box;
+    ["hbox"]: Box;
+    ["deck"]: MozDeck & Deck;
+    ["tab"]: Tab;
+    ["tabs"]: MozTabs & Tabs;
+    ["tabpanel"]: TabPanel;
+    ["tabpanels"]: MozTabpanels & TabPanels;
+    ["tabbox"]: MozTabbox & TabBox;
+    ["button"]: MozButton & Button;
+    ["listitem"]: ListItem;
+    ["treeseparator"]: TreeSeparator;
+    ["treerow"]: TreeRow;
+    ["treecell"]: TreeCell;
+    ["treeitem"]: TreeItem;
+    ["treechildren"]: MozTreeChildren & TreeChildren;
+    ["treecol"]: MozTreecol & TreeCol;
+    ["treecols"]: MozTreecols & TreeCols;
+    ["tree"]: MozTree & Tree;
+    ["scrollbar"]: ScrollBar;
+    ["grippy"]: Grippy;
+    ["splitter"]: Splitter;
+    ["colorpicker"]: ColorPicker;
+    ["command"]: Command;
+    ["commandset"]: MozCommandSet & CommandSet;
+  };
+  interface XULDocument extends Document {
+    createXULElement: <K extends keyof _XULElementTypes>(
+      type: K,
+    ) => _XULElementTypes[K];
   }
 
   interface XULEvent extends Event {

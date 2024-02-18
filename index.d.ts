@@ -7,3 +7,4 @@
 /// <reference path="types/platform.d.ts" />
 /// <reference path="types/zotero.d.ts" />
 /// <reference path="types/xul.d.ts" />
+/// <reference path="node_modules/gecko-types/types/gecko-types.d.ts" />
