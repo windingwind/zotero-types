@@ -47,7 +47,7 @@ declare namespace _ZoteroTypes {
     request(
       method: string,
       url: string,
-      options: {
+      options?: {
         body?: string;
         headers?: any;
         followRedirects?: boolean;
