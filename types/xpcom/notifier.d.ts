@@ -47,7 +47,7 @@ declare namespace _ZoteroTypes {
       event: Event,
       type: Type,
       ids: string[] | number[],
-      extraData: ExtraData
+      extraData: ExtraData,
     ) => void | Promise<void>;
     interface Queue {
       id: string;
@@ -71,7 +71,7 @@ declare namespace _ZoteroTypes {
       ref: { notify: Notifier.Notify },
       types?: Notifier.Type[],
       id?: string,
-      priority?: number
+      priority?: number,
     ): string;
 
     unregisterObserver(id: String): void;
@@ -99,7 +99,7 @@ declare namespace _ZoteroTypes {
       type: Notifier.Type,
       ids: number | number[],
       extraData?: anyObj,
-      force?: boolean
+      force?: boolean,
     ): Promise<void | true>;
 
     /**
@@ -114,7 +114,7 @@ declare namespace _ZoteroTypes {
       type: Notifier.Type,
       ids: string[],
       extraData: { [option in "autoSyncDelay" | "skipAutoSync"]: unknown },
-      queue: Notifier.Queue
+      queue: Notifier.Queue,
     ): void;
 
     /**
@@ -136,7 +136,7 @@ declare namespace _ZoteroTypes {
      */
     commit(
       queues?: Notifier.Queue | Notifier.Queue[],
-      transactionID?: boolean
+      transactionID?: boolean,
     ): Promise<void>;
 
     /*
