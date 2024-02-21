@@ -39,7 +39,7 @@ declare namespace _ZoteroTypes {
       | "itemtree"
       | "itempane";
     type ExtraData = anyObj & {
-      [ids: number]: anyObj;
+      [ids: number]?: anyObj;
       skipAutoSync?: true;
       autoSyncDelay?: true;
     };
