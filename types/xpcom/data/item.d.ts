@@ -358,6 +358,11 @@ declare namespace Zotero {
      */
     numAttachments(includeTrashed?: boolean): number;
 
+    isFieldOfBase(
+      field: Item.ItemField | number,
+      baseField: Item.ItemField | number,
+    ): boolean;
+
     /**
      * Retrieves an itemData field value
      *
