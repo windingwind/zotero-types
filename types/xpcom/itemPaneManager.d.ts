@@ -36,7 +36,7 @@ declare namespace _ZoteroTypes {
       /** 16*16 Icon URI for section button in dark mode. If not set, use icon */
       darkIcon?: Icon16px;
       /** Button click callback */
-      onClick: (options: SectionEventHookArgs) => void;
+      onClick(options: SectionEventHookArgs): void;
     }
 
     interface SectionHookArgs {
@@ -47,23 +47,22 @@ declare namespace _ZoteroTypes {
       /** Section body */
       body: HTMLDivElement;
       /** Get section data */
-      getData: () => {
+      getData(): {
         item: Zotero.Item;
-        mode: string;
+        mode: "edit" | "view";
         inTrash: boolean;
-        tabType: string;
+        tabType: "library" | "reader";
       };
       /** Set l10n args for section header */
-      setL10nArgs: (l10nArgs: string) => void;
+      setL10nArgs(l10nArgs: string): void;
       /** Set pane enabled state */
-      setEnabled: <T extends boolean>(
-        enabled: T,
-      ) => T extends true ? false : true;
+      setEnabled<T extends boolean>(enabled: T): T extends true ? false : true;
     }
 
-    interface SectionInitHookArgs extends SectionHookArgs {
+    interface SectionInitHookArgs extends Omit<SectionHookArgs, "getData"> {
       /** A `refresh` is exposed to plugins to allows plugins to refresh the section when necessary */
-      refresh: () => Promise<void>;
+      refresh(): Promise<void>;
+      getData(): Partial<ReturnType<SectionHookArgs["getData"]>>;
     }
 
     interface SectionDataChangeHookArgs extends SectionHookArgs {
