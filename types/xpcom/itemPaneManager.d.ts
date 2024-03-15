@@ -3,13 +3,27 @@
 
 declare namespace _ZoteroTypes {
   interface ItemPaneManager {
-    registerSections(
-      options: MaybeArray<ItemPaneManager.ItemDetailsSectionOptions>,
+    registerSections<T extends string>(
+      options: MaybeArray<ItemPaneManager.ItemDetailsSectionOptions<T>>,
     ): void;
   }
   namespace ItemPaneManager {
     type Icon16px = string | IconURI;
     type Icon20px = string | IconURI;
+
+    type BuiltInPaneID =
+      | "info"
+      | "abstract"
+      | "attachments"
+      | "notes"
+      | "attachment-info"
+      | "attachment-annotations"
+      | "libraries-collections"
+      | "tags"
+      | "related";
+    type ExcludeBuiltInIDs<T extends string> = T extends BuiltInPaneID
+      ? never
+      : T;
 
     interface SectionButton {
       /** Button type, must be valid DOMString and without "," */
@@ -39,7 +53,9 @@ declare namespace _ZoteroTypes {
       /** Set l10n args for section header */
       setL10nArgs: (l10nArgs: string) => void;
       /** Set pane enabled state */
-      setEnabled: (l10nArgs: string) => void;
+      setEnabled: <T extends boolean>(
+        enabled: T,
+      ) => T extends true ? false : true;
     }
 
     interface SectionInitHookArgs extends SectionHookArgs {
@@ -62,26 +78,20 @@ declare namespace _ZoteroTypes {
 
     type SectionEventHookArgs = SectionHookArgs & { event: Event };
 
-    interface UIOptions<T extends Icon16px | Icon20px> {
+    interface UIOptions {
       /** Icon URI in light mode */
-      icon: T;
-      /** Icon URI in dark mode. If not set, use icon */
-      darkIcon?: T;
+      icon: string;
       /** Pane data-l10n-id for localization of section head `label` or Sidenav data-l10n-id for localization of sidenav `tooltiptext` */
       l10nID: string;
-      /** Pane data-l10n-args for localization of section head `label` or Pane data-l10n-args for localization of sidenav `tooltiptext` */
-      l10nArgs?: string;
     }
 
-    interface ItemDetailsSectionOptions {
+    interface ItemDetailsSectionOptions<T extends string> {
       /** Unique pane ID */
-      paneID: string;
+      paneID: ExcludeBuiltInIDs<T>;
       /** Set plugin ID to auto remove section when plugin is disabled/removed */
       pluginID: string;
-      /** 16*16 Icon and string for section header. */
-      header: UIOptions<Icon16px>;
-      /** 20*20 Icon and string for sidenav button. */
-      sidenav: UIOptions<Icon20px>;
+      sidenav: UIOptions;
+      head: UIOptions;
       /** Pane fragment as string */
       fragment?: string;
       /** Lifecycle hook called when section is initialized */
