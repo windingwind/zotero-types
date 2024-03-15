@@ -6,10 +6,11 @@
 declare namespace _ZoteroTypes {
   class ZoteroPane {
     [attr: string]: any;
-    document: Document;
-    collectionsView: CollectionTree;
-    itemsView: ItemTree;
-    progressWindow: Zotero.ProgressWindow;
+    document: Document & { body: null; head: null };
+    collectionsView: CollectionTree | false;
+    itemsView: ItemTree | false;
+    itemPane: XUL.Box | false;
+    progressWindow: Zotero.ProgressWindow | false;
 
     newCollection(parentKey: string): Promise<undefined | Zotero.Collection>;
     openAdvancedSearchWindow(): void;
