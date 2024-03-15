@@ -4,8 +4,11 @@
 declare namespace _ZoteroTypes {
   interface ItemPaneManager {
     registerSections<T extends string>(
-      options: MaybeArray<ItemPaneManager.ItemDetailsSectionOptions<T>>,
-    ): void;
+      options: ItemPaneManager.ItemDetailsSectionOptions<T>,
+    ): false | string;
+    registerSections<T extends string>(
+      options: ItemPaneManager.ItemDetailsSectionOptions<T>[],
+    ): false | string[];
   }
   namespace ItemPaneManager {
     type Icon16px = string | IconURI;
