@@ -53,7 +53,7 @@ declare namespace _ZoteroTypes {
       /** Registered pane id */
       paneID: string;
       /** Document of section */
-      doc: Document;
+      doc: XUL.XULDocument;
       /** Section body */
       body: HTMLDivElement;
       /** Get section data */
