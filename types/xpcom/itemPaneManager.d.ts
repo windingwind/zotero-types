@@ -67,7 +67,7 @@ declare namespace _ZoteroTypes {
     interface SectionInitHookArgs extends Omit<SectionHookArgs, "getData"> {
       /** A `refresh` is exposed to plugins to allows plugins to refresh the section when necessary */
       refresh(): Promise<void>;
-      getData(): Partial<ReturnType<SectionHookArgs["getData"]>>;
+      getData(): Partial<SectionData>;
     }
 
     interface SectionDataChangeHookArgs extends SectionHookArgs {
