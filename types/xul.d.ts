@@ -355,7 +355,7 @@ declare namespace XUL {
   }
 
   interface XULWindow extends Omit<Window, "document" | "openDialog"> {
-    document: XULDocument;
+    document: XULDocument | Document;  // just for compatibility
     arguments: string[];
     openDialog: (
       target?: string | URL,
