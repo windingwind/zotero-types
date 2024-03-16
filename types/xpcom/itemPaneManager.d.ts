@@ -39,6 +39,16 @@ declare namespace _ZoteroTypes {
       onClick(options: SectionEventHookArgs): void;
     }
 
+    interface SectionData {
+      item: Zotero.Item;
+      mode: "edit" | "view";
+      inTrash: boolean;
+      tabType: "library" | "reader";
+    }
+    type IncomingData = {
+      [K in keyof SectionData]: { type: K; value: SectionData[K] };
+    };
+
     interface SectionHookArgs {
       /** Registered pane id */
       paneID: string;
@@ -47,12 +57,7 @@ declare namespace _ZoteroTypes {
       /** Section body */
       body: HTMLDivElement;
       /** Get section data */
-      getData(): {
-        item: Zotero.Item;
-        mode: "edit" | "view";
-        inTrash: boolean;
-        tabType: "library" | "reader";
-      };
+      getData(): SectionData;
       /** Set l10n args for section header */
       setL10nArgs(l10nArgs: string): void;
       /** Set pane enabled state */
@@ -67,10 +72,7 @@ declare namespace _ZoteroTypes {
 
     interface SectionDataChangeHookArgs extends SectionHookArgs {
       /** Incoming data with the structure */
-      incomingData: {
-        type: "item" | "mode" | "inTrash" | "tabType";
-        value: any;
-      };
+      incomingData: IncomingData[keyof SectionData];
     }
 
     type SectionDestroyHookArgs = Omit<
