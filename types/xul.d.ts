@@ -354,15 +354,21 @@ declare namespace XUL {
     oncommand(): any;
   }
 
-  interface XULWindow extends Window {
-    document: XMLDocument;
-    arguments: any;
+  interface XULWindow extends Omit<Window, "document" | "openDialog"> {
+    document: XULDocument;
+    arguments: string[];
     openDialog: (
-      target: string,
-      type: string,
-      params: string,
+      target?: string | URL,
+      type?: string,
+      params?: string,
       extraParams?: object,
     ) => XULWindow;
+  }
+
+  interface XULDocument extends Omit<XMLDocument, "body" | "head"> {
+    body: null;
+    head: null;
+    createXULElement(tagName: string): Element;
   }
 
   interface XULEvent extends Event {
