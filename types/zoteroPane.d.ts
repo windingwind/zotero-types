@@ -6,7 +6,7 @@
 declare namespace _ZoteroTypes {
   class ZoteroPane {
     [attr: string]: any;
-    document: Document & { body: null; head: null };
+    document: XUL.XULDocument;
     collectionsView: CollectionTree | false;
     itemsView: ItemTree | false;
     itemPane: XUL.Box | false;
