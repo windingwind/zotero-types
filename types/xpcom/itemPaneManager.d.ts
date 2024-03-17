@@ -49,20 +49,35 @@ declare namespace _ZoteroTypes {
       [K in keyof SectionData]: { type: K; value: SectionData[K] };
     };
 
-    interface SectionHookArgs {
+    interface BasicHookArgs {
       /** Registered pane id */
       paneID: string;
       /** Document of section */
       doc: XUL.XULDocument;
       /** Section body */
       body: HTMLDivElement;
+    }
+
+    interface UIHookArgs {
       /** Get section data */
       getData(): SectionData;
       /** Set l10n args for section header */
       setL10nArgs(l10nArgs: string): void;
       /** Set pane enabled state */
       setEnabled<T extends boolean>(enabled: T): T extends true ? false : true;
+      /** Set summary in header */
+      setSectionSummary(summary: string): void;
+      /** Set the status of buttons */
+      setSectionButtonStatus(
+        buttonType: string,
+        status: {
+          disabled?: boolean;
+          hidden?: boolean;
+        },
+      ): void;
     }
+
+    interface SectionHookArgs extends BasicHookArgs, UIHookArgs {}
 
     interface SectionInitHookArgs extends Omit<SectionHookArgs, "getData"> {
       /** A `refresh` is exposed to plugins to allows plugins to refresh the section when necessary */
@@ -74,11 +89,6 @@ declare namespace _ZoteroTypes {
       /** Incoming data with the structure */
       incomingData: IncomingData[keyof SectionData];
     }
-
-    type SectionDestroyHookArgs = Omit<
-      SectionHookArgs,
-      "getData" | "setL10nArgs" | "setEnabled"
-    >;
 
     type SectionEventHookArgs = SectionHookArgs & { event: Event };
 
@@ -101,7 +111,7 @@ declare namespace _ZoteroTypes {
       /** Lifecycle hook called when section is initialized */
       onInit?: (options: SectionInitHookArgs) => void;
       /** Lifecycle hook called when section is destroyed */
-      onDestroy?: (options: SectionDestroyHookArgs) => void;
+      onDestroy?: (options: BasicHookArgs) => void;
       /** Lifecycle hook called when section incoming data change received */
       onDataChange?: (options: SectionDataChangeHookArgs) => boolean;
       /** Lifecycle hook called when section should do primary render */
