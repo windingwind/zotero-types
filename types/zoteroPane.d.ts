@@ -9,7 +9,7 @@ declare namespace _ZoteroTypes {
     document: Document & { body: null; head: null };
     collectionsView: CollectionTree | false;
     itemsView: ItemTree | false;
-    itemPane: XUL.Box | false;
+    itemPane: ItemPane | false;
     progressWindow: Zotero.ProgressWindow | false;
 
     newCollection(parentKey: string): Promise<undefined | Zotero.Collection>;

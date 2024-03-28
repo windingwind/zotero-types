@@ -3,12 +3,9 @@
 
 declare namespace _ZoteroTypes {
   interface ItemPaneManager {
-    registerSections<T extends string>(
+    registerSection<T extends string>(
       options: ItemPaneManager.ItemDetailsSectionOptions<T>,
     ): false | string;
-    registerSections<T extends string>(
-      options: ItemPaneManager.ItemDetailsSectionOptions<T>[],
-    ): false | string[];
   }
   namespace ItemPaneManager {
     type Icon16px = string | IconURI;
@@ -28,26 +25,28 @@ declare namespace _ZoteroTypes {
       ? never
       : T;
 
+    type ValidDOMString<T extends string> =
+      T extends `${infer _Prefix},${infer _Suffix}` ? never : T;
+
+    interface SectionHook {
+      init(props: SectionInitHookArgs): void;
+      destroy(props: BasicHookArgs): void;
+      render(props: SectionHookArgs): void;
+      itemChange(props: SectionHookArgs): boolean;
+      asyncRender(props: SectionHookArgs): MaybePromise<void>;
+      toggle(props: SectionEventHookArgs): void;
+    }
+
     interface SectionButton {
       /** Button type, must be valid DOMString and without "," */
-      type: string;
+      type: ValidDOMString<string>; // TODO
       /** 16*16 Icon URI for section button in light mode */
       icon: Icon16px;
       /** 16*16 Icon URI for section button in dark mode. If not set, use icon */
       darkIcon?: Icon16px;
       /** Button click callback */
-      onClick(options: SectionEventHookArgs): void;
+      onClick(props: SectionEventHookArgs): void;
     }
-
-    interface SectionData {
-      item: Zotero.Item;
-      mode: "edit" | "view";
-      inTrash: boolean;
-      tabType: "library" | "reader";
-    }
-    type IncomingData = {
-      [K in keyof SectionData]: { type: K; value: SectionData[K] };
-    };
 
     interface BasicHookArgs {
       /** Registered pane id */
@@ -59,14 +58,16 @@ declare namespace _ZoteroTypes {
     }
 
     interface UIHookArgs {
-      /** Get section data */
-      getData(): SectionData;
+      item: Zotero.Item;
+      tabType: "library" | "reader"; // TODO
+      editable: boolean;
+
       /** Set l10n args for section header */
       setL10nArgs(l10nArgs: string): void;
       /** Set pane enabled state */
       setEnabled<T extends boolean>(enabled: T): T extends true ? false : true;
       /** Set summary in header */
-      setSectionSummary(summary: string): void;
+      setSectionSummary<T extends string>(summary: T): T;
       /** Set the status of buttons */
       setSectionButtonStatus(
         buttonType: string,
@@ -77,20 +78,16 @@ declare namespace _ZoteroTypes {
       ): void;
     }
 
-    interface SectionHookArgs extends BasicHookArgs, UIHookArgs {}
+    interface SectionHookArgs
+      extends Readonly<BasicHookArgs>,
+        Readonly<UIHookArgs> {}
 
-    interface SectionInitHookArgs extends Omit<SectionHookArgs, "getData"> {
+    interface SectionInitHookArgs extends SectionHookArgs {
       /** A `refresh` is exposed to plugins to allows plugins to refresh the section when necessary */
       refresh(): Promise<void>;
-      getData(): Partial<SectionData>;
     }
 
-    interface SectionDataChangeHookArgs extends SectionHookArgs {
-      /** Incoming data with the structure */
-      incomingData: IncomingData[keyof SectionData];
-    }
-
-    type SectionEventHookArgs = SectionHookArgs & { event: Event };
+    type SectionEventHookArgs = SectionHookArgs & { readonly event: Event };
 
     interface UIOptions {
       /** Icon URI in light mode */
@@ -106,21 +103,15 @@ declare namespace _ZoteroTypes {
       pluginID: string;
       sidenav: UIOptions;
       head: UIOptions;
+      onRender: SectionHook["render"];
+      onAsyncRender?: SectionHook["asyncRender"];
+      onInit?: SectionHook["init"];
+      onDestroy?: SectionHook["destroy"];
+      onItemChange?: SectionHook["itemChange"];
+      onToggle?: SectionHook["toggle"];
+
       /** Pane fragment as string */
-      fragment?: string;
-      /** Lifecycle hook called when section is initialized */
-      onInit?: (options: SectionInitHookArgs) => void;
-      /** Lifecycle hook called when section is destroyed */
-      onDestroy?: (options: BasicHookArgs) => void;
-      /** Lifecycle hook called when section incoming data change received */
-      onDataChange?: (options: SectionDataChangeHookArgs) => boolean;
-      /** Lifecycle hook called when section should do primary render */
-      onRender: (options: SectionHookArgs) => MaybePromise<void>;
-      /** Lifecycle hook called when section should do secondary render */
-      onSecondaryRender?: (options: SectionHookArgs) => MaybePromise<void>;
-      /** Called when section is toggled */
-      onToggle?: (options: SectionEventHookArgs) => void;
-      /** Section button options */
+      bodyXHTML?: string;
       sectionButtons?: SectionButton[];
     }
   }
