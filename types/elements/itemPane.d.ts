@@ -3,7 +3,7 @@
 
 declare namespace _ZoteroTypes {
   class ItemPane extends XULElementBase {
-    readonly content: DocumentFragment;
+    get content(): DocumentFragment;
     collectionTreeRow: any;
     itemsView: any;
     editable: boolean;
@@ -13,7 +13,7 @@ declare namespace _ZoteroTypes {
     renderNoteEditor(item: Zotero.Item): void;
     renderItemPane(item: Zotero.Item): true;
     renderMessage(): boolean;
-    setItemPaneMessage(message: unknown): void; // TODO
+    setItemPaneMessage(message: string): void;
 
     /**
      * Display buttons at top of item pane depending on context
