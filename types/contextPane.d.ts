@@ -1,6 +1,14 @@
 /// <reference path="xpcom/editorInstance.d.ts" />
+/// <reference path="xul.d.ts" />
 
 declare const ZoteroContextPane: {
-  [attr: string]: any;
-  getActiveEditor(): Zotero.EditorInstance;
+  readonly activeEditor?: Zotero.EditorInstance;
+  readonly sidenav: XUL.Element;
+  readonly splitter: XUL.Element;
+  showLoadingMessage(isShow: boolean): void;
+  init(): void;
+  destroy(): void;
+  focus(): void;
+  togglePane(): void;
+  updateAddToNote(): void;
 };
