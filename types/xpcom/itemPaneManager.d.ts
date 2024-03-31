@@ -102,7 +102,7 @@ declare namespace _ZoteroTypes {
       /** Set plugin ID to auto remove section when plugin is disabled/removed */
       pluginID: string;
       sidenav: UIOptions;
-      head: UIOptions;
+      header: UIOptions;
       onRender: SectionHook["render"];
       onAsyncRender?: SectionHook["asyncRender"];
       onInit?: SectionHook["init"];
