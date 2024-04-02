@@ -32,7 +32,7 @@ declare namespace _ZoteroTypes {
       init(props: SectionInitHookArgs): void;
       destroy(props: BasicHookArgs): void;
       render(props: SectionHookArgs): void;
-      itemChange(props: SectionHookArgs): boolean;
+      itemChange(props: SectionHookArgs): void;
       asyncRender(props: SectionHookArgs): MaybePromise<void>;
       toggle(props: SectionEventHookArgs): void;
     }
