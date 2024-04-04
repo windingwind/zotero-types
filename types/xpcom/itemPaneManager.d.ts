@@ -44,6 +44,8 @@ declare namespace _ZoteroTypes {
       icon: Icon16px;
       /** 16*16 Icon URI for section button in dark mode. If not set, use icon */
       darkIcon?: Icon16px;
+      /** data-l10n-id for localization of button tooltip text */
+      l10nID?: string;
       /** Button click callback */
       onClick(props: SectionEventHookArgs): void;
     }
