@@ -8,6 +8,7 @@ declare const ZoteroContextPane: {
   showLoadingMessage(isShow: boolean): void;
   init(): void;
   destroy(): void;
+  update(): void;
   focus(): void;
   togglePane(): void;
   updateAddToNote(): void;

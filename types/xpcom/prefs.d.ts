@@ -12,6 +12,8 @@ declare namespace _ZoteroTypes {
 
     clear(pref: string, global?: boolean): void;
 
+    resetBranch(exclude?: string[], branch?: string): void;
+
     /**
      * @param {String} name - Preference name; if not global, this is on the extensions.zotero branch
      * @param {Function} handler
