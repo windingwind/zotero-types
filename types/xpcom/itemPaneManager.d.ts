@@ -6,6 +6,8 @@ declare namespace _ZoteroTypes {
     registerSection<T extends string>(
       options: ItemPaneManager.ItemDetailsSectionOptions<T>,
     ): false | string;
+
+    unregisterSection(key: string): boolean;
   }
   namespace ItemPaneManager {
     type Icon16px = string | IconURI;
@@ -94,8 +96,10 @@ declare namespace _ZoteroTypes {
     interface UIOptions {
       /** Icon URI in light mode */
       icon: string;
+      darkIcon?: string;
       /** Pane data-l10n-id for localization of section head `label` or Sidenav data-l10n-id for localization of sidenav `tooltiptext` */
       l10nID: string;
+      l10nArgs?: string;
     }
 
     interface ItemDetailsSectionOptions<T extends string> {
@@ -105,7 +109,7 @@ declare namespace _ZoteroTypes {
       pluginID: string;
       sidenav: UIOptions;
       header: UIOptions;
-      onRender: SectionHook["render"];
+      onRender?: SectionHook["render"];
       onAsyncRender?: SectionHook["asyncRender"];
       onInit?: SectionHook["init"];
       onDestroy?: SectionHook["destroy"];
