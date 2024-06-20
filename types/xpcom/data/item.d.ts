@@ -331,15 +331,76 @@ declare namespace Zotero {
 
     isRegularItem(): boolean;
     isTopLevelItem(): boolean;
+
+    ////////////////////////////////////////////////////////
+    //
+    //
+    // Attachment methods
+    //
+    // save() is not required for attachment functions
+    //
+    //
+    ///////////////////////////////////////////////////////
+
+    /**
+     * Determine if an item is an attachment
+     **/
     isAttachment(): boolean;
+
     /**
      * Determine if an item is an annotation
      *
      * @return {Boolean}
      **/
     isAnnotation(): boolean;
+
+    /**
+     * @return {Boolean} - Returns true if item is a snapshot
+     */
+    isSnapshotAttachment(): boolean;
+
+    /**
+     * @return {Boolean} - Returns true if item is a stored or linked PDF attachment
+     */
     isPDFAttachment(): boolean;
+
     isEmbeddedImageAttachment(): boolean;
+    isImportedAttachment(): boolean;
+    isStoredFileAttachment(): boolean;
+    isWebAttachment(): boolean;
+    isFileAttachment(): boolean;
+    isLinkedFileAttachment(): boolean;
+
+    /**
+     * @return {Boolean} - Returns true if item is a stored or linked EPUB attachment
+     */
+    isEPUBAttachment(): boolean;
+
+    /**
+     * @return {Boolean} - Returns true if item is a stored or linked image attachment
+     */
+    isImageAttachment(): boolean;
+
+    /**
+     * @return {Boolean} - Returns true if item is a stored or linked video attachment
+     */
+    isVideoAttachment(): boolean;
+
+    /**
+     * Returns number of child attachments of item
+     *
+     * @param	{Boolean}	includeTrashed		Include trashed child items in count
+     * @return	<Integer>
+     */
+    numAttachments(includeTrashed?: boolean): number;
+
+    /**
+     * Returns the number of file attachments of an item
+     *
+     * @return <Integer>
+     */
+    numFileAttachments(): number;
+
     addTag(name: string, type: number): boolean;
     removeTag(tag: string): boolean;
     // Only regular item
