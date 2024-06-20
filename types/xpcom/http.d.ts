@@ -187,7 +187,7 @@ declare namespace _ZoteroTypes {
      * @param {HTMLDocument} doc Document returned by
      * @param {nsIURL|String} url
      */
-    wrapDocument(doc: Document, url: string | URL): void;
+    wrapDocument(doc: Document, url: string | URL): Document;
 
     Location: (url: URL) => Location;
     Window: (url: URL) => Window;
