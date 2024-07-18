@@ -108,6 +108,12 @@ declare namespace _ZoteroTypes {
     cleanTags(x: string): string;
 
     /**
+     * Extract item identifiers (DOI, ISBN, arXiv, ADS Bibcode, PMID) from a string.
+     * @type String
+     */
+    extractIdentifiers(text: string): ({DOI: string} | {ISBN: string} | {arXiv: string} | {adsBibcode: string} | {PMID: string})[];
+
+    /**
      * Strip info:doi prefix and any suffixes from a DOI
      * @type String
      */
@@ -121,6 +127,13 @@ declare namespace _ZoteroTypes {
      * @return {String|Boolean} Valid ISBN or false
      */
     cleanISBN(isbn: string, dontValidate?: boolean): string | false;
+
+    /**
+     * Convert ISBN 10 to ISBN 13
+     * @param {String} isbn ISBN 10 or ISBN 13 cleanISBN
+     * @return {String} ISBN-13
+     */
+    toISBN13(isbnStr: string): string;
 
     /**
      * Clean and validate ISSN.
