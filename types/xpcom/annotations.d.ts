@@ -2,7 +2,13 @@
 
 declare namespace _ZoteroTypes {
   namespace Annotations {
-    type AnnotationType = "highlight" | "image" | "ink" | "note" | "underline" | "text";
+    type AnnotationType =
+      | "highlight"
+      | "image"
+      | "ink"
+      | "note"
+      | "underline"
+      | "text";
     interface AnnotationJson {
       id: string;
       text: string;
