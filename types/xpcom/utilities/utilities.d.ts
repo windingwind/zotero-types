@@ -111,7 +111,15 @@ declare namespace _ZoteroTypes {
      * Extract item identifiers (DOI, ISBN, arXiv, ADS Bibcode, PMID) from a string.
      * @type String
      */
-    extractIdentifiers(text: string): ({DOI: string} | {ISBN: string} | {arXiv: string} | {adsBibcode: string} | {PMID: string})[];
+    extractIdentifiers(
+      text: string,
+    ): (
+      | { DOI: string }
+      | { ISBN: string }
+      | { arXiv: string }
+      | { adsBibcode: string }
+      | { PMID: string }
+    )[];
 
     /**
      * Strip info:doi prefix and any suffixes from a DOI
