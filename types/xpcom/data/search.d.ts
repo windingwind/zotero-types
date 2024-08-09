@@ -127,7 +127,13 @@ declare namespace Zotero {
       | "isAfter"
       | "contains"
       | "doesNotContain"
-      | "beginsWith";
+      | "beginsWith"
+      | "isLessThan"
+      | "isGreaterThan"
+      | "any"
+      | "all"
+      | "true"
+      | "false";
     // Zotero.SearchConditions.getStandardConditions().map((c) => `'${c.name}'`).join(" | ");
     type Conditions =
       | "numPages"
