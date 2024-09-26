@@ -1,5 +1,6 @@
 /// <reference path="zotero.d.ts" />
 /// <reference path="xul.d.ts" />
+/// <reference path="elements/itemPane.d.ts" />
 
 // chrome/content/zotero/zoteroPane.js
 
