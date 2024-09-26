@@ -1,5 +1,5 @@
-/// <reference path="./types/tabs.d.ts" />
-/// <reference path="./types/zoteroPane.d.ts" />
+/// <reference path="./types/zotero.d.ts" />
+/// <reference path="./types/gecko/index.d.ts" />
 
 declare namespace _ZoteroTypes {
   type anyObj = { [key: string]: any };
@@ -270,8 +270,20 @@ declare namespace _ZoteroTypes {
   }
 
   interface MainWindow extends Window {
+    readonly Zotero: Zotero;
     readonly ZoteroPane: ZoteroPane;
     readonly ZoteroPane_Local: ZoteroPane;
     readonly Zotero_Tabs: typeof Zotero_Tabs;
+    readonly ZoteroContextPane: typeof ZoteroContextPane;
+    readonly Zotero_File_Interface: typeof Zotero_File_Interface;
+
+    readonly Components: nsIXPCComponents;
+    readonly Cc: nsIXPCComponents_Classes;
+    readonly Ci: nsIXPCComponents_Interfaces;
+    readonly Cr: nsIXPCComponents_Results;
+    readonly Cu: nsIXPCComponents_Utils;
+
+    readonly Services: JSServices;
+    readonly NetUtil: anyObj;
   }
 }
