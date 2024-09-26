@@ -1,3 +1,6 @@
+/// <reference path="./types/tabs.d.ts" />
+/// <reference path="./types/zoteroPane.d.ts" />
+
 declare namespace _ZoteroTypes {
   type anyObj = { [key: string]: any };
   type MaybePromise<T> = T | Promise<T>;
@@ -264,5 +267,11 @@ declare namespace _ZoteroTypes {
     "zotero.svg",
     "arrow-down.gif",
     "annotation-hidden.gif",
+  }
+
+  interface MainWindow extends Window {
+    readonly ZoteroPane: ZoteroPane;
+    readonly ZoteroPane_Local: ZoteroPane;
+    readonly Zotero_Tabs: typeof Zotero_Tabs;
   }
 }
