@@ -1,4 +1,5 @@
 /// <reference path="base.d.ts" />
+/// <reference path="../xpcom/itemPaneManager.d.ts" />
 
 declare namespace _ZoteroTypes {
   class ItemPaneSectionElementBase extends XULElementBase {
