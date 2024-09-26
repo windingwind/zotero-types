@@ -17,54 +17,6 @@ declare interface DirectoryIteratorConstructable {
   new (path: string): DirectoryIterator; // eslint-disable-line @typescript-eslint/prefer-function-type
 }
 
-// http://www.devdoc.net/web/developer.mozilla.org/en-US/docs/XPCOM_Interface_Reference/nsIFile.html
-declare interface nsIFile {
-  [attr: string]: any;
-  readonly NORMAL_FILE_TYPE: 0;
-  readonly DIRECTORY_TYPE: 1;
-  readonly diskSpaceAvailable: number;
-  fileSize: number;
-  readonly fileSizeOfLink: number;
-  readonly parent: nsIFile;
-  readonly path: string;
-  permissions: number;
-  permissionsOfLink: number;
-  persistentDescriptor: string;
-  readonly target: string;
-
-  append(node: string): void;
-  appendRelativePath(relativeFilePath: string): void;
-  clone(): nsIFile;
-  contains(file: nsIFile): boolean;
-  copyTo(newParentDir: nsIFile, newName: string): void;
-  copyToFollowingLinks(newParentDir: nsIFile, newName: string): void;
-  create(type: number, permissions: number): void;
-  createUnique(type: number, permissions: number): void;
-  equals(file: nsIFile): boolean;
-  exists(): boolean;
-  getRelativeDescriptor(fromFile: nsIFile): string;
-  initWithFile(file: nsIFile): void;
-  initWithPath(filePath: string): void;
-  isDirectory(): boolean;
-  isExecutable(): boolean;
-  isFile(): boolean;
-  isHidden(): boolean;
-  isReadable(): boolean;
-  isSpecial(): boolean;
-  isSymlink(): boolean;
-  isWritable(): boolean;
-  launch(): void;
-  moveTo(newParentDir: nsIFile, newName: string): void;
-  normalize(): void;
-  remove(recursive?: boolean): void;
-  renameTo(newParentDir: nsIFile, newName: string): void;
-  reveal(): void;
-  setRelativeDescriptor(fromFile: nsIFile, relativeDesc: string): void;
-}
-declare interface nsIInputStream {
-  [attr: string]: any;
-}
-
 declare namespace OS {
   namespace File {
     type Entry = {
