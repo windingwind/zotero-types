@@ -107,7 +107,7 @@ declare namespace _ZoteroTypes {
      *     enabledTreeIDs: ['main'], // only show in the main item tree
      *     sortReverse: true, // sort by increasing order
      *     flex: 0, // don't take up all available space
-     *     width: 100, // assign fixed width in pixels
+     *     width: "100", // assign fixed width in pixels
      *     fixedWidth: true, // don't allow user to resize
      *     staticWidth: true, // don't allow column to be resized when the tree is resized
      *     minWidth: 50, // minimum width in pixels
