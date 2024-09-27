@@ -49,7 +49,10 @@ declare namespace _ZoteroTypes {
     ) => Promise<string | false>;
     removeIfExists(path: string): Promise<void>;
     directoryIsEmpty(path: string): Promise<boolean>;
-    iterateDirectory(path: string, onEntry: any): Promise<void>;
+    iterateDirectory(
+      path: string,
+      onEntry: (entry: OS.File.Entry) => void,
+    ): Promise<void>;
     canMoveDirectoryWithCommand(): boolean;
     canMoveDirectoryWithFunction(): boolean;
     moveDirectory: (
