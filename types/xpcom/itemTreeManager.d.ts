@@ -12,7 +12,7 @@ declare namespace _ZoteroTypes {
      * @property {string[]} [disabledIn] - Will be deprecated. Types of trees where the column is not available
      * @property {boolean} [sortReverse=false] - Default: false. Set to true to reverse the sort order
      * @property {number} [flex=1] - Default: 1. When the column is added to the tree how much space it should occupy as a flex ratio
-     * @property {string} [width] - A column width instead of flex ratio. See above.
+     * @property {number} [width] - A column width instead of flex ratio. See above.
      * @property {boolean} [fixedWidth] - Default: false. Set to true to disable column resizing
      * @property {boolean} [staticWidth] - Default: false. Set to true to prevent columns from changing width when the width of the tree increases or decreases
      * @property {number} [minWidth] - Override the default [20px] column min-width for resizing
@@ -36,7 +36,7 @@ declare namespace _ZoteroTypes {
       disabledIn?: string[];
       sortReverse?: boolean;
       flex?: number;
-      width?: string;
+      width?: number;
       fixedWidth?: boolean;
       staticWidth?: boolean;
       minWidth?: number;
@@ -107,7 +107,7 @@ declare namespace _ZoteroTypes {
      *     enabledTreeIDs: ['main'], // only show in the main item tree
      *     sortReverse: true, // sort by increasing order
      *     flex: 0, // don't take up all available space
-     *     width: "100", // assign fixed width in pixels
+     *     width: 100, // assign fixed width in pixels
      *     fixedWidth: true, // don't allow user to resize
      *     staticWidth: true, // don't allow column to be resized when the tree is resized
      *     minWidth: 50, // minimum width in pixels
