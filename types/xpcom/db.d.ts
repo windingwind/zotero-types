@@ -1,3 +1,5 @@
+/// <reference path="../../internal.d.ts" />
+
 declare namespace _ZoteroTypes {
   namespace DB {
     type QueryParams = MaybeArray<string | number | object | null | undefined>;
