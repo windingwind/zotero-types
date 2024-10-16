@@ -19,6 +19,7 @@
 /// <reference path="xpcom/reader.d.ts" />
 /// <reference path="xpcom/uri.d.ts" />
 /// <reference path="xpcom/collectionTreeRow.d.ts" />
+/// <reference path="xpcom/db.d.ts" />
 /// <reference path="xpcom/data/notes.d.ts" />
 /// <reference path="xpcom/data/creators.d.ts" />
 /// <reference path="xpcom/data/tags.d.ts" />
@@ -261,6 +262,7 @@ declare const Zotero: {
   URI: _ZoteroTypes.URI;
   Tags: _ZoteroTypes.Tags;
   File: _ZoteroTypes.File;
+  DB: _ZoteroTypes.DB;
   HTTP: _ZoteroTypes.HTTP;
   Users: _ZoteroTypes.Users;
   Feeds: _ZoteroTypes.Feeds;
