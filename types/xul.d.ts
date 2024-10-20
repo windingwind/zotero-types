@@ -124,11 +124,11 @@ declare namespace XUL {
     openPopup: (
       anchor: Element | null,
       position: Popup.Position,
-      x: number,
-      y: number,
-      isContextMenu: boolean,
-      attributesOverride: boolean,
-      triggerEvent: Event,
+      x?: number,
+      y?: number,
+      isContextMenu?: boolean,
+      attributesOverride?: boolean,
+      triggerEvent?: Event,
     ) => void;
 
     /**
@@ -137,18 +137,19 @@ declare namespace XUL {
     openPopupAtScreen: (
       x: number,
       y: number,
-      isContextMenu: boolean,
+      isContextMenu?: boolean,
+      triggerEvent?: Event,
     ) => void;
 
-    OpenPopupAtScreenRect: (
+    openPopupAtScreenRect: (
       position: Popup.Position,
       x: number,
       y: number,
       width: number,
       height: number,
-      isContextMenu: boolean,
-      attributesOverride: boolean,
-      triggerEvent: Event,
+      isContextMenu?: boolean,
+      attributesOverride?: boolean,
+      triggerEvent?: Event,
     ) => void;
 
     /**
