@@ -36,7 +36,7 @@ declare namespace _ZoteroTypes {
     */
     rollbackAllTransactions(): number | boolean;
 
-    getColumns(table: string): Promise<Object[] | false>;
+    getColumns(table: string): Promise<object[] | false>;
 
     /**
     * Find the next lowest numeric suffix for a value in table column
@@ -51,7 +51,7 @@ declare namespace _ZoteroTypes {
 
     /**
      * @param {Function} func - Async function containing `await Zotero.DB.queryAsync()` and similar
-     * @param {Object} [options]
+     * @param {object} [options]
      * @param {Boolean} [options.disableForeignKeys] - Disable foreign key constraints before
      *    transaction and re-enable after. (`PRAGMA foreign_keys=0|1` is a no-op during a transaction.)
      * @return {Promise} - Promise for result of generator function
@@ -72,32 +72,32 @@ declare namespace _ZoteroTypes {
      *                         rows are Proxy objects that return values from the
      *                         underlying mozIStorageRows based on column names.
      */
-    queryAsync(sql: string, params: DB.QueryParams, options?: {inBackup: boolean, noParseParams: boolean, onRow: (row: unknown, cancel: unknown) => void, noCache: boolean}): Promise<Object[] | void>;
+    queryAsync(sql: string, params: DB.QueryParams, options?: {inBackup: boolean, noParseParams: boolean, onRow: (row: unknown, cancel: unknown) => void, noCache: boolean}): Promise<object[] | undefined>;
 
 
-    queryTx(sql: string, params: DB.QueryParams, options?: {inBackup: boolean, noParseParams: boolean, onRow: (row: unknown, cancel: unknown) => void, noCache: boolean}): Promise<Object[] | void>;
+    queryTx(sql: string, params: DB.QueryParams, options?: {inBackup: boolean, noParseParams: boolean, onRow: (row: unknown, cancel: unknown) => void, noCache: boolean}): Promise<object[] | undefined>;
 
     /**
      * @param {String} sql  SQL statement to run
      * @param {Array|String|Integer} [params]  SQL parameters to bind
      * @return {Promise<Array|Boolean>}  A promise for either the value or FALSE if no result
      */
-    valueQueryAsync(sql: string, params: DB.QueryParams, options?: {inBackup: boolean, noCache: boolean}): Promise<Object[] | boolean>;
+    valueQueryAsync(sql: string, params: DB.QueryParams, options?: {inBackup: boolean, noCache: boolean}): Promise<object[] | boolean>;
 
 
     /**
      * @param {String} sql SQL statement to run
      * @param {Array|String|Integer} [params] SQL parameters to bind
-     * @return {Promise<Object>}  A promise for a proxied storage row
+     * @return {Promise<object>}  A promise for a proxied storage row
      */
-    rowQueryAsync(sql: string, params: DB.QueryParams): Promise<Object | boolean>;
+    rowQueryAsync(sql: string, params: DB.QueryParams): Promise<object | boolean>;
 
     /**
      * @param {String} sql SQL statement to run
      * @param {Array|String|Integer} [params] SQL parameters to bind
      * @return {Promise<Array>}  A promise for an array of values in the column
      */
-    columnQueryAsync(sql: string, params: DB.QueryParams, options?: {inBackup: boolean, noCache: boolean, debug: boolean, debugParams: boolean}): Promise<Object[][]>;
+    columnQueryAsync(sql: string, params: DB.QueryParams, options?: {inBackup: boolean, noCache: boolean, debug: boolean, debugParams: boolean}): Promise<object[][]>;
 
     logQuery(sql: string, params?: DB.QueryParams, options?: {debug: boolean, debugParams: boolean}): void;
 
@@ -168,12 +168,12 @@ declare namespace _ZoteroTypes {
     //
     /////////////////////////////////////////////////////////////////
 
-    _getConnection(options?: {inBackup: boolean}): Object | boolean;
+    _getConnection(options?: {inBackup: boolean}): object | boolean;
 
     /*
     * Retrieve a link to the data store asynchronously
     */
-    _getConnectionAsync(options?: {inBackup: boolean}): Promise<Object>;
+    _getConnectionAsync(options?: {inBackup: boolean}): Promise<object>;
 
 
     _checkException(e: Error): Promise<boolean>;
