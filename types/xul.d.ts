@@ -88,35 +88,8 @@ declare namespace XUL {
 
   interface MenuPopup extends Popup {}
 
-  interface Popup extends Element {
-    /**
-     * Closes the popup menu immediately.
-     */
-    hidePopup(): void;
-
-    /**
-     * menupopup.showPopup (someButton,-1,-1,"popup","bottomleft","topleft");
-     */
-    showPopup: (
-      element: Element,
-      x: number,
-      y: number,
-      popupType: "popup" | "context" | "tooltip",
-      anchor: string,
-      align: string,
-    ) => void;
-
-    /**
-     * Changes the current size of the popup to a new width and height.
-     */
-    sizeTo(width: number, height: number): void;
-
-    /**
-     * Moves the popup to a new location.
-     */
-    moveTo(x: number, y: number): void;
-
-    position:
+  namespace Popup {
+    type Position =
       | "after_start"
       | "after_end"
       | "before_start"
@@ -127,7 +100,91 @@ declare namespace XUL {
       | "start_before"
       | "overlap"
       | "at_pointer"
-      | "after_pointer";
+      | "after_pointer"
+  }
+
+  interface Popup extends Element {
+    /**
+     * Closes the popup menu immediately.
+     */
+    hidePopup(): void;
+
+    /**
+     * Opens the popup relative to a specified node at a specific location.
+     * 
+     * @param achor The popup may be either anchored to another node or opened freely. To anchor a popup to a node, supply an anchor node and set the position to a string indicating the manner in which the popup should be anchored. The anchor node does not need to be in the same document as the popup. Unanchored popups may be created by supplying null as the anchor node. The direction in which the popup is oriented depends on the direction of the anchor.
+     * @param position Possible values for position are: `before_start`, `before_end`, `after_start`, `after_end`, `start_before`, `start_after`, `end_before`, `end_after`, `overlap`, and `after_pointer`. Check [Positioning of the Popup Guide](https://devdoc.net/web/developer.mozilla.org/en-US/docs/XUL/PopupGuide/Positioning.html) for a precise description of the effect of the different values.
+     * @param x
+     * @param y For an anchored popup, the `x` and `y` arguments may be used to offset the popup from its anchored position by some number, measured in CSS pixels. An unanchored popup appears at the position specified by x and y, relative to the viewport of the document containing the popup node. In this case, the `position` and `attributesOverride` arguments are ignored.
+     * @param isContextMenu The `isContextMenu` argument should be `true` for context menus and `false` for all other types of popups. It affects menu item highlighting; that is, while a context menu is open, menus opened earlier do not highlight or execute their items.
+     * @param attributesOverride If the `attributesOverride` argument is `true`, the position attribute on the popup node overrides the `position` value argument. If `attributesOverride` is `false`, the attribute is only used if the `position` argument is empty.
+     * @param triggerEvent The event that triggered the popup (such as a mouse click, if the user clicked something to open the popup).
+     * 
+     */
+    openPopup: (
+      anchor: Element | null,
+      position: Popup.Position,
+      x: number,
+      y: number,
+      isContextMenu: boolean,
+      attributesOverride: boolean,
+      triggerEvent: Event,
+    ) => void;
+
+    /**
+     * Open the popup at a specific screen position specified by x and y. This position may be adjusted if it would cause the popup to be off of the screen. The x and y coordinates are measured in CSS pixels.
+     */
+    openPopupAtScreen: (
+      x: number,
+      y: number,
+      isContextMenu: boolean,
+    ) => void;
+
+    OpenPopupAtScreenRect: (
+      position: Popup.Position,
+      x: number,
+      y: number,
+      width: number,
+      height: number,
+      isContextMenu: boolean,
+      attributesOverride: boolean,
+      triggerEvent: Event,
+    ) => void;
+
+    /**
+     * Changes the current size of the popup to the new width and height.
+     */
+    sizeTo(width: number, height: number): void;
+
+    /**
+     * Moves the popup to a new location.
+     */
+    moveTo(x: number, y: number): void;
+
+    /**
+     * This read-only property holds the DOM node that was specified as the anchor when opening the popup.
+     */
+    readonly anchorNode: Element | null;
+
+    /**
+     * Gets and sets the value of the position attribute.
+     */
+    position: Popup.Position | "";
+
+    /**
+     * This read only property indicates whether the popup is open or not. Four values are possible:
+
+      - closed: The popup is closed and not visible.
+      - open: The popup is open and visible on screen.
+      - showing: A request has been made to open the popup, but it has not yet been shown. This state will occur during the popupshowing event.
+      - hiding: The popup is about to be hidden. This state will occur during the popuphiding event.
+     */
+    readonly state: "closed" | "open" | "showing" | "hiding";
+
+    /**
+     * This read-only property holds the DOM node that generated the event triggering the opening of the popup. The value is null if the popup isn't open.
+     */
+    readonly triggerNode: Element | null;
   }
 
   interface MenuItem extends Element, ICrop, IValue, ILabel, IDisabled {
