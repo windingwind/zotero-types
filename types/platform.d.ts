@@ -2,9 +2,6 @@
 
 // Type definitions for Zotero platform (Mozilla Firefox 60/102)
 
-declare const Components: nsIXPCComponents;
-declare const Services: JSServices;
-
 declare const NetUtil: any;
 
 // https://github.com/retorquere/zotero-better-bibtex/blob/master/typings/global.d.ts
