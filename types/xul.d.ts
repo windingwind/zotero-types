@@ -1,3 +1,6 @@
+/// <reference path="./gecko/index.d.ts" />
+
+// @deprecated - use XUL element interfaces directly
 declare namespace XUL {
   interface IDisabled {
     disabled: boolean;
@@ -18,354 +21,526 @@ declare namespace XUL {
     properties: string;
   }
 
-  interface Element extends HTMLElement {
-    width: number | string;
-    height: number | string;
-    top: number | string;
-    left: number | string;
-    flex: number | string;
-    align: "start" | "center" | "end" | "baseline" | "stretch";
-    setAttribute(qualifiedName: string, value: string | any): void;
-  }
+  // @deprecated - use XULElement
+  interface Element extends XULElement {}
 
-  interface Description extends Element, IDisabled, ICrop, IValue {
-    control: string;
-  }
+  // @deprecated - use XULDescriptionElement
+  interface Description extends XULDescriptionElement {}
 
-  interface Label extends Description {}
+  // @deprecated - use XULLabelElement
+  interface Label extends XULLabelElement {}
 
-  interface Textbox extends Element, IValue, ILabel, IDisabled {
-    readOnly: boolean;
-    maxLength: number;
-    clickSelectsAll: boolean;
-    defaultValue: string;
-    selectionStart: number;
-    selectionEnd: number;
-    type: "autocomplete" | "number" | "password" | "search";
-    placeholder: string;
-    size: number;
-    readonly inputField: HTMLInputElement;
-    reset(): void;
-    select(): void;
-    setSelectionRange(start: number, end: number): void;
-  }
+  // @deprecated - use XULTextBoxElement
+  interface Textbox extends XULTextBoxElement {}
 
-  interface Checkbox extends Element, ILabel, IDisabled {
-    checked: boolean;
-  }
+  // @deprecated - use XULCheckboxElement
+  interface Checkbox extends XULCheckboxElement {}
 
-  interface Radio extends Element, ILabel, IDisabled {
-    selected: boolean;
-    command: Command;
-  }
+  // @deprecated - use XULRadioElement
+  interface Radio extends XULRadioElement {}
 
-  interface RadioGroup extends Element, IDisabled, IValue, ISelectedIndex {
-    focusedItem: Radio;
-    selectedItem: Radio;
-    appendItem(lable: string, value?: string): Radio;
-    insertItemAt: (index: number, label: string, value?: string) => Radio;
-    removeItemAt(index: number): Radio;
-  }
+  // @deprecated - use XULRadioGroupElement
+  interface RadioGroup extends XULRadioGroupElement {}
 
-  interface GroupBox extends Element, ICrop, ILabel {}
+  // @deprecated - use XULGroupBoxElement
+  interface GroupBox extends XULGroupBoxElement {}
 
-  interface StatusBar extends Element {}
+  // @deprecated - use XULStatusBarElement
+  interface StatusBar extends XULStatusBarElement {}
 
-  interface StatusBarPanel extends Element, ILabel {}
+  // @deprecated - use XULStatusBarPanelElement
+  interface StatusBarPanel extends XULStatusBarPanelElement {}
 
-  interface Separator extends Element {}
+  // @deprecated - use XULSeparatorElement
+  interface Separator extends XULSeparatorElement {}
 
-  interface Spacer extends Element {}
+  // @deprecated - use XULSpacerElement
+  interface Spacer extends XULSpacerElement {}
 
-  interface ProgressMeter extends Element {
-    mode: "determined" | "undetermined";
-    value: number;
-  }
+  // @deprecated - use XULProgressMeterElement
+  interface ProgressMeter extends XULProgressMeterElement {}
 
-  interface MenuBar extends Element {}
+  // @deprecated - use XULMenuBarElement
+  interface MenuBar extends XULMenuBarElement {}
 
-  interface Menu extends Element, IValue {}
+  // @deprecated - use XULMenuElement
+  interface Menu extends XULMenuElement {}
 
-  interface MenuPopup extends Popup {}
+  // @deprecated - use XULMenuPopupElement
+  interface MenuPopup extends XULMenuPopupElement {}
 
-  interface Popup extends Element {
-    /**
-     * Closes the popup menu immediately.
-     */
-    hidePopup(): void;
+  // @deprecated - use XULMenuItemElement
+  interface MenuItem extends XULMenuItemElement {}
 
-    /**
-     * menupopup.showPopup (someButton,-1,-1,"popup","bottomleft","topleft");
-     */
-    showPopup: (
-      element: Element,
-      x: number,
-      y: number,
-      popupType: "popup" | "context" | "tooltip",
-      anchor: string,
-      align: string,
-    ) => void;
+  // @deprecated - use XULMenuListElement
+  interface MenuList extends XULMenuListElement {}
 
-    /**
-     * Changes the current size of the popup to a new width and height.
-     */
-    sizeTo(width: number, height: number): void;
+  // @deprecated - use XULMenuSeparatorElement
+  interface MenuSeparator extends XULMenuSeparatorElement {}
 
-    /**
-     * Moves the popup to a new location.
-     */
-    moveTo(x: number, y: number): void;
+  // @deprecated - use XULTooltipElement
+  interface Tooltip extends XULTooltipElement {}
 
-    position:
-      | "after_start"
-      | "after_end"
-      | "before_start"
-      | "before_end"
-      | "end_after"
-      | "end_before"
-      | "start_after"
-      | "start_before"
-      | "overlap"
-      | "at_pointer"
-      | "after_pointer";
-  }
+  // @deprecated - use XULToolBoxElement
+  interface ToolBox extends XULToolBoxElement {}
 
-  interface MenuItem extends Element, ICrop, IValue, ILabel, IDisabled {
-    command: string | Command;
-    allowEvents: boolean;
-    selected: boolean;
-  }
+  // @deprecated - use XULToolBarElement
+  interface ToolBar extends XULToolBarElement {}
 
-  interface MenuList
-    extends Element,
-      ICrop,
-      IValue,
-      IDisabled,
-      ILabel,
-      ISelectedIndex {
-    selectedItem: MenuItem;
-    itemCount: number;
-    description: string;
-    open: false;
-    readonly inputField: Textbox;
+  // @deprecated - use XULToolBarPaletteElement
+  interface ToolBarPalette extends XULToolBarPaletteElement {}
 
-    getItemAtIndex(i: number): XUL.MenuItem;
-    appendItem: (
-      label: string,
-      value?: string,
-      description?: string,
-    ) => XUL.MenuItem;
-    insertItemAt: (
-      index: number,
-      label: string,
-      value?: string,
-      description?: string,
-    ) => XUL.MenuItem;
-  }
+  // @deprecated - use XULToolBarSetElement
+  interface ToolBarSet extends XULToolBarSetElement {}
 
-  interface MenuSeparator extends Element {}
+  // @deprecated - use XULToolBarButtonElement
+  interface ToolBarButton extends XULToolBarButtonElement {}
 
-  interface Tooltip extends ILabel, Popup {}
+  // @deprecated - use XULToolBarItemElement
+  interface ToolBarItem extends XULToolBarItemElement {}
 
-  interface ToolBox extends Element {}
+  // @deprecated - use XULToolBarSeparatorElement
+  interface ToolBarSeparator extends XULToolBarSeparatorElement {}
 
-  interface ToolBar extends Element {}
+  // @deprecated - use XULToolBarSpacerElement
+  interface ToolBarSpacer extends XULToolBarSpacerElement {}
 
-  interface ToolBarPalette extends Element {}
+  // @deprecated - use XULToolBarSpringElement
+  interface ToolBarSpring extends XULToolBarSpringElement {}
 
-  interface ToolBarSet extends Element {}
+  // @deprecated - use XULToolBarGrippyElement
+  interface ToolBarGrippy extends XULToolBarGrippyElement {}
 
-  interface ToolBarButton extends Button {}
+  // @deprecated - use XULBoxElement
+  interface Box extends XULBoxElement {}
 
-  interface ToolBarItem extends Element {}
+  // @deprecated - use XULDeckElement
+  interface Deck extends XULDeckElement {}
 
-  interface ToolBarSeparator extends Separator {}
+  // @deprecated - use XULTabElement
+  interface Tab extends XULTabElement {}
 
-  interface ToolBarSpacer extends Spacer {}
+  // @deprecated - use XULTabsElement
+  interface Tabs extends XULTabsElement {}
 
-  interface ToolBarSpring extends Element {}
+  // @deprecated - use XULTabPanelElement
+  interface TabPanel extends XULTabPanelElement {}
 
-  interface ToolBarGrippy extends Grippy {}
+  // @deprecated - use XULTabPanelsElement
+  interface TabPanels extends XULTabPanelsElement {}
 
-  interface Box extends Element {
-    maxHeight: number;
-    minHeight: number;
-    maxWidth: number;
-    minWidth: number;
-  }
+  // @deprecated - use XULTabBoxElement
+  interface TabBox extends XULTabBoxElement {}
 
-  interface Deck extends Element, ISelectedIndex {
-    selectedPanel: Element;
-  }
+  // @deprecated - use XULButtonElement
+  interface Button extends XULButtonElement {}
 
-  interface Tab extends Element {
-    readonly selected: boolean;
-    readonly control: Tabs;
-  }
+  // @deprecated - use XULListItemElement
+  interface ListItem extends XULListItemElement {}
 
-  interface Tabs extends Element, ISelectedIndex {
-    itemCount: number;
-    selectedItem: Tab;
+  // @deprecated - use XULTreeSeparatorElement
+  interface TreeSeparator extends XULTreeSeparatorElement {}
 
-    /**
-     * @param dir
-     * If the argument dir is set to 1, the currently selected tab changes to the next tab.
-     * If the argument dir is set to -1, the currently selected tab changes to the previous tab.
-     * @param wrap
-     * If the wrap argument is true, the adjustment will wrap around when the first or last tab is reached.
-     */
-    advanceSelectedTab(dir: number, wrap: boolean): void;
+  // @deprecated - use XULTreeRowElement
+  interface TreeRow extends XULTreeRowElement {}
 
-    /**
-     * Creates a new item and adds it to the end of the existing list of items.
-     * You may optionally set a value.
-     * @returns The function returns the newly created element.
-     */
-    appendItem(label: string, value: string): Tab;
+  // @deprecated - use XULTreeCellElement
+  interface TreeCell extends XULTreeCellElement {}
 
-    /**
-     * This method creates a new item and inserts it at the specified position.
-     * You may optionally set a value.
-     * @returns The new item element is returned.
-     */
-    insertItemAt(index: number, label: string, value: string): Tab;
+  // @deprecated - use XULTreeItemElement
+  interface TreeItem extends XULTreeItemElement {}
 
-    /**
-     * Removes the child item in the element at the specified index.
-     * @returns The method returns the removed item.
-     */
-    removeItemAt(index: number): Tab;
-  }
+  // @deprecated - use XULTreeChildrenElement
+  interface TreeChildren extends XULTreeChildrenElement {}
 
-  interface TabPanel extends Element {}
+  // @deprecated - use XULTreeColElement
+  interface TreeCol extends XULTreeColElement {}
 
-  interface TabPanels extends Element, ISelectedIndex {
-    selectedPanel: Element;
-  }
+  // @deprecated - use XULTreeColsElement
+  interface TreeCols extends XULTreeColsElement {}
 
-  interface TabBox extends Element, ISelectedIndex {
-    handleCtrlPageUpDown: boolean;
-    handleCtrlTab: boolean;
-    accessibleType: number;
-    selectedPanel: Element;
-    selectedTab: Tab;
-    tabs: Tabs;
-    tabpanels: TabPanels;
-  }
+  // @deprecated - use XULTreeElement
+  interface Tree extends XULTreeElement {}
 
-  interface Button extends Element, IDisabled, ICrop, ILabel {
-    checked: boolean;
-    type: string;
-    tooltiptext: string;
-    autoCheck: boolean;
-    checkState: number;
-    dlgType: string;
-    group: string;
-    open: boolean;
-  }
+  // @deprecated - use XULScrollBarElement
+  interface ScrollBar extends XULScrollBarElement {}
 
-  interface ListItem extends Element {
-    selectedItem: Element;
-  }
+  // @deprecated - use XULGrippyElement
+  interface Grippy extends XULGrippyElement {}
+
+  // @deprecated - use XULSplitterElement
+  interface Splitter extends XULSplitterElement {}
+
+  // @deprecated - use XULColorPickerElement
+  interface ColorPicker extends XULColorPickerElement {}
+
+  // @deprecated - use XULCommandElement
+  interface Command extends XULCommandElement {}
+
+  // @deprecated - use XULWindowElement
+  interface XULWindow extends XULWindowElement {}
+
+  // @deprecated - use Event
+  interface XULEvent extends Event {}
+}
+
+// @ts-ignore
+declare interface XULElement
+  extends Element,
+    ElementCSSInlineStyle,
+    GlobalEventHandlers,
+    HTMLOrForeignElement,
+    OnErrorEventHandlerForNodes,
+    TouchEventHandlers {
+  width: number | string;
+  height: number | string;
+  top: number | string;
+  left: number | string;
+  flex: number | string;
+  align: "start" | "center" | "end" | "baseline" | "stretch";
+}
+
+declare interface XULDescriptionElement
+  extends XULElement,
+    XUL.IDisabled,
+    XUL.ICrop,
+    XUL.IValue {
+  control: string;
+}
+
+declare interface XULLabelElement extends XULElement, XUL.Description {}
+
+declare interface XULTextBoxElement
+  extends XULElement,
+    XUL.IValue,
+    XUL.ILabel,
+    XUL.IDisabled {
+  readOnly: boolean;
+  maxLength: number;
+  clickSelectsAll: boolean;
+  defaultValue: string;
+  selectionStart: number;
+  selectionEnd: number;
+  type: "autocomplete" | "number" | "password" | "search";
+  placeholder: string;
+  size: number;
+  readonly inputField: HTMLInputElement;
+  reset(): void;
+  select(): void;
+  setSelectionRange(start: number, end: number): void;
+}
+
+declare interface XULCheckboxElement
+  extends XULElement,
+    XUL.ILabel,
+    XUL.IDisabled {
+  checked: boolean;
+}
+
+declare interface XULRadioElement
+  extends XULElement,
+    XUL.ILabel,
+    XUL.IDisabled {
+  selected: boolean;
+  command: XUL.Command;
+}
+
+declare interface XULRadioGroupElement
+  extends XULElement,
+    XUL.IDisabled,
+    XUL.IValue,
+    XUL.ISelectedIndex {
+  selectedIndex: number;
+  selectedItem: XULRadioElement;
+  appendItem(label: string, value?: string): XULRadioElement;
+  insertItemAt(index: number, label: string, value?: string): XULRadioElement;
+  removeItemAt(index: number): XULRadioElement;
+}
+
+declare interface XULGroupBoxElement
+  extends XULElement,
+    XUL.ICrop,
+    XUL.ILabel {}
+
+declare interface XULStatusBarElement extends XULElement {}
+
+declare interface XULStatusBarPanelElement extends XULElement, XUL.ILabel {}
+
+declare interface XULSeparatorElement extends XULElement {}
+
+declare interface XULSpacerElement extends XULElement {}
+
+declare interface XULProgressMeterElement extends XULElement {
+  mode: "determined" | "undetermined";
+  value: number;
+}
+
+declare interface XULMenuBarElement extends XULElement {}
+
+declare interface XULMenuElement extends XULElement, XUL.IValue {}
+
+declare interface XULPopupElement extends XULElement {
+  // @ts-ignore
+  position:
+    | "after_start"
+    | "after_end"
+    | "before_start"
+    | "before_end"
+    | "end_after"
+    | "end_before"
+    | "start_after"
+    | "start_before"
+    | "overlap"
+    | "at_pointer"
+    | "after_pointer";
+}
+
+declare interface XULMenuPopupElement extends XULPopupElement {}
+
+declare interface XULMenuItemElement
+  extends XULElement,
+    XUL.ICrop,
+    XUL.IValue,
+    XUL.ILabel,
+    XUL.IDisabled {
+  command: string | XUL.Command;
+  allowEvents: boolean;
+  selected: boolean;
+}
+
+declare interface XULMenuListElement
+  extends XULElement,
+    XUL.ICrop,
+    XUL.IValue,
+    XUL.IDisabled,
+    XUL.ILabel,
+    XUL.ISelectedIndex {
+  selectedItem: XULMenuItemElement;
+  itemCount: number;
+  description: string;
+  open: false;
+  readonly inputField: XULTextBoxElement;
+
+  getItemAtIndex(i: number): XUL.MenuItem;
+  appendItem: (
+    label: string,
+    value?: string,
+    description?: string,
+  ) => XUL.MenuItem;
+  insertItemAt: (
+    index: number,
+    label: string,
+    value?: string,
+    description?: string,
+  ) => XUL.MenuItem;
+}
+
+declare interface XULMenuSeparatorElement extends XULElement {}
+
+declare interface XULTooltipElement extends XULPopupElement, XUL.ILabel {}
+
+declare interface XULToolBoxElement extends XULElement {}
+
+declare interface XULToolBarElement extends XULElement {}
+
+declare interface XULToolBarPaletteElement extends XULElement {}
+
+declare interface XULToolBarSetElement extends XULElement {}
+
+declare interface XULToolBarButtonElement extends XULButtonElement {}
+
+declare interface XULToolBarItemElement extends XULElement {}
+
+declare interface XULToolBarSeparatorElement extends XULElement {}
+
+declare interface XULToolBarSpacerElement extends XULSpacerElement {}
+
+declare interface XULToolBarSpringElement extends XULElement {}
+
+declare interface XULToolBarGrippyElement extends XULGrippyElement {}
+
+declare interface XULBoxElement extends XULElement, XUL.ICrop {
+  orient: "horizontal" | "vertical";
+  pack: "start" | "center" | "end";
+  maxHeight: number;
+  minHeight: number;
+  maxWidth: number;
+  minWidth: number;
+}
+
+declare interface XULDeckElement extends XULElement, XUL.ISelectedIndex {
+  selectedPanel: XULElement;
+  selectedIndex: number;
+}
+
+declare interface XULTabElement extends XULElement {
+  readonly selected: boolean;
+  readonly control: XULTabsElement;
+}
+
+declare interface XULTabsElement extends XULElement, XUL.ISelectedIndex {
+  itemCount: number;
+  selectedItem: XULTabElement;
 
   /**
-   * Used to place a seperator row in a tree.
+   * @param dir
+   * If the argument dir is set to 1, the currently selected tab changes to the next tab.
+   * If the argument dir is set to -1, the currently selected tab changes to the previous tab.
+   * @param wrap
+   * If the wrap argument is true, the adjustment will wrap around when the first or last tab is reached.
    */
-  interface TreeSeparator extends Element, IProperties {}
+  advanceSelectedTab(dir: number, wrap: boolean): void;
 
   /**
-   * A single row in a tree. It should be placed inside a treeitem element.
-   * Children of the treerow should be treecell elements.
-   * If child rows are necessary, they should be placed in a treechildren element inside the parent treeitem.
+   * Creates a new item and adds it to the end of the existing list of items.
+   * You may optionally set a value.
+   * @returns The function returns the newly created element.
    */
-  interface TreeRow extends Element, IProperties {}
+  appendItem(label: string, value: string): XULTabElement;
 
   /**
-   * A single cell in a tree. This element should be placed inside a treerow.
-   * You can set the text for the cell using the label attribute.
+   * This method creates a new item and inserts it at the specified position.
+   * You may optionally set a value.
+   * @returns The new item element is returned.
    */
-  interface TreeCell extends Element, IProperties, ILabel {
-    mode: "none" | "normal" | "undetermined";
-  }
+  insertItemAt(index: number, label: string, value: string): XULTabElement;
 
   /**
-   * A treeitem should be placed inside a treechildren element and should contain treerow elements.
-   * The treeitem can be clicked by the user to select the row of the tree.
-   * The treeitem contains a single row and all of what appear to the user as that row's descendants.
+   * Removes the child item in the element at the specified index.
+   * @returns The method returns the removed item.
    */
-  interface TreeItem extends Element, ILabel {
-    open: boolean;
-  }
+  removeItemAt(index: number): XULTabElement;
+}
 
-  /**
-   * This element is the body of the tree. For content trees, the content will be placed inside this element.
-   * This element is also used to define container rows in the tree.
-   */
-  interface TreeChildren extends Element {
-    alternatingbackground: boolean;
-  }
+declare interface XULTabPanelElement extends XULElement {}
 
-  /**
-   * A column of a tree.
-   * It displays the column header and holds the size and other information about the column.
-   * You can also place splitter elements between the columns to allow column resizing.
-   * You should always place an id attribute on a treecol element to ensure that the column positioning is handled properly.
-   */
-  interface TreeCol extends Element, ICrop, ILabel {
-    cycler: boolean;
-    dragging: boolean;
-    fixed: boolean;
-    hideheader: boolean;
-    ignoreincolumnpicker: boolean;
-    primary: boolean;
-    src: string;
-    type: "checkbox" | "progressmeter" | "text";
-  }
+declare interface XULTabPanelsElement extends XULElement, XUL.ISelectedIndex {
+  selectedPanel: XULElement;
+}
 
-  /**
-   * A group of treecol elements. There should one and only one treecols element in a tree.
-   */
-  interface TreeCols extends Element {
-    pickertooltiptext: string;
-  }
+declare interface XULTabBoxElement extends XULElement, XUL.ISelectedIndex {
+  handleCtrlPageUpDown: boolean;
+  handleCtrlTab: boolean;
+  accessibleType: number;
+  selectedPanel: Element;
+  selectedTab: XULTabElement;
+  tabs: XULTabsElement;
+  tabpanels: XULTabPanelsElement;
+}
 
-  interface Tree extends Element {
-    disableKeyNavigation: boolean;
-    enableColumnDrag: boolean;
-    hidecolumnpicker: boolean;
-    rows: number;
-    selstyle: string;
-    seltype: "single" | "multiple";
-    currentIndex: number;
-    firstOrdinalColumn: TreeCol;
-  }
+declare interface XULButtonElement
+  extends XULElement,
+    XUL.IDisabled,
+    XUL.ICrop,
+    XUL.ILabel {
+  checked: boolean;
+  type: string;
+  tooltiptext: string;
+  autoCheck: boolean;
+  checkState: number;
+  dlgType: string;
+  group: string;
+  open: boolean;
+}
 
-  interface ScrollBar extends Element {}
+declare interface XULListItemElement extends XULElement {
+  selectedItem: XULElement;
+}
 
-  interface Grippy extends Element {}
+/**
+ * Used to place a seperator row in a tree.
+ */
+declare interface XULTreeSeparatorElement extends XULElement, XUL.IProperties {}
 
-  interface Splitter extends Element {}
+/**
+ * A single row in a tree. It should be placed inside a treeitem element.
+ * Children of the treerow should be treecell elements.
+ * If child rows are necessary, they should be placed in a treechildren element inside the parent treeitem.
+ */
+declare interface XULTreeRowElement extends XULElement, XUL.IProperties {}
 
-  interface ColorPicker extends Element, IDisabled {
-    color: string;
-  }
+/**
+ * A single cell in a tree. This element should be placed inside a treerow.
+ * You can set the text for the cell using the label attribute.
+ */
+declare interface XULTreeCellElement
+  extends XULElement,
+    XUL.IProperties,
+    XUL.ILabel {
+  mode: "none" | "normal" | "undetermined";
+}
 
-  interface Command extends Element, ILabel {
-    oncommand(): any;
-  }
+/**
+ * A treeitem should be placed inside a treechildren element and should contain treerow elements.
+ * The treeitem can be clicked by the user to select the row of the tree.
+ * The treeitem contains a single row and all of what appear to the user as that row's descendants.
+ */
+declare interface XULTreeItemElement extends XULElement, XUL.ILabel {
+  open: boolean;
+}
 
-  interface XULWindow extends Window {
-    document: XMLDocument;
-    arguments: any;
-    openDialog: (
-      target: string,
-      type: string,
-      params: string,
-      extraParams?: object,
-    ) => XULWindow;
-  }
+/**
+ * This element is the body of the tree. For content trees, the content will be placed inside this element.
+ * This element is also used to define container rows in the tree.
+ */
+declare interface XULTreeChildrenElement extends XULElement {
+  alternatingbackground: boolean;
+}
 
-  interface XULEvent extends Event {
-    target: Element;
-  }
+/**
+ * A column of a tree.
+ * It displays the column header and holds the size and other information about the column.
+ * You can also place splitter elements between the columns to allow column resizing.
+ * You should always place an id attribute on a treecol element to ensure that the column positioning is handled properly.
+ */
+declare interface XULTreeColElement extends XULElement, XUL.ICrop, XUL.ILabel {
+  cycler: boolean;
+  dragging: boolean;
+  fixed: boolean;
+  hideheader: boolean;
+  ignoreincolumnpicker: boolean;
+  primary: boolean;
+  src: string;
+  type: "checkbox" | "progressmeter" | "text";
+}
+
+/**
+ * A group of treecol elements. There should one and only one treecols element in a tree.
+ */
+declare interface XULTreeColsElement extends XULElement, XUL.ILabel {
+  pickertooltiptext: string;
+}
+
+declare interface XULTreeElement extends XULElement {
+  disableKeyNavigation: boolean;
+  enableColumnDrag: boolean;
+  hidecolumnpicker: boolean;
+  rows: number;
+  selstyle: string;
+  seltype: "single" | "multiple";
+  currentIndex: number;
+  firstOrdinalColumn: XULTreeColElement;
+}
+
+declare interface XULScrollBarElement extends XULElement {}
+
+declare interface XULGrippyElement extends XULElement {}
+
+declare interface XULSplitterElement extends XULElement {}
+
+declare interface XULColorPickerElement extends XULElement, XUL.IDisabled {
+  color: string;
+}
+
+declare interface XULCommandElement extends XULElement, XUL.ILabel {}
+
+// @ts-ignore
+declare interface XULWindowElement extends XULElement, Window {
+  arguments: any;
+  title: string;
+  onclose(): any;
+}
+
+declare interface GlobalEventHandlers {
+  oncommand: ((this: GlobalEventHandlers, ev: Event) => any) | null;
 }
