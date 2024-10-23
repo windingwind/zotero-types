@@ -20,6 +20,9 @@ async function main() {
   });
 
   for (const file of files) {
+    if (file.type !== "file" || file.name === "tsconfig.json") {
+      continue;
+    }
     let { data: fileContent } = await octokit.rest.repos.getContent({
       owner,
       repo,
