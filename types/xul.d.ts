@@ -1,6 +1,6 @@
 /// <reference path="./gecko/index.d.ts" />
 
-// @deprecated - use XUL element interfaces directly
+/** @deprecated - use XUL element interfaces directly */
 declare namespace XUL {
   interface IDisabled {
     disabled: boolean;
@@ -21,166 +21,166 @@ declare namespace XUL {
     properties: string;
   }
 
-  // @deprecated - use XULElement
+  /** @deprecated - use XULElement */
   interface Element extends XULElement {}
 
-  // @deprecated - use XULDescriptionElement
+  /** @deprecated - use XULDescriptionElement */
   interface Description extends XULDescriptionElement {}
 
-  // @deprecated - use XULLabelElement
+  /** @deprecated - use XULLabelElement */
   interface Label extends XULLabelElement {}
 
-  // @deprecated - use XULTextBoxElement
+  /** @deprecated - use XULTextBoxElement */
   interface Textbox extends XULTextBoxElement {}
 
-  // @deprecated - use XULCheckboxElement
+  /** @deprecated - use XULCheckboxElement */
   interface Checkbox extends XULCheckboxElement {}
 
-  // @deprecated - use XULRadioElement
+  /** @deprecated - use XULRadioElement */
   interface Radio extends XULRadioElement {}
 
-  // @deprecated - use XULRadioGroupElement
+  /** @deprecated - use XULRadioGroupElement */
   interface RadioGroup extends XULRadioGroupElement {}
 
-  // @deprecated - use XULGroupBoxElement
+  /** @deprecated - use XULGroupBoxElement */
   interface GroupBox extends XULGroupBoxElement {}
 
-  // @deprecated - use XULStatusBarElement
+  /** @deprecated - use XULStatusBarElement */
   interface StatusBar extends XULStatusBarElement {}
 
-  // @deprecated - use XULStatusBarPanelElement
+  /** @deprecated - use XULStatusBarPanelElement */
   interface StatusBarPanel extends XULStatusBarPanelElement {}
 
-  // @deprecated - use XULSeparatorElement
+  /** @deprecated - use XULSeparatorElement */
   interface Separator extends XULSeparatorElement {}
 
-  // @deprecated - use XULSpacerElement
+  /** @deprecated - use XULSpacerElement */
   interface Spacer extends XULSpacerElement {}
 
-  // @deprecated - use XULProgressMeterElement
+  /** @deprecated - use XULProgressMeterElement */
   interface ProgressMeter extends XULProgressMeterElement {}
 
-  // @deprecated - use XULMenuBarElement
+  /** @deprecated - use XULMenuBarElement */
   interface MenuBar extends XULMenuBarElement {}
 
-  // @deprecated - use XULMenuElement
+  /** @deprecated - use XULMenuElement */
   interface Menu extends XULMenuElement {}
 
-  // @deprecated - use XULMenuPopupElement
+  /** @deprecated - use XULMenuPopupElement */
   interface MenuPopup extends XULMenuPopupElement {}
 
-  // @deprecated - use XULMenuItemElement
+  /** @deprecated - use XULMenuItemElement */
   interface MenuItem extends XULMenuItemElement {}
 
-  // @deprecated - use XULMenuListElement
+  /** @deprecated - use XULMenuListElement */
   interface MenuList extends XULMenuListElement {}
 
-  // @deprecated - use XULMenuSeparatorElement
+  /** @deprecated - use XULMenuSeparatorElement */
   interface MenuSeparator extends XULMenuSeparatorElement {}
 
-  // @deprecated - use XULTooltipElement
+  /** @deprecated - use XULTooltipElement */
   interface Tooltip extends XULTooltipElement {}
 
-  // @deprecated - use XULToolBoxElement
+  /** @deprecated - use XULToolBoxElement */
   interface ToolBox extends XULToolBoxElement {}
 
-  // @deprecated - use XULToolBarElement
+  /** @deprecated - use XULToolBarElement */
   interface ToolBar extends XULToolBarElement {}
 
-  // @deprecated - use XULToolBarPaletteElement
+  /** @deprecated - use XULToolBarPaletteElement */
   interface ToolBarPalette extends XULToolBarPaletteElement {}
 
-  // @deprecated - use XULToolBarSetElement
+  /** @deprecated - use XULToolBarSetElement */
   interface ToolBarSet extends XULToolBarSetElement {}
 
-  // @deprecated - use XULToolBarButtonElement
+  /** @deprecated - use XULToolBarButtonElement */
   interface ToolBarButton extends XULToolBarButtonElement {}
 
-  // @deprecated - use XULToolBarItemElement
+  /** @deprecated - use XULToolBarItemElement */
   interface ToolBarItem extends XULToolBarItemElement {}
 
-  // @deprecated - use XULToolBarSeparatorElement
+  /** @deprecated - use XULToolBarSeparatorElement */
   interface ToolBarSeparator extends XULToolBarSeparatorElement {}
 
-  // @deprecated - use XULToolBarSpacerElement
+  /** @deprecated - use XULToolBarSpacerElement */
   interface ToolBarSpacer extends XULToolBarSpacerElement {}
 
-  // @deprecated - use XULToolBarSpringElement
+  /** @deprecated - use XULToolBarSpringElement */
   interface ToolBarSpring extends XULToolBarSpringElement {}
 
-  // @deprecated - use XULToolBarGrippyElement
+  /** @deprecated - use XULToolBarGrippyElement */
   interface ToolBarGrippy extends XULToolBarGrippyElement {}
 
-  // @deprecated - use XULBoxElement
+  /** @deprecated - use XULBoxElement */
   interface Box extends XULBoxElement {}
 
-  // @deprecated - use XULDeckElement
+  /** @deprecated - use XULDeckElement */
   interface Deck extends XULDeckElement {}
 
-  // @deprecated - use XULTabElement
+  /** @deprecated - use XULTabElement */
   interface Tab extends XULTabElement {}
 
-  // @deprecated - use XULTabsElement
+  /** @deprecated - use XULTabsElement */
   interface Tabs extends XULTabsElement {}
 
-  // @deprecated - use XULTabPanelElement
+  /** @deprecated - use XULTabPanelElement */
   interface TabPanel extends XULTabPanelElement {}
 
-  // @deprecated - use XULTabPanelsElement
+  /** @deprecated - use XULTabPanelsElement */
   interface TabPanels extends XULTabPanelsElement {}
 
-  // @deprecated - use XULTabBoxElement
+  /** @deprecated - use XULTabBoxElement */
   interface TabBox extends XULTabBoxElement {}
 
-  // @deprecated - use XULButtonElement
+  /** @deprecated - use XULButtonElement */
   interface Button extends XULButtonElement {}
 
-  // @deprecated - use XULListItemElement
+  /** @deprecated - use XULListItemElement */
   interface ListItem extends XULListItemElement {}
 
-  // @deprecated - use XULTreeSeparatorElement
+  /** @deprecated - use XULTreeSeparatorElement */
   interface TreeSeparator extends XULTreeSeparatorElement {}
 
-  // @deprecated - use XULTreeRowElement
+  /** @deprecated - use XULTreeRowElement */
   interface TreeRow extends XULTreeRowElement {}
 
-  // @deprecated - use XULTreeCellElement
+  /** @deprecated - use XULTreeCellElement */
   interface TreeCell extends XULTreeCellElement {}
 
-  // @deprecated - use XULTreeItemElement
+  /** @deprecated - use XULTreeItemElement */
   interface TreeItem extends XULTreeItemElement {}
 
-  // @deprecated - use XULTreeChildrenElement
+  /** @deprecated - use XULTreeChildrenElement */
   interface TreeChildren extends XULTreeChildrenElement {}
 
-  // @deprecated - use XULTreeColElement
+  /** @deprecated - use XULTreeColElement */
   interface TreeCol extends XULTreeColElement {}
 
-  // @deprecated - use XULTreeColsElement
+  /** @deprecated - use XULTreeColsElement */
   interface TreeCols extends XULTreeColsElement {}
 
-  // @deprecated - use XULTreeElement
+  /** @deprecated - use XULTreeElement */
   interface Tree extends XULTreeElement {}
 
-  // @deprecated - use XULScrollBarElement
+  /** @deprecated - use XULScrollBarElement */
   interface ScrollBar extends XULScrollBarElement {}
 
-  // @deprecated - use XULGrippyElement
+  /** @deprecated - use XULGrippyElement */
   interface Grippy extends XULGrippyElement {}
 
-  // @deprecated - use XULSplitterElement
+  /** @deprecated - use XULSplitterElement */
   interface Splitter extends XULSplitterElement {}
 
-  // @deprecated - use XULColorPickerElement
+  /** @deprecated - use XULColorPickerElement */
   interface ColorPicker extends XULColorPickerElement {}
 
-  // @deprecated - use XULCommandElement
+  /** @deprecated - use XULCommandElement */
   interface Command extends XULCommandElement {}
 
-  // @deprecated - use XULWindowElement
+  /** @deprecated - use XULWindowElement */
   interface XULWindow extends XULWindowElement {}
 
-  // @deprecated - use Event
+  /** @deprecated - use Event */
   interface XULEvent extends Event {}
 }
 
@@ -293,6 +293,16 @@ declare interface XULPopupElement extends XULElement {
     | "overlap"
     | "at_pointer"
     | "after_pointer";
+
+  /**
+   * This read only property indicates whether the popup is open or not. Four values are possible:
+   * - closed: The popup is closed and not visible.
+   * - open: The popup is open and visible on screen.
+   * - showing: A request has been made to open the popup, but it has not yet been shown. This state will occur during the popupshowing event.
+   * - hiding: The popup is about to be hidden. This state will occur during the popuphiding event.
+   */
+  //  @ts-ignore
+  readonly state: "closed" | "open" | "showing" | "hiding";
 }
 
 declare interface XULMenuPopupElement extends XULPopupElement {}
