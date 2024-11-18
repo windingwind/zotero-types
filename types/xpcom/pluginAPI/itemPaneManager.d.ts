@@ -1,15 +1,21 @@
-/// <reference path="data/item.d.ts" />
-/// <reference path="../../internal.d.ts" />
+/// <reference path="../data/item.d.ts" />
+/// <reference path="../../../internal.d.ts" />
 
 declare namespace _ZoteroTypes {
   interface ItemPaneManager {
     registerSection<T extends string>(
-      options: ItemPaneManager.ItemDetailsSectionOptions<T>,
+      options: ItemPaneManagerSection.ItemDetailsSectionOptions<T>,
     ): false | string;
 
     unregisterSection(key: string): boolean;
+
+    registerInfoRow<T extends string>(
+      options: ItemPaneManagerInfoRow.InfoRowOptions<T>,
+    ): false | string;
+
+    unregisterInfoRow(key: string): boolean;
   }
-  namespace ItemPaneManager {
+  namespace ItemPaneManagerSection {
     type Icon16px = string | IconURI;
     type Icon20px = string | IconURI;
 
@@ -119,6 +125,43 @@ declare namespace _ZoteroTypes {
       /** Pane fragment as string */
       bodyXHTML?: string;
       sectionButtons?: SectionButton[];
+    }
+  }
+
+  namespace ItemPaneManagerInfoRow {
+    type ExcludeBuiltFields<T extends string> = T extends Zotero.Item.ItemField
+      ? never
+      : T;
+
+    interface BasicHookArgs {
+      rowID: string;
+      item: Zotero.Item;
+      tabType: "library" | "reader";
+      editable: boolean;
+    }
+
+    interface SetDataHookArgs extends BasicHookArgs {
+      value: string;
+    }
+
+    interface ItemChangeHookArgs extends BasicHookArgs {
+      setEnabled: (enabled: boolean) => void;
+      setEditable: (editable: boolean) => void;
+    }
+
+    interface InfoRowOptions<T extends string> {
+      rowID: ExcludeBuiltFields<T>;
+      pluginID: string;
+      label: {
+        l10nID: string;
+      };
+      position?: "start" | "afterCreators" | "end";
+      multiline?: boolean;
+      nowrap?: boolean;
+      editable?: boolean;
+      onGetData: (options: BasicHookArgs) => string;
+      onSetData?: (options: SetDataHookArgs) => void;
+      onItemChange?: (options: ItemChangeHookArgs) => void;
     }
   }
 }

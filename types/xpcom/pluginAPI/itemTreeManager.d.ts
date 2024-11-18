@@ -1,4 +1,4 @@
-/// <reference path="data/item.d.ts" />
+/// <reference path="../data/item.d.ts" />
 
 declare namespace _ZoteroTypes {
   namespace ItemTreeManager {
@@ -22,7 +22,6 @@ declare namespace _ZoteroTypes {
      * @property {boolean} [showInColumnPicker=true] - Default: true. Set to true to show in column picker.
      * @property {boolean} [columnPickerSubMenu=false] - Default: false. Set to true to display the column in "More Columns" submenu of column picker.
      * @property {boolean} [primary] - Should only be one column at the time. Title is the primary column
-     * @property {boolean} [custom] - Set automatically to true when the column is added by the user
      * @property {(item: Zotero.Item, dataKey: string) => string} [dataProvider] - Custom data provider that is called when rendering cells
      * @property {(index: number, data: string, column: ItemTreeColumnOptions & {className: string}) => HTMLElement} [renderCell] - The cell renderer function
      * @property {string[]} [zoteroPersist] - Which column properties should be persisted between zotero close
@@ -80,13 +79,13 @@ declare namespace _ZoteroTypes {
      *
      * Note that the `dataKey` you use here may be different from the one returned by the function.
      * This is because the `dataKey` is prefixed with the `pluginID` to avoid conflicts after the column is registered.
-     * @param {ItemTreeCustomColumnOptions | ItemTreeCustomColumnOptions[]} options - An option or array of options to register
-     * @returns {string | string[] | false} - The dataKey(s) of the added column(s) or false if no columns were added
+     * @param {ItemTreeCustomColumnOptions} options - An option to register
+     * @returns {string | false} - The dataKey(s) of the added column(s) or false if no columns were added
      * @example
      * A minimal custom column:
      * ```js
      * // You can unregister the column later with Zotero.ItemTreeManager.unregisterColumns(registeredDataKey);
-     * const registeredDataKey = await Zotero.ItemTreeManager.registerColumns(
+     * const registeredDataKey = await Zotero.ItemTreeManager.registerColumn(
      * {
      *     dataKey: 'rtitle',
      *     label: 'Reversed Title',
@@ -100,7 +99,7 @@ declare namespace _ZoteroTypes {
      * A custom column using all available options.
      * Note that the column will only be shown in the main item tree.
      * ```js
-     * const registeredDataKey = await Zotero.ItemTreeManager.registerColumns(
+     * const registeredDataKey = await Zotero.ItemTreeManager.registerColumn(
      * {
      *     dataKey: 'rtitle',
      *     label: 'Reversed Title',
@@ -136,74 +135,41 @@ declare namespace _ZoteroTypes {
      *     zoteroPersist: ['width', 'hidden', 'sortDirection'], // persist the column properties
      * });
      * ```
-     * @example
-     * Register multiple custom columns:
-     * ```js
-     * const registeredDataKeys = await Zotero.ItemTreeManager.registerColumns(
-     * [
-     *     {
-     *          dataKey: 'rtitle',
-     *          iconPath: 'chrome://zotero/skin/tick.png',
-     *          label: 'Reversed Title',
-     *          pluginID: 'make-it-red@zotero.org', // Replace with your plugin ID
-     *          dataProvider: (item, dataKey) => {
-     *              return item.getField('title').split('').reverse().join('');
-     *          },
-     *     },
-     *     {
-     *          dataKey: 'utitle',
-     *          label: 'Uppercase Title',
-     *          pluginID: 'make-it-red@zotero.org', // Replace with your plugin ID
-     *          dataProvider: (item, dataKey) => {
-     *              return item.getField('title').toUpperCase();
-     *          },
-     *     },
-     * ]);
-     * ```
+     */
+    registerColumn(
+      options: ItemTreeManager.ItemTreeCustomColumnOptions,
+    ): string | false;
+
+    /**
+     * @deprecated Use `registerColumn` instead
      */
     registerColumns(
       options: ItemTreeManager.ItemTreeCustomColumnOptions,
     ): Promise<string | false>;
+
+    /**
+     * @deprecated Use `registerColumn` instead
+     */
     registerColumns(
       options: ItemTreeManager.ItemTreeCustomColumnOptions[],
     ): Promise<string[] | false>;
 
     /**
-     * Add a new column or new columns.
-     * If the options is an array, all its children must be valid.
-     * Otherwise, no columns are added.
-     * @param {ItemTreeCustomColumnOptions | ItemTreeCustomColumnOptions[]} options - An option or array of options to add
-     * @returns {string | string[] | false} - The dataKey(s) of the added column(s) or false if no columns were added
-     */
-    _addColumns(
-      options: ItemTreeManager.ItemTreeCustomColumnOptions,
-    ): string | false;
-    _addColumns(
-      options: ItemTreeManager.ItemTreeCustomColumnOptions[],
-    ): string[] | false;
-
-    /**
      * Unregister a custom column.
      * Although it's async, resolving does not promise the item trees are updated.
-     * @param {string | string[]} dataKeys - The dataKey of the column to unregister
-     * @returns {boolean} true if the column(s) are unregistered
+     * @param {string} dataKeys - The dataKey of the column to unregister
+     * @returns {boolean} true if the column are unregistered
      * @example
      * ```js
-     * Zotero.ItemTreeManager.unregisterColumns(registeredDataKey);
+     * Zotero.ItemTreeManager.unregisterColumn(registeredDataKey);
      * ```
      */
-    unregisterColumns(dataKeys: string | string[]): Promise<boolean>;
+    unregisterColumn(dataKey: string): boolean;
 
     /**
-     * Get column(s) that matches the properties of option
-     * @param {string | string[]} [filterTreeIDs] - The tree IDs to match
-     * @param {ItemTreeCustomColumnFilters} [options] - An option or array of options to match
-     * @returns {ItemTreeCustomColumnOptions[]}
+     * @deprecated Use `unregisterColumn` instead
      */
-    getColumn(
-      filterTreeIDs?: string | string[],
-      options?: ItemTreeManager.ItemTreeCustomColumnFilters,
-    ): ItemTreeManager.ItemTreeCustomColumnOptions[];
+    unregisterColumns(dataKeys: string | string[]): Promise<boolean>;
 
     /**
      * Check if a column is registered as a custom column
@@ -219,62 +185,5 @@ declare namespace _ZoteroTypes {
      * @returns {string}
      */
     getCustomCellData(item: Zotero.Item, dataKey: string): string;
-
-    /**
-     * Check if column options is valid.
-     * All its children must be valid. Otherwise, the validation fails.
-     * @param {ItemTreeCustomColumnOptions[]} options - An array of options to validate
-     * @returns {boolean} true if the options are valid
-     */
-    _validateColumnOption(
-      options: ItemTreeManager.ItemTreeCustomColumnOptions[],
-    ): boolean;
-
-    /**
-     * Add a new column or new columns.
-     * If the options is an array, all its children must be valid.
-     * Otherwise, no columns are added.
-     * @param {ItemTreeCustomColumnOptions | ItemTreeCustomColumnOptions[]} options - An option or array of options to add
-     * @returns {string | string[] | false} - The dataKey(s) of the added column(s) or false if no columns were added
-     */
-    _addColumns(
-      options: ItemTreeManager.ItemTreeCustomColumnOptions,
-    ): string | false;
-    _addColumns(
-      options: ItemTreeManager.ItemTreeCustomColumnOptions[],
-    ): string[] | false;
-
-    /**
-     * Remove a column option
-     * @param {string | string[]} dataKeys - The dataKey of the column to remove
-     * @returns {boolean} - True if column(s) were removed, false if not
-     */
-    _removeColumns(dataKeys: string | string[]): boolean;
-
-    /**
-     * Make sure the dataKey is namespaced with the plugin ID
-     * @param {ItemTreeCustomColumnOptions} options
-     * @returns {string}
-     */
-    _namespacedDataKey(
-      options: ItemTreeManager.ItemTreeCustomColumnOptions,
-    ): string;
-
-    /**
-     * Reset the item trees to update the columns
-     */
-    _notifyItemTrees(): void;
-
-    /**
-     * Unregister all columns registered by a plugin
-     * @param {string} pluginID - Plugin ID
-     */
-    _unregisterColumnByPluginID(pluginID: string): void;
-
-    /**
-     * Ensure that the shutdown observer is added
-     * @returns {void}
-     */
-    _addPluginShutdownObserver(): void;
   }
 }
