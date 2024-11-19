@@ -96,10 +96,10 @@ declare namespace _ZoteroTypes {
       sql: string,
       params: DB.QueryParams,
       options?: {
-        inBackup: boolean;
-        noParseParams: boolean;
-        onRow: (row: unknown, cancel: unknown) => void;
-        noCache: boolean;
+        inBackup?: boolean;
+        noParseParams?: boolean;
+        onRow?: (row: unknown, cancel: unknown) => void;
+        noCache?: boolean;
       },
     ): Promise<object[] | undefined>;
 
@@ -107,10 +107,10 @@ declare namespace _ZoteroTypes {
       sql: string,
       params: DB.QueryParams,
       options?: {
-        inBackup: boolean;
-        noParseParams: boolean;
-        onRow: (row: unknown, cancel: unknown) => void;
-        noCache: boolean;
+        inBackup?: boolean;
+        noParseParams?: boolean;
+        onRow?: (row: unknown, cancel: unknown) => void;
+        noCache?: boolean;
       },
     ): Promise<object[] | undefined>;
 
@@ -122,7 +122,7 @@ declare namespace _ZoteroTypes {
     valueQueryAsync(
       sql: string,
       params: DB.QueryParams,
-      options?: { inBackup: boolean; noCache: boolean },
+      options?: { inBackup?: boolean; noCache?: boolean },
     ): Promise<object[] | boolean>;
 
     /**
@@ -144,17 +144,17 @@ declare namespace _ZoteroTypes {
       sql: string,
       params: DB.QueryParams,
       options?: {
-        inBackup: boolean;
-        noCache: boolean;
-        debug: boolean;
-        debugParams: boolean;
+        inBackup?: boolean;
+        noCache?: boolean;
+        debug:? boolean;
+        debugParams?: boolean;
       },
     ): Promise<object[][]>;
 
     logQuery(
       sql: string,
       params?: DB.QueryParams,
-      options?: { debug: boolean; debugParams: boolean },
+      options?: { debug?: boolean; debugParams?: boolean },
     ): void;
 
     tableExists(table: string, db?: string): Promise<boolean>;
