@@ -10,12 +10,12 @@ npm package: <https://www.npmjs.com/package/zotero-types>
 
 2. No need to import the type declaration in your TypeScript code. If your IDE does not recognize the definitions, add the path to typing file in the include of `tsconfig.json`:
 
-    ```jsonc
-    // tsconfig.json
-    {
-      "include": ["src", "typing", "node_modules/zotero-types"]
-    }
-    ```
+   ```jsonc
+   // tsconfig.json
+   {
+     "include": ["src", "node_modules/zotero-types"],
+   }
+   ```
 
 **Example**:
 
@@ -25,16 +25,14 @@ const item = Zotero.Items.get(1234);
 
 // Example 2: use XUL.Element type with specific properties
 const exportFiles = document.querySelector(
-  "#menu_export_files"
-) as XUL.Menuitem;
+  "#menu_export_files",
+) as XULMenuItemElement;
 exportFiles.disabled = true;
 
 // Example 3: use platform APIs (OS)
 const filepath = "/path/to/file";
-if (await OS.File.exists(filepath)) {
-  let contentRaw = (await OS.File.read(filepath, {
-    encoding: "utf-8",
-  })) as string;
+if (await IOUtils.exists(filepath)) {
+  let contentRaw = await IOUtils.readUTF8(filepath);
 }
 ```
 
