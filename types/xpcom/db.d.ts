@@ -146,7 +146,7 @@ declare namespace _ZoteroTypes {
       options?: {
         inBackup?: boolean;
         noCache?: boolean;
-        debug:? boolean;
+        debug?: boolean;
         debugParams?: boolean;
       },
     ): Promise<object[][]>;
