@@ -185,5 +185,7 @@ declare namespace _ZoteroTypes {
      * @returns {string}
      */
     getCustomCellData(item: Zotero.Item, dataKey: string): string;
+
+    refreshColumns(): void;
   }
 }
