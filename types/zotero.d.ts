@@ -304,6 +304,7 @@ declare const Zotero: {
   EditorInstance: Zotero.EditorInstance;
   ProgressWindow: Zotero.ProgressWindow;
   CollectionTreeRow: Zotero.CollectionTreeRow;
+  DBConnection: _ZoteroTypes.DBConnection;
 
   Locale: {
     readonly availableLocales: _ZoteroTypes.AvailableLocales;
