@@ -235,4 +235,8 @@ declare namespace _ZoteroTypes {
 
     _debug(str: string, level?: number): void;
   }
+
+  interface DBConnection extends DB {
+    new (dbNameOrPath: string): this;
+  }
 }
