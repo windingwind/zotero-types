@@ -4,7 +4,7 @@ declare namespace _ZoteroTypes {
      * Initializes localized months for strToDate month parsing
      * @param dateFormatsJSON {Object} the JSON from resource/dateFormats.json
      */
-    init(dateFormatsJSON: Object);
+    init(dateFormatsJSON: Object): void;
 
     /**
      * @param {Boolean} [withEnglish = false] - Include English months
@@ -17,7 +17,7 @@ declare namespace _ZoteroTypes {
      *
      * Can also accept just the date part (e.g. '2006-06-13')
      **/
-    sqlToDate(sqldate, isUTC): Date | false;
+    sqlToDate(sqldate: string, isUTC?: boolean): Date | false;
 
     /**
      * Convert a JS Date object to an SQL date in the form '2006-06-13 11:03:05'
@@ -106,7 +106,7 @@ declare namespace _ZoteroTypes {
      */
     parseDescriptiveString(str: string): string;
 
-    isSQLDate(str: string, allowZeroes): boolean;
+    isSQLDate(str: string, allowZeroes?: boolean): boolean;
 
     isSQLDateTime(str: string): boolean;
 
@@ -118,9 +118,9 @@ declare namespace _ZoteroTypes {
 
     sqlHasDay(sqldate: string): boolean;
 
-    getUnixTimestamp();
+    getUnixTimestamp(): number;
 
-    toUnixTimestamp(date);
+    toUnixTimestamp(date: string): number;
 
     /**
      * Convert a JS Date to a relative date (e.g., "5 minutes ago")
@@ -139,8 +139,8 @@ declare namespace _ZoteroTypes {
     // isThisWeek();
     // getWeekNumber();
 
-    getFileDateString(file);
-    getFileTimeString(file);
+    getFileDateString(file: nsIFile): string;
+    getFileTimeString(file: nsIFile): string;
     /**
      * Get the order of the date components based on the current locale
      *

@@ -196,7 +196,11 @@ declare namespace _ZoteroTypes {
      * @params {Boolean} [retracted = false] - If true, show an icon indicating the item was retracted
      * @return {Promise<String>} - A promise for a data: URL for a PNG
      */
-    generateItemsListImage(colors, extraImage, retracted): Promise<string>;
+    generateItemsListImage(
+      colors: string[],
+      extraImage: string,
+      retracted?: boolean,
+    ): Promise<string>;
 
     /**
      * From http://js-bits.blogspot.com/2010/07/canvas-rounded-corner-rectangles.html

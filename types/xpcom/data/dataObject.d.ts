@@ -80,11 +80,11 @@ declare namespace Zotero {
     parentID: number | false | undefined;
 
     readonly _canHaveParent: boolean;
-    ObjectsClass: typeof this extends Zotero.Item
+    ObjectsClass: this extends Zotero.Item
       ? _ZoteroTypes.Items
-      : typeof this extends Zotero.Collection
+      : this extends Zotero.Collection
         ? _ZoteroTypes.Collections
-        : typeof this extends Zotero.Search
+        : this extends Zotero.Search
           ? _ZoteroTypes.Searches
           : _ZoteroTypes.DataObjects;
     itemTypeID: number;

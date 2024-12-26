@@ -80,7 +80,7 @@ declare namespace _ZoteroTypes {
       // Event handlers
       // ***
       protected override _handleResize(): void;
-      protected override _handleScroll();
+      protected override _handleScroll(): void;
       protected _handleInternalLinkClick(link: HTMLAnchorElement): void;
       protected override _handleKeyDown(event: KeyboardEvent): void;
       protected override _updateViewState(): void;

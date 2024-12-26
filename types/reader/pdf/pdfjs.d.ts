@@ -3,8 +3,12 @@
 declare namespace _ZoteroTypes {
   namespace Reader {
     type pdfjs = typeof import("pdfjs-dist");
-    type PromiseCapability =
-      import("pdfjs-dist/types/src/shared/util").PromiseCapability;
+    type PromiseCapability = {
+      promise: Promise<unknown>;
+      resolve: (value: unknown) => void;
+      reject: (reason?: any) => void;
+      settled: boolean;
+    };
     type PDFPageProxy = import("pdfjs-dist/types/src/display/api").PDFPageProxy;
     type PDFDocumentProxy =
       import("pdfjs-dist/types/src/display/api").PDFDocumentProxy;
