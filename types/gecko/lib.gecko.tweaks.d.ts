@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Gecko generic/specialized adjustments for xpcom and webidl types.
  */
@@ -22,14 +23,8 @@ interface Document {
 
 interface MessageListenerManagerMixin {
   // Overloads that define `data` arg as required, since it's ~always expected.
-  addMessageListener(
-    msg: string,
-    listener: { receiveMessage(_: ReceiveMessageArgument & { data }) },
-  );
-  removeMessageListener(
-    msg: string,
-    listener: { receiveMessage(_: ReceiveMessageArgument & { data }) },
-  );
+  addMessageListener(msg: string, listener: { receiveMessage(_: ReceiveMessageArgument & { data })});
+  removeMessageListener(msg: string, listener: { receiveMessage(_: ReceiveMessageArgument & { data })});
 }
 
 interface MozQueryInterface {
@@ -50,14 +45,10 @@ interface nsISupports {
 }
 
 interface nsIXPCComponents_Constructor {
-  <const T, IIDs = nsIXPCComponents_Interfaces>(
-    cid,
-    id: T,
-    init?,
-  ): {
+  <const T, IIDs = nsIXPCComponents_Interfaces>(cid, id: T, init?): {
     new (...any): nsQIResult<T extends keyof IIDs ? IIDs[T] : T>;
     (...any): nsQIResult<T extends keyof IIDs ? IIDs[T] : T>;
-  };
+  }
 }
 
 interface nsIXPCComponents_Exception {
@@ -65,17 +56,14 @@ interface nsIXPCComponents_Exception {
 }
 
 interface nsIXPCComponents_utils_Sandbox {
-  (
-    principal: nsIPrincipal | nsIPrincipal[],
-    options: object,
-  ): typeof globalThis;
+  (principal: nsIPrincipal | nsIPrincipal[], options: object): typeof globalThis;
 }
 
 interface nsXPCComponents_Classes {
   [cid: string]: {
     createInstance<T>(aID: T): nsQIResult<T>;
     getService<T>(aID?: T): unknown extends T ? nsISupports : nsQIResult<T>;
-  };
+  }
 }
 
 // Generic overloads.

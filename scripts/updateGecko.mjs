@@ -42,6 +42,12 @@ async function main() {
         "",
       );
     }
+
+    // Attach a `// @ts-nocheck` comment to the top of the file
+    // to avoid type checking errors
+    if (file.name.endsWith(".d.ts")) {
+      fileContent = `// @ts-nocheck\n${fileContent}`;
+    }
     fs.writeFileSync(filePath, fileContent, { encoding: "utf-8" });
   }
 }

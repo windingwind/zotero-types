@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * NOTE: Do not modify this file by hand.
  * Content was generated from services.json.

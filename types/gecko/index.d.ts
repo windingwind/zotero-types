@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * NOTE: Do not modify this file by hand.
  * If you're updating some of the sources, see README for instructions.
