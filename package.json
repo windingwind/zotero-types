@@ -20,14 +20,15 @@
   "scripts": {
     "release": "release-it --only-version --preReleaseId=beta",
     "prepare": "husky install",
-    "lint": "prettier --write **/*.d.ts"
+    "lint": "prettier --write . && eslint . --fix"
   },
   "devDependencies": {
     "husky": "^9.0.6",
     "lint-staged": "^15.2.0",
     "octokit": "^3.2.1",
     "prettier": "3.2.4",
-    "release-it": "^17.0.3"
+    "release-it": "^17.0.3",
+    "typescript-eslint": "^8.18.2"
   },
   "dependencies": {
     "@types/bluebird": "^3.5.42",

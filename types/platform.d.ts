@@ -11,7 +11,7 @@ declare interface DirectoryIterator {
   next(): any;
 }
 declare interface DirectoryIteratorConstructable {
-  new (path: string): DirectoryIterator; // eslint-disable-line @typescript-eslint/prefer-function-type
+  new (path: string): DirectoryIterator;
 }
 
 declare namespace OS {

@@ -4,13 +4,13 @@ declare namespace _ZoteroTypes {
      * Initializes localized months for strToDate month parsing
      * @param dateFormatsJSON {Object} the JSON from resource/dateFormats.json
      */
-    init(dateFormatsJSON: Object): void;
+    init(dateFormatsJSON: object): void;
 
     /**
      * @param {Boolean} [withEnglish = false] - Include English months
      * @return {Object} - Object with 'short' and 'long' arrays
      */
-    getMonths(withEnglish: boolean): Object;
+    getMonths(withEnglish: boolean): object;
 
     /**
      * Convert an SQL date in the form '2006-06-13 11:03:05' into a JS Date object

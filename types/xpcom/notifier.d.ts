@@ -69,7 +69,7 @@ declare namespace _ZoteroTypes {
       priority?: number,
     ): string;
 
-    unregisterObserver(id: String): void;
+    unregisterObserver(id: string): void;
 
     /**
      * Trigger a notification to the appropriate observers

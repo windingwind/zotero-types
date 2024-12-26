@@ -184,7 +184,6 @@ declare namespace XUL {
   interface XULEvent extends Event {}
 }
 
-// @ts-ignore
 declare interface XULElement
   extends Element,
     ElementCSSInlineStyle,
@@ -280,7 +279,7 @@ declare interface XULMenuBarElement extends XULElement {}
 declare interface XULMenuElement extends XULElement, XUL.IValue {}
 
 declare interface XULPopupElement extends XULElement {
-  // @ts-ignore
+  // @ts-ignore - Override XULElement open property
   position:
     | "after_start"
     | "after_end"
@@ -301,7 +300,7 @@ declare interface XULPopupElement extends XULElement {
    * - showing: A request has been made to open the popup, but it has not yet been shown. This state will occur during the popupshowing event.
    * - hiding: The popup is about to be hidden. This state will occur during the popuphiding event.
    */
-  //  @ts-ignore
+  // @ts-ignore - Override XULElement state property
   readonly state: "closed" | "open" | "showing" | "hiding";
 }
 
@@ -544,7 +543,7 @@ declare interface XULColorPickerElement extends XULElement, XUL.IDisabled {
 
 declare interface XULCommandElement extends XULElement, XUL.ILabel {}
 
-// @ts-ignore
+// @ts-ignore - Allow extending native Window
 declare interface XULWindowElement extends XULElement, Window {
   arguments: any;
   title: string;
