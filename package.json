@@ -24,10 +24,10 @@
     "update-deps": "npm update --save"
   },
   "peerDependencies": {
-    "@types/bluebird": "^3.5.42",
-    "@types/react": "^19.0.2",
-    "epubjs": "^0.3.93",
-    "pdfjs-dist": "^4.9.155"
+    "@types/bluebird": "*",
+    "@types/react": "*",
+    "epubjs": "*",
+    "pdfjs-dist": "*"
   },
   "devDependencies": {
     "husky": "^9.1.7",
