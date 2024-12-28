@@ -106,6 +106,10 @@ declare namespace Zotero {
   const skipLoading: boolean;
   const hiDPISuffix: string;
 
+  const initializationPromise: Promise<void>;
+  const unlockPromise: Promise<void>;
+  const uiReadyPromise: Promise<void>;
+
   /**
    * @property {Boolean} crashed - True if the application needs to be restarted
    */
