@@ -36,11 +36,8 @@ async function main() {
 
     const filePath = path.join("types/gecko", file.name);
     if (file.name === "lib.gecko.dom.d.ts") {
-      // Remove no-default-lib to avoid conflict with lib.d.ts
-      fileContent = fileContent.replace(
-        '/// <reference no-default-lib="true" />',
-        "",
-      );
+      // Include the `lib.dom.d.ts` file in `lib.gecko.dom.d.ts`
+      fileContent = `/// <reference lib="dom" />\n${fileContent}`;
     }
 
     // Attach a `// @ts-nocheck` comment to the top of the file

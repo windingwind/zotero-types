@@ -1,11 +1,12 @@
 // @ts-nocheck
+/// <reference lib="dom" />
 /**
  * NOTE: Do not modify this file by hand.
  * Content was generated from source .webidl files.
  * If you're updating some of the sources, see README for instructions.
  */
 
-
+/// <reference no-default-lib="true" />
 /// <reference lib="es2023" />
 
 interface Principal extends nsIPrincipal {}
