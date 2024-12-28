@@ -329,7 +329,7 @@ declare namespace _ZoteroTypes {
    *  "@zotero.org/Zotero;1"
    * ].getService(Components.interfaces.nsISupports).wrappedJSObject;
    */
-  declare type _ZoteroConstructable = typeof Zotero;
+  type _ZoteroConstructable = typeof Zotero;
   type Zotero = _ZoteroConstructable;
 
   interface AvailableLocales {
