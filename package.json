@@ -20,20 +20,21 @@
   "scripts": {
     "release": "release-it --only-version --preReleaseId=beta",
     "prepare": "husky install",
-    "lint": "prettier --write . && eslint . --fix"
+    "lint": "prettier --write . && eslint . --fix",
+    "update-deps": "npm update --save"
   },
   "peerDependencies": {
     "@types/bluebird": "^3.5.42",
-    "@types/react": "18.3.1",
+    "@types/react": "^19.0.2",
     "epubjs": "^0.3.93",
-    "pdfjs-dist": "^4.4.0"
+    "pdfjs-dist": "^4.9.155"
   },
   "devDependencies": {
-    "husky": "^9.0.6",
-    "lint-staged": "^15.2.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
     "octokit": "^3.2.1",
     "prettier": "3.2.4",
-    "release-it": "^17.0.3",
+    "release-it": "^17.11.0",
     "typescript-eslint": "^8.18.2"
   },
   "publishConfig": {
