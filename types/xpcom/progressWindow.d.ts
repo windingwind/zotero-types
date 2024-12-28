@@ -87,4 +87,8 @@ declare namespace Zotero {
       _scrapeError(description: string): void;
     };
   };
+
+  const ProgressWindowSet: {
+    closeAll(): void;
+  };
 }

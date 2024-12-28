@@ -36,9 +36,7 @@
 /// <reference path="xpcom/utilities/utilities.d.ts" />
 /// <reference path="xpcom/utilities/date.d.ts" />
 
-declare const Zotero: {
-  [attr: string]: any;
-
+declare namespace Zotero {
   /**
    * Debug logging function
    *
@@ -51,7 +49,7 @@ declare const Zotero: {
    *   If true, stack is displayed starting from the caller. If an integer,
    *   that many stack levels will be omitted starting from the caller.
    */
-  debug(
+  function debug(
     message: any,
     level?: number,
     maxDepth?: number,
@@ -64,7 +62,7 @@ declare const Zotero: {
    * |type| is a string with one of the flag types in nsIScriptError:
    *    'error', 'warning', 'exception', 'strict'
    */
-  log(
+  function log(
     message: any,
     type?: "error" | "warning" | "exception" | "strict",
     sourceName?: string,
@@ -77,9 +75,9 @@ declare const Zotero: {
    * Log a JS error to the Mozilla error console and debug output
    * @param {Exception} err
    */
-  logError(err: Error): void;
+  function logError(err: Error): void;
 
-  warn(err: Error): void;
+  function warn(err: Error): void;
 
   /**
    * Display an alert in a given window
@@ -88,75 +86,79 @@ declare const Zotero: {
    * @param {String} title
    * @param {String} msg
    */
-  alert(window: Window, title: string, msg: string): void;
+  function alert(window: Window, title: string, msg: string): void;
 
-  getMainWindow(): _ZoteroTypes.MainWindow;
-  getMainWindows(): _ZoteroTypes.MainWindow[];
-  getZoteroPanes(): _ZoteroTypes.ZoteroPane[];
-  getActiveZoteroPane(): _ZoteroTypes.ZoteroPane;
-  getStorageDirectory(): nsIFile;
-  setFontSize(rootElement: Element): void;
-  readonly startupErrorHandler?: () => void;
-  locale: keyof _ZoteroTypes.AvailableLocales;
-  dir: "ltr" | "rtl";
-  platform: string;
-  version: string;
-  isMac: boolean;
-  isWin: boolean;
-  initialized: boolean;
-  skipLoading: boolean;
-  hiDPISuffix: string;
+  function getMainWindow(): _ZoteroTypes.MainWindow;
+  function getMainWindows(): _ZoteroTypes.MainWindow[];
+  function getZoteroPanes(): _ZoteroTypes.ZoteroPane[];
+  function getActiveZoteroPane(): _ZoteroTypes.ZoteroPane;
+  function getStorageDirectory(): nsIFile;
+  function setFontSize(rootElement: Element): void;
+  const startupErrorHandler: () => void | undefined;
+  const locale: keyof _ZoteroTypes.AvailableLocales;
+  const dir: "ltr" | "rtl";
+  const platform: string;
+  const platformMajorVersion: number;
+  const version: string;
+  const isMac: boolean;
+  const isWin: boolean;
+  const initialized: boolean;
+  const skipLoading: boolean;
+  const hiDPISuffix: string;
 
   /**
    * @property {Boolean} crashed - True if the application needs to be restarted
    */
-  crashed: boolean;
+  const crashed: boolean;
 
   /**
    * @property	{Boolean}	closing		True if the application is closing.
    */
-  closing: boolean;
+  const closing: boolean;
 
   /**
    * @property	{Boolean}	locked		Whether all Zotero panes are locked
    *										with an overlay
    */
-  locked: boolean;
+  const locked: boolean;
 
   /**
    * Initialize the extension
    *
    * @return {Promise<Boolean>}
    */
-  init(options?: object): Promise<boolean>;
+  function init(options?: object): Promise<boolean>;
 
   /**
    * Triggers events when initialization finishes
    */
-  initComplete(): void;
+  function initComplete(): void;
 
-  uiIsReady(): void;
-  shutdown(): Promise<void>;
-  getStylesDirectory(): nsIFile;
-  getTranslatorsDirectory(): nsIFile;
-  getTempDirectory(): nsIFile;
-  removeTempDirectory(): Promise<boolean>;
-  openCheckForUpdatesWindow(): void;
+  function uiIsReady(): void;
+  function shutdown(): Promise<void>;
+  function getStylesDirectory(): nsIFile;
+  function getTranslatorsDirectory(): nsIFile;
+  function getTempDirectory(): nsIFile;
+  function removeTempDirectory(): Promise<boolean>;
+  function openCheckForUpdatesWindow(): void;
 
   /**
    * Launch a file, the best way we can
    */
-  launchFile(file: string): void;
+  function launchFile(file: string): void;
 
   /**
    * Launch a file with the given application
    */
-  launchFileWithApplication(filePath: string, applicationPath: string): void;
+  function launchFileWithApplication(
+    filePath: string,
+    applicationPath: string,
+  ): void;
 
   /**
    * Launch a URL externally, the best way we can
    */
-  launchURL(url: string): void;
+  function launchURL(url: string): void;
 
   /**
    * Opens a URL in the basic viewer, and optionally run a callback on load
@@ -167,7 +169,7 @@ declare const Zotero: {
    * @param {Object} [options.cookieSandbox] - Attach a cookie sandbox to the browser
    * @param {Boolean} [options.allowJavaScript] - Set to false to disable JavaScript
    */
-  openInViewer(
+  function openInViewer(
     uri: string,
     options?: {
       onLoad?: (doc: Document) => void;
@@ -181,30 +183,30 @@ declare const Zotero: {
    *
    * If |popup| is TRUE, display in popup progress window; otherwise, display as items pane message
    */
-  crash(popup?: boolean): void;
+  function crash(popup?: boolean): void;
 
-  getErrors(asStrings?: false): unknown[];
-  getErrors(asStrings: true): string[];
+  function getErrors(asStrings?: false): unknown[];
+  function getErrors(asStrings: true): string[];
 
   /**
    * Get versions, platform, etc.
    */
-  getSystemInfo(): Promise<string>;
+  function getSystemInfo(): Promise<string>;
 
   /**
    * @return {Promise<String[]>} - Promise for an array of extension names and versions
    */
-  getInstalledExtensions(): Promise<string[]>;
+  function getInstalledExtensions(): Promise<string[]>;
 
-  defineProperty(
+  function defineProperty(
     obj: object,
     prop: string,
     desc: object,
     opts?: { lazy: boolean },
   ): void;
-  extendClass(superClass: object, newClass: object): void;
-  randomString(len?: number, chars?: string): string;
-  lazy(fn: Function): Function;
+  function extendClass(superClass: object, newClass: object): void;
+  function randomString(len?: number, chars?: string): string;
+  function lazy(fn: Function): Function;
 
   /**
    * Emulates the behavior of window.setTimeout
@@ -213,9 +215,9 @@ declare const Zotero: {
    * @param {Integer} ms				The number of milliseconds to wait before calling func
    * @return {Integer} - ID of timer to be passed to clearTimeout()
    */
-  setTimeout(func: Function, ms: number): number;
+  function setTimeout(func: Function, ms: number): number;
 
-  clearTimeout(id: number): void;
+  function clearTimeout(id: number): void;
 
   /**
    * Show Zotero pane overlay and progress bar in all windows
@@ -225,7 +227,7 @@ declare const Zotero: {
    * @param {Boolean} [modalOnly=false] - Don't use popup if Zotero pane isn't showing
    * @return	{void}
    */
-  showZoteroPaneProgressMeter(
+  function showZoteroPaneProgressMeter(
     msg: string,
     determinate?: boolean,
     modalOnly?: boolean,
@@ -234,85 +236,91 @@ declare const Zotero: {
   /**
    * @param	{Number}	percentage		Percentage complete as integer or float
    */
-  updateZoteroPaneProgressMeter(percentage: number): void;
+  function updateZoteroPaneProgressMeter(percentage: number): void;
 
   /**
    * Hide Zotero pane overlay in all windows
    */
-  hideZoteroPaneOverlays(): void;
+  function hideZoteroPaneOverlays(): void;
 
   /**
    * Adds a listener to be called when Zotero shuts down (even if Firefox is not shut down)
    */
-  addShutdownListener(listener: Function): void;
+  function addShutdownListener(listener: Function): void;
 
-  updateQuickSearchBox(doc: Document): void;
+  function updateQuickSearchBox(doc: Document): void;
 
   /**
    * Clear entries that no longer exist from various tables
    */
-  purgeDataObjects(): Promise<void>;
+  function purgeDataObjects(): Promise<void>;
 
   /**
    * Brings Zotero Standalone to the foreground
    */
-  activateStandalone(): void;
+  function activateStandalone(): void;
 
   // Objects - defined in namespace _ZoteroTypes
-  URI: _ZoteroTypes.URI;
-  Tags: _ZoteroTypes.Tags;
-  File: _ZoteroTypes.File;
-  DB: _ZoteroTypes.DB;
-  HTTP: _ZoteroTypes.HTTP;
-  Users: _ZoteroTypes.Users;
-  Feeds: _ZoteroTypes.Feeds;
-  Server: _ZoteroTypes.Server;
-  Plugins: _ZoteroTypes.Plugins;
-  PreferencePanes: _ZoteroTypes.PreferencePanes;
-  Prefs: _ZoteroTypes.Prefs;
-  Items: _ZoteroTypes.Items;
-  Notes: _ZoteroTypes.Notes;
-  Reader: _ZoteroTypes.Reader;
-  Creators: _ZoteroTypes.Creators;
-  Notifier: _ZoteroTypes.Notifier;
-  Searches: _ZoteroTypes.Searches;
-  Utilities: _ZoteroTypes.Utilities;
-  Date: _ZoteroTypes.Utilities_Date;
-  Libraries: _ZoteroTypes.Libraries;
-  ItemTypes: _ZoteroTypes.ItemTypes;
-  FileTypes: _ZoteroTypes.FileTypes;
-  Collections: _ZoteroTypes.Collections;
-  Annotations: _ZoteroTypes.Annotations;
-  Attachments: _ZoteroTypes.Attachments;
-  CreatorTypes: _ZoteroTypes.CreatorTypes;
-  CharacterSets: _ZoteroTypes.CharacterSets;
-  ItemTreeManager: _ZoteroTypes.ItemTreeManager;
-  ItemPaneManager: _ZoteroTypes.ItemPaneManager;
-  RelationPredicates: _ZoteroTypes.RelationPredicates;
-  CollectionTreeCache: _ZoteroTypes.CollectionTreeCache;
-  EditorInstanceUtilities: _ZoteroTypes.EditorInstanceUtilities;
+  const URI: _ZoteroTypes.URI;
+  const Tags: _ZoteroTypes.Tags;
+  const File: _ZoteroTypes.File;
+  const DB: _ZoteroTypes.DB;
+  const HTTP: _ZoteroTypes.HTTP;
+  const Users: _ZoteroTypes.Users;
+  const Feeds: _ZoteroTypes.Feeds;
+  const Server: _ZoteroTypes.Server;
+  const Plugins: _ZoteroTypes.Plugins;
+  const PreferencePanes: _ZoteroTypes.PreferencePanes;
+  const Prefs: _ZoteroTypes.Prefs;
+  const Items: _ZoteroTypes.Items;
+  const Notes: _ZoteroTypes.Notes;
+  const Reader: _ZoteroTypes.Reader;
+  const Creators: _ZoteroTypes.Creators;
+  const Notifier: _ZoteroTypes.Notifier;
+  const Searches: _ZoteroTypes.Searches;
+  const Utilities: _ZoteroTypes.Utilities;
+  const Date: _ZoteroTypes.Utilities_Date;
+  const Libraries: _ZoteroTypes.Libraries;
+  const ItemTypes: _ZoteroTypes.ItemTypes;
+  const FileTypes: _ZoteroTypes.FileTypes;
+  const Collections: _ZoteroTypes.Collections;
+  const Annotations: _ZoteroTypes.Annotations;
+  const Attachments: _ZoteroTypes.Attachments;
+  const CreatorTypes: _ZoteroTypes.CreatorTypes;
+  const CharacterSets: _ZoteroTypes.CharacterSets;
+  const ItemTreeManager: _ZoteroTypes.ItemTreeManager;
+  const ItemPaneManager: _ZoteroTypes.ItemPaneManager;
+  const RelationPredicates: _ZoteroTypes.RelationPredicates;
+  const CollectionTreeCache: _ZoteroTypes.CollectionTreeCache;
+  const EditorInstanceUtilities: _ZoteroTypes.EditorInstanceUtilities;
 
   // Classes - defined in namespace Zotero
-  Library: _ZoteroTypes.Library;
-  Item: Zotero.Item;
-  Feed: Zotero.Feed;
-  Search: Zotero.Search;
-  Promise: Zotero.Promise;
-  DataObject: Zotero.DataObject;
-  Collection: Zotero.Collection;
-  CachedTypes: Zotero.CachedTypes;
-  EditorInstance: Zotero.EditorInstance;
-  ProgressWindow: Zotero.ProgressWindow;
-  CollectionTreeRow: Zotero.CollectionTreeRow;
-  DBConnection: _ZoteroTypes.DBConnection;
+  const Library: _ZoteroTypes.Library;
+  const Item: Zotero.Item;
+  const Feed: Zotero.Feed;
+  const Search: Zotero.Search;
+  const Promise: Zotero.Promise;
+  const DataObject: Zotero.DataObject;
+  const Collection: Zotero.Collection;
+  const CachedTypes: Zotero.CachedTypes;
+  const EditorInstance: Zotero.EditorInstance;
+  const ProgressWindow: Zotero.ProgressWindow;
+  const CollectionTreeRow: Zotero.CollectionTreeRow;
+  const DBConnection: _ZoteroTypes.DBConnection;
 
-  Locale: {
+  const Locale: {
     readonly availableLocales: _ZoteroTypes.AvailableLocales;
     defaultScriptDirection(
       locale: _ZoteroTypes.AvailableLocales,
     ): "ltr" | "rtl";
   };
-};
+
+  const Intl: {
+    strings: {
+      [key: string]: string;
+    };
+  };
+}
 
 declare namespace _ZoteroTypes {
   /**
@@ -321,7 +329,8 @@ declare namespace _ZoteroTypes {
    *  "@zotero.org/Zotero;1"
    * ].getService(Components.interfaces.nsISupports).wrappedJSObject;
    */
-  type Zotero = typeof Zotero;
+  declare type _ZoteroConstructable = typeof Zotero;
+  type Zotero = _ZoteroConstructable;
 
   interface AvailableLocales {
     ar: "عربي";
