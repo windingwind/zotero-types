@@ -486,3 +486,7 @@ declare namespace _ZoteroTypes {
     ): string | null;
   }
 }
+
+declare namespace Zotero {
+  const Utilities: _ZoteroTypes.Utilities;
+}

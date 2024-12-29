@@ -1,9 +1,9 @@
 /// <reference path="dataObject.d.ts" />
 
 declare namespace Zotero {
-  interface Search extends Zotero.DataObject {
-    [prop: string]: unknown;
-    new (params?: { name?: string; libraryID?: number }): this;
+  class Search extends Zotero.DataObject {
+    static prototype: Search;
+    constructor(params?: { name?: string; libraryID?: number });
     _name: string | null;
     _scope?: Search;
     _scopeIncludeChildren?: boolean;
@@ -13,32 +13,32 @@ declare namespace Zotero {
     _conditions: {};
     _hasPrimaryConditions: boolean;
     _objectType: "search";
-    _dataTypes: Search.DataType;
+    _dataTypes: _ZoteroTypes.Search.DataType;
     name: string;
     version: string | null;
     synced: boolean;
-    conditions: { [id: number]: Search.ConditionType };
+    conditions: { [id: number]: _ZoteroTypes.Search.ConditionType };
     readonly treeViewID: string;
     readonly treeViewImage: string;
 
     loadFromRow(row: object): void;
-    _initSave(env: Search.EnvType): Promise<void>;
+    _initSave(env: _ZoteroTypes.Search.EnvType): Promise<void>;
 
     // _finalizeSave(env: Search.EnvType): Promise<boolean | number>;
 
     clone(libraryID: number): Search;
 
-    _eraseData(env: Search.EnvType): Promise<void>;
+    _eraseData(env: _ZoteroTypes.Search.EnvType): Promise<void>;
 
     addCondition(
-      condition: Search.Conditions,
-      operator: Search.Operator,
+      condition: _ZoteroTypes.Search.Conditions,
+      operator: _ZoteroTypes.Search.Operator,
       value: string,
       required?: boolean,
     ): number;
     addCondition(
       condition: string,
-      operator: Search.Operator,
+      operator: _ZoteroTypes.Search.Operator,
       value?: string,
       required?: boolean,
     ): number;
@@ -70,13 +70,13 @@ declare namespace Zotero {
      * Returns an array with 'condition', 'operator', 'value', 'required'
      * for the given searchConditionID
      */
-    getCondition(searchConditionID: number): Search.ConditionType;
+    getCondition(searchConditionID: number): _ZoteroTypes.Search.ConditionType;
 
     /**
      * Returns an object of conditions/operator/value sets used in the search,
      * indexed by searchConditionID
      */
-    getConditions(): { [id: number]: Search.ConditionType };
+    getConditions(): { [id: number]: _ZoteroTypes.Search.ConditionType };
 
     hasPostSearchFilter(): boolean;
 
@@ -102,6 +102,9 @@ declare namespace Zotero {
 
     toJSON(option: object): object;
   }
+}
+
+declare namespace _ZoteroTypes {
   namespace Search {
     type DataType = ["primaryData", "conditions"];
     type ConditionType = {
@@ -113,7 +116,7 @@ declare namespace Zotero {
       required: boolean;
     };
     type EnvType = {
-      options: DataObject.SaveOptions;
+      options: Zotero.DataObject.SaveOptions;
       transactionOptions: object;
       isNew: boolean;
     };

@@ -202,7 +202,7 @@ declare namespace _ZoteroTypes {
      */
     getFirstCreatorFromData(
       itemTypeID: number,
-      creatorsData: Zotero.Item.Creator[],
+      creatorsData: _ZoteroTypes.Item.Creator[],
     ): string;
 
     /**
@@ -237,4 +237,8 @@ declare namespace _ZoteroTypes {
       pathPrefix: string,
     ): Promise<Zotero.Item[]>;
   }
+}
+
+declare namespace Zotero {
+  const Items: _ZoteroTypes.Items;
 }

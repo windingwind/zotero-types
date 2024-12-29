@@ -149,3 +149,7 @@ declare namespace _ZoteroTypes {
     getLocaleDateOrder(): "mdy" | "ymd" | "dmy";
   }
 }
+
+declare namespace Zotero {
+  const Date: _ZoteroTypes.Utilities_Date;
+}

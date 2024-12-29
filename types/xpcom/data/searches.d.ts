@@ -14,3 +14,7 @@ declare namespace _ZoteroTypes {
     ];
   }
 }
+
+declare namespace Zotero {
+  const Searches: _ZoteroTypes.Searches;
+}

@@ -23,3 +23,7 @@ declare namespace _ZoteroTypes {
     };
   }
 }
+
+declare namespace Zotero {
+  const Plugins: _ZoteroTypes.Plugins;
+}

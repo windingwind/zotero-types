@@ -28,3 +28,7 @@ declare namespace _ZoteroTypes {
     unregisterObserver(symbol: symbol): void;
   }
 }
+
+declare namespace Zotero {
+  const Prefs: _ZoteroTypes.Prefs;
+}

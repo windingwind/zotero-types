@@ -15,9 +15,13 @@ declare namespace Zotero {
    * @returns Zotero.Feed
    * @constructor
    */
-  interface Feed extends Zotero.Library {
-    new (params?: Feed.Params): this;
+  class Feed extends Zotero.Library {
+    constructor(params?: _ZoteroTypes.Feed.Params);
+    static prototype: Zotero.Feed;
   }
+}
+
+declare namespace _ZoteroTypes {
   namespace Feed {
     interface Params extends _ZoteroTypes.Library.Params {
       name: string;

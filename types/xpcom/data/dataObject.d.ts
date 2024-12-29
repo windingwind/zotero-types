@@ -58,7 +58,7 @@ declare namespace Zotero {
    * @property {Integer|false|undefined} parentID - False if no parent, or undefined if not
    *                                                applicable (e.g. search objects)
    */
-  interface DataObject {
+  class DataObject {
     readonly objectType: string;
     readonly libraryKey: string;
     readonly id: number;

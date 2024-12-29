@@ -105,3 +105,7 @@ declare namespace _ZoteroTypes {
     >;
   }
 }
+
+declare namespace Zotero {
+  const URI: _ZoteroTypes.URI;
+}

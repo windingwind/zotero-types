@@ -4,13 +4,13 @@ declare namespace Zotero {
   interface CollectionTreeRow extends _ZoteroTypes.TreeRow {
     new (
       collectionTreeView: _ZoteroTypes.CollectionTree,
-      type: CollectionTreeRow.Type,
+      type: _ZoteroTypes.CollectionTreeRow.Type,
       ref: unknown,
       level: number,
       isOpen: boolean,
     ): this;
     view: _ZoteroTypes.CollectionTree;
-    type: CollectionTreeRow.Type;
+    type: _ZoteroTypes.CollectionTreeRow.Type;
     onUnload?: () => Promise<void>;
     ref: DataObject | _ZoteroTypes.anyObj;
     get id(): string;
@@ -68,6 +68,11 @@ declare namespace Zotero {
      */
     isSearchMode(): boolean;
   }
+
+  const CollectionTreeCache: _ZoteroTypes.CollectionTreeCache;
+}
+
+declare namespace _ZoteroTypes {
   namespace CollectionTreeRow {
     type Type =
       | "library"
@@ -86,9 +91,7 @@ declare namespace Zotero {
       | "bucket"
       | "share";
   }
-}
 
-declare namespace _ZoteroTypes {
   interface CollectionTreeCache {
     lastTreeRow?: Zotero.CollectionTreeRow;
     lastSearch?: Zotero.Search;

@@ -41,9 +41,7 @@ declare namespace _ZoteroTypes {
 
     _ensureObserverAdded(): void;
   }
-}
 
-declare namespace _ZoteroTypes {
   type _PreferencePaneOption = {
     pluginID: string;
     src: string;
@@ -55,4 +53,8 @@ declare namespace _ZoteroTypes {
     stylesheets?: string[];
     helpURL?: string;
   };
+}
+
+declare namespace Zotero {
+  const PreferencePanes: _ZoteroTypes.PreferencePanes;
 }

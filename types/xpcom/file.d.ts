@@ -104,3 +104,7 @@ declare namespace _ZoteroTypes {
 declare const Zotero_File_Interface: {
   exportItemsToClipboard(items: Zotero.Item[], translatorID: string): void;
 };
+
+declare namespace Zotero {
+  const File: _ZoteroTypes.File;
+}

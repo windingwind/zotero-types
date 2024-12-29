@@ -9,7 +9,7 @@ declare namespace _ZoteroTypes {
   interface ItemTreeRow extends TreeRow {
     new (ref: Zotero.DataObject, level: number, isOpen: boolean): this;
     getField(
-      field: Zotero.Item.ItemField | number,
+      field: _ZoteroTypes.Item.ItemField | number,
       unformatted?: boolean,
     ): string;
     numNotes(): number;

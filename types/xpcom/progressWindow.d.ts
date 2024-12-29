@@ -1,8 +1,8 @@
 /// <reference path="../zotero.d.ts" />
 
 declare namespace Zotero {
-  interface ProgressWindow {
-    new (options?: { window?: Window; closeOnClick?: boolean }): this;
+  class ProgressWindow {
+    constructor(options?: { window?: Window; closeOnClick?: boolean });
 
     /**
      * Shows the progress window
@@ -44,9 +44,15 @@ declare namespace Zotero {
      */
     close(): void;
 
-    ItemProgress: ItemProgress;
+    ItemProgress: _ZoteroTypes.ItemProgress;
   }
 
+  const ProgressWindowSet: {
+    closeAll(): void;
+  };
+}
+
+declare namespace _ZoteroTypes {
   type ItemProgress = {
     /**
      * Creates a new object representing a line in the progressWindow. This is the OO
@@ -86,9 +92,5 @@ declare namespace Zotero {
       doneHandler(obj?: any, returnValue?: boolean): void;
       _scrapeError(description: string): void;
     };
-  };
-
-  const ProgressWindowSet: {
-    closeAll(): void;
   };
 }

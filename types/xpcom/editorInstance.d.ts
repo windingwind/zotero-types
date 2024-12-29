@@ -76,6 +76,8 @@ declare namespace Zotero {
     _citationItemsList: any;
     _prefObserverIDs: any[];
   }
+
+  const EditorInstanceUtilities: _ZoteroTypes.EditorInstanceUtilities;
 }
 
 declare namespace _ZoteroTypes {

@@ -28,8 +28,8 @@ declare namespace Zotero {
    */
   interface CachedTypes {
     new (): this;
-    _types: { [idOrName: string]: CachedTypes.Type };
-    _typesArray: CachedTypes.Type[];
+    _types: { [idOrName: string]: _ZoteroTypes.CachedTypes.Type };
+    _typesArray: _ZoteroTypes.CachedTypes.Type[];
     _typeDesc: string;
     _idCol: string;
     _nameCol: string;
@@ -49,13 +49,21 @@ declare namespace Zotero {
     init(): Promise<void>;
     getName(idOrName: number | string): string;
     getID(idOrName: number | string): number | false;
-    getAll(): CachedTypes.Type[];
-    getTypes(): CachedTypes.Type[];
+    getAll(): _ZoteroTypes.CachedTypes.Type[];
+    getTypes(): _ZoteroTypes.CachedTypes.Type[];
     isCustom(idOrName: number | string): boolean; // Currently used only for item types
     _getTypesFromDB(where: string, params?: object): Promise<unknown>;
-    _cacheTypeData(type: CachedTypes.Type): void;
+    _cacheTypeData(type: _ZoteroTypes.CachedTypes.Type): void;
   }
 
+  const CreatorTypes: _ZoteroTypes.CreatorTypes;
+  const ItemTypes: _ZoteroTypes.ItemTypes;
+  const FileTypes: _ZoteroTypes.FileTypes;
+  const CharacterSets: _ZoteroTypes.CharacterSets;
+  const RelationPredicates: _ZoteroTypes.RelationPredicates;
+}
+
+declare namespace _ZoteroTypes {
   namespace CachedTypes {
     interface Type {
       custom?: boolean;
@@ -63,16 +71,14 @@ declare namespace Zotero {
       name: string;
     }
   }
-}
 
-declare namespace _ZoteroTypes {
   interface CreatorTypes extends Zotero.CachedTypes {
     _typeDesc: "creator type";
     _typeDescPlural: "creator types";
     _idCol: "creatorTypeID";
     _nameCol: "creatorType";
     _table: "creatorTypes";
-    getTypesForItemType(itemTypeID: number): Zotero.CachedTypes.Type[];
+    getTypesForItemType(itemTypeID: number): _ZoteroTypes.CachedTypes.Type[];
     isValidForItemType(creatorTypeID: number, itemTypeID: number): boolean;
     getLocalizedString(idOrName: number | string): string;
     itemTypeHasCreators(itemTypeID: number): boolean;
@@ -98,11 +104,11 @@ declare namespace _ZoteroTypes {
     _table: "itemTypesCombined";
     _hasCustom: true;
 
-    getPrimaryTypes(): Zotero.CachedTypes.Type[];
-    getSecondaryTypes(): Zotero.CachedTypes.Type[];
-    getHiddenTypes(): Zotero.CachedTypes.Type[];
+    getPrimaryTypes(): _ZoteroTypes.CachedTypes.Type[];
+    getSecondaryTypes(): _ZoteroTypes.CachedTypes.Type[];
+    getHiddenTypes(): _ZoteroTypes.CachedTypes.Type[];
     getLocalizedString(idOrName: number | string): string;
-    getImageSrc(itemType: Zotero.Item.ItemType): _ZoteroTypes.IconURI;
+    getImageSrc(itemType: _ZoteroTypes.Item.ItemType): _ZoteroTypes.IconURI;
   }
 
   interface FileTypes extends Zotero.CachedTypes {

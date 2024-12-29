@@ -12,3 +12,7 @@ declare namespace _ZoteroTypes {
     setName(userID: number, name: string): Promise<void>;
   }
 }
+
+declare namespace Zotero {
+  const Users: _ZoteroTypes.Users;
+}

@@ -2,7 +2,7 @@
 /// <reference path="../attachments.d.ts" />
 /// <reference path="../annotations.d.ts" />
 
-declare namespace Zotero {
+declare namespace _ZoteroTypes {
   /*
    * Constructor for Item object
    */
@@ -298,15 +298,18 @@ declare namespace Zotero {
       lastName: string;
     }
   }
+}
 
-  interface Item extends Zotero.DataObject {
-    new (
+declare namespace Zotero {
+  class Item extends Zotero.DataObject {
+    static prototype: Zotero.Item;
+    constructor(
       itemTypeOrID?:
-        | keyof Item.ItemTypeMapping
-        | Item.ItemTypeMapping[keyof Item.ItemTypeMapping],
-    ): this;
+        | keyof _ZoteroTypes.Item.ItemTypeMapping
+        | _ZoteroTypes.Item.ItemTypeMapping[keyof _ZoteroTypes.Item.ItemTypeMapping],
+    );
     _objectType: "item";
-    readonly ContainerObjectsClass: typeof Zotero.Collection;
+    readonly ContainerObjectsClass: Zotero.Collection;
     id: number;
     key: string;
     libraryID: number;
@@ -318,7 +321,7 @@ declare namespace Zotero {
     createdByUserID?: number;
     lastModifiedByUserID?: number;
     readonly itemTypeID: number;
-    readonly itemType: Item.ItemType;
+    readonly itemType: _ZoteroTypes.Item.ItemType;
     parentItemID?: number | false;
     parentItemKey?: string | false;
     readonly parentItem?: Zotero.Item;
@@ -420,8 +423,8 @@ declare namespace Zotero {
     numAttachments(includeTrashed?: boolean): number;
 
     isFieldOfBase(
-      field: Item.ItemField | number,
-      baseField: Item.ItemField | number,
+      field: _ZoteroTypes.Item.ItemField | number,
+      baseField: _ZoteroTypes.Item.ItemField | number,
     ): boolean;
 
     /**
@@ -436,7 +439,7 @@ declare namespace Zotero {
      * @return {String} Value as string or empty string if value is not present
      */
     getField(
-      field: Item.ItemField | number,
+      field: _ZoteroTypes.Item.ItemField | number,
       unformatted?: boolean,
       includeBaseMapped?: boolean,
     ): string;
@@ -454,7 +457,7 @@ declare namespace Zotero {
      * Populate basic item data from a database row
      */
     loadFromRow(
-      row: { [col in Item.PrimaryField]?: unknown },
+      row: { [col in _ZoteroTypes.Item.PrimaryField]?: unknown },
       reload?: boolean,
     ): void;
 
@@ -480,7 +483,7 @@ declare namespace Zotero {
      * Field can be passed as fieldID or fieldName
      */
     setField(
-      field: Item.ItemField | number,
+      field: _ZoteroTypes.Item.ItemField | number,
       value: string | number | boolean,
       loadIn?: boolean,
     ): void;
@@ -510,13 +513,13 @@ declare namespace Zotero {
      * @param  {Integer} pos
      * @return {Object|Boolean} The internal creator data object at the given position, or FALSE if none
      */
-    getCreator(pos: number): Item.Creator | false;
+    getCreator(pos: number): _ZoteroTypes.Item.Creator | false;
 
     /**
      * @param  {Integer} pos
      * @return {Object|Boolean} The API JSON creator data at the given position, or FALSE if none
      */
-    getCreatorJSON(pos: number): Item.CreatorJSON;
+    getCreatorJSON(pos: number): _ZoteroTypes.Item.CreatorJSON;
 
     /**
      * Returns creator data in internal format
@@ -524,13 +527,13 @@ declare namespace Zotero {
      * @return {Array<Object>}  An array of internal creator data objects
      *                          ('firstName', 'lastName', 'fieldMode', 'creatorTypeID')
      */
-    getCreators(): Item.Creator[];
+    getCreators(): _ZoteroTypes.Item.Creator[];
 
     /**
      * @return {Array<Object>} An array of creator data objects in API JSON format
      *                         ('firstName'/'lastName' or 'name', 'creatorType')
      */
-    getCreatorsJSON(): Item.CreatorJSON[];
+    getCreatorsJSON(): _ZoteroTypes.Item.CreatorJSON[];
 
     /**
      * Set or update the creator at the specified position
@@ -546,7 +549,7 @@ declare namespace Zotero {
      */
     setCreator(
       orderIndex: number,
-      data: Item.CreatorJSON | Item.Creator,
+      data: _ZoteroTypes.Item.CreatorJSON | _ZoteroTypes.Item.Creator,
       options?: { strict: boolean },
     ): boolean;
 
@@ -554,7 +557,7 @@ declare namespace Zotero {
      * @param {Object[]} data - An array of creator data in internal or API JSON format
      */
     setCreators(
-      data: Array<Item.CreatorJSON | Item.Creator>,
+      data: Array<_ZoteroTypes.Item.CreatorJSON | _ZoteroTypes.Item.Creator>,
       options?: { strict: boolean },
     ): void;
 
@@ -1026,7 +1029,7 @@ declare namespace Zotero {
      */
     setPublications(inPublications: boolean): void;
 
-    getItemTypeIconName(): Item.ItemType;
+    getItemTypeIconName(): _ZoteroTypes.Item.ItemType;
     getImageSrc(): _ZoteroTypes.IconURI;
 
     /**
@@ -1047,7 +1050,9 @@ declare namespace Zotero {
     ):
       | false
       | {
-          [field in Item.ItemField]?: Array<string | _ZoteroTypes.anyObj>;
+          [field in _ZoteroTypes.Item.ItemField]?: Array<
+            string | _ZoteroTypes.anyObj
+          >;
         };
 
     /**
@@ -1085,7 +1090,9 @@ declare namespace Zotero {
      */
     fromJSON(json: object, options?: { strict: boolean }): void;
 
-    toJSON(options?: object): { [field in Item.ItemField]: string | unknown };
+    toJSON(options?: object): {
+      [field in _ZoteroTypes.Item.ItemField]: string | unknown;
+    };
 
     /**
      * Migrate valid fields in Extra to real fields

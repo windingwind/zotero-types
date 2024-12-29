@@ -1,6 +1,5 @@
 /// <reference path="dataObject.d.ts" />
-
-declare namespace Zotero {
+declare namespace _ZoteroTypes {
   namespace Collection {
     type DataType =
       | "primaryData"
@@ -17,18 +16,21 @@ declare namespace Zotero {
       type: Collection.DescendentType;
     }
   }
+}
 
-  interface Collection extends Zotero.DataObject {
-    new (params?: {
+declare namespace Zotero {
+  class Collection extends Zotero.DataObject {
+    static prototype: Collection;
+    constructor(params?: {
       name?: string;
       libraryID?: number;
       parentID?: number;
       parentKey?: string;
-    }): this;
+    });
     _childCollections: Set<number>;
     _childItems: Set<number>;
     _objectType: "collection";
-    _dataTypes: Array<Collection.DataType>;
+    _dataTypes: Array<_ZoteroTypes.Collection.DataType>;
     ChildObjects: _ZoteroTypes.Items;
     name: string;
     version: number;
@@ -117,7 +119,10 @@ declare namespace Zotero {
      */
     hasItem(item: number | Zotero.Item): boolean;
 
-    hasDescendent(type: Collection.DescendentType, id: number): boolean;
+    hasDescendent(
+      type: _ZoteroTypes.Collection.DescendentType,
+      id: number,
+    ): boolean;
 
     /**
      * Returns an unsaved copy of the collection without id and key
@@ -144,7 +149,7 @@ declare namespace Zotero {
       };
       childCollections: number[];
       childItems: number[];
-      descendents: Collection.Descendent[];
+      descendents: _ZoteroTypes.Collection.Descendent[];
     };
 
     /**
@@ -174,10 +179,10 @@ declare namespace Zotero {
      */
     getDescendents(
       nested?: boolean,
-      type?: Collection.DescendentType | null,
+      type?: _ZoteroTypes.Collection.DescendentType | null,
       includeDeletedItems?: boolean,
       level?: number,
-    ): Collection.Descendent[];
+    ): _ZoteroTypes.Collection.Descendent[];
 
     /**
      * Return a collection in the specified library equivalent to this collection

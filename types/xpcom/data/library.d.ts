@@ -13,10 +13,15 @@ declare namespace _ZoteroTypes {
     }
   }
   interface Library {
+    new (params?: Library.Params): Zotero.Library;
+  }
+}
+declare namespace Zotero {
+  class Library {
     // Converts DB column name to (internal) object property
-    _colToProp(c: string): string;
+    static _colToProp(c: string): string;
 
-    readonly _dbColumns: [
+    static readonly _dbColumns: [
       "type",
       "editable",
       "filesEditable",
@@ -27,17 +32,15 @@ declare namespace _ZoteroTypes {
     ];
 
     // Select all columns in a unique manner, so we can JOIN tables with same column names (e.g. version)
-    readonly _rowSQLSelect: string;
+    static readonly _rowSQLSelect: string;
 
     // The actual select statement for above columns
-    readonly _rowSQL: string;
+    static readonly _rowSQL: string;
 
-    prototype: Zotero.Library;
-    new (params?: Library.Params): Zotero.Library;
-  }
-}
-declare namespace Zotero {
-  interface Library {
+    static prototype: Zotero.Library;
+
+    constructor(params?: _ZoteroTypes.Library.Params);
+
     readonly _objectType: "library";
     readonly _childObjectTypes: ["item", "collection", "search"];
 

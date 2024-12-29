@@ -6,3 +6,7 @@ declare namespace _ZoteroTypes {
    */
   interface Feeds extends anyObj {}
 }
+
+declare namespace Zotero {
+  const Feeds: _ZoteroTypes.Feeds;
+}

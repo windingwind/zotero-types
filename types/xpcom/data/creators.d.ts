@@ -9,7 +9,7 @@ declare namespace _ZoteroTypes {
     /*
      * Returns creator data in internal format for a given creatorID
      */
-    get(creatorID: number): Zotero.Item.Creator;
+    get(creatorID: number): _ZoteroTypes.Item.Creator;
 
     getItemsWithCreator(creatorID: number): Promise<number[]>;
     countItemAssociations(creatorID: number): Promise<number>;
@@ -23,13 +23,13 @@ declare namespace _ZoteroTypes {
      * @return {Promise<Integer>}  creatorID
      */
     getIDFromData(
-      data: Zotero.Item.CreatorJSON,
+      data: _ZoteroTypes.Item.CreatorJSON,
       create?: boolean,
     ): Promise<number | null>;
 
     updateCreator(
       creatorID: number,
-      creatorData: Zotero.Item.Creator,
+      creatorData: _ZoteroTypes.Item.Creator,
     ): Promise<unknown>;
 
     /**
@@ -39,11 +39,20 @@ declare namespace _ZoteroTypes {
      */
     purge(): Promise<void>;
 
-    equals(data1: Zotero.Item.Creator, data2: Zotero.Item.Creator): boolean;
+    equals(
+      data1: _ZoteroTypes.Item.Creator,
+      data2: _ZoteroTypes.Item.Creator,
+    ): boolean;
     cleanData(
-      data: Zotero.Item.Creator,
+      data: _ZoteroTypes.Item.Creator,
       options?: { strict: boolean },
-    ): Zotero.Item.Creator;
-    internalToJSON(fields: Zotero.Item.Creator): Zotero.Item.CreatorJSON;
+    ): _ZoteroTypes.Item.Creator;
+    internalToJSON(
+      fields: _ZoteroTypes.Item.Creator,
+    ): _ZoteroTypes.Item.CreatorJSON;
   }
+}
+
+declare namespace Zotero {
+  const Creators: _ZoteroTypes.Creators;
 }

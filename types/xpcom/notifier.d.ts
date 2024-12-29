@@ -140,3 +140,7 @@ declare namespace _ZoteroTypes {
     reset(transactionID?: boolean): void;
   }
 }
+
+declare namespace Zotero {
+  const Notifier: _ZoteroTypes.Notifier;
+}

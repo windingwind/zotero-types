@@ -237,3 +237,7 @@ declare namespace _ZoteroTypes {
     cleanData(data: object): object;
   }
 }
+
+declare namespace Zotero {
+  const Tags: _ZoteroTypes.Tags;
+}

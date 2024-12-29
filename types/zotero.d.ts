@@ -292,54 +292,6 @@ declare namespace Zotero {
    */
   function activateStandalone(): void;
 
-  // Objects - defined in namespace _ZoteroTypes
-  const URI: _ZoteroTypes.URI;
-  const Tags: _ZoteroTypes.Tags;
-  const File: _ZoteroTypes.File;
-  const DB: _ZoteroTypes.DB;
-  const HTTP: _ZoteroTypes.HTTP;
-  const Users: _ZoteroTypes.Users;
-  const Feeds: _ZoteroTypes.Feeds;
-  const Server: _ZoteroTypes.Server;
-  const Plugins: _ZoteroTypes.Plugins;
-  const PreferencePanes: _ZoteroTypes.PreferencePanes;
-  const Prefs: _ZoteroTypes.Prefs;
-  const Items: _ZoteroTypes.Items;
-  const Notes: _ZoteroTypes.Notes;
-  const Reader: _ZoteroTypes.Reader;
-  const Creators: _ZoteroTypes.Creators;
-  const Notifier: _ZoteroTypes.Notifier;
-  const Searches: _ZoteroTypes.Searches;
-  const Utilities: _ZoteroTypes.Utilities;
-  const Date: _ZoteroTypes.Utilities_Date;
-  const Libraries: _ZoteroTypes.Libraries;
-  const ItemTypes: _ZoteroTypes.ItemTypes;
-  const FileTypes: _ZoteroTypes.FileTypes;
-  const Collections: _ZoteroTypes.Collections;
-  const Annotations: _ZoteroTypes.Annotations;
-  const Attachments: _ZoteroTypes.Attachments;
-  const CreatorTypes: _ZoteroTypes.CreatorTypes;
-  const CharacterSets: _ZoteroTypes.CharacterSets;
-  const ItemTreeManager: _ZoteroTypes.ItemTreeManager;
-  const ItemPaneManager: _ZoteroTypes.ItemPaneManager;
-  const RelationPredicates: _ZoteroTypes.RelationPredicates;
-  const CollectionTreeCache: _ZoteroTypes.CollectionTreeCache;
-  const EditorInstanceUtilities: _ZoteroTypes.EditorInstanceUtilities;
-
-  // Classes - defined in namespace Zotero
-  const Library: _ZoteroTypes.Library;
-  const Item: Zotero.Item;
-  const Feed: Zotero.Feed;
-  const Search: Zotero.Search;
-  const Promise: Zotero.Promise;
-  const DataObject: Zotero.DataObject;
-  const Collection: Zotero.Collection;
-  const CachedTypes: Zotero.CachedTypes;
-  const EditorInstance: Zotero.EditorInstance;
-  const ProgressWindow: Zotero.ProgressWindow;
-  const CollectionTreeRow: Zotero.CollectionTreeRow;
-  const DBConnection: _ZoteroTypes.DBConnection;
-
   const Locale: {
     readonly availableLocales: _ZoteroTypes.AvailableLocales;
     defaultScriptDirection(

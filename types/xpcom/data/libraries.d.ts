@@ -49,3 +49,7 @@ declare namespace _ZoteroTypes {
     isGroupLibrary(libraryID: number): boolean;
   }
 }
+
+declare namespace Zotero {
+  const Libraries: _ZoteroTypes.Libraries;
+}
