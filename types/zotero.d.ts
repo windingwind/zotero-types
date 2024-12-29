@@ -7,6 +7,7 @@
 /// <reference path="xpcom/editorInstance.d.ts" />
 /// <reference path="xpcom/file.d.ts" />
 /// <reference path="xpcom/http.d.ts" />
+/// <reference path="xpcom/mime.d.ts" />
 /// <reference path="xpcom/server.d.ts" />
 /// <reference path="xpcom/notifier.d.ts" />
 /// <reference path="xpcom/users.d.ts" />
@@ -17,6 +18,8 @@
 /// <reference path="xpcom/preferencePanes.d.ts" />
 /// <reference path="xpcom/progressWindow.d.ts" />
 /// <reference path="xpcom/reader.d.ts" />
+/// <reference path="xpcom/session.d.ts" />
+/// <reference path="xpcom/uiProperties.d.ts" />
 /// <reference path="xpcom/uri.d.ts" />
 /// <reference path="xpcom/collectionTreeRow.d.ts" />
 /// <reference path="xpcom/db.d.ts" />
@@ -26,6 +29,8 @@
 /// <reference path="xpcom/data/feedItem.d.ts" />
 /// <reference path="xpcom/data/feed.d.ts" />
 /// <reference path="xpcom/data/feeds.d.ts" />
+/// <reference path="xpcom/data/group.d.ts" />
+/// <reference path="xpcom/data/groups.d.ts" />
 /// <reference path="xpcom/data/item.d.ts" />
 /// <reference path="xpcom/data/items.d.ts" />
 /// <reference path="xpcom/data/library.d.ts" />
@@ -97,6 +102,7 @@ declare namespace Zotero {
   const flattenArguments: typeof Utilities.Internal.flattenArguments;
   const getAncestorByTagName: typeof Utilities.Internal.getAncestorByTagName;
   const startupErrorHandler: () => void | undefined;
+  const appName: string;
   const resourcesDir: string;
   const locale: keyof _ZoteroTypes.AvailableLocales;
   const dir: "ltr" | "rtl";
@@ -316,7 +322,11 @@ declare namespace Zotero {
      *     in https://developer.mozilla.org/en-US/docs/Mozilla/Localization/Localization_and_Plurals,
      *     separated by semicolons
      */
-    getString: (name: string, params?: string[], num?: number) => string;
+    getString: (
+      name: string,
+      params?: string | string[],
+      num?: number,
+    ) => string;
   };
 }
 
