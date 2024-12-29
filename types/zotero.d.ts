@@ -93,8 +93,11 @@ declare namespace Zotero {
   function getZoteroPanes(): _ZoteroTypes.ZoteroPane[];
   function getActiveZoteroPane(): _ZoteroTypes.ZoteroPane;
   function getStorageDirectory(): nsIFile;
-  function setFontSize(rootElement: Element): void;
+  const setFontSize: typeof Utilities.Internal.setFontSize;
+  const flattenArguments: typeof Utilities.Internal.flattenArguments;
+  const getAncestorByTagName: typeof Utilities.Internal.getAncestorByTagName;
   const startupErrorHandler: () => void | undefined;
+  const resourcesDir: string;
   const locale: keyof _ZoteroTypes.AvailableLocales;
   const dir: "ltr" | "rtl";
   const platform: string;
@@ -134,16 +137,28 @@ declare namespace Zotero {
   function init(options?: object): Promise<boolean>;
 
   /**
+   * Shuts down Zotero, calls a callback (that may return a promise),
+   * then reinitializes Zotero. Returns a promise that is resolved
+   * when this process completes.
+   */
+  function reinit(cbk: Function, options?: object): void | Promise<void>;
+
+  /**
    * Triggers events when initialization finishes
    */
   function initComplete(): void;
 
   function uiIsReady(): void;
   function shutdown(): Promise<void>;
+  function getProfileDirectory(): nsIFile;
+  function getZoteroDirectory(): nsIFile;
+  function getZoteroDatabase(): nsIFile;
   function getStylesDirectory(): nsIFile;
   function getTranslatorsDirectory(): nsIFile;
   function getTempDirectory(): nsIFile;
   function removeTempDirectory(): Promise<boolean>;
+
+  function openMainWindow(): void;
   function openCheckForUpdatesWindow(): void;
 
   /**
@@ -192,15 +207,21 @@ declare namespace Zotero {
   function getErrors(asStrings?: false): unknown[];
   function getErrors(asStrings: true): string[];
 
+  function isWin64EmulatedOnArm(): boolean;
+
   /**
    * Get versions, platform, etc.
    */
   function getSystemInfo(): Promise<string>;
 
+  function getOSVersion(): Promise<string>;
+
   /**
    * @return {Promise<String[]>} - Promise for an array of extension names and versions
    */
   function getInstalledExtensions(): Promise<string[]>;
+
+  const getString: typeof Intl.getString;
 
   function defineProperty(
     obj: object,
@@ -209,8 +230,13 @@ declare namespace Zotero {
     opts?: { lazy: boolean },
   ): void;
   function extendClass(superClass: object, newClass: object): void;
+
+  function getLocaleCollation(): Intl.Collator;
+  function localeCompare(a: string, b: string): number;
   function randomString(len?: number, chars?: string): string;
-  function lazy(fn: Function): Function;
+  const lazy: typeof Utilities.Internal.lazy;
+  const serial: typeof Utilities.Internal.serial;
+  const spawn: typeof Utilities.Internal.spawn;
 
   /**
    * Emulates the behavior of window.setTimeout
@@ -258,6 +284,8 @@ declare namespace Zotero {
    * Clear entries that no longer exist from various tables
    */
   function purgeDataObjects(): Promise<void>;
+
+  function reloadDataObjects(): Promise<void>;
 
   /**
    * Brings Zotero Standalone to the foreground
@@ -323,6 +351,20 @@ declare namespace Zotero {
     strings: {
       [key: string]: string;
     };
+
+    collation: {
+      compareString: (_: number, a: string, b: string) => number;
+    };
+
+    /**
+     * @param {String} name
+     * @param {String[]} [params=[]] - Strings to substitute for placeholders
+     * @param {Number} [num] - Number (also appearing in `params`) to use when determining which plural
+     *     form of the string to use; localized strings should include all forms in the order specified
+     *     in https://developer.mozilla.org/en-US/docs/Mozilla/Localization/Localization_and_Plurals,
+     *     separated by semicolons
+     */
+    getString: (name: string, params?: string[], num?: number) => string;
   };
 }
 

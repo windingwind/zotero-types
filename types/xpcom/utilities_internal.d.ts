@@ -298,6 +298,10 @@ declare namespace _ZoteroTypes {
        */
       lazy(fn: Function): Function;
 
+      serial(fn: Function): Function;
+
+      spawn(generator: GeneratorFunction, thisObj: object): Function;
+
       /**
        * Defines property on the object
        * More compact way to do Object.defineProperty
@@ -331,6 +335,8 @@ declare namespace _ZoteroTypes {
        *  (zotero-pane, note window, etc.)
        */
       setFontSize(rootElement: Element): void;
+
+      getAncestorByTagName(elem: Element, tagName: string): Element | null;
 
       /**
        * Quits the program, optionally restarting.
