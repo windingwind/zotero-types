@@ -129,9 +129,8 @@ declare namespace _ZoteroTypes {
   }
 
   namespace ItemPaneManagerInfoRow {
-    type ExcludeBuiltFields<T extends string> = T extends Zotero.Item.ItemField
-      ? never
-      : T;
+    type ExcludeBuiltFields<T extends string> =
+      T extends _ZoteroTypes.Item.ItemField ? never : T;
 
     interface BasicHookArgs {
       rowID: string;

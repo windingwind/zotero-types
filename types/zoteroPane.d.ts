@@ -301,7 +301,7 @@ declare namespace _ZoteroTypes {
      */
     addItemFromDocument: (
       doc: Document,
-      itemType?: Zotero.Item.ItemType,
+      itemType?: _ZoteroTypes.Item.ItemType,
       saveSnapshot?: boolean,
       row?: Zotero.Collection,
     ) => Promise<Zotero.Item> | false;
@@ -314,7 +314,7 @@ declare namespace _ZoteroTypes {
      */
     addItemFromURL: (
       url: string,
-      itemType?: Zotero.Item.ItemType,
+      itemType?: _ZoteroTypes.Item.ItemType,
       saveSnapshot?: boolean,
       row?: Zotero.Collection,
     ) => Promise<Zotero.Item> | false;

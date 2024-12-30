@@ -175,8 +175,8 @@ declare namespace _ZoteroTypes {
         item?: Zotero.Item,
         additionalFields?: string[],
       ): {
-        itemType?: Zotero.Item.ItemType;
-        fields: Map<keyof Zotero.Item.ItemField, unknown>;
+        itemType?: _ZoteroTypes.Item.ItemType;
+        fields: Map<keyof _ZoteroTypes.Item.ItemField, unknown>;
         creators: object;
         extra: string;
       };
@@ -188,7 +188,7 @@ declare namespace _ZoteroTypes {
        */
       combineExtraFields(
         extra: string,
-        fieldMap: Map<keyof Zotero.Item.ItemField, unknown>,
+        fieldMap: Map<keyof _ZoteroTypes.Item.ItemField, unknown>,
       ): string;
 
       _normalizeExtraKey(key: string): string;

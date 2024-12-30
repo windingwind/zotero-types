@@ -81,7 +81,7 @@ declare namespace _ZoteroTypes {
 
     inTransaction(): boolean;
 
-    waitForTransaction(id: number): Zotero.Promise;
+    waitForTransaction(id: number): Promise<void>;
 
     requireTransaction(): void;
 

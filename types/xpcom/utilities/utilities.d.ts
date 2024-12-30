@@ -364,7 +364,7 @@ declare namespace _ZoteroTypes {
      * @param {String} type Item type
      * @return {String[]} Creator types
      */
-    getCreatorsForType(type: Zotero.Item.ItemType): string[];
+    getCreatorsForType(type: _ZoteroTypes.Item.ItemType): string[];
 
     /**
      * Determine whether a given field is valid for a given item type
@@ -373,7 +373,10 @@ declare namespace _ZoteroTypes {
      * @param {String} type Item type
      * @type Boolean
      */
-    fieldIsValidForType(field: string, type: Zotero.Item.ItemType): boolean;
+    fieldIsValidForType(
+      field: string,
+      type: _ZoteroTypes.Item.ItemType,
+    ): boolean;
 
     /**
      * Gets a creator type name, localized to the current locale
