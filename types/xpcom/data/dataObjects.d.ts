@@ -1,7 +1,7 @@
 /// <reference path="dataObject.d.ts" />
 
 declare namespace _ZoteroTypes {
-  interface DataObjects {
+  interface DataObjects<T extends Zotero.DataObject = Zotero.DataObject> {
     idColumn: string;
     table: string;
     relationsTable: string;
@@ -23,8 +23,8 @@ declare namespace _ZoteroTypes {
      * @return {Zotero.[Object]|Array<Zotero.[Object]>} A Zotero.[Object], if a scalar id was passed;
      *                                          otherwise, an array of Zotero.[Object]
      */
-    get(id: number): Zotero.DataObject;
-    get(ids: number[]): Zotero.DataObject[];
+    get(id: number): T;
+    get(ids: number[]): T[];
 
     /**
      * Retrieves (and loads, if necessary) one or more items
@@ -35,21 +35,15 @@ declare namespace _ZoteroTypes {
      * @return {Promise<Zotero.DataObject|Zotero.DataObject[]>} - A promise for either a data object,
      *     if a scalar id was passed, or an array of data objects, if an array of ids was passed
      */
-    getAsync(
-      id: number,
-      options?: { noCache: boolean },
-    ): Promise<Zotero.DataObject>;
-    getAsync(
-      ids: number[],
-      options?: { noCache: boolean },
-    ): Promise<Zotero.DataObject[]>;
+    getAsync(id: number, options?: { noCache: boolean }): Promise<T>;
+    getAsync(ids: number[], options?: { noCache: boolean }): Promise<T[]>;
 
     /**
      * Get all loaded objects
      *
      * @return {Zotero.DataObject[]}
      */
-    getLoaded(): Zotero.DataObject[];
+    getLoaded(): T[];
 
     /**
      * Return objects in the trash
@@ -65,7 +59,7 @@ declare namespace _ZoteroTypes {
       asIDs?: boolean,
       days?: number,
       limit?: number,
-    ): Promise<Array<number | Zotero.DataObject>>;
+    ): Promise<Array<number | T>>;
 
     getAllIDs(libraryID: number): Promise<number[]>;
     getAllKeys(libraryID: number): Promise<string[]>;
@@ -82,7 +76,7 @@ declare namespace _ZoteroTypes {
       libraryID: number,
       key: string,
       options?: unknown,
-    ): Zotero.DataObject | false;
+    ): T | false;
 
     /**
      * Asynchronously retrieves an object by its libraryID and key
@@ -97,7 +91,7 @@ declare namespace _ZoteroTypes {
       libraryID: number,
       key: string,
       options?: { noCache: boolean },
-    ): Promise<Zotero.DataObject | false>;
+    ): Promise<T | false>;
 
     exists(id: number): boolean;
 
@@ -144,10 +138,7 @@ declare namespace _ZoteroTypes {
      * @param {String[]} [dataTypes] - Data types to load, defaulting to all types
      * @return {Promise}
      */
-    loadDataTypes(
-      objects: Zotero.DataObject[],
-      dataTypes?: string[],
-    ): Promise<void>;
+    loadDataTypes(objects: T[], dataTypes?: string[]): Promise<void>;
 
     /**
      * Loads data for a given data type
@@ -175,7 +166,7 @@ declare namespace _ZoteroTypes {
      * @param {Zotero.DataObject[]} objects - An array of objects
      * @return {Zotero.DataObject[]} - A sorted array of objects
      */
-    sortByLevel<T extends Zotero.DataObject>(objects: T[]): T[];
+    sortByLevel<T>(objects: T[]): T[];
 
     /**
      * Sort an array of collections or items from top-level to deepest, grouped by parent
@@ -188,7 +179,7 @@ declare namespace _ZoteroTypes {
      * @param {Zotero.DataObject[]} objects - An array of data objects
      * @return {Zotero.DataObject[]} - A sorted array of data objects
      */
-    sortByParent<T extends Zotero.DataObject>(objects: T[]): T[];
+    sortByParent<T>(objects: T[]): T[];
 
     /**
      * Flatten API JSON relations object into an array of unique predicate-object pairs
@@ -218,7 +209,7 @@ declare namespace _ZoteroTypes {
     ): Promise<undefined | true>;
 
     reloadAll(libraryID: number): Promise<void>;
-    registerObject(obj: Zotero.DataObject): void;
+    registerObject(obj: T): void;
     dropDeadObjectsFromCache(): void;
 
     /**
@@ -244,7 +235,7 @@ declare namespace _ZoteroTypes {
      */
     updateSynced(ids: number[], synced?: boolean): Promise<void>;
 
-    isEditable(obj: Zotero.DataObject): boolean;
+    isEditable(obj: T): boolean;
     getPrimaryDataSQLPart(part: string): string;
 
     /**
@@ -266,4 +257,8 @@ declare namespace _ZoteroTypes {
   }
 
   type ObjectType = "collection" | "item" | "search";
+}
+
+declare namespace Zotero {
+  const DataObjects: _ZoteroTypes.DataObjects;
 }

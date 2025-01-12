@@ -6,6 +6,7 @@
 /// <reference path="promise.d.ts" />
 /// <reference path="xpcom/editorInstance.d.ts" />
 /// <reference path="xpcom/file.d.ts" />
+/// <reference path="xpcom/fileHandlers.d.ts" />
 /// <reference path="xpcom/http.d.ts" />
 /// <reference path="xpcom/mime.d.ts" />
 /// <reference path="xpcom/server.d.ts" />
@@ -22,6 +23,7 @@
 /// <reference path="xpcom/uiProperties.d.ts" />
 /// <reference path="xpcom/uri.d.ts" />
 /// <reference path="xpcom/collectionTreeRow.d.ts" />
+/// <reference path="xpcom/dataDirectory.d.ts" />
 /// <reference path="xpcom/db.d.ts" />
 /// <reference path="xpcom/data/notes.d.ts" />
 /// <reference path="xpcom/data/creators.d.ts" />
@@ -103,6 +105,7 @@ declare namespace Zotero {
   const getAncestorByTagName: typeof Utilities.Internal.getAncestorByTagName;
   const startupErrorHandler: () => void | undefined;
   const appName: string;
+  const clientName: string;
   const resourcesDir: string;
   const locale: keyof _ZoteroTypes.AvailableLocales;
   const dir: "ltr" | "rtl";
@@ -114,10 +117,12 @@ declare namespace Zotero {
   const initialized: boolean;
   const skipLoading: boolean;
   const hiDPISuffix: string;
+  const hiDPI: boolean;
 
   const initializationPromise: Promise<void>;
   const unlockPromise: Promise<void>;
   const uiReadyPromise: Promise<void>;
+  const proxyAuthComplete: Promise<void>;
 
   /**
    * @property {Boolean} crashed - True if the application needs to be restarted
@@ -328,6 +333,23 @@ declare namespace Zotero {
       num?: number,
     ) => string;
   };
+}
+
+// Below are not implemented types
+declare namespace Zotero {
+  let API: any;
+  let Cite: any;
+  let Debug: any;
+  let Integration: any;
+  let ItemFields: any;
+  let PDFRenderer: any;
+  let QuickCopy: any;
+  let Schema: any;
+  let SearchConditions: any;
+  let Styles: any;
+  let Sync: any;
+  let Translate: any;
+  let Translators: any;
 }
 
 declare namespace _ZoteroTypes {

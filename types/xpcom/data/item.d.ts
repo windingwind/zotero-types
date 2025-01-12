@@ -331,6 +331,9 @@ declare namespace Zotero {
     readonly relatedItems: string[];
     readonly treeViewID: number;
     readonly note: string;
+    isFeedItem: boolean;
+
+    loadAllData(reload?: boolean): Promise<void>;
 
     isRegularItem(): boolean;
     isTopLevelItem(): boolean;
@@ -443,6 +446,11 @@ declare namespace Zotero {
       unformatted?: boolean,
       includeBaseMapped?: boolean,
     ): string;
+    getField(
+      field: string,
+      unformatted?: boolean,
+      includeBaseMapped?: boolean,
+    ): string;
 
     getExtraField(fieldName: string): string;
 
@@ -484,6 +492,11 @@ declare namespace Zotero {
      */
     setField(
       field: _ZoteroTypes.Item.ItemField | number,
+      value: string | number | boolean,
+      loadIn?: boolean,
+    ): void;
+    setField(
+      field: string,
       value: string | number | boolean,
       loadIn?: boolean,
     ): void;
@@ -900,7 +913,7 @@ declare namespace Zotero {
      *
      * @return {Array} Array of tag data in API JSON format
      */
-    getTags(): Array<{ tag: string; type: number }>;
+    getTags(): Array<{ tag: string; type?: number }>;
 
     /**
      * Check if the item has a given tag

@@ -1,7 +1,7 @@
 /// <reference path="dataObjects.d.ts" />
 
 declare namespace _ZoteroTypes {
-  interface Searches extends DataObjects {
+  interface Searches extends DataObjects<Zotero.Search> {
     readonly ObjectClass: Zotero.Search;
     readonly primaryFields: [
       "savedSearchID",

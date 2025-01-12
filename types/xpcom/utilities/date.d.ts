@@ -10,7 +10,10 @@ declare namespace _ZoteroTypes {
      * @param {Boolean} [withEnglish = false] - Include English months
      * @return {Object} - Object with 'short' and 'long' arrays
      */
-    getMonths(withEnglish: boolean): object;
+    getMonths(withEnglish: boolean): {
+      short: string[];
+      long: string[];
+    };
 
     /**
      * Convert an SQL date in the form '2006-06-13 11:03:05' into a JS Date object
@@ -24,7 +27,7 @@ declare namespace _ZoteroTypes {
      *
      * If _toUTC_ is true, creates a UTC date
      **/
-    dateToSQL(date: Date, toUTC: boolean): string;
+    dateToSQL(date: Date, toUTC?: boolean): string;
 
     /**
      * Convert a JS Date object to an ISO 8601 UTC date/time
@@ -60,7 +63,7 @@ declare namespace _ZoteroTypes {
      *
      * Note: the returned object is *not* a JS Date object
      */
-    strToDate(string: string): object;
+    strToDate(string: string): Utilities_Date.Date;
 
     isHTTPDate(str: string): boolean;
 
@@ -72,7 +75,7 @@ declare namespace _ZoteroTypes {
      * @return A formatted date string
      * @type String
      **/
-    formatDate(date: object, shortFormat: boolean): string;
+    formatDate(date: Utilities_Date.Date, shortFormat: boolean): string;
 
     strToISO(str: string): string | false;
 
@@ -147,6 +150,16 @@ declare namespace _ZoteroTypes {
      * Returns a string with y, m, and d (e.g. 'ymd', 'mdy')
      */
     getLocaleDateOrder(): "mdy" | "ymd" | "dmy";
+  }
+
+  namespace Utilities_Date {
+    interface Date {
+      year?: string;
+      month?: number;
+      day?: number;
+      part?: string;
+      order?: string;
+    }
   }
 }
 

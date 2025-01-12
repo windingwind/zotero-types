@@ -67,7 +67,7 @@ declare namespace _ZoteroTypes {
      *    transaction and re-enable after. (`PRAGMA foreign_keys=0|1` is a no-op during a transaction.)
      * @return {Promise} - Promise for result of generator function
      */
-    executeTransaction<T>(
+    executeTransaction<T = anyObj>(
       func: () => T | Promise<T>,
       options?: {
         disbledForeignKeys: boolean;
@@ -101,7 +101,7 @@ declare namespace _ZoteroTypes {
         onRow?: (row: unknown, cancel: unknown) => void;
         noCache?: boolean;
       },
-    ): Promise<object[] | undefined>;
+    ): Promise<anyObj[] | undefined>;
 
     queryTx(
       sql: string,
@@ -112,7 +112,7 @@ declare namespace _ZoteroTypes {
         onRow?: (row: unknown, cancel: unknown) => void;
         noCache?: boolean;
       },
-    ): Promise<object[] | undefined>;
+    ): Promise<anyObj[] | undefined>;
 
     /**
      * @param {String} sql  SQL statement to run
@@ -123,7 +123,7 @@ declare namespace _ZoteroTypes {
       sql: string,
       params: DB.QueryParams,
       options?: { inBackup?: boolean; noCache?: boolean },
-    ): Promise<object[] | boolean>;
+    ): Promise<anyObj[] | boolean>;
 
     /**
      * @param {String} sql SQL statement to run
@@ -149,7 +149,7 @@ declare namespace _ZoteroTypes {
         debug?: boolean;
         debugParams?: boolean;
       },
-    ): Promise<object[][]>;
+    ): Promise<anyObj[][]>;
 
     logQuery(
       sql: string,

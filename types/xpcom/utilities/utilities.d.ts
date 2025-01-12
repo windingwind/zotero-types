@@ -5,6 +5,9 @@ declare namespace _ZoteroTypes {
   interface Utilities {
     Internal: Utilities.Internal;
 
+    XRegExp: anyObj;
+    Item: anyObj;
+
     /**
      * Returns a function which will execute `fn` with provided arguments after `delay` milliseconds and not more
      * than once, if called multiple times. See

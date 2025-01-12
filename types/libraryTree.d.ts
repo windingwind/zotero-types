@@ -78,5 +78,7 @@ declare namespace _ZoteroTypes {
      * action) to be changed, even if the cursor doesn't reflect the new setting.
      */
     setDropEffect(event: unknown, effect: unknown): void;
+
+    selectLibrary(libraryID: number): void;
   }
 }

@@ -5,7 +5,7 @@ declare namespace _ZoteroTypes {
   /*
    * Primary interface for accessing Zotero collection
    */
-  interface Collections extends DataObjects {
+  interface Collections extends DataObjects<Zotero.Collection> {
     _objectCache: { [i: number]: Zotero.Collection };
     ObjectClass: Zotero.Collection;
     _ZDO_object: "collection";

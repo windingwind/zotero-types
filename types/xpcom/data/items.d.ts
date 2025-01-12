@@ -5,7 +5,7 @@ declare namespace _ZoteroTypes {
   /*
    * Primary interface for accessing Zotero items
    */
-  interface Items extends DataObjects {
+  interface Items extends DataObjects<Zotero.Item> {
     [attr: string]: any;
     _ZDO_object: "item";
     _objectCache: { [i: number]: Zotero.Item };

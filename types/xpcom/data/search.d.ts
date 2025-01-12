@@ -42,6 +42,7 @@ declare namespace Zotero {
       value?: string,
       required?: boolean,
     ): number;
+    addCondition(condition: "blockStart" | "blockEnd"): number;
 
     /**
      * Sets scope of search to the results of the passed Search object

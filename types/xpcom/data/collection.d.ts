@@ -54,8 +54,11 @@ declare namespace Zotero {
      * @param {Boolean} [asIDs=false] Return as collectionIDs
      * @return {Zotero.Collection[]|Integer[]}
      */
-    getChildCollections(asIDs?: false): Zotero.Collection[];
-    getChildCollections(asIDs: true): number[];
+    getChildCollections(
+      asIDs?: false,
+      includeTrashed?: boolean,
+    ): Zotero.Collection[];
+    getChildCollections(asIDs: true, includeTrashed?: boolean): number[];
 
     /**
      * Returns child items of this collection
@@ -162,7 +165,7 @@ declare namespace Zotero {
       key: string;
       name: string;
       version: 68;
-      parentCollection: boolean;
+      parentCollection: string | false;
       relations: _ZoteroTypes.ObjectRelations;
     };
 

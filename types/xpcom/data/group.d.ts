@@ -47,10 +47,16 @@ declare namespace Zotero {
    * A Zotero Group object, extending Zotero.Library, with additional group-specific
    * properties and methods.
    */
-  class Group extends _ZoteroTypes.Library.LibraryAbstract {
+  class Group
+    extends _ZoteroTypes.Library.LibraryAbstract
+    implements _ZoteroTypes.Group.GroupParams
+  {
     _childObjectTypes: ["item", "collection", "search"];
     fixedLibraries: ["user"];
     libraryType: "user" | "group" | "feed";
+    groupID?: number;
+    description?: string;
+    version?: number;
     /**
      * Group constructor.
      *

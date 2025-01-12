@@ -235,6 +235,8 @@ declare namespace _ZoteroTypes {
     equals(data1: object, data2: object, option: {}): boolean;
 
     cleanData(data: object): object;
+
+    purge(tagIDs?: number[]): Promise<void>;
   }
 }
 
