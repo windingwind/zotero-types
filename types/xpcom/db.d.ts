@@ -94,7 +94,7 @@ declare namespace _ZoteroTypes {
      */
     queryAsync(
       sql: string,
-      params: DB.QueryParams,
+      params?: DB.QueryParams,
       options?: {
         inBackup?: boolean;
         noParseParams?: boolean;
