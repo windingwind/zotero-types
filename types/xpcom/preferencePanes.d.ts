@@ -52,6 +52,7 @@ declare namespace _ZoteroTypes {
     scripts?: string[];
     stylesheets?: string[];
     helpURL?: string;
+    defaultXUL?: boolean;
   };
 }
 

@@ -33,13 +33,13 @@ declare namespace Zotero {
     addCondition(
       condition: _ZoteroTypes.Search.Conditions,
       operator: _ZoteroTypes.Search.Operator,
-      value: string,
+      value: string | number,
       required?: boolean,
     ): number;
     addCondition(
       condition: string,
       operator: _ZoteroTypes.Search.Operator,
-      value?: string,
+      value?: string | number,
       required?: boolean,
     ): number;
     addCondition(condition: "blockStart" | "blockEnd"): number;

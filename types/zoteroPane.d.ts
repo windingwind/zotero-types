@@ -29,7 +29,7 @@ declare namespace _ZoteroTypes {
     selectItems: (
       itemIDs: Array<number>,
       inLibraryRoot?: boolean,
-    ) => undefined | boolean;
+    ) => Promise<undefined | boolean>;
     copySelectedItemsToClipboard(asCitations: boolean): void;
     refreshFeed(): undefined | Promise<any>;
     emptyTrash(): Promise<void>;

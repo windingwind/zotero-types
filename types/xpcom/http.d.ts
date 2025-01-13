@@ -48,7 +48,7 @@ declare namespace _ZoteroTypes {
       method: string,
       url: string,
       options?: {
-        body?: string;
+        body?: string | Uint8Array;
         headers?: any;
         followRedirects?: boolean;
         cookieSandbox?: Zotero.CookieSandbox;

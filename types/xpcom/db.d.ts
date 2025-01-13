@@ -105,7 +105,7 @@ declare namespace _ZoteroTypes {
 
     queryTx(
       sql: string,
-      params: DB.QueryParams,
+      params?: DB.QueryParams,
       options?: {
         inBackup?: boolean;
         noParseParams?: boolean;
@@ -119,11 +119,11 @@ declare namespace _ZoteroTypes {
      * @param {Array|String|Integer} [params]  SQL parameters to bind
      * @return {Promise<Array|Boolean>}  A promise for either the value or FALSE if no result
      */
-    valueQueryAsync(
+    valueQueryAsync<T = anyObj>(
       sql: string,
-      params: DB.QueryParams,
+      params?: DB.QueryParams,
       options?: { inBackup?: boolean; noCache?: boolean },
-    ): Promise<anyObj[] | boolean>;
+    ): Promise<T | boolean>;
 
     /**
      * @param {String} sql SQL statement to run
@@ -132,7 +132,7 @@ declare namespace _ZoteroTypes {
      */
     rowQueryAsync(
       sql: string,
-      params: DB.QueryParams,
+      params?: DB.QueryParams,
     ): Promise<object | boolean>;
 
     /**
@@ -140,16 +140,16 @@ declare namespace _ZoteroTypes {
      * @param {Array|String|Integer} [params] SQL parameters to bind
      * @return {Promise<Array>}  A promise for an array of values in the column
      */
-    columnQueryAsync(
+    columnQueryAsync<T = anyObj>(
       sql: string,
-      params: DB.QueryParams,
+      params?: DB.QueryParams,
       options?: {
         inBackup?: boolean;
         noCache?: boolean;
         debug?: boolean;
         debugParams?: boolean;
       },
-    ): Promise<anyObj[][]>;
+    ): Promise<T[]>;
 
     logQuery(
       sql: string,

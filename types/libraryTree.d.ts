@@ -79,6 +79,6 @@ declare namespace _ZoteroTypes {
      */
     setDropEffect(event: unknown, effect: unknown): void;
 
-    selectLibrary(libraryID: number): void;
+    selectLibrary(libraryID?: number): Promise<boolean>;
   }
 }

@@ -3,11 +3,13 @@ declare namespace Zotero {
   namespace FileHandlers {}
 
   namespace OpenPDF {
-    // @deprecated - use Zotero.FileHandlers.open
+    /**
+     * @deprecated - use Zotero.FileHandlers.open
+     */
     function openToPage(
       item: Zotero.Item,
       page: number,
-      annotationKey: string,
+      annotationKey?: string,
     ): Promise<void>;
   }
 }

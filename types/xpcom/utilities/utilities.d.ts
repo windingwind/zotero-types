@@ -5,7 +5,7 @@ declare namespace _ZoteroTypes {
   interface Utilities {
     Internal: Utilities.Internal;
 
-    XRegExp: anyObj;
+    XRegExp: any;
     Item: anyObj;
 
     /**
