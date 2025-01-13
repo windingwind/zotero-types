@@ -15,7 +15,7 @@ declare namespace _ZoteroTypes {
 
     unregisterInfoRow(key: string): boolean;
 
-    refreshInfoRow(rowID: string): void
+    refreshInfoRow(rowID: string): void;
   }
   namespace ItemPaneManagerSection {
     type Icon16px = string | IconURI;
