@@ -38,6 +38,6 @@ declare namespace Zotero {
      */
     function unregisterObserver(symbol: symbol): void;
 
-    rootBranch: any
+    let rootBranch: any
   }
 }
