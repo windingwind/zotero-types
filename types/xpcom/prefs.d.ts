@@ -37,5 +37,7 @@ declare namespace Zotero {
      * @param {Symbol} symbol - Symbol returned from registerObserver()
      */
     function unregisterObserver(symbol: symbol): void;
+
+    rootBranch: any
   }
 }
