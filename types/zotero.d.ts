@@ -342,7 +342,7 @@ declare namespace Zotero {
   let Debug: any;
   let Integration: any;
   let ItemFields: any;
-  let PDFRenderer: any;
+  let PDFWorker: any;
   let QuickCopy: any;
   let Schema: any;
   let SearchConditions: any;
