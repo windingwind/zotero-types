@@ -1,3 +1,5 @@
+/// <reference path="../gecko/index.d.ts" />
+
 declare namespace Zotero {
   namespace Prefs {
     /**
