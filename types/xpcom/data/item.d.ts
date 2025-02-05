@@ -197,9 +197,7 @@ declare namespace _ZoteroTypes {
       | "thesisType"
       | "university"
       | "studio"
-      | "websiteTitle"
-      | "id"
-      | "year";
+      | "websiteTitle";
 
     // [...new Set(Object.values(Zotero.ItemTypes._types).map(t => `${t.id}: "${t.name}"`))].join(';\n')
     type ItemTypeMapping = {
