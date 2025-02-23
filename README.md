@@ -8,12 +8,14 @@ npm package: <https://www.npmjs.com/package/zotero-types>
 
 1. Run `npm install --save-dev zotero-types`.
 
-2. No need to import the type declaration in your TypeScript code. If your IDE does not recognize the definitions, add the path to typing file in the include of `tsconfig.json`:
+2. No need to import the type declaration in your TypeScript code. If your IDE does not recognize the definitions, add `zotero-types` to [`types`](https://www.typescriptlang.org/tsconfig/#types) in `tsconfig.json`:
 
    ```jsonc
    // tsconfig.json
    {
-     "include": ["src", "node_modules/zotero-types"],
+     "compilerOptions": {
+       "types": ["zotero-types"],
+     },
    }
    ```
 
@@ -35,18 +37,6 @@ if (await IOUtils.exists(filepath)) {
   let contentRaw = await IOUtils.readUTF8(filepath);
 }
 ```
-
-> [!NOTE]
->
-> If you are using `pnpm` as the package manager for your project, you need to additionally do one of the following things:
->
-> - Add `public-hoist-pattern[]=*@types/bluebird*` to `.npmrc`.
-> - Add `@types/bulebird` to the `devDependencies`.
->
-> See also:
->
-> - `@types` are not hoisted by default in pnpm v7: <https://github.com/pnpm/pnpm/issues/4920#issuecomment-1225961351>
-> - Dependency Hoisting Settings: <https://pnpm.io/npmrc#public-hoist-pattern>
 
 ## Contributing
 
