@@ -114,6 +114,7 @@ declare namespace Zotero {
   const version: string;
   const isMac: boolean;
   const isWin: boolean;
+  const isLinux: boolean;
   const initialized: boolean;
   const skipLoading: boolean;
   const hiDPISuffix: string;
