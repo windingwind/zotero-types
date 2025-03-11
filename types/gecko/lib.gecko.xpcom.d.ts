@@ -9737,7 +9737,7 @@ interface nsIPrefBranch extends nsISupports {
   prefIsSanitized(aPrefName: string): boolean;
   unlockPref(aPrefName: string): void;
   deleteBranch(aStartingAt: string): void;
-  getChildList(aStartingAt: string, count?: { value: number }): string[];
+  getChildList(aStartingAt: string, count?: { value?: number }): string[];
   addObserver(aDomain: string, aObserver: nsIObserver, aHoldWeak?: boolean): void;
   removeObserver(aDomain: string, aObserver: nsIObserver): void;
 }
