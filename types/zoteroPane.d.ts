@@ -1,6 +1,4 @@
-/// <reference path="zotero.d.ts" />
-/// <reference path="xul.d.ts" />
-/// <reference path="elements/itemPane.d.ts" />
+/// <reference path="elements/index.d.ts" />
 
 // chrome/content/zotero/zoteroPane.js
 
@@ -346,5 +344,3 @@ declare namespace _ZoteroTypes {
     canEditFiles(row?: number): boolean;
   }
 }
-declare const ZoteroPane: _ZoteroTypes.ZoteroPane;
-declare const ZoteroPane_Local: _ZoteroTypes.ZoteroPane;

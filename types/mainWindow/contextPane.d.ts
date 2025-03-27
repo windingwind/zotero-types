@@ -1,10 +1,10 @@
-/// <reference path="xpcom/editorInstance.d.ts" />
-/// <reference path="xul.d.ts" />
+/// <reference path="../xpcom/editorInstance.d.ts" />
+/// <reference path="../xul.d.ts" />
 
 declare const ZoteroContextPane: {
   readonly activeEditor?: Zotero.EditorInstance;
-  readonly sidenav: XUL.Element;
-  readonly splitter: XUL.Element;
+  readonly sidenav: XULElement;
+  readonly splitter: XULElement;
   showLoadingMessage(isShow: boolean): void;
   init(): void;
   destroy(): void;

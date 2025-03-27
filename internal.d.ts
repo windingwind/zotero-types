@@ -273,7 +273,7 @@ declare namespace _ZoteroTypes {
     readonly Zotero: Zotero;
     readonly ZoteroPane: ZoteroPane;
     readonly ZoteroPane_Local: ZoteroPane;
-    readonly Zotero_Tabs: typeof Zotero_Tabs;
+    readonly Zotero_Tabs: _ZoteroTypes.Zotero_Tabs;
     readonly ZoteroContextPane: typeof ZoteroContextPane;
     readonly Zotero_File_Interface: typeof Zotero_File_Interface;
 
@@ -285,5 +285,7 @@ declare namespace _ZoteroTypes {
 
     readonly Services: JSServices;
     readonly NetUtil: anyObj;
+
+    readonly document: Document;
   }
 }

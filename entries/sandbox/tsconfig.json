@@ -1,0 +1,7 @@
+{
+  "extends": "../base/tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ESNext", "WebWorker"],
+    "types": ["zotero-types/entries/sandbox"],
+  },
+}

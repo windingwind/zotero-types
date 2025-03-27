@@ -4,6 +4,5 @@
 //                 volatile-static <https://github.com/volatile-static>
 // Definitions:
 
-/// <reference path="types/platform.d.ts" />
-/// <reference path="types/zotero.d.ts" />
-/// <reference path="types/xul.d.ts" />
+/// <reference path="entries/xhtml/index.d.ts" />
+/// <reference path="entries/sandbox/index.d.ts" />
