@@ -99,15 +99,17 @@ declare namespace _ZoteroTypes {
     isCloudStorageFolder(path: string): boolean;
     reveal(file: string): Promise<void>;
   }
+
+  class Zotero_File_Interface {
+    exportItemsToClipboard(items: Zotero.Item[], translatorID: string): void;
+    importFile(options: {
+      file: nsIFile | string | null;
+      createNewCollection?: boolean;
+    }): Promise<void>;
+  }
 }
 
-declare const Zotero_File_Interface: {
-  exportItemsToClipboard(items: Zotero.Item[], translatorID: string): void;
-  importFile(options: {
-    file: nsIFile | string | null;
-    createNewCollection?: boolean;
-  }): Promise<void>;
-};
+declare const Zotero_File_Interface: _ZoteroTypes.Zotero_File_Interface;
 
 declare namespace Zotero {
   const File: _ZoteroTypes.File;
