@@ -1,5 +1,6 @@
 /// <reference path="zoteroTabs.d.ts" />
 /// <reference path="zoteroPane.d.ts" />
+/// <reference path="zoteroContextPane.d.ts" />
 /// <reference path="itemTree.d.ts" />
 /// <reference path="collectionTree.d.ts" />
 /// <reference path="promise.d.ts" />
