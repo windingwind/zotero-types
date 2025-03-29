@@ -57,6 +57,28 @@ async function main() {
         fileContent.slice(0, startIndex) +
         "\n// Moved to lib.gecko.dom-vars.d.ts\n" +
         fileContent.slice(endIndex);
+
+      // Remove the `interface CSSStyleDeclaration {...}` block
+      const cssStartIndex = fileContent.indexOf(
+        "interface CSSStyleDeclaration {",
+      );
+      const cssEndIndex = fileContent.indexOf("}", cssStartIndex) + 1;
+
+      // Copy the one from `node_modules/typescript/lib.dom.d.ts`
+      const libDomPath = path.join("node_modules/typescript/lib/lib.dom.d.ts");
+      const libDomContent = fs.readFileSync(libDomPath, "utf-8");
+      const libDomStartIndex = libDomContent.indexOf(
+        "interface CSSStyleDeclaration {",
+      );
+      const libDomEndIndex = libDomContent.indexOf("}", libDomStartIndex) + 1;
+      const libDomContentSlice = libDomContent.slice(
+        libDomStartIndex,
+        libDomEndIndex,
+      );
+      fileContent =
+        fileContent.slice(0, cssStartIndex) +
+        libDomContentSlice +
+        fileContent.slice(cssEndIndex);
     }
 
     // Attach a `// @ts-nocheck` comment to the top of the file
