@@ -29,9 +29,9 @@ Available entries:
 
 - `sandbox`: The default entry for Zotero plugin development. For Zotero plugin's `bootstrap.js` sandbox environment. Includes privileged APIs and Zotero API definitions.
 - `xhtml`: The entry for Zotero's `xhtml` environment. Includes privileged APIs, Zotero API definitions, XUL elements, and DOM definitions.
-- `mainWindow`: The entry For Zotero's `zoteroPane.xhtml` environment. Besides the `xhtml` entry, it also includes main window APIs, such as `ZoteroPane`, `Zotero_Tabs`.
+- `mainWindow`: The entry For Zotero's `zoteroPane.xhtml` environment. Besides definitions from the `xhtml` entry, it also includes main window APIs, such as `ZoteroPane`, `Zotero_Tabs`.
 - `html`: The entry for Zotero's `html` environment. Same as normal HTML environment. Includes DOM definitions and standard APIs.
-- `webworker`: The entry for Zotero's `webworker` environment. Same as normal web worker environment. Includes DOM definitions and standard APIs.
+- `webworker`: The entry for Zotero's `webworker` environment. Same as normal web worker environment. Includes standard APIs.
 - `base`: The base entry. Does not include any extra type definitions.
 - `shared`: The entry for privileged APIs. Includes privileged APIs and Zotero API definitions.
 
