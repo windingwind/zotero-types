@@ -23,7 +23,7 @@ declare namespace _ZoteroTypes {
      * @property {boolean} [columnPickerSubMenu=false] - Default: false. Set to true to display the column in "More Columns" submenu of column picker.
      * @property {boolean} [primary] - Should only be one column at the time. Title is the primary column
      * @property {(item: Zotero.Item, dataKey: string) => string} [dataProvider] - Custom data provider that is called when rendering cells
-     * @property {(index: number, data: string, column: ItemTreeColumnOptions & {className: string}) => HTMLElement} [renderCell] - The cell renderer function
+     * @property {(index: number, data: string, column: ItemTreeColumnOptions & {className: string}, isFirstColumn: boolean, doc: Document) => HTMLElement} [renderCell] - The cell renderer function
      * @property {string[]} [zoteroPersist] - Which column properties should be persisted between zotero close
      */
     interface ItemTreeColumnOptions {
@@ -51,6 +51,8 @@ declare namespace _ZoteroTypes {
         index: number,
         data: string,
         column: ItemTreeColumnOptions & { className: string },
+        isFirstColumn: boolean,
+        doc: Document,
       ) => HTMLElement;
       zoteroPersist?: string[];
     }
