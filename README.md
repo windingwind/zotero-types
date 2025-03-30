@@ -4,6 +4,10 @@ This package contains type definitions for Zotero (<https://www.zotero.org/>) pl
 
 npm package: <https://www.npmjs.com/package/zotero-types>
 
+<p align="center">
+  <img width="720" src="https://github.com/user-attachments/assets/01a37569-77a6-4222-8624-a2136c1aa0d8" />
+</p>
+
 ## Installation
 
 Run `npm install --save-dev zotero-types`.
