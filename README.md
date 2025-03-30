@@ -53,7 +53,7 @@ This is equivalent to the combination of `sandbox` and `xhtml` entries.
 Similar to the `tsconfig.json` file, you can use the `/// <reference path="..." />` directive to include the type definitions.
 
 ```ts
-/// <reference path="node_modules/zotero-types/entries/sandbox/index.d.ts" />
+/// <reference types="zotero-types/entries/sandbox/index.d.ts" />
 ```
 
 ### Use in Code
