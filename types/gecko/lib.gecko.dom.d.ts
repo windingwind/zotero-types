@@ -13497,7 +13497,7 @@ interface JSWindowActorChild extends JSActor {
     readonly browsingContext: BrowsingContext | null;
     readonly contentWindow: WindowProxy | null;
     readonly docShell: nsIDocShell | null;
-    readonly document: Document | null;
+    readonly document: Document;
     readonly manager: WindowGlobalChild | null;
     readonly windowContext: WindowContext | null;
 }
@@ -24551,7 +24551,7 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalCrypto, Glob
     readonly desktopToDeviceScale: number;
     readonly devicePixelRatio: number;
     readonly docShell: nsIDocShell | null;
-    readonly document: Document | null;
+    readonly document: Document;
     readonly event: Event | undefined;
     readonly external: External;
     readonly frameElement: Element | null;

@@ -79,6 +79,12 @@ async function main() {
         fileContent.slice(0, cssStartIndex) +
         libDomContentSlice +
         fileContent.slice(cssEndIndex);
+
+      // Replace `document: Document | null;` with `document: Document;`
+      fileContent = fileContent.replace(
+        /document: Document \| null;/g,
+        "document: Document;",
+      );
     }
 
     // Attach a `// @ts-nocheck` comment to the top of the file
