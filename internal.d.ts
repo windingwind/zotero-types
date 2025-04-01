@@ -15,6 +15,8 @@ declare namespace _ZoteroTypes {
   // TODO: Add more specific types for icon URIs
   enum IconFile {}
 
+  type React = typeof import("react");
+
   interface MainWindow extends Window {
     readonly Zotero: Zotero;
     readonly ZoteroPane: ZoteroPane;

@@ -19,7 +19,7 @@ async function main() {
     path: dir,
   });
 
-  let domVars = `/// <reference lib="dom" />\n`;
+  let domVars = `// @ts-nocheck\n/// <reference lib="dom" />\n`;
 
   for (const file of files) {
     if (file.type !== "file" || file.name === "tsconfig.json") {

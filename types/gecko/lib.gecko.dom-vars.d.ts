@@ -1,3 +1,4 @@
+// @ts-nocheck
 /// <reference lib="dom" />
 declare var Glean: GleanImpl;
 declare var GleanPings: GleanPingsImpl;
