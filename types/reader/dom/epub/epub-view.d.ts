@@ -26,6 +26,33 @@ declare namespace _ZoteroTypes {
     }
 
     /**
+     * Wraps the properties of a Range object in a static structure so that they don't change when the DOM changes.
+     * (Range objects automatically normalize their start/end points when the DOM changes, which is not what we want -
+     * even if the start or end is removed from the DOM temporarily, we want to keep our ranges unchanged.)
+     */
+    class PersistentRange {
+      startContainer: Node;
+      startOffset: number;
+      endContainer: Node;
+      endOffset: number;
+
+      constructor(range: Omit<AbstractRange, "collapsed">);
+
+      compareBoundaryPoints(
+        how: number,
+        other: Range | PersistentRange,
+      ): number;
+
+      getClientRects(): DOMRectList;
+
+      getBoundingClientRect(): DOMRect;
+
+      toRange(): Range;
+
+      toString(): string;
+    }
+
+    /**
      * - All views use iframe to render and isolate the view from the parent window
      * - If need to add additional build steps, a submodule or additional files see pdfjs/
      *   directory in the project root and "scripts" part in packages.json
@@ -61,7 +88,7 @@ declare namespace _ZoteroTypes {
       ): Promise<void>;
       private _initOutline(): void;
       getCFI(rangeOrNode: Range | Node): ePubJS.EpubCFI | null;
-      getRange(cfi: ePubJS.EpubCFI | string): Range | null;
+      getRange(cfi: ePubJS.EpubCFI | string): PersistentRange | null;
       override toSelector(range: Range): FragmentSelector | null;
       override toDisplayedRange(selector: Selector): Range | null;
       readonly views: SectionView[];
