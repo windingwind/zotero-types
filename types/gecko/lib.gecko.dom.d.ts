@@ -8228,6 +8228,7 @@ declare var DOMStringList: {
 };
 
 interface DOMStringMap {
+    [name: string]: string | undefined;
 }
 
 declare var DOMStringMap: {
