@@ -31,15 +31,15 @@ For the best practices, see <https://github.com/windingwind/know-ur-zotero> as a
 
 Available entries:
 
-| Entry | Description | Privileged | Zotero | XUL | DOM | MainWindow | WebWorker |
-|-------|-------------|------------|--------|-----|-----|------------|-----------|
-| `sandbox` | The default entry for Zotero plugin development. For Zotero plugin's `bootstrap.js` sandbox environment. | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| `xhtml` | The entry for Zotero's `xhtml` environment. | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `mainWindow` | Besides definitions from the `xhtml` entry, it also includes main window APIs, such as `ZoteroPane`, `Zotero_Tabs`. | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| `html` | Same as normal HTML environment. | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ |
-| `webworker` | Same as normal web worker environment. | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| `base` | The base entry. Does not include any extra type definitions. | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| `shared` | The entry for privileged APIs. | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Entry        | Description                                                                                                         | Privileged | Zotero | XUL | DOM | MainWindow | WebWorker |
+| ------------ | ------------------------------------------------------------------------------------------------------------------- | ---------- | ------ | --- | --- | ---------- | --------- |
+| `sandbox`    | The default entry for Zotero plugin development. For Zotero plugin's `bootstrap.js` sandbox environment.            | ✅         | ✅     | ❌  | ❌  | ❌         | ❌        |
+| `xhtml`      | The entry for Zotero's `xhtml` environment.                                                                         | ✅         | ✅     | ✅  | ✅  | ❌         | ❌        |
+| `mainWindow` | Besides definitions from the `xhtml` entry, it also includes main window APIs, such as `ZoteroPane`, `Zotero_Tabs`. | ✅         | ✅     | ✅  | ✅  | ✅         | ❌        |
+| `html`       | Same as normal HTML environment.                                                                                    | ❌         | ❌     | ❌  | ✅  | ❌         | ❌        |
+| `webworker`  | Same as normal web worker environment.                                                                              | ❌         | ❌     | ❌  | ❌  | ❌         | ✅        |
+| `base`       | The base entry. Does not include any extra type definitions.                                                        | ❌         | ❌     | ❌  | ❌  | ❌         | ❌        |
+| `shared`     | The entry for privileged APIs.                                                                                      | ✅         | ✅     | ❌  | ❌  | ❌         | ❌        |
 
 2. Use `compileOptions > types` in your Zotero plugin project's `tsconfig.json` file.
 
