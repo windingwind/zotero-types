@@ -9,5 +9,4 @@
     "strict": true,
     "skipLibCheck": true,
   },
-  "include": ["./**/*.ts"],
 }
