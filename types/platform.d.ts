@@ -97,4 +97,44 @@ declare const OS: {
     };
     toFileURI(path: string): string;
   };
+
+  /**
+   * @deprecated This namespace is deprecated.
+   * Please use `FileUtils` instead.
+   */
+  Constants: {
+    Path: {
+      /**
+       * @deprecated This property is deprecated.
+       * use `FileUtils.getDir("Home", []).path` instead.
+       */
+      readonly homeDir: string;
+      /**
+       * @deprecated This property is deprecated.
+       * use `FileUtils.getDir("GreBinD", []).path` instead.
+       */
+      readonly libDir: string;
+      /**
+       * @deprecated This property is deprecated.
+       * use `FileUtils.getDir("ProfD", []).path` instead.
+       */
+      readonly profileDir: string;
+      /**
+       * @deprecated This property is deprecated.
+       * use `FileUtils.getDir("TmpD", []).path` instead.
+       */
+      readonly tmpDir: string;
+    };
+  };
 };
+
+declare namespace _ZoteroTypes {
+  namespace FileUtils {
+    function getDir(
+      key: string,
+      pathArray: string[],
+      shouldCreate?: boolean,
+    ): nsIFile;
+    function getFile(key: string, pathArray: string[]): nsIFile;
+  }
+}
