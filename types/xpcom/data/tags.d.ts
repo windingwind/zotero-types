@@ -153,7 +153,7 @@ declare namespace _ZoteroTypes {
      * @return {Map} - A Map with tag names as keys and objects containing 'color' and 'position'
      *     as values
      */
-    getColors(libraryID: number): Map<string, number>;
+    getColors(libraryID: number): Map<string, { color: string; position: number }>;
 
     /**
      * Assign a color to a tag
