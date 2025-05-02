@@ -254,6 +254,17 @@ declare namespace _ZoteroTypes {
      *     between requests to the same domain (used in tests)
      * @return {Promise}
      */
+    addAvailableFiles(
+      items: Zotero.Item[],
+      options?: {
+        methods?: Attachments.AccessMethod;
+        sameDomainRequestDelay?: number;
+      },
+    ): Promise<void>;
+
+    /**
+     * @deprecated Use addAvailableFiles()
+     */
     addAvailablePDFs(
       items: Zotero.Item[],
       options?: {
@@ -269,6 +280,14 @@ declare namespace _ZoteroTypes {
      * @param {Object} [options]
      * @param {String[]} [options.methods] - See getPDFResolvers()
      * @return {Zotero.Item|false} - New Zotero.Item, or false if unsuccessful
+     */
+    addAvailableFile(
+      item: Zotero.Item,
+      options?: { methods: Attachments.AccessMethod },
+    ): Promise<Zotero.Item | false>;
+
+    /**
+     * @deprecated Use addAvailableFile()
      */
     addAvailablePDF(
       item: Zotero.Item,
