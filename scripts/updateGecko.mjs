@@ -11,13 +11,34 @@ const octokit = new Octokit({ auth: GITHUB_TOKEN });
 const owner = "mozilla";
 const repo = "gecko-dev";
 const dir = "tools/@types";
+const dirGenerated = "tools/@types/generated";
+
+const localDir = "types/gecko";
+const localGeneratedDir = path.join(localDir, "generated");
 
 async function main() {
+  // Remove the existing generated directory
+  if (fs.existsSync(localDir)) {
+    fs.rmSync(localDir, { recursive: true, force: true });
+  }
+  // Create the new directory
+  fs.mkdirSync(localDir, { recursive: true });
+  // Create the generated directory
+  fs.mkdirSync(localGeneratedDir, { recursive: true });
+
   const { data: files } = await octokit.rest.repos.getContent({
     owner,
     repo,
     path: dir,
   });
+
+  const { data: generatedFiles } = await octokit.rest.repos.getContent({
+    owner,
+    repo,
+    path: dirGenerated,
+  });
+
+  files.push(...generatedFiles);
 
   let domVars = `// @ts-nocheck\n/// <reference lib="dom" />\n`;
 
@@ -36,7 +57,10 @@ async function main() {
 
     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    const filePath = path.join("types/gecko", file.name);
+    const filePath = path.join(
+      file.path.includes("generated") ? localGeneratedDir : localDir,
+      file.name,
+    );
 
     if (file.name === "lib.gecko.dom.d.ts") {
       // Include the `lib.dom.d.ts` file in `lib.gecko.dom.d.ts`
@@ -85,6 +109,9 @@ async function main() {
         /document: Document \| null;/g,
         "document: Document;",
       );
+
+      // Add
+      fileContent += `\ntype TrustedScript = string & TrustedScript;\n`;
     }
 
     // Attach a `// @ts-nocheck` comment to the top of the file

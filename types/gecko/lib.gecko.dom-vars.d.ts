@@ -28,8 +28,6 @@ declare var intlUtils: IntlUtils;
 declare var isChromeWindow: boolean;
 declare var isFullyOccluded: boolean;
 declare var isInFullScreenTransition: boolean;
-// @ts-ignore
-declare var isInstance: IsInstance<Window>;
 declare var length: number;
 declare var location: Location;
 declare var locationbar: BarProp;
@@ -146,8 +144,6 @@ declare function sizeToContent(constraints?: SizeToContentConstraints): void;
 declare function stop(): void;
 declare function updateCommands(action: string): void;
 declare function toString(): string;
-// @ts-ignore
-declare var isInstance: IsInstance<EventTarget>;
 declare var ownerGlobal: WindowProxy | null;
 declare function dispatchEvent(event: Event): boolean;
 declare function getEventHandler(type: string): EventHandler;
@@ -162,6 +158,7 @@ declare var onanimationiteration: ((this: Window, ev: Event) => any) | null;
 declare var onanimationstart: ((this: Window, ev: Event) => any) | null;
 declare var onauxclick: ((this: Window, ev: Event) => any) | null;
 declare var onbeforeinput: ((this: Window, ev: Event) => any) | null;
+declare var onbeforematch: ((this: Window, ev: Event) => any) | null;
 declare var onbeforetoggle: ((this: Window, ev: Event) => any) | null;
 declare var onblur: ((this: Window, ev: Event) => any) | null;
 declare var oncancel: ((this: Window, ev: Event) => any) | null;
@@ -222,6 +219,8 @@ declare var onpointerleave: ((this: Window, ev: Event) => any) | null;
 declare var onpointermove: ((this: Window, ev: Event) => any) | null;
 declare var onpointerout: ((this: Window, ev: Event) => any) | null;
 declare var onpointerover: ((this: Window, ev: Event) => any) | null;
+/** Available only in secure contexts. */
+declare var onpointerrawupdate: ((this: Window, ev: Event) => any) | null;
 declare var onpointerup: ((this: Window, ev: Event) => any) | null;
 declare var onprogress: ((this: Window, ev: Event) => any) | null;
 declare var onratechange: ((this: Window, ev: Event) => any) | null;
