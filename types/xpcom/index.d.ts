@@ -1,6 +1,7 @@
 /// <reference path="editorInstance.d.ts" />
 /// <reference path="file.d.ts" />
 /// <reference path="fileHandlers.d.ts" />
+/// <reference path="fulltext.d.ts" />
 /// <reference path="http.d.ts" />
 /// <reference path="mime.d.ts" />
 /// <reference path="server.d.ts" />
