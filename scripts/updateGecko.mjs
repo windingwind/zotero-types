@@ -110,12 +110,23 @@ async function main() {
         "document: Document;",
       );
 
-      // Add
-      fileContent += `\ntype TrustedScript = string & TrustedScript;\n`;
+      // Replace `TrustedScript` with a string type to avoid type conflicts
+      //
+      fileContent = fileContent.replace(
+        `interface TrustedScript {
+    toJSON(): string;
+    toString(): string;
+}`,
+        `type TrustedScript = string & {
+    toJSON(): string;
+    toString(): string;
+};`,
+      );
     }
 
     // Attach a `// @ts-nocheck` comment to the top of the file
     // to avoid type checking errors
+    // https://github.com/windingwind/zotero-plugin-toolkit/issues/79
     if (file.name.endsWith(".d.ts")) {
       fileContent = `// @ts-nocheck\n${fileContent}`;
     }

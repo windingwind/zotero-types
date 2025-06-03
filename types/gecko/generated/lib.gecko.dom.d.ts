@@ -21633,10 +21633,10 @@ declare var TrustedHTML: {
     isInstance: IsInstance<TrustedHTML>;
 };
 
-interface TrustedScript {
+type TrustedScript = string & {
     toJSON(): string;
     toString(): string;
-}
+};
 
 declare var TrustedScript: {
     prototype: TrustedScript;
@@ -27483,5 +27483,3 @@ interface TestInterfaceAsyncIterableSingleWithArgs {
     [Symbol.asyncIterator](options?: TestInterfaceAsyncIteratorOptions): AsyncIterableIterator<number>;
     values(options?: TestInterfaceAsyncIteratorOptions): AsyncIterableIterator<number>;
 }
-
-type TrustedScript = string & TrustedScript;
