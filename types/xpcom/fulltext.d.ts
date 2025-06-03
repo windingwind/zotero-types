@@ -1,5 +1,4 @@
 /// <reference path="data/item.d.ts" />
-/// <reference path="../gecko/lib.gecko.xpcom.d.ts" />
 
 declare namespace _ZoteroTypes {
   interface FullText {
