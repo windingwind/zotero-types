@@ -1,4 +1,4 @@
-/// <reference path="./gecko/index.d.ts" />
+/// <reference path="./gecko.d.ts" />
 
 // Type definitions for Zotero platform (Mozilla Firefox 60/102)
 

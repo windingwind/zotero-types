@@ -1,4 +1,4 @@
-/// <reference path="./gecko/index.d.ts" />
+/// <reference path="./gecko.d.ts" />
 
 /** @deprecated - use XUL element interfaces directly */
 declare namespace XUL {

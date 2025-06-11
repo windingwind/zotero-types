@@ -1,5 +1,5 @@
 /// <reference path="./types/zotero.d.ts" />
-/// <reference path="./types/gecko/index.d.ts" />
+/// <reference path="./types/gecko.d.ts" />
 
 declare namespace _ZoteroTypes {
   type anyObj = { [key: string]: any };
