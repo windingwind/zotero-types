@@ -4,12 +4,12 @@ declare namespace _ZoteroTypes {
   interface Libraries {
     readonly userLibraryID: number;
     readonly userLibrary: Zotero.Library;
-    _cache?: { [i: number]: Library.LibraryAbstract };
-    register(library: Library.LibraryAbstract): void;
+    _cache?: { [i: number]: Library.LibraryLike };
+    register(library: Library.LibraryLike): void;
     unregister(libraryID: number): void;
     _addToCache(
-      cache: { [i: number]: Library.LibraryAbstract },
-      library: Library.LibraryAbstract,
+      cache: { [i: number]: Library.LibraryLike },
+      library: Library.LibraryLike,
     ): void;
 
     /**
@@ -29,15 +29,15 @@ declare namespace _ZoteroTypes {
     /**
      * @return {Array<Zotero.Library | Zotero.Group | Zotero.Feed>} - All libraries
      */
-    getAll(): Library.LibraryAbstract[];
+    getAll(): Library.LibraryLike[];
 
     /**
      * Get an existing library
      *
      * @param {Integer} libraryID
-     * @return {Library.LibraryAbstract[] | Library.LibraryAbstract}
+     * @return {Library.LibraryLike[] | Library.LibraryLike}
      */
-    get(libraryID: number): Library.LibraryAbstract | false;
+    get(libraryID: number): Library.LibraryLike | false;
 
     getName(libraryID: number): string;
     getType(libraryID: number): "group" | "user" | "feed";
