@@ -11,7 +11,7 @@ declare namespace ChromeUtils {
 
 interface nsIXPCComponents_Utils {
   /**
-   * @deprecated Use `ChromeUtils.import` instead. See also
+   * @deprecated Use `ChromeUtils.import` instead. See also https://searchfox.org/mozilla-esr128/source/docs/code-quality/lint/linters/eslint-plugin-mozilla/rules/use-chromeutils-import.rst
    * @param aResourceURI
    * @param targetObj
    */
