@@ -3,7 +3,7 @@
 declare namespace _ZoteroTypes {
   interface Libraries {
     readonly userLibraryID: number;
-    readonly userLibrary: Library.LibraryAbstract;
+    readonly userLibrary: Zotero.Library;
     _cache?: { [i: number]: Library.LibraryAbstract };
     register(library: Library.LibraryAbstract): void;
     unregister(libraryID: number): void;
