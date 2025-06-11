@@ -27,7 +27,7 @@ declare namespace _ZoteroTypes {
     _ensureExists(libraryID: number): void | never;
 
     /**
-     * @return {Library.LibraryAbstract[]} - All libraries
+     * @return {Array<Zotero.Library | Zotero.Group | Zotero.Feed>} - All libraries
      */
     getAll(): Library.LibraryAbstract[];
 
