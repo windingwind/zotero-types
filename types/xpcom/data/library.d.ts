@@ -98,6 +98,8 @@ declare namespace _ZoteroTypes {
       hasItems(): Promise<boolean>;
       hasItem(item: Zotero.Item): boolean;
     }
+
+    type LibraryLike = Zotero.Library | Zotero.Group | Zotero.Feed;
   }
 }
 declare namespace Zotero {
