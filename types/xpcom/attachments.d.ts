@@ -257,7 +257,7 @@ declare namespace _ZoteroTypes {
     addAvailableFiles(
       items: Zotero.Item[],
       options?: {
-        methods?: Attachments.AccessMethod;
+        methods?: Attachments.AccessMethod[];
         sameDomainRequestDelay?: number;
       },
     ): Promise<void>;
@@ -268,7 +268,7 @@ declare namespace _ZoteroTypes {
     addAvailablePDFs(
       items: Zotero.Item[],
       options?: {
-        methods?: Attachments.AccessMethod;
+        methods?: Attachments.AccessMethod[];
         sameDomainRequestDelay?: number;
       },
     ): Promise<void>;
@@ -283,7 +283,7 @@ declare namespace _ZoteroTypes {
      */
     addAvailableFile(
       item: Zotero.Item,
-      options?: { methods: Attachments.AccessMethod },
+      options?: { methods: Attachments.AccessMethod[] },
     ): Promise<Zotero.Item | false>;
 
     /**
@@ -291,7 +291,7 @@ declare namespace _ZoteroTypes {
      */
     addAvailablePDF(
       item: Zotero.Item,
-      options?: { methods: Attachments.AccessMethod },
+      options?: { methods: Attachments.AccessMethod[] },
     ): Promise<Zotero.Item | false>;
 
     /**
