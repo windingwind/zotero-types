@@ -5,13 +5,18 @@
 /// <reference path="./gecko/index.d.ts" />
 
 declare namespace ChromeUtils {
+  /**
+   * @deprecated Use `ChromeUtils.importESModule` instead. See https://firefox-source-docs.mozilla.org/jsloader/jsloader-api.html#synchronous-module-import
+   * @param aResourceURI
+   * @param targetObj
+   */
   function _import(aResourceURI: string, targetObj?: any): any;
   export { _import as import };
 }
 
 interface nsIXPCComponents_Utils {
   /**
-   * @deprecated Use `ChromeUtils.import` instead. See also https://searchfox.org/mozilla-esr128/source/docs/code-quality/lint/linters/eslint-plugin-mozilla/rules/use-chromeutils-import.rst
+   * @deprecated Use `ChromeUtils.importESModule` instead. See https://firefox-source-docs.mozilla.org/jsloader/jsloader-api.html#synchronous-module-import
    * @param aResourceURI
    * @param targetObj
    */
