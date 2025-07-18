@@ -213,6 +213,9 @@ declare namespace Zotero {
   function randomString(len?: number, chars?: string): string;
   const lazy: typeof Utilities.Internal.lazy;
   const serial: typeof Utilities.Internal.serial;
+  /**
+   * @deprecated Removed in fx140 (Zotero 8.0)
+   */
   const spawn: typeof Utilities.Internal.spawn;
 
   /**
