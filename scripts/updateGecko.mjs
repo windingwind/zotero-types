@@ -122,6 +122,12 @@ async function main() {
     toString(): string;
 };`,
       );
+
+      // Replace TextEncoder#encode for https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-9.html#libdts-changes
+      fileContent = fileContent.replace(
+        `encode(input?: string): Uint8Array;`,
+        `encode(input?: string): Uint8Array<ArrayBuffer>;`,
+      );
     }
 
     // Attach a `// @ts-nocheck` comment to the top of the file

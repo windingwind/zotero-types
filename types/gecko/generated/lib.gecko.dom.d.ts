@@ -484,6 +484,11 @@ interface CollectedData {
     xpath?: Record<string, CollectedFormDataValue>;
 }
 
+interface CommandEventInit extends EventInit {
+    command?: string;
+    source?: Element | null;
+}
+
 interface CompileScriptOptionsDictionary {
     charset?: string;
     filename?: string;
@@ -598,7 +603,6 @@ interface CopyOptions {
 }
 
 interface CredentialCreationOptions {
-    identity?: IdentityCredentialInit;
     publicKey?: PublicKeyCredentialCreationOptions;
     signal?: AbortSignal;
 }
@@ -1391,6 +1395,10 @@ interface GetChildrenOptions {
     ignoreAbsent?: boolean;
 }
 
+interface GetComposedRangesOptions {
+    shadowRoots?: ShadowRoot[];
+}
+
 interface GetHTMLOptions {
     serializableShadowRoots?: boolean;
     shadowRoots?: ShadowRoot[];
@@ -1481,40 +1489,24 @@ interface IdentityCredentialDisconnectOptions extends IdentityProviderConfig {
     accountHint: string;
 }
 
-interface IdentityCredentialInit {
-    effectiveOrigins?: string[];
-    effectiveQueryURL?: string;
-    effectiveType?: string;
-    id: string;
-    token?: string;
-    uiHint?: IdentityCredentialUserData;
-}
-
 interface IdentityCredentialRequestOptions {
     mode?: IdentityCredentialRequestOptionsMode;
     providers: IdentityProviderRequestOptions[];
 }
 
-interface IdentityCredentialUserData {
-    expiresAfter?: number;
-    iconURL: string;
-    name: string;
-}
-
 interface IdentityProviderConfig {
-    clientId?: string;
-    configURL?: string;
-    effectiveQueryURL?: string;
-    effectiveType?: string;
-    loginTarget?: IdentityLoginTargetType;
-    loginURL?: string;
-    origin?: string;
+    clientId: string;
+    configURL: string;
 }
 
 interface IdentityProviderRequestOptions extends IdentityProviderConfig {
     domainHint?: string;
     loginHint?: string;
     nonce?: string;
+}
+
+interface IdentityResolveOptions {
+    accountId?: string;
 }
 
 interface IdleRequestOptions {
@@ -1568,6 +1560,33 @@ interface ImportESModuleOptionsDictionary {
     global?: ImportESModuleTargetGlobal;
 }
 
+interface InferenceSessionRunOptions {
+    logSeverityLevel?: number;
+    logVerbosityLevel?: number;
+    tag?: string;
+    terminate?: boolean;
+}
+
+interface InferenceSessionSessionOptions {
+    enableCpuMemArena?: boolean;
+    enableGraphCapture?: boolean;
+    enableMemPattern?: boolean;
+    enableProfiling?: boolean;
+    executionMode?: string;
+    executionProviders?: any[];
+    extra?: Record<string, any>;
+    freeDimensionOverrides?: Record<string, number>;
+    graphOptimizationLevel?: string;
+    interOpNumThreads?: number;
+    intraOpNumThreads?: number;
+    logId?: string;
+    logSeverityLevel?: number;
+    logVerbosityLevel?: number;
+    optimizedModelFilePath?: string;
+    preferredOutputLocation?: TensorDataLocation | Record<string, TensorDataLocation>;
+    profileFilePrefix?: string;
+}
+
 interface InputEventInit extends UIEventInit {
     data?: string | null;
     dataTransfer?: DataTransfer | null;
@@ -1596,6 +1615,11 @@ interface InspectorColorToResult {
     adjusted: boolean;
     color: string;
     components: number[] | Float32Array;
+}
+
+interface InspectorDeclaration {
+    declarationOrigin: DeclarationOrigin;
+    style: CSSStyleDeclaration;
 }
 
 interface InspectorFontFeature {
@@ -1649,12 +1673,8 @@ interface InteractionData {
 interface IntersectionObserverInit {
     root?: Element | Document | null;
     rootMargin?: string;
+    scrollMargin?: string;
     threshold?: number | number[];
-}
-
-interface InvokeEventInit extends EventInit {
-    action?: string;
-    invoker?: Element | null;
 }
 
 interface KeySystemTrackConfiguration {
@@ -2092,6 +2112,7 @@ interface MediaTrackCapabilities {
     groupId?: string;
     height?: ULongRange;
     noiseSuppression?: boolean[];
+    resizeMode?: string[];
     width?: ULongRange;
 }
 
@@ -2107,6 +2128,7 @@ interface MediaTrackConstraintSet {
     height?: ConstrainLong;
     mediaSource?: string;
     noiseSuppression?: ConstrainBoolean;
+    resizeMode?: ConstrainDOMString;
     scrollWithPage?: boolean;
     viewportHeight?: ConstrainLong;
     viewportOffsetX?: ConstrainLong;
@@ -2131,6 +2153,7 @@ interface MediaTrackSettings {
     height?: number;
     mediaSource?: string;
     noiseSuppression?: boolean;
+    resizeMode?: string;
     scrollWithPage?: boolean;
     viewportHeight?: number;
     viewportOffsetX?: number;
@@ -2153,6 +2176,7 @@ interface MediaTrackSupportedConstraints {
     latency?: boolean;
     mediaSource?: boolean;
     noiseSuppression?: boolean;
+    resizeMode?: boolean;
     sampleRate?: boolean;
     sampleSize?: boolean;
     scrollWithPage?: boolean;
@@ -2756,6 +2780,7 @@ interface PointerEventInit extends MouseEventInit {
     coalescedEvents?: PointerEvent[];
     height?: number;
     isPrimary?: boolean;
+    persistentDeviceId?: number;
     pointerId?: number;
     pointerType?: string;
     predictedEvents?: PointerEvent[];
@@ -3035,7 +3060,6 @@ interface RTCDataChannelEventInit extends EventInit {
 interface RTCDataChannelInit {
     id?: number;
     maxPacketLifeTime?: number;
-    maxRetransmitTime?: number;
     maxRetransmits?: number;
     negotiated?: boolean;
     ordered?: boolean;
@@ -3089,6 +3113,7 @@ interface RTCIceCandidatePairStats extends RTCStats {
     bytesReceived?: number;
     bytesSent?: number;
     componentId?: number;
+    currentRoundTripTime?: number;
     lastPacketReceivedTimestamp?: DOMHighResTimeStamp;
     lastPacketSentTimestamp?: DOMHighResTimeStamp;
     localCandidateId?: string;
@@ -3096,8 +3121,10 @@ interface RTCIceCandidatePairStats extends RTCStats {
     priority?: number;
     readable?: boolean;
     remoteCandidateId?: string;
+    responsesReceived?: number;
     selected?: boolean;
     state?: RTCStatsIceCandidatePairState;
+    totalRoundTripTime?: number;
     transportId?: string;
     writable?: boolean;
 }
@@ -3163,30 +3190,40 @@ interface RTCInboundRtpStreamStats extends RTCReceivedRtpStreamStats {
     bytesReceived?: number;
     concealedSamples?: number;
     concealmentEvents?: number;
+    estimatedPlayoutTimestamp?: DOMHighResTimeStamp;
     fecPacketsDiscarded?: number;
     fecPacketsReceived?: number;
     firCount?: number;
     frameHeight?: number;
     frameWidth?: number;
+    framesAssembledFromMultiplePackets?: number;
     framesDecoded?: number;
     framesDropped?: number;
     framesPerSecond?: number;
     framesReceived?: number;
+    freezeCount?: number;
     headerBytesReceived?: number;
     insertedSamplesForDeceleration?: number;
     jitterBufferDelay?: number;
     jitterBufferEmittedCount?: number;
+    jitterBufferMinimumDelay?: number;
+    jitterBufferTargetDelay?: number;
+    keyFramesDecoded?: number;
     lastPacketReceivedTimestamp?: DOMHighResTimeStamp;
     mid?: string;
     nackCount?: number;
+    pauseCount?: number;
     pliCount?: number;
     qpSum?: number;
     remoteId?: string;
     removedSamplesForAcceleration?: number;
     silentConcealedSamples?: number;
+    totalAssemblyTime?: number;
     totalAudioEnergy?: number;
     totalDecodeTime?: number;
+    totalFreezesDuration?: number;
     totalInterFrameDelay?: number;
+    totalPausesDuration?: number;
     totalProcessingDelay?: number;
     totalSamplesDuration?: number;
     totalSamplesReceived?: number;
@@ -3299,6 +3336,7 @@ interface RTCRtpContributingSource {
 
 interface RTCRtpEncodingParameters {
     active?: boolean;
+    codec?: RTCRtpCodec;
     maxBitrate?: number;
     maxFramerate?: number;
     priority?: RTCPriorityType;
@@ -3652,6 +3690,10 @@ interface ShareData {
     url?: string;
 }
 
+interface ShowPopoverOptions {
+    source?: HTMLElement;
+}
+
 interface SizeToContentConstraints {
     maxHeight?: number;
     maxWidth?: number;
@@ -3837,6 +3879,10 @@ interface ToggleEventInit extends EventInit {
     oldState?: string;
 }
 
+interface TogglePopoverOptions extends ShowPopoverOptions {
+    force?: boolean;
+}
+
 interface TouchEventInit extends EventModifierInit {
     changedTouches?: Touch[];
     targetTouches?: Touch[];
@@ -3914,6 +3960,39 @@ interface UIEventInit extends EventInit {
 interface ULongRange {
     max?: number;
     min?: number;
+}
+
+interface URLPatternComponentResult {
+    groups?: Record<string, string | undefined>;
+    input?: string;
+}
+
+interface URLPatternInit {
+    baseURL?: string;
+    hash?: string;
+    hostname?: string;
+    password?: string;
+    pathname?: string;
+    port?: string;
+    protocol?: string;
+    search?: string;
+    username?: string;
+}
+
+interface URLPatternOptions {
+    ignoreCase?: boolean;
+}
+
+interface URLPatternResult {
+    hash?: URLPatternComponentResult;
+    hostname?: URLPatternComponentResult;
+    inputs?: URLPatternInput[];
+    password?: URLPatternComponentResult;
+    pathname?: URLPatternComponentResult;
+    port?: URLPatternComponentResult;
+    protocol?: URLPatternComponentResult;
+    search?: URLPatternComponentResult;
+    username?: URLPatternComponentResult;
 }
 
 interface UniFFIScaffoldingCallResult {
@@ -4383,7 +4462,7 @@ type ObserverCallback = ((observer: FetchObserver) => void) | { handleEvent(obse
 
 type UncaughtRejectionObserver = ((p: any) => boolean) | { onLeftUncaught(p: any): boolean; };
 
-type UniFFICallbackHandler = ((objectHandle: UniFFICallbackObjectHandle, methodIndex: number, ...args: UniFFIScaffoldingValue[]) => UniFFIScaffoldingValue | null) | { call(objectHandle: UniFFICallbackObjectHandle, methodIndex: number, ...args: UniFFIScaffoldingValue[]): UniFFIScaffoldingValue | null; };
+type UniFFICallbackHandler = ((objectHandle: UniFFICallbackObjectHandle, methodIndex: number, ...args: UniFFIScaffoldingValue[]) => Promise<UniFFIScaffoldingCallResult>) | { callAsync(objectHandle: UniFFICallbackObjectHandle, methodIndex: number, ...args: UniFFIScaffoldingValue[]): Promise<UniFFIScaffoldingCallResult>; };
 
 type XPathNSResolver = ((prefix: string | null) => string | null) | { lookupNamespaceURI(prefix: string | null): string | null; };
 
@@ -4662,6 +4741,7 @@ interface Animation extends EventTarget {
     oncancel: ((this: Animation, ev: Event) => any) | null;
     onfinish: ((this: Animation, ev: Event) => any) | null;
     onremove: ((this: Animation, ev: Event) => any) | null;
+    readonly overallProgress: number | null;
     readonly pending: boolean;
     readonly playState: AnimationPlayState;
     playbackRate: number;
@@ -7673,12 +7753,13 @@ declare var CloseWatcher: {
 };
 
 interface CommandEvent extends Event {
-    readonly command: string | null;
+    readonly command: string;
+    readonly source: Element | null;
 }
 
 declare var CommandEvent: {
     prototype: CommandEvent;
-    new(): CommandEvent;
+    new(type: string, eventInitDict?: CommandEventInit): CommandEvent;
     isInstance: IsInstance<CommandEvent>;
 };
 
@@ -8591,6 +8672,7 @@ interface Document extends Node, DocumentOrShadowRoot, FontFaceSource, GeometryU
     onreadystatechange: ((this: Document, ev: Event) => any) | null;
     onvisibilitychange: ((this: Document, ev: Event) => any) | null;
     readonly partitionedPrincipal: Principal;
+    pausedByDevTools: boolean;
     readonly permDelegateHandler: nsIPermissionDelegateHandler;
     readonly plugins: HTMLCollection;
     readonly preferredStyleSheetSet: string | null;
@@ -8663,7 +8745,6 @@ interface Document extends Node, DocumentOrShadowRoot, FontFaceSource, GeometryU
     createEvent(eventInterface: "IDBVersionChangeEvent"): IDBVersionChangeEvent;
     createEvent(eventInterface: "ImageCaptureErrorEvent"): ImageCaptureErrorEvent;
     createEvent(eventInterface: "InputEvent"): InputEvent;
-    createEvent(eventInterface: "InvokeEvent"): InvokeEvent;
     createEvent(eventInterface: "KeyboardEvent"): KeyboardEvent;
     createEvent(eventInterface: "MIDIConnectionEvent"): MIDIConnectionEvent;
     createEvent(eventInterface: "MIDIMessageEvent"): MIDIMessageEvent;
@@ -9832,7 +9913,6 @@ declare var GPU: {
 interface GPUAdapter {
     readonly features: GPUSupportedFeatures;
     readonly info: GPUAdapterInfo;
-    readonly isFallbackAdapter: boolean;
     readonly limits: GPUSupportedLimits;
     readonly missingFeatures: number;
     requestDevice(descriptor?: GPUDeviceDescriptor): Promise<GPUDevice>;
@@ -9940,7 +10020,8 @@ interface GPUCommandEncoder extends GPUDebugCommandsMixin, GPUObjectBase {
     beginComputePass(descriptor?: GPUComputePassDescriptor): GPUComputePassEncoder;
     beginRenderPass(descriptor: GPURenderPassDescriptor): GPURenderPassEncoder;
     clearBuffer(buffer: GPUBuffer, offset?: GPUSize64, size?: GPUSize64): void;
-    copyBufferToBuffer(source: GPUBuffer, sourceOffset: GPUSize64, destination: GPUBuffer, destinationOffset: GPUSize64, size: GPUSize64): void;
+    copyBufferToBuffer(source: GPUBuffer, destination: GPUBuffer, size?: GPUSize64): void;
+    copyBufferToBuffer(source: GPUBuffer, sourceOffset: GPUSize64, destination: GPUBuffer, destinationOffset: GPUSize64, size?: GPUSize64): void;
     copyBufferToTexture(source: GPUTexelCopyBufferInfo, destination: GPUTexelCopyTextureInfo, copySize: GPUExtent3D): void;
     copyTextureToBuffer(source: GPUTexelCopyTextureInfo, destination: GPUTexelCopyBufferInfo, copySize: GPUExtent3D): void;
     copyTextureToTexture(source: GPUTexelCopyTextureInfo, destination: GPUTexelCopyTextureInfo, copySize: GPUExtent3D): void;
@@ -10017,6 +10098,7 @@ interface GPUDeviceEventMap {
 
 /** Available only in secure contexts. */
 interface GPUDevice extends EventTarget, GPUObjectBase {
+    readonly adapterInfo: GPUAdapterInfo;
     readonly features: GPUSupportedFeatures;
     readonly limits: GPUSupportedLimits;
     readonly lost: Promise<GPUDeviceLostInfo>;
@@ -10642,6 +10724,16 @@ declare var GleanDenominator: {
     prototype: GleanDenominator;
     new(): GleanDenominator;
     isInstance: IsInstance<GleanDenominator>;
+};
+
+interface GleanDualLabeledCounter extends GleanMetric {
+    get(aKey: string, aCategory: string): GleanCounter;
+}
+
+declare var GleanDualLabeledCounter: {
+    prototype: GleanDualLabeledCounter;
+    new(): GleanDualLabeledCounter;
+    isInstance: IsInstance<GleanDualLabeledCounter>;
 };
 
 interface GleanEvent extends GleanMetric {
@@ -11275,7 +11367,9 @@ declare var HTMLBodyElement: {
     isInstance: IsInstance<HTMLBodyElement>;
 };
 
-interface HTMLButtonElement extends HTMLElement, InvokerElement, PopoverInvokerElement {
+interface HTMLButtonElement extends HTMLElement, PopoverInvokerElement {
+    command: string;
+    commandForElement: Element | null;
     disabled: boolean;
     readonly form: HTMLFormElement | null;
     formAction: string;
@@ -11480,7 +11574,7 @@ interface HTMLElement extends Element, ElementCSSInlineStyle, GlobalEventHandler
     inputMode: string;
     readonly internals: ElementInternals | null;
     readonly isContentEditable: boolean;
-    readonly isFormAssociatedCustomElements: boolean;
+    readonly isFormAssociatedCustomElement: boolean;
     lang: string;
     nonce: string;
     readonly offsetHeight: number;
@@ -11496,8 +11590,8 @@ interface HTMLElement extends Element, ElementCSSInlineStyle, GlobalEventHandler
     attachInternals(): ElementInternals;
     click(): void;
     hidePopover(): void;
-    showPopover(): void;
-    togglePopover(force?: boolean): boolean;
+    showPopover(options?: ShowPopoverOptions): void;
+    togglePopover(options?: TogglePopoverOptions | boolean): boolean;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -11807,7 +11901,7 @@ declare var HTMLImageElement: {
     isInstance: IsInstance<HTMLImageElement>;
 };
 
-interface HTMLInputElement extends HTMLElement, InvokerElement, MozEditableElement, MozImageLoadingContent, PopoverInvokerElement {
+interface HTMLInputElement extends HTMLElement, MozEditableElement, MozImageLoadingContent, PopoverInvokerElement {
     accept: string;
     align: string;
     alt: string;
@@ -13225,15 +13319,26 @@ declare var IIRFilterNode: {
 
 /** Available only in secure contexts. */
 interface IdentityCredential extends Credential {
-    readonly origin: string;
     readonly token: string | null;
 }
 
 declare var IdentityCredential: {
     prototype: IdentityCredential;
-    new(init: IdentityCredentialInit): IdentityCredential;
+    new(): IdentityCredential;
     isInstance: IsInstance<IdentityCredential>;
     disconnect(options?: IdentityCredentialDisconnectOptions): Promise<void>;
+};
+
+/** Available only in secure contexts. */
+interface IdentityProvider {
+}
+
+declare var IdentityProvider: {
+    prototype: IdentityProvider;
+    new(): IdentityProvider;
+    isInstance: IsInstance<IdentityProvider>;
+    close(): void;
+    resolve(token: string, options?: IdentityResolveOptions): Promise<void>;
 };
 
 interface IdleDeadline {
@@ -13389,6 +13494,22 @@ declare var ImageTrackList: {
     isInstance: IsInstance<ImageTrackList>;
 };
 
+interface InferenceSession {
+    readonly inputNames: string[];
+    readonly outputNames: string[];
+    endProfiling(): void;
+    release(): Promise<void>;
+    run(feeds: InferenceSessionFeedsType, options?: InferenceSessionRunOptions): Promise<InferenceSessionReturnType>;
+    startProfiling(): void;
+}
+
+declare var InferenceSession: {
+    prototype: InferenceSession;
+    new(): InferenceSession;
+    isInstance: IsInstance<InferenceSession>;
+    create(uriOrBuffer: string | Uint8Array, options?: InferenceSessionSessionOptions): Promise<InferenceSession>;
+};
+
 interface InputEvent extends UIEvent {
     readonly data: string | null;
     readonly dataTransfer: DataTransfer | null;
@@ -13504,6 +13625,7 @@ declare var InstallTriggerImpl: {
 interface IntersectionObserver {
     readonly root: Node | null;
     readonly rootMargin: string;
+    readonly scrollMargin: string;
     readonly thresholds: number[];
     disconnect(): void;
     observe(target: Element): void;
@@ -13536,22 +13658,6 @@ declare var IntersectionObserverEntry: {
 interface IntlUtils {
     getDisplayNames(locales: string[], options?: DisplayNameOptions): DisplayNameResult;
     isAppLocaleRTL(): boolean;
-}
-
-interface InvokeEvent extends Event {
-    readonly action: string;
-    readonly invoker: Element | null;
-}
-
-declare var InvokeEvent: {
-    prototype: InvokeEvent;
-    new(type: string, eventInitDict?: InvokeEventInit): InvokeEvent;
-    isInstance: IsInstance<InvokeEvent>;
-};
-
-interface InvokerElement {
-    invokeAction: string;
-    invokeTargetElement: Element | null;
 }
 
 
@@ -17076,6 +17182,7 @@ interface PointerEvent extends MouseEvent {
     readonly azimuthAngle: number;
     readonly height: number;
     readonly isPrimary: boolean;
+    readonly persistentDeviceId: number;
     readonly pointerId: number;
     readonly pointerType: string;
     readonly pressure: number;
@@ -17361,7 +17468,6 @@ interface RTCDataChannel extends EventTarget {
     readonly ordered: boolean;
     readonly protocol: string;
     readonly readyState: RTCDataChannelState;
-    readonly reliable: boolean;
     close(): void;
     send(data: string): void;
     send(data: Blob): void;
@@ -19981,7 +20087,7 @@ interface Selection {
     deleteFromDocument(): void;
     empty(): void;
     extend(node: Node, offset?: number): void;
-    getComposedRanges(...shadowRoots: ShadowRoot[]): StaticRange[];
+    getComposedRanges(options?: ShadowRoot | GetComposedRangesOptions, ...shadowRoots: ShadowRoot[]): StaticRange[];
     getRangeAt(index: number): Range;
     modify(alter?: string, direction?: string, granularity?: string): void;
     removeAllRanges(): void;
@@ -20850,6 +20956,30 @@ declare var TaskSignal: {
     any(signals: AbortSignal[], init?: TaskSignalAnyInit): TaskSignal;
 };
 
+interface Tensor {
+    readonly data: ArrayBufferView;
+    dims: number[];
+    readonly location: TensorDataLocation;
+    readonly type: string;
+    dispose(): void;
+    getData(releaseData?: boolean): Promise<any>;
+}
+
+declare var Tensor: {
+    prototype: Tensor;
+    new(type: string, data: ArrayBufferView | any[], dims: number[]): Tensor;
+    isInstance: IsInstance<Tensor>;
+};
+
+interface TestChromeOnlyInterface {
+}
+
+declare var TestChromeOnlyInterface: {
+    prototype: TestChromeOnlyInterface;
+    new(): TestChromeOnlyInterface;
+    isInstance: IsInstance<TestChromeOnlyInterface>;
+};
+
 interface TestFunctions {
     allowSharedArrayBuffer: ArrayBuffer;
     allowSharedArrayBufferView: ArrayBufferView;
@@ -20894,6 +21024,7 @@ declare var TestFunctions: {
     prototype: TestFunctions;
     new(): TestFunctions;
     isInstance: IsInstance<TestFunctions>;
+    createTestChromeOnlyInterface(): TestChromeOnlyInterface;
     passThroughCallbackPromise(callback: PromiseReturner): Promise<any>;
     passThroughPromise(arg: any): Promise<any>;
     throwToRejectPromise(): Promise<any>;
@@ -21211,7 +21342,7 @@ declare var TextDecoderStream: {
 };
 
 interface TextEncoder extends TextEncoderCommon {
-    encode(input?: string): Uint8Array;
+    encode(input?: string): Uint8Array<ArrayBuffer>;
     encodeInto(source: JSString, destination: Uint8Array): TextEncoderEncodeIntoResult;
 }
 
@@ -21782,6 +21913,27 @@ declare var URL: {
 
 type webkitURL = URL;
 declare var webkitURL: typeof URL;
+
+interface URLPattern {
+    readonly hasRegExpGroups: boolean;
+    readonly hash: string;
+    readonly hostname: string;
+    readonly password: string;
+    readonly pathname: string;
+    readonly port: string;
+    readonly protocol: string;
+    readonly search: string;
+    readonly username: string;
+    exec(input?: URLPatternInput, baseURL?: string): URLPatternResult | null;
+    test(input?: URLPatternInput, baseURL?: string): boolean;
+}
+
+declare var URLPattern: {
+    prototype: URLPattern;
+    new(input: URLPatternInput, baseURL: string, options?: URLPatternOptions): URLPattern;
+    new(input?: URLPatternInput, options?: URLPatternOptions): URLPattern;
+    isInstance: IsInstance<URLPattern>;
+};
 
 interface URLSearchParams {
     readonly size: number;
@@ -23145,8 +23297,7 @@ interface WebGL2RenderingContextBase {
     bufferData(target: GLenum, srcData: ArrayBuffer | null, usage: GLenum): void;
     bufferData(target: GLenum, srcData: ArrayBufferView, usage: GLenum): void;
     bufferData(target: GLenum, srcData: ArrayBufferView, usage: GLenum, srcOffset: GLuint, length?: GLuint): void;
-    bufferSubData(target: GLenum, offset: GLintptr, srcData: ArrayBuffer): void;
-    bufferSubData(target: GLenum, offset: GLintptr, srcData: ArrayBufferView): void;
+    bufferSubData(target: GLenum, offset: GLintptr, srcData: AllowSharedBufferSource): void;
     bufferSubData(target: GLenum, dstByteOffset: GLintptr, srcData: ArrayBufferView, srcOffset: GLuint, length?: GLuint): void;
     clearBufferfi(buffer: GLenum, drawbuffer: GLint, depth: GLfloat, stencil: GLint): void;
     clearBufferfv(buffer: GLenum, drawbuffer: GLint, values: Float32List, srcOffset?: GLuint): void;
@@ -23635,8 +23786,7 @@ interface WebGLRenderingContext extends WebGLRenderingContextBase {
     bufferData(target: GLenum, size: GLsizeiptr, usage: GLenum): void;
     bufferData(target: GLenum, data: ArrayBuffer | null, usage: GLenum): void;
     bufferData(target: GLenum, data: ArrayBufferView, usage: GLenum): void;
-    bufferSubData(target: GLenum, offset: GLintptr, data: ArrayBuffer): void;
-    bufferSubData(target: GLenum, offset: GLintptr, data: ArrayBufferView): void;
+    bufferSubData(target: GLenum, offset: GLintptr, data: AllowSharedBufferSource): void;
     compressedTexImage2D(target: GLenum, level: GLint, internalformat: GLenum, width: GLsizei, height: GLsizei, border: GLint, data: ArrayBufferView): void;
     compressedTexSubImage2D(target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: GLenum, data: ArrayBufferView): void;
     readPixels(x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: GLenum, type: GLenum, pixels: ArrayBufferView | null): void;
@@ -24801,6 +24951,7 @@ declare var Window: {
 interface WindowContext {
     allowJavascript: boolean;
     readonly browsingContext: BrowsingContext | null;
+    readonly hasActiveCloseWatcher: boolean;
     readonly hasBeforeUnload: boolean;
     readonly innerWindowId: number;
     readonly isInBFCache: boolean;
@@ -24812,6 +24963,7 @@ interface WindowContext {
     readonly topWindowContext: WindowContext;
     readonly usingStorageAccess: boolean;
     readonly windowGlobalChild: WindowGlobalChild | null;
+    processCloseRequest(): void;
 }
 
 declare var WindowContext: {
@@ -25758,6 +25910,7 @@ declare namespace ChromeUtils {
     function base64URLDecode(string: string, options: Base64URLDecodeOptions): ArrayBuffer;
     function base64URLEncode(source: BufferSource, options: Base64URLEncodeOptions): string;
     function callFunctionAndLogException(targetGlobal: any, func: any): any;
+    function clearBfcacheByPrincipal(principal: Principal): void;
     function clearMessagingLayerSecurityState(): void;
     function clearMessagingLayerSecurityStateByPrincipal(principal: Principal): void;
     function clearMessagingLayerSecurityStateBySite(schemelessSite: string, pattern?: OriginAttributesPatternDictionary): void;
@@ -25773,7 +25926,7 @@ declare namespace ChromeUtils {
     function dateNow(): number;
     function defineESModuleGetters(aTarget: any, aModules: any, aOptions?: ImportESModuleOptionsDictionary): void;
     function defineLazyGetter(aTarget: any, aName: any, aLambda: any): void;
-    function endWheelTransaction(): void;
+    function endWheelTransaction(window: WindowProxy): Promise<void>;
     function ensureHeadlessContentProcess(aRemoteType: string): Promise<nsIContentParentKeepAlive>;
     function ensureJSOracleStarted(): void;
     function fillNonDefaultOriginAttributes(originAttrs?: OriginAttributesDictionary): OriginAttributesDictionary;
@@ -25891,7 +26044,7 @@ declare namespace InspectorUtils {
     function addPseudoClassLock(element: Element, pseudoClass: string, enabled?: boolean): void;
     function clearPseudoClassLocks(element: Element): void;
     function colorTo(fromColor: string, toColorSpace: string): InspectorColorToResult | null;
-    function colorToRGBA(colorString: string, doc?: Document | null): InspectorRGBATuple | null;
+    function colorToRGBA(colorString: string): InspectorRGBATuple | null;
     function containingBlockOf(element: Element): Element | null;
     function cssPropertyIsShorthand(property: string): boolean;
     function cssPropertySupportsType(property: string, type: InspectorPropertyType): boolean;
@@ -25905,7 +26058,7 @@ declare namespace InspectorUtils {
     function getCSSValuesForProperty(property: string): string[];
     function getChildrenForNode(node: Node, showingAnonymousContent: boolean, includeAssignedNodes: boolean): Node[];
     function getContentState(element: Element): number;
-    function getMatchingCSSRules(element: Element, pseudo?: string, relevantLinkVisited?: boolean, withStartingStyle?: boolean): CSSRule[];
+    function getMatchingCSSRules(element: Element, pseudo?: string, relevantLinkVisited?: boolean, withStartingStyle?: boolean): (CSSRule | InspectorDeclaration)[];
     function getOverflowingChildrenOfElement(element: Element): NodeList;
     function getParentForNode(node: Node, showingAnonymousContent: boolean): Node | null;
     function getRegisteredCssHighlights(document: Document, activeOnly?: boolean): string[];
@@ -25931,6 +26084,8 @@ declare namespace InspectorUtils {
     function replaceBlockRuleBodyTextInStylesheet(styleSheetText: string, line: number, column: number, newBodyText: string): string | null;
     function rgbToColorName(r: number, g: number, b: number): string;
     function setContentState(element: Element, state: number): boolean;
+    function setDynamicToolbarMaxHeight(aContext: BrowsingContext | null, aHeight: number): void;
+    function setVerticalClipping(aContext: BrowsingContext | null, aOffset: number): void;
     function supports(conditionText: string, options?: SupportsOptions): boolean;
     function valueMatchesSyntax(document: Document, value: string, syntax: string): boolean;
 }
@@ -26582,6 +26737,9 @@ type HTMLOrSVGImageElement = HTMLImageElement | SVGImageElement;
 type HeadersInit = string[][] | Record<string, string>;
 type ImageBitmapSource = CanvasImageSource | Blob | CanvasRenderingContext2D | ImageData;
 type ImageBufferSource = AllowSharedBufferSource | ReadableStream;
+type InferenceSessionFeedsType = InferenceSessionTensorMapType;
+type InferenceSessionReturnType = InferenceSessionTensorMapType;
+type InferenceSessionTensorMapType = Record<string, Tensor>;
 type InputStream = nsIInputStream;
 type Int32List = Int32Array | GLint[];
 type KeyFormat = string;
@@ -26629,6 +26787,7 @@ type StructuredClonable = any;
 type TimerHandler = Function | TrustedScript | string;
 type TrustedType = TrustedHTML | TrustedScript | TrustedScriptURL;
 type URI = nsIURI;
+type URLPatternInput = string | URLPatternInit;
 type Uint32List = Uint32Array | GLuint[];
 type UniFFICallbackInterfaceId = number;
 type UniFFICallbackObjectHandle = number;
@@ -26690,6 +26849,7 @@ type CookieSameSite = "lax" | "none" | "strict";
 type CredentialMediationRequirement = "conditional" | "optional" | "required" | "silent";
 type CredentialProtectionPolicy = "userVerificationOptional" | "userVerificationOptionalWithCredentialIDList" | "userVerificationRequired";
 type DebuggerNotificationType = "cancelAnimationFrame" | "clearInterval" | "clearTimeout" | "domEvent" | "requestAnimationFrame" | "requestAnimationFrameCallback" | "setInterval" | "setIntervalCallback" | "setTimeout" | "setTimeoutCallback";
+type DeclarationOrigin = "animations" | "pres-hints" | "smil" | "style-attribute" | "transitions" | "user" | "user-agent";
 type DecoderDoctorReportType = "mediacannotinitializepulseaudio" | "mediacannotplaynodecoders" | "mediadecodeerror" | "mediadecodewarning" | "medianodecoders" | "mediaplatformdecodernotfound" | "mediaunsupportedlibavcodec" | "mediawidevinenowmf" | "mediawmfneeded";
 type DirectionSetting = "" | "lr" | "rl";
 type DisplayMode = "browser" | "fullscreen" | "minimal-ui" | "standalone";
@@ -26758,7 +26918,6 @@ type IDBRequestReadyState = "done" | "pending";
 type IDBTransactionDurability = "default" | "relaxed" | "strict";
 type IDBTransactionMode = "cleanup" | "readonly" | "readwrite" | "readwriteflush" | "versionchange";
 type IdentityCredentialRequestOptionsMode = "active" | "passive";
-type IdentityLoginTargetType = "popup" | "redirect";
 type ImageOrientation = "flipY" | "from-image" | "none";
 type ImportESModuleTargetGlobal = "contextual" | "current" | "devtools" | "shared";
 type InspectorPropertyType = "color" | "gradient" | "timing-function";
@@ -26787,7 +26946,7 @@ type MediaSourceEndOfStreamError = "decode" | "network";
 type MediaSourceReadyState = "closed" | "ended" | "open";
 type MediaStreamTrackState = "ended" | "live";
 type MozContentPolicyType = "beacon" | "csp_report" | "font" | "image" | "imageset" | "json" | "main_frame" | "media" | "object" | "other" | "ping" | "script" | "speculative" | "stylesheet" | "sub_frame" | "web_manifest" | "websocket" | "xml_dtd" | "xmlhttprequest" | "xslt";
-type MozUrlClassificationFlags = "any_basic_tracking" | "any_social_tracking" | "any_strict_tracking" | "consentmanager" | "cryptomining" | "cryptomining_content" | "emailtracking" | "emailtracking_content" | "fingerprinting" | "fingerprinting_content" | "socialtracking" | "socialtracking_facebook" | "socialtracking_linkedin" | "socialtracking_twitter" | "tracking" | "tracking_ad" | "tracking_analytics" | "tracking_content" | "tracking_social";
+type MozUrlClassificationFlags = "antifraud" | "any_basic_tracking" | "any_social_tracking" | "any_strict_tracking" | "consentmanager" | "cryptomining" | "cryptomining_content" | "emailtracking" | "emailtracking_content" | "fingerprinting" | "fingerprinting_content" | "socialtracking" | "socialtracking_facebook" | "socialtracking_linkedin" | "socialtracking_twitter" | "tracking" | "tracking_ad" | "tracking_analytics" | "tracking_content" | "tracking_social";
 type NavigationFocusReset = "after-transition" | "manual";
 type NavigationHistoryBehavior = "auto" | "push" | "replace";
 type NavigationScrollBehavior = "after-transition" | "manual";
@@ -26884,6 +27043,7 @@ type SupportedType = "application/xhtml+xml" | "application/xml" | "image/svg+xm
 type TCPReadyState = "closed" | "closing" | "connecting" | "open";
 type TCPSocketBinaryType = "arraybuffer" | "string";
 type TaskPriority = "background" | "user-blocking" | "user-visible";
+type TensorDataLocation = "cpu" | "cpu-pinned" | "gpu-buffer" | "ml-tensor" | "none" | "texture";
 type TextTrackKind = "captions" | "chapters" | "descriptions" | "metadata" | "subtitles";
 type TextTrackMode = "disabled" | "hidden" | "showing";
 type TouchEventsOverride = "disabled" | "enabled" | "none";
