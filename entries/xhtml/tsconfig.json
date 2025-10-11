@@ -2,6 +2,6 @@
   "extends": "../base/tsconfig.json",
   "compilerOptions": {
     "lib": ["ESNext", "DOM"],
-    "types": ["zotero-types/entries/xhtml"],
-  },
+    "types": ["zotero-types/entries/xhtml"]
+  }
 }
