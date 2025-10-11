@@ -2,6 +2,6 @@
   "extends": "../base/tsconfig.json",
   "compilerOptions": {
     "lib": ["ESNext"],
-    "types": ["zotero-types/entries/sandbox"],
-  },
+    "types": ["zotero-types/entries/sandbox"]
+  }
 }
