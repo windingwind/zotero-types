@@ -28,7 +28,7 @@
     "@types/react": "^18.3.26",
     "bumpp": "^10.3.1",
     "epubjs": "github:zotero/epub.js#a6139d586b66d404f3da2b846598960c0394afc5",
-    "pdfjs-dist": "^4.10.0"
+    "pdfjs-dist": "github:zotero-plugin-dev/zotero-pdfjs-types#8aa68e6"
   },
   "devDependencies": {
     "husky": "^9.1.7",
