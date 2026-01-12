@@ -13,6 +13,21 @@ declare namespace _ZoteroTypes {
     _downloadInProgressPromise: Promise<void> | null;
     registerEditorInstance(instance: Zotero.EditorInstance): void;
     unregisterEditorInstance(instance: Zotero.EditorInstance): Promise<void>;
+    open(
+      itemID: number,
+      location: any,
+      options?: {
+        title?: string;
+        tabIndex?: number;
+        tabID?: string;
+        openInBackground?: boolean;
+        openInWindow?: boolean;
+        allowDuplicate?: boolean;
+        preventJumpback?: boolean;
+        parentItemKey?: string;
+      },
+    ): Promise<Zotero.EditorInstance>;
+    getByTabID(tabID: string): Zotero.EditorInstance | null;
 
     /**
      * Replace local URIs for citations and highlights

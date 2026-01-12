@@ -77,7 +77,16 @@ declare namespace _ZoteroTypes {
       item: Zotero.Item,
     ) => Array<Zotero.Item>;
     isAttachmentWithExtractableAnnotations(item: Zotero.Item): boolean;
+    /** @deprecated use openNote() with openInWindow option */
     openNoteWindow(itemID: number, col?: number, parentKey?: string): void;
+    openNote(
+      itemID: number,
+      options?: {
+        col?: number;
+        parentKey?: string;
+        openInWindow?: boolean;
+      },
+    ): void;
     viewPDF(
       itemID: number,
       location: _ZoteroTypes.Reader.Location,

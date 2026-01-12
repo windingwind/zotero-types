@@ -23,6 +23,9 @@ declare namespace _ZoteroTypes {
     _tabs: _ZoteroTypes.TabInstance[];
 
     _getTab(tabId: string): { tab: _ZoteroTypes.TabInstance; tabIndex: number };
+    getTabInfo(tabID?: string): TabInstance & { subType?: string };
+    getSidebarState(tabType: string): { open?: boolean; width: number };
+    updateSidebarLayout(state?: { width?: number | boolean }): void;
     _update(): void;
     getTabIDByItemID(itemID: number): string;
     init(): void;

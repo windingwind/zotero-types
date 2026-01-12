@@ -55,6 +55,7 @@ declare namespace _ZoteroTypes {
       | "reader/pdf"
       | "reader/epub"
       | "reader/snapshot"
+      | "note"
       | string;
 
     /**

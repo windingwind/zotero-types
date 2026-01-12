@@ -71,7 +71,7 @@ declare namespace _ZoteroTypes {
 
     interface UIHookArgs {
       item: Zotero.Item;
-      tabType: "library" | "reader";
+      tabType: "library" | "reader" | "note" | string;
       editable: boolean;
 
       /** Set l10n args for section header */
@@ -137,7 +137,7 @@ declare namespace _ZoteroTypes {
     interface BasicHookArgs {
       rowID: string;
       item: Zotero.Item;
-      tabType: "library" | "reader";
+      tabType: "library" | "reader" | "note" | string;
       editable: boolean;
     }
 
