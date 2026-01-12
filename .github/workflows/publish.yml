@@ -26,7 +26,12 @@ jobs:
 
       - run: npm install
 
-      - run: npm publish --provenance
+      - run: VERSION=$(node -p "require('./package.json').version")
+          if [[ "$VERSION" == *-* ]]; then
+            npm publish --tag beta
+          else
+            npm publish --tag latest
+          fi
 
       - run: npx changelogithub
         env:
