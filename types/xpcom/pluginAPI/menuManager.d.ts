@@ -109,7 +109,7 @@ declare namespace _ZoteroTypes {
       /** Array of selected items */
       items?: Zotero.Item[];
       /** Collection tree row (for collection menus) */
-      collectionTreeRow?: any;
+      collectionTreeRow?: _ZoteroTypes.CollectionTree;
       /** Type of the tab */
       tabType: "library";
       /** Subtype of the tab */

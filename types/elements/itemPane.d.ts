@@ -4,7 +4,7 @@
 declare namespace _ZoteroTypes {
   class ItemPane extends XULElementBase {
     get content(): DocumentFragment;
-    collectionTreeRow: any;
+    collectionTreeRow: _ZoteroTypes.CollectionTree;
     itemsView: any;
     editable: boolean;
     mode: "message" | "item" | "note" | "duplicates";
