@@ -25,17 +25,17 @@
   },
   "dependencies": {
     "@types/bluebird": "^3.5.42",
-    "@types/react": "^18.3.26",
-    "bumpp": "^10.3.1",
+    "@types/react": "^18.3.28",
     "epubjs": "github:zotero/epub.js#a6139d586b66d404f3da2b846598960c0394afc5",
-    "pdfjs-dist": "github:zotero-plugin-dev/zotero-pdfjs-types#17c27d6516dbfc9c6f2739b9a3ffd337a305a2f9"
+    "pdfjs-dist": "github:zotero-plugin-dev/zotero-pdfjs-types#main"
   },
   "devDependencies": {
+    "bumpp": "^10.4.1",
     "husky": "^9.1.7",
-    "lint-staged": "^16.2.3",
-    "octokit": "^5.0.3",
+    "lint-staged": "^16.2.7",
+    "octokit": "^5.0.5",
     "prettier": "3.6.2",
-    "typescript-eslint": "^8.46.0"
+    "typescript-eslint": "^8.56.1"
   },
   "publishConfig": {
     "access": "public",
