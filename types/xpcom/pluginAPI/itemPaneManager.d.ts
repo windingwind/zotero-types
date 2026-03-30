@@ -166,7 +166,3 @@ declare namespace _ZoteroTypes {
     }
   }
 }
-
-declare namespace Zotero {
-  const ItemPaneManager: _ZoteroTypes.ItemPaneManager;
-}

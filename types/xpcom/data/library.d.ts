@@ -102,22 +102,3 @@ declare namespace _ZoteroTypes {
     type LibraryLike = Zotero.Library | Zotero.Group | Zotero.Feed;
   }
 }
-declare namespace Zotero {
-  class Library extends _ZoteroTypes.Library.LibraryAbstract {
-    _objectType: "library";
-    _childObjectTypes: ["item", "collection", "search"];
-    fixedLibraries: ["user"];
-    libraryTypes: ["user"];
-    libraryType: "user" | "group" | "feed";
-
-    static readonly _dbColumns: [
-      "type",
-      "editable",
-      "filesEditable",
-      "version",
-      "storageVersion",
-      "lastSync",
-      "archived",
-    ];
-  }
-}

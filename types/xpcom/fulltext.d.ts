@@ -71,7 +71,3 @@ declare namespace _ZoteroTypes {
     semanticSplitter(text: string, charset?: string): string[];
   }
 }
-declare namespace Zotero {
-  const Fulltext: _ZoteroTypes.FullText;
-  const FullText: _ZoteroTypes.FullText;
-}

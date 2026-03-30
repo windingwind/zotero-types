@@ -258,7 +258,3 @@ declare namespace _ZoteroTypes {
 
   type ObjectType = "collection" | "item" | "search";
 }
-
-declare namespace Zotero {
-  const DataObjects: _ZoteroTypes.DataObjects;
-}

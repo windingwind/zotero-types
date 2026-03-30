@@ -240,8 +240,3 @@ declare namespace _ZoteroTypes {
     new (dbNameOrPath: string): this;
   }
 }
-
-declare namespace Zotero {
-  const DB: _ZoteroTypes.DB;
-  const DBConnection: _ZoteroTypes.DBConnection;
-}

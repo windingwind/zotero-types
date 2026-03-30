@@ -191,7 +191,3 @@ declare namespace _ZoteroTypes {
     refreshColumns(): void;
   }
 }
-
-declare namespace Zotero {
-  const ItemTreeManager: _ZoteroTypes.ItemTreeManager;
-}

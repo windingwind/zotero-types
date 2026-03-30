@@ -241,7 +241,3 @@ declare namespace _ZoteroTypes {
     purge(tagIDs?: number[]): Promise<void>;
   }
 }
-
-declare namespace Zotero {
-  const Tags: _ZoteroTypes.Tags;
-}

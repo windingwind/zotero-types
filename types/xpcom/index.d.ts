@@ -11,6 +11,7 @@
 /// <reference path="pluginAPI/itemTreeManager.d.ts" />
 /// <reference path="pluginAPI/itemPaneManager.d.ts" />
 /// <reference path="pluginAPI/menuManager.d.ts" />
+/// <reference path="pluginAPI/windowResourceManager.d.ts" />
 /// <reference path="prefs.d.ts" />
 /// <reference path="preferencePanes.d.ts" />
 /// <reference path="progressWindow.d.ts" />

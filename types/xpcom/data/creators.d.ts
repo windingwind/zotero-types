@@ -52,7 +52,3 @@ declare namespace _ZoteroTypes {
     ): _ZoteroTypes.Item.CreatorJSON;
   }
 }
-
-declare namespace Zotero {
-  const Creators: _ZoteroTypes.Creators;
-}

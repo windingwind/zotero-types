@@ -29,6 +29,15 @@ declare namespace _ZoteroTypes {
       | "notesPane/addItemNote"
       | "notesPane/addStandaloneNote";
 
+    type PluginWindowMenuType = "file" | "edit" | "view" | "window" | "help";
+
+    /**
+     * Plugin window menubar target pattern:
+     * `pluginWindow/${windowId}/menubar/${type}`
+     */
+    type PluginWindowMenubarTarget =
+      `pluginWindow/${string}/menubar/${PluginWindowMenuType}`;
+
     /**
      * Valid menu targets where custom menus can be registered
      */
@@ -37,6 +46,7 @@ declare namespace _ZoteroTypes {
       | ReaderMenubarTarget
       | LibraryTarget
       | NotesPaneTarget
+      | PluginWindowMenubarTarget
       | "main/tab"
       | "itemPane/info/row"
       | "sidenav/locate";
@@ -198,6 +208,8 @@ declare namespace _ZoteroTypes {
       [K in MainMenubarTarget]: MenubarMenuContext;
     } & {
       [K in ReaderMenubarTarget]: MenubarMenuContext;
+    } & {
+      [K in PluginWindowMenubarTarget]: BaseMenuContext;
     };
 
     /**
@@ -413,8 +425,4 @@ declare namespace _ZoteroTypes {
       args?: MenuManager.UpdateMenuPopupArgs,
     ): void;
   }
-}
-
-declare namespace Zotero {
-  const MenuManager: _ZoteroTypes.MenuManager;
 }

@@ -162,7 +162,3 @@ declare namespace _ZoteroTypes {
     }
   }
 }
-
-declare namespace Zotero {
-  const Date: _ZoteroTypes.Utilities_Date;
-}

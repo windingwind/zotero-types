@@ -193,7 +193,3 @@ declare namespace _ZoteroTypes {
     Window: (url: URL) => Window;
   }
 }
-
-declare namespace Zotero {
-  const HTTP: _ZoteroTypes.HTTP;
-}

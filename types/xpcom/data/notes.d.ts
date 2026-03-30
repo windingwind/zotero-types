@@ -113,7 +113,3 @@ declare namespace _ZoteroTypes {
     upgradeSchemaV1(item: Zotero.Item): Promise<boolean>;
   }
 }
-
-declare namespace Zotero {
-  const Notes: _ZoteroTypes.Notes;
-}

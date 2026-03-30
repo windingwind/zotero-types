@@ -4,6 +4,9 @@
   "description": "This package contains type definitions for Zotero (https://www.zotero.org/) plugin.",
   "main": "",
   "types": "index.d.ts",
+  "bin": {
+    "zotero-types": "bin/zotero-types.mjs"
+  },
   "typeScriptVersion": "2.0",
   "author": "windingwind",
   "license": "MIT",

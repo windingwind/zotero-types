@@ -110,7 +110,3 @@ declare namespace _ZoteroTypes {
     splitAnnotations(items: Zotero.Item[]): Promise<void>;
   }
 }
-
-declare namespace Zotero {
-  const Annotations: _ZoteroTypes.Annotations;
-}

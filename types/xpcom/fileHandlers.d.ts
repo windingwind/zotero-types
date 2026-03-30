@@ -48,18 +48,3 @@ declare namespace _ZoteroTypes {
     ): Promise<void>;
   }
 }
-
-declare namespace Zotero {
-  const FileHandlers: _ZoteroTypes.FileHandlers;
-
-  namespace OpenPDF {
-    /**
-     * @deprecated - use Zotero.FileHandlers.open
-     */
-    function openToPage(
-      item: Zotero.Item,
-      page: number,
-      annotationKey?: string,
-    ): Promise<void>;
-  }
-}

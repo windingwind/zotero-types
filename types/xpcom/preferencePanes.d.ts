@@ -55,7 +55,3 @@ declare namespace _ZoteroTypes {
     defaultXUL?: boolean;
   };
 }
-
-declare namespace Zotero {
-  const PreferencePanes: _ZoteroTypes.PreferencePanes;
-}

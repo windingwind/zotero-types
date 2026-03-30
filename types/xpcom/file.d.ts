@@ -131,7 +131,3 @@ declare namespace _ZoteroTypes {
 }
 
 declare const Zotero_File_Interface: _ZoteroTypes.Zotero_File_Interface;
-
-declare namespace Zotero {
-  const File: _ZoteroTypes.File;
-}

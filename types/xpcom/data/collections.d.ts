@@ -77,7 +77,3 @@ declare namespace _ZoteroTypes {
     unregisterChildItem(collectionID: number, itemID: number): void;
   }
 }
-
-declare namespace Zotero {
-  const Collections: _ZoteroTypes.Collections;
-}

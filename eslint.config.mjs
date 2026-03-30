@@ -2,6 +2,7 @@
 
 import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
+import globals from "globals";
 
 export default tseslint.config(
   {
@@ -30,6 +31,12 @@ export default tseslint.config(
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/triple-slash-reference": "off",
       "@typescript-eslint/no-unsafe-function-type": "off",
+    },
+  },
+  {
+    files: ["bin/**/*.mjs"],
+    languageOptions: {
+      globals: globals.node,
     },
   },
 );

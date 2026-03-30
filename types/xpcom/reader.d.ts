@@ -342,7 +342,3 @@ declare namespace _ZoteroTypes {
     ): void;
   }
 }
-
-declare namespace Zotero {
-  const Reader: _ZoteroTypes.Reader;
-}

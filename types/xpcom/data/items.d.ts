@@ -238,7 +238,3 @@ declare namespace _ZoteroTypes {
     ): Promise<Zotero.Item[]>;
   }
 }
-
-declare namespace Zotero {
-  const Items: _ZoteroTypes.Items;
-}

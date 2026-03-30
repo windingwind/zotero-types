@@ -191,12 +191,25 @@ declare interface XULElement
     HTMLOrForeignElement,
     OnErrorEventHandlerForNodes,
     TouchEventHandlers {
+  collapsed: boolean;
+  contextMenu: string;
+  readonly controllers: XULControllers;
+  hidden: boolean;
+  menu: string;
+  observes: string;
+  src: string;
+  tooltip: string;
+  tooltipText: string;
   width: number | string;
   height: number | string;
   top: number | string;
   left: number | string;
   flex: number | string;
   align: "start" | "center" | "end" | "baseline" | "stretch";
+  click(): void;
+  doCommand(): void;
+  hasMenu(): boolean;
+  openMenu(open: boolean): void;
 }
 
 declare interface XULDescriptionElement
@@ -207,7 +220,7 @@ declare interface XULDescriptionElement
   control: string;
 }
 
-declare interface XULLabelElement extends XULElement, XUL.Description {}
+declare interface XULLabelElement extends XULElement, XULDescriptionElement {}
 
 declare interface XULTextBoxElement
   extends XULElement,
@@ -241,7 +254,7 @@ declare interface XULRadioElement
     XUL.ILabel,
     XUL.IDisabled {
   selected: boolean;
-  command: XUL.Command;
+  command: XULCommandElement;
 }
 
 declare interface XULRadioGroupElement
@@ -312,7 +325,7 @@ declare interface XULMenuItemElement
     XUL.IValue,
     XUL.ILabel,
     XUL.IDisabled {
-  command: string | XUL.Command;
+  command: string | XULCommandElement;
   allowEvents: boolean;
   selected: boolean;
 }
@@ -330,18 +343,18 @@ declare interface XULMenuListElement
   open: false;
   readonly inputField: XULTextBoxElement;
 
-  getItemAtIndex(i: number): XUL.MenuItem;
+  getItemAtIndex(i: number): XULMenuItemElement;
   appendItem: (
     label: string,
     value?: string,
     description?: string,
-  ) => XUL.MenuItem;
+  ) => XULMenuItemElement;
   insertItemAt: (
     index: number,
     label: string,
     value?: string,
     description?: string,
-  ) => XUL.MenuItem;
+  ) => XULMenuItemElement;
 }
 
 declare interface XULMenuSeparatorElement extends XULElement {}

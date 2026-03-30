@@ -457,7 +457,3 @@ declare namespace _ZoteroTypes {
     linkModeFromName(linkModeName: string): Attachments.LinkMode;
   }
 }
-
-declare namespace Zotero {
-  const Attachments: _ZoteroTypes.Attachments;
-}

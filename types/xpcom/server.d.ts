@@ -81,7 +81,3 @@ declare namespace _ZoteroTypes {
     ) => void;
   }
 }
-
-declare namespace Zotero {
-  const Server: _ZoteroTypes.Server;
-}

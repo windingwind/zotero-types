@@ -62,6 +62,59 @@ Similar to the `tsconfig.json` file, you can use the `/// <reference path="..." 
 /// <reference types="zotero-types/entries/sandbox/index.d.ts" />
 ```
 
+### Generate Types for Unprivileged Plugins
+
+For unprivileged plugins that declare permissions in `manifest.json`, you can generate a tailored set of type declarations that only include the APIs your plugin has access to.
+
+```bash
+npx zotero-types generate
+```
+
+By default this looks for `manifest.json` in the current directory, but you can point to a manifest in a subdirectory with `--manifest`. Types are generated into `./typings/zotero/` (configurable via `--outdir`). Then extend the generated config in your `tsconfig.json`:
+
+```jsonc
+{
+  "extends": "./typings/zotero/tsconfig.json",
+  "include": ["src"],
+}
+```
+
+**Options:**
+
+| Option                   | Description                                         | Default            |
+| ------------------------ | --------------------------------------------------- | ------------------ |
+| `--manifest <path>`      | Path to plugin `manifest.json`                      | `./manifest.json`  |
+| `--outdir <path>`        | Output directory for generated types                | `./typings/zotero` |
+| `--permissions <list>`   | Comma-separated permissions (overrides manifest)    | —                  |
+| `--zotero-client <path>` | Use a local `zotero-client` checkout for the schema | Fetch from GitHub  |
+
+**Examples:**
+
+```bash
+# Use manifest.json in current directory
+npx zotero-types generate
+
+# Specify a different manifest and output directory
+npx zotero-types generate --manifest path/to/manifest.json --outdir types/generated
+
+# Override permissions directly (no manifest needed)
+npx zotero-types generate --permissions data,fileSystem,network
+
+# Use a local zotero-client checkout for the schema
+npx zotero-types generate --zotero-client ../zotero-client
+```
+
+The generated output includes:
+
+| File            | Description                                        |
+| --------------- | -------------------------------------------------- |
+| `index.d.ts`    | Entry point referencing all type files             |
+| `zotero.d.ts`   | Permission-filtered Zotero namespace declarations  |
+| `sandbox.d.ts`  | Sandbox globals (`rootURI`, `loadSubScript`, etc.) |
+| `gecko.d.ts`    | Gecko DOM augmentations (XUL element tag maps)     |
+| `xul.d.ts`      | XUL element type definitions                       |
+| `tsconfig.json` | TypeScript config ready to extend                  |
+
 ### Use in Code
 
 ```ts

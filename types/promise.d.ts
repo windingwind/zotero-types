@@ -1,11 +1,3 @@
-declare namespace Zotero {
-  /**
-   * @deprecated Use standard Promise instead.
-   */
-  const Promise: _ZoteroTypes.Promise.Promise &
-    _ZoteroTypes.Promise.PromiseConstructor<() => void>;
-}
-
 declare namespace _ZoteroTypes {
   /**
    * @deprecated Use standard Promise instead.
