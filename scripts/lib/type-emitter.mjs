@@ -148,7 +148,7 @@ export function createTypeEmitter(zoteroTypesRoot, options = {}) {
   function qualifyZtReferences(text) {
     for (const name of allZtNames) {
       if (ztQualifyExclude.has(name)) continue;
-      const re = new RegExp(`(?<!_ZoteroTypes\\.)\\b(${name})\\.`, "g");
+      const re = new RegExp(`(?<!\\.)\\b(${name})\\.`, "g");
       text = text.replace(re, `_ZoteroTypes.${name}.`);
     }
     return text;

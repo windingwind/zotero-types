@@ -284,6 +284,7 @@ if (!fs.existsSync(tsconfigPath)) {
       skipLibCheck: true,
       lib: ["ESNext", "DOM", "DOM.Iterable"],
     },
+    files: ["index.d.ts"],
   };
   fs.writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 2) + "\n");
 }
