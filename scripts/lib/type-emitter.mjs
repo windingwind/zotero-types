@@ -54,11 +54,15 @@ export function createTypeEmitter(zoteroTypesRoot, options = {}) {
         for (const sf of program.getSourceFiles()) {
           if (sf.isDeclarationFile && sf.fileName.includes("zotero-types")) {
             sf.forEachChild((node) => {
-              if (
-                ts.isModuleDeclaration(node) &&
-                node.name.text === part &&
-                !currentSymbol
-              ) {
+              if (currentSymbol) return;
+              const isMatch =
+                (ts.isModuleDeclaration(node) ||
+                  ts.isClassDeclaration(node) ||
+                  ts.isInterfaceDeclaration(node) ||
+                  ts.isEnumDeclaration(node) ||
+                  ts.isTypeAliasDeclaration(node)) &&
+                node.name?.text === part;
+              if (isMatch) {
                 currentSymbol = checker.getSymbolAtLocation(node.name);
               }
             });
@@ -529,18 +533,48 @@ export function createTypeEmitter(zoteroTypesRoot, options = {}) {
 
     for (const [permName, permSchema] of Object.entries(PERMISSION_SCHEMAS)) {
       if (!permSet.has(permName)) continue;
+
       const zoteroSchema = permSchema.Zotero;
-      if (!zoteroSchema || Object.keys(zoteroSchema).length === 0) continue;
+      const hasZotero = zoteroSchema && Object.keys(zoteroSchema).length > 0;
+
+      // Collect top-level (non-Zotero) entries — e.g., FilePicker
+      const topLevelEntries = Object.entries(permSchema).filter(
+        ([key]) => key !== "Zotero",
+      );
+
+      if (!hasZotero && topLevelEntries.length === 0) continue;
 
       output.push(`// --- Permission: ${permName} ---`);
       output.push(``);
 
-      const body = emitSchemaAsNamespace(["Zotero"], zoteroSchema);
-      if (body.trim()) {
-        output.push(`declare namespace Zotero {`);
-        output.push(body);
-        output.push(`}`);
-        output.push(``);
+      if (hasZotero) {
+        const body = emitSchemaAsNamespace(["Zotero"], zoteroSchema);
+        if (body.trim()) {
+          output.push(`declare namespace Zotero {`);
+          output.push(body);
+          output.push(`}`);
+          output.push(``);
+        }
+      }
+
+      // Emit top-level globals (e.g., FilePicker: "Constructor")
+      for (const [key, value] of topLevelEntries) {
+        if (value === "Constructor") {
+          const sym = resolveSymbolPath([key]);
+          if (sym) {
+            const text = getSymbolDeclarationText(sym, false);
+            if (text) {
+              output.push(text);
+              output.push(``);
+            } else {
+              console.warn(
+                `Warning: ${key}: Constructor (could not print declaration)`,
+              );
+            }
+          } else {
+            console.warn(`Warning: ${key}: Constructor (not found in types)`);
+          }
+        }
       }
     }
 

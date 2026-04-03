@@ -86,14 +86,20 @@ export async function loadSchemaFromGitHub() {
  * Only fills in keys that are missing or empty in the base schema.
  */
 function applySchemaSupplements(schemas) {
-  for (const [perm, supplement] of Object.entries(PERMISSION_SCHEMA_SUPPLEMENT)) {
+  for (const [perm, supplement] of Object.entries(
+    PERMISSION_SCHEMA_SUPPLEMENT,
+  )) {
     if (!schemas.PERMISSION_SCHEMAS[perm]) {
       schemas.PERMISSION_SCHEMAS[perm] = supplement;
       continue;
     }
     for (const [key, value] of Object.entries(supplement)) {
       const target = schemas.PERMISSION_SCHEMAS[perm];
-      if (!target[key] || (typeof target[key] === "object" && Object.keys(target[key]).length === 0)) {
+      if (
+        !target[key] ||
+        (typeof target[key] === "object" &&
+          Object.keys(target[key]).length === 0)
+      ) {
         target[key] = value;
       } else if (typeof target[key] === "object" && typeof value === "object") {
         Object.assign(target[key], value);
