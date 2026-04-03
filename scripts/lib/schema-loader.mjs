@@ -43,6 +43,29 @@ const PERMISSION_SCHEMA_SUPPLEMENT = {
 };
 
 /**
+ * Schema for extracting external (gecko / platform) types that are
+ * referenced in the generated output but not part of the Zotero namespace.
+ *
+ * The emitter scans the generated output for identifiers matching these
+ * patterns, resolves them from the full type program, and emits minimal
+ * stub declarations so the output is self-contained.
+ *
+ * - interfacePatterns: regex patterns to match top-level interface names.
+ *     Matched interfaces are emitted with only the members that appear
+ *     in the output text. Heritage clauses referencing other matched
+ *     interfaces are followed transitively.
+ *
+ * - namespacePatterns: regex patterns that match `<root>.<member>` references.
+ *     Must have two capture groups: (1) the root namespace name,
+ *     (2) the dotted member path (e.g. "File.Entry").
+ *     Type aliases at the resolved path are emitted.
+ */
+export const EXTERNAL_TYPE_SCHEMAS = {
+  interfacePatterns: ["nsI\\w+"],
+  namespacePatterns: ["(OS)\\.(\\w+(?:\\.\\w+)*)"],
+};
+
+/**
  * Parse schema source code and return the schema objects.
  * @param {string} src - The raw source of schema.mjs
  */

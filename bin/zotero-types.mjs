@@ -18,7 +18,10 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { loadSchema } from "../scripts/lib/schema-loader.mjs";
+import {
+  loadSchema,
+  EXTERNAL_TYPE_SCHEMAS,
+} from "../scripts/lib/schema-loader.mjs";
 import { createTypeEmitter } from "../scripts/lib/type-emitter.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -155,6 +158,7 @@ if (command === "generate-bundled") {
     PERMISSION_SCHEMAS,
     WINDOW_SCHEMAS,
     MAIN_WINDOW_SCHEMAS,
+    EXTERNAL_TYPE_SCHEMAS,
   );
 
   fs.mkdirSync(UNPRIVILEGED_DIR, { recursive: true });
@@ -225,6 +229,7 @@ const output = emitter.generatePluginTypes(
   WINDOW_SCHEMAS,
   MAIN_WINDOW_SCHEMAS,
   permissions,
+  EXTERNAL_TYPE_SCHEMAS,
 );
 
 // ---------------------------------------------------------------------------

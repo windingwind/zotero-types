@@ -87,7 +87,7 @@ declare namespace _ZoteroTypes {
       maxBytes: number,
     ) => string;
     moveToUnique(file: string, newFile: string): Promise<string>;
-    copyToUnique(file: string, newFile: string): Promise<OS.File.Entry>;
+    copyToUnique(file: string, newFile: string): nsIFile;
     copyDirectory: (
       source: string | nsIFile,
       target: string | nsIFile,

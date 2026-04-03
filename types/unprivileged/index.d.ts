@@ -852,7 +852,7 @@ declare namespace Zotero {
      * Link mode of an attachment
      *
      * Possible values specified as constants in Zotero.Attachments
-     * (e.g. Zotero._ZoteroTypes.Attachments.LINK_MODE_LINKED_FILE)
+     * (e.g. Zotero.Attachments.LINK_MODE_LINKED_FILE)
      */
     attachmentLinkMode: _ZoteroTypes.Attachments.LinkMode;
     /**
@@ -1118,7 +1118,7 @@ declare namespace Zotero {
     /**
      * Update item deleted (i.e., trash) state without marking as changed or modifying DB
      *
-     * This is used by Zotero._ZoteroTypes.Items.trash().
+     * This is used by Zotero.Items.trash().
      *
      * Database state must be set separately!
      *
@@ -1128,7 +1128,7 @@ declare namespace Zotero {
     /**
      * Update item publications state without marking as changed or modifying DB
      *
-     * This is used by Zotero._ZoteroTypes.Items.addToPublications()/removeFromPublications()
+     * This is used by Zotero.Items.addToPublications()/removeFromPublications()
      *
      * Database state must be set separately!
      *
@@ -1586,7 +1586,7 @@ declare namespace Zotero {
     function removeIfExists(path: string): Promise<void>;
     function iterateDirectory(
       path: string,
-      onEntry: (entry: OS._ZoteroTypes.File.Entry) => void,
+      onEntry: (entry: OS.File.Entry) => void,
     ): Promise<void>;
     const moveDirectory: (
       oldDir: string,
@@ -1595,10 +1595,7 @@ declare namespace Zotero {
     ) => Promise<void | Error[]>;
     function setNormalFilePermissions(file: string): void | Promise<void>;
     function moveToUnique(file: string, newFile: string): Promise<string>;
-    function copyToUnique(
-      file: string,
-      newFile: string,
-    ): Promise<OS._ZoteroTypes.File.Entry>;
+    function copyToUnique(file: string, newFile: string): nsIFile;
     const copyDirectory: (
       source: string | nsIFile,
       target: string | nsIFile,
@@ -1613,6 +1610,96 @@ declare namespace Zotero {
       observer: any,
     ) => Promise<void | false>;
   }
+}
+
+/**
+ * Interface to the system filepicker.
+ *
+ * Based on Mozilla's nsIFilePicker, with minor modifications (e.g., string
+ * paths instead of nsIFile, promise-returning show()).
+ *
+ * Available as a global in unprivileged plugin sandboxes with the
+ * "fileSystem" permission.
+ */
+declare class FilePicker {
+  /** Load a file */
+  readonly modeOpen: 0;
+  /** Save a file */
+  readonly modeSave: 1;
+  /** Select a folder/directory */
+  readonly modeGetFolder: 2;
+  /** Load multiple files */
+  readonly modeOpenMultiple: 3;
+  /** The file picker dialog was closed by the user hitting 'OK' */
+  readonly returnOK: 0;
+  /** The file picker dialog was closed by the user hitting 'Cancel' */
+  readonly returnCancel: 1;
+  /** The user chose an existing file and acknowledged that they want to overwrite the file */
+  readonly returnReplace: 2;
+  /** All files */
+  readonly filterAll: 0x001;
+  /** HTML files */
+  readonly filterHTML: 0x002;
+  /** Text files */
+  readonly filterText: 0x004;
+  /** Image files */
+  readonly filterImages: 0x008;
+  /** XML files */
+  readonly filterXML: 0x010;
+  /** Platform-specific application filter */
+  readonly filterApps: 0x040;
+  /** Allow URLs */
+  readonly filterAllowURLs: 0x080;
+  /** Audio files */
+  readonly filterAudio: 0x100;
+  /** Video files */
+  readonly filterVideo: 0x200;
+  /**
+   * @param parentWindow - The parent window
+   * @param title - Dialog title
+   * @param mode - One of the mode constants
+   */
+  init(parentWindow: Window, title: string, mode: number): void;
+  /**
+   * Appends a custom file extension filter to the dialog.
+   *
+   * @param title - The title of the filter
+   * @param filter - The filter string. Multiple extensions may be included,
+   *   separated by a semicolon and a space.
+   */
+  appendFilter(title: string, filter: string): void;
+  /**
+   * Appends a list of file extension filters, from the predefined list, to the dialog.
+   *
+   * @param filterMask - A combination of the filter constants. You may OR
+   *   multiple filters together; for example `filterAll | filterHTML`.
+   */
+  appendFilters(filterMask: number): void;
+  /**
+   * Show the dialog.
+   *
+   * @returns One of the return constants (returnOK, returnCancel, returnReplace)
+   */
+  show(): Promise<number>;
+  /**
+   * If true, the file is added to the operating system's "recent documents"
+   * list.
+   */
+  addToRecentDocs: boolean;
+  /** The extension for the type of files you want to work with (without leading dot). */
+  defaultExtension: string;
+  /** The filename, including extension, suggested to the user as a default. */
+  defaultString: string;
+  /** The directory that the file open/save dialog initially displays. */
+  displayDirectory: string;
+  /** The (0-based) index of the currently selected filter. */
+  filterIndex: number;
+  /** The selected file path (read-only). */
+  readonly file: string;
+  /** Array of selected file paths; only works with modeOpenMultiple (read-only). */
+  readonly files: string[];
+  /** The URI of the selected file or directory (read-only). */
+  readonly fileURL: string;
 }
 
 // --- Permission: network ---
@@ -1709,21 +1796,6 @@ declare namespace Zotero {
 declare namespace Zotero {
   namespace Prefs {
     /**
-     * @param {String} name - Preference name; if not global, this is on the extensions.zotero branch
-     * @param {Function} handler
-     * @param {Boolean} [global]
-     * @return {Symbol} - Symbol to pass to unregisterObserver()
-     */
-    function registerObserver(
-      name: string,
-      handler: Function,
-      global?: boolean,
-    ): symbol;
-    /**
-     * @param {Symbol} symbol - Symbol returned from registerObserver()
-     */
-    function unregisterObserver(symbol: symbol): void;
-    /**
      * Retrieve a preference
      */
     function get(
@@ -1740,6 +1812,21 @@ declare namespace Zotero {
     ): any;
     function clear(pref: string, global?: boolean): void;
     function resetBranch(exclude?: string[], branch?: string): void;
+    /**
+     * @param {String} name - Preference name; if not global, this is on the extensions.zotero branch
+     * @param {Function} handler
+     * @param {Boolean} [global]
+     * @return {Symbol} - Symbol to pass to unregisterObserver()
+     */
+    function registerObserver(
+      name: string,
+      handler: Function,
+      global?: boolean,
+    ): symbol;
+    /**
+     * @param {Symbol} symbol - Symbol returned from registerObserver()
+     */
+    function unregisterObserver(symbol: symbol): void;
   }
 }
 
@@ -1790,7 +1877,7 @@ declare namespace Zotero {
      * - renderSidebarAnnotationHeader
      * - renderToolbar
      *
-     * Zotero._ZoteroTypes.Reader.registerEventListener('renderTextSelectionPopup', (event) => {
+     * Zotero.Reader.registerEventListener('renderTextSelectionPopup', (event) => {
      * 	let { reader, doc, params, append } = event;
      * 	let container = doc.createElement('div');
      * 	container.append('Loading…');
@@ -1806,7 +1893,7 @@ declare namespace Zotero {
      * - createThumbnailContextMenu
      * - createSelectorContextMenu
      *
-     * Zotero._ZoteroTypes.Reader.registerEventListener('createAnnotationContextMenu', (event) => {
+     * Zotero.Reader.registerEventListener('createAnnotationContextMenu', (event) => {
      * 	let { reader, params, append } = event;
      * 	append({
      * 		label: 'Test',
@@ -5050,6 +5137,22 @@ declare namespace _ZoteroTypes {
     linkModeToName(linkMode: number): string;
     linkModeFromName(linkModeName: string): Attachments.LinkMode;
   }
+  namespace Collection {
+    type DataType =
+      | "primaryData"
+      | "childCollections"
+      | "childItems"
+      | "relations";
+    type DescendentType = "item" | "collection";
+    interface Descendent {
+      id: number;
+      key: string;
+      level: number;
+      name: string;
+      parent: number;
+      type: Collection.DescendentType;
+    }
+  }
   /*
    * Primary interface for accessing Zotero items
    */
@@ -5259,22 +5362,6 @@ declare namespace _ZoteroTypes {
       pathPrefix: string,
     ): Promise<Zotero.Item[]>;
   }
-  namespace Collection {
-    type DataType =
-      | "primaryData"
-      | "childCollections"
-      | "childItems"
-      | "relations";
-    type DescendentType = "item" | "collection";
-    interface Descendent {
-      id: number;
-      key: string;
-      level: number;
-      name: string;
-      parent: number;
-      type: Collection.DescendentType;
-    }
-  }
   type ObjectRelations = Record<
     _ZoteroTypes.RelationsPredicate,
     _ZoteroTypes.ZoteroObjectURI[]
@@ -5420,127 +5507,6 @@ declare namespace _ZoteroTypes {
       | "annotationComment"
       | "fulltextWord"
       | "tempTable";
-  }
-  interface File {
-    REPLACEMENT_CHARACTER: string;
-    pathToFile(pathOrFile: string | nsIFile): nsIFile;
-    pathToFileURI(path: string): string;
-    encodeFilePath(path: string): string;
-    getExtension(file: string | nsIFile): string;
-    isLikeExtension(extension: string): boolean;
-    getClosestDirectory(file: string): string | false;
-    getSample: (
-      file: nsIFile | string,
-    ) =>
-      | string
-      | Promise<string>
-      | Uint8Array
-      | Promise<Uint8Array>
-      | Promise<BufferSource>;
-    /** @deprecated Use {@link getBinaryContentsAsync} instead. */
-    getBinaryContents(file: nsIFile): string;
-    getBinaryContentsAsync: (
-      source: string | nsIFile,
-      maxLength?: number,
-    ) => Promise<string>;
-    getContentsAsync: (
-      source: string | nsIFile | nsIInputStream,
-      charset?: string,
-      maxLength?: number,
-    ) =>
-      | string
-      | Promise<string>
-      | Uint8Array
-      | Promise<Uint8Array>
-      | Promise<BufferSource>
-      | Promise<void>;
-    /** @deprecated Use {@link getContentsFromURLAsync} instead. */
-    getContentsFromURL(url: string): string;
-    getContentsFromURLAsync(url: string, options?: any): Promise<string>;
-    /** @deprecated Use {@link getResourceAsync} instead. */
-    getResource(url: string): string;
-    getResourceAsync(url: string): Promise<string>;
-    /** @deprecated Use {@link getContentsAsync} instead. */
-    getContents(
-      file: string | nsIFile | nsIInputStream,
-      charset?: string,
-      maxLength?: number,
-    ): string;
-    /** @deprecated Use {@link putContentsAsync} instead. */
-    putContents(file: nsIFile, str: string): void;
-    putContentsAsync: (
-      path: string | nsIFile,
-      data: string | nsIInputStream | ArrayBuffer,
-      charset?: string,
-    ) => Promise<void>;
-    putNetworkStream(
-      path: string,
-      stream: nsIInputStream,
-      byteCount: number,
-    ): Promise<number>;
-    download(uri: string, path: string): Promise<void>;
-    rename: (
-      file: string,
-      newName: string,
-      options?: {
-        overwrite?: boolean;
-        unique: boolean;
-      },
-    ) => Promise<string | false>;
-    removeIfExists(path: string): Promise<void>;
-    directoryIsEmpty(path: string): Promise<boolean>;
-    iterateDirectory(
-      path: string,
-      onEntry: (entry: OS.File.Entry) => void,
-    ): Promise<void>;
-    canMoveDirectoryWithCommand(): boolean;
-    canMoveDirectoryWithFunction(): boolean;
-    moveDirectory: (
-      oldDir: string,
-      newDir: string,
-      options?: object,
-    ) => Promise<void | Error[]>;
-    generateDataURI(file: string, contentType: string): string;
-    setNormalFilePermissions(file: string): void | Promise<void>;
-    createShortened: (
-      file: string,
-      type: any,
-      mode: any,
-      maxBytes: number,
-    ) => string;
-    moveToUnique(file: string, newFile: string): Promise<string>;
-    copyToUnique(file: string, newFile: string): Promise<OS.File.Entry>;
-    copyDirectory: (
-      source: string | nsIFile,
-      target: string | nsIFile,
-    ) => Promise<void>;
-    /** @deprecated Use {@link createDirectoryIfMissingAsync} instead. */
-    createDirectoryIfMissing(dir: string): void;
-    createDirectoryIfMissingAsync(path: string, options?: any): Promise<void>;
-    normalizeToUnix(path: string): string;
-    directoryContains(dir: string, file: string): boolean;
-    zipDirectory: (
-      dirPath: string,
-      zipPath: string,
-      observer: any,
-    ) => Promise<void | false>;
-    getValidFileName(fileName: string, skipXML?: boolean): string;
-    truncateFileName(fileName: string, maxLength: number): string;
-    getCharsetFromFile: (
-      file: typeof OS.File,
-      mimeType: string,
-      callback: Function,
-      args: any,
-    ) => void;
-    checkFileAccessError: (
-      e: Error | any,
-      file: string | nsIFile,
-      operation: "create" | "delete" | any,
-    ) => void;
-    getEvictedICloudPath(path: string): string;
-    isCloudStorageFolder(path: string): boolean;
-    createSymlink(sourcePath: string, targetPath: string): boolean;
-    reveal(file: string): Promise<void>;
   }
   namespace ItemTreeManager {
     /**
@@ -6537,6 +6503,100 @@ declare namespace Zotero {
      */
     _generateKey(): string;
     _disabledCheck(): void;
+  }
+}
+
+// External type stubs (auto-extracted)
+
+interface nsISupports {}
+
+interface nsICryptoHash extends nsISupports {
+  // Accepts a TypedArray.
+  update(aData: ArrayLike<number>, aLen: number): void;
+}
+
+interface nsIFile extends nsISupports {
+  append(node: string): void;
+  normalize(): void;
+  create(type: u32, permissions: u32, skipAncestors?: boolean): void;
+  copyTo(newParentDir: nsIFile, newName: string): void;
+  moveTo(newParentDir: nsIFile, newName: string): void;
+  remove(recursive: boolean, removeCount?: InOutParam<u32>): void;
+  readonly target: string;
+  readonly path: string;
+  exists(): boolean;
+  isFile(): boolean;
+  clone(): nsIFile;
+  equals(inFile: nsIFile): boolean;
+  contains(inFile: nsIFile): boolean;
+  readonly parent: nsIFile;
+  reveal(): void;
+  launch(): void;
+}
+
+interface nsIInputStream extends nsISupports {
+  close(): void;
+  available(): u64;
+}
+
+interface nsIURI extends nsISupports {
+  readonly spec: string;
+  readonly port: i32;
+  equals(other: nsIURI): boolean;
+  resolve(relativePath: string): string;
+  readonly ref: string;
+  readonly query: string;
+}
+
+interface nsIXPCComponents extends nsISupports {
+  readonly results: nsIXPCComponents_Results;
+  readonly stack: nsIStackFrame;
+  readonly manager: nsIComponentManager;
+  readonly utils: nsIXPCComponents_Utils;
+  readonly ID: nsIXPCComponents_ID;
+  readonly Exception: nsIXPCComponents_Exception;
+  readonly Constructor: nsIXPCComponents_Constructor;
+}
+
+interface nsIXPCComponents_Classes extends nsISupports {}
+
+interface nsIXPCComponents_Interfaces {
+  nsIURI: nsJSIID<nsIURI>;
+  nsICryptoHash: nsJSIID<nsICryptoHash>;
+  nsIFilePicker: nsJSIID<
+    nsIFilePicker,
+    typeof nsIFilePicker_Mode &
+      typeof nsIFilePicker_ResultCode &
+      typeof nsIFilePicker_CaptureTarget
+  >;
+  nsIFile: nsJSIID<nsIFile>;
+  nsIInputStream: nsJSIID<nsIInputStream>;
+  nsIXPCComponents_Classes: nsJSIID<nsIXPCComponents_Classes>;
+  nsIXPCComponents_Results: nsJSIID<nsIXPCComponents_Results>;
+  nsIXPCComponents_Utils: nsJSIID<nsIXPCComponents_Utils>;
+  nsIXPCComponents: nsJSIID<nsIXPCComponents>;
+}
+
+interface nsIXPCComponents_Results {}
+
+interface nsIXPCComponents_Utils {
+  /**
+   * @deprecated Use `ChromeUtils.importESModule` instead. See https://firefox-source-docs.mozilla.org/jsloader/jsloader-api.html#synchronous-module-import
+   * @param aResourceURI
+   * @param targetObj
+   */
+  import(aResourceURI: string, targetObj?: any): any;
+}
+
+declare namespace OS {
+  namespace File {
+    type Entry = {
+      isDir: boolean;
+      size: number;
+      path: string;
+      unixMode?: number;
+      name: string;
+    };
   }
 }
 

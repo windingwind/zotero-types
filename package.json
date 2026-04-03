@@ -23,6 +23,7 @@
   "scripts": {
     "release": "bumpp",
     "prepare": "husky",
+    "generate-bundled": "node bin/zotero-types.mjs generate-bundled",
     "lint": "prettier --write . && eslint . --fix",
     "update-deps": "npm update --save"
   },

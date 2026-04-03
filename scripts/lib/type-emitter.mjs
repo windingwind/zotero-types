@@ -51,21 +51,32 @@ export function createTypeEmitter(zoteroTypesRoot, options = {}) {
       const part = pathParts[i];
 
       if (i === 0) {
+        const matchNode = (node) => {
+          if (currentSymbol) return;
+          const isMatch =
+            (ts.isModuleDeclaration(node) ||
+              ts.isClassDeclaration(node) ||
+              ts.isInterfaceDeclaration(node) ||
+              ts.isEnumDeclaration(node) ||
+              ts.isTypeAliasDeclaration(node)) &&
+            node.name?.text === part;
+          if (isMatch) {
+            currentSymbol = checker.getSymbolAtLocation(node.name);
+          }
+          // Also search inside `declare global { ... }` blocks
+          if (
+            !currentSymbol &&
+            ts.isModuleDeclaration(node) &&
+            node.name.kind === ts.SyntaxKind.Identifier &&
+            node.name.text === "global" &&
+            node.body
+          ) {
+            ts.forEachChild(node.body, matchNode);
+          }
+        };
         for (const sf of program.getSourceFiles()) {
           if (sf.isDeclarationFile && sf.fileName.includes("zotero-types")) {
-            sf.forEachChild((node) => {
-              if (currentSymbol) return;
-              const isMatch =
-                (ts.isModuleDeclaration(node) ||
-                  ts.isClassDeclaration(node) ||
-                  ts.isInterfaceDeclaration(node) ||
-                  ts.isEnumDeclaration(node) ||
-                  ts.isTypeAliasDeclaration(node)) &&
-                node.name?.text === part;
-              if (isMatch) {
-                currentSymbol = checker.getSymbolAtLocation(node.name);
-              }
-            });
+            sf.forEachChild(matchNode);
           }
         }
         if (!currentSymbol) return undefined;
@@ -326,7 +337,7 @@ export function createTypeEmitter(zoteroTypesRoot, options = {}) {
   // Transitive type dependencies
   // ---------------------------------------------------------------------------
 
-  function emitReferencedTypes(output) {
+  function emitReferencedTypes(output, externalTypeSchemas = {}) {
     const outputText = output.join("\n");
     const emitted = new Set();
 
@@ -440,6 +451,168 @@ export function createTypeEmitter(zoteroTypesRoot, options = {}) {
       output.push(`}`);
       output.push(``);
     }
+
+    // Gecko / platform types (nsI*, OS.File.*, etc.) referenced in the output
+    emitExternalTypes(output, emitted, externalTypeSchemas);
+  }
+
+  /**
+   * Scan output for references to external types (defined by
+   * EXTERNAL_TYPE_SCHEMAS), resolve them from the full type program,
+   * and emit minimal stub declarations.
+   *
+   * @param {string[]} output
+   * @param {Set<string>} emitted
+   * @param {object} externalTypeSchemas - { interfacePatterns, namespacePatterns }
+   */
+  function emitExternalTypes(output, emitted, externalTypeSchemas) {
+    const outputText = output.join("\n");
+    const { interfacePatterns = [], namespacePatterns = [] } =
+      externalTypeSchemas;
+
+    // --- Interface extraction ---
+
+    // Compile patterns and scan output for matching interface names
+    const interfaceRegexes = interfacePatterns.map(
+      (p) => new RegExp(`\\b(${p})\\b`, "g"),
+    );
+    const interfaceRefs = new Set();
+    for (const re of interfaceRegexes) {
+      let m;
+      while ((m = re.exec(outputText))) {
+        interfaceRefs.add(m[1]);
+      }
+    }
+
+    function emitInterface(name) {
+      if (emitted.has(`ext:${name}`)) return;
+      emitted.add(`ext:${name}`);
+
+      const sym = resolveSymbolPath([name]);
+      if (!sym?.declarations?.length) return;
+
+      const decls = filterDeclarations(sym.declarations);
+      if (!decls.length) return;
+
+      const decl = decls[0];
+      if (!ts.isInterfaceDeclaration(decl)) return;
+
+      const members = [];
+      const heritageClauses = [];
+
+      // Follow heritage clauses if the parent also matches a pattern
+      if (decl.heritageClauses) {
+        for (const clause of decl.heritageClauses) {
+          for (const type of clause.types) {
+            const typeName = type.expression.getText();
+            if (
+              interfaceRegexes.some(
+                (re) => ((re.lastIndex = 0), re.test(typeName)),
+              )
+            ) {
+              heritageClauses.push(typeName);
+              emitInterface(typeName);
+            }
+          }
+        }
+      }
+
+      // Include only members whose names appear in the output
+      for (const member of decl.members) {
+        if (member.name) {
+          const memberName = member.name.getText();
+          if (outputText.includes(memberName)) {
+            members.push(printNode(member));
+          }
+        }
+      }
+
+      const ext =
+        heritageClauses.length > 0
+          ? ` extends ${heritageClauses.join(", ")}`
+          : "";
+      output.push(`interface ${name}${ext} {`);
+      for (const m of members) {
+        output.push(indent(m));
+      }
+      output.push(`}`);
+      output.push(``);
+    }
+
+    if (interfaceRefs.size > 0) {
+      output.push(`// External type stubs (auto-extracted)`);
+      output.push(``);
+      for (const name of interfaceRefs) {
+        emitInterface(name);
+      }
+    }
+
+    // --- Namespace extraction ---
+
+    // Each namespacePattern must have two capture groups:
+    //   (1) the root namespace name  (e.g. "OS")
+    //   (2) the dotted member path   (e.g. "File.Entry")
+
+    for (const pattern of namespacePatterns) {
+      const fullRegex = new RegExp(`\\b${pattern}\\b`, "g");
+      const refs = new Map(); // rootNamespace → Set<memberPath>
+
+      let m;
+      while ((m = fullRegex.exec(outputText))) {
+        const root = m[1];
+        const memberPath = m[2];
+        if (!refs.has(root)) refs.set(root, new Set());
+        refs.get(root).add(memberPath);
+      }
+
+      for (const [root, memberPaths] of refs) {
+        const rootSym = resolveSymbolPath([root]);
+        if (!rootSym) continue;
+
+        // Group by sub-namespace (first segment of memberPath)
+        const subNsMap = new Map(); // subNs → Set<full memberPath>
+        for (const mp of memberPaths) {
+          const subNs = mp.split(".")[0];
+          if (!subNsMap.has(subNs)) subNsMap.set(subNs, new Set());
+          subNsMap.get(subNs).add(mp);
+        }
+
+        const nsLines = [];
+        for (const [subNs, paths] of subNsMap) {
+          const nsSym = resolveSymbolPath([root, subNs]);
+          if (!nsSym?.declarations?.length) continue;
+
+          const nsDecls = filterDeclarations(nsSym.declarations);
+          for (const decl of nsDecls) {
+            if (!ts.isModuleDeclaration(decl) || !decl.body) continue;
+
+            const typeMembers = [];
+            ts.forEachChild(decl.body, (child) => {
+              if (ts.isTypeAliasDeclaration(child) && child.name) {
+                const typeName = `${subNs}.${child.name.text}`;
+                if (paths.has(typeName)) {
+                  typeMembers.push(printNode(child));
+                }
+              }
+            });
+            if (typeMembers.length > 0) {
+              nsLines.push(`  namespace ${subNs} {`);
+              for (const tm of typeMembers) {
+                nsLines.push(indent(tm, 2));
+              }
+              nsLines.push(`  }`);
+            }
+          }
+        }
+
+        if (nsLines.length > 0) {
+          output.push(`declare namespace ${root} {`);
+          output.push(...nsLines);
+          output.push(`}`);
+          output.push(``);
+        }
+      }
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -513,9 +686,14 @@ export function createTypeEmitter(zoteroTypesRoot, options = {}) {
    * @param {object} PERMISSION_SCHEMAS - The full PERMISSION_SCHEMAS from schema.mjs
    * @param {string[]} permissions - Permission names to include (e.g., ["data", "fileSystem"]).
    *   The "default" permission is always included.
+   * @param {object} [externalTypeSchemas] - { interfacePatterns, namespacePatterns }
    * @returns {string[]} Output lines (to be joined with "\n")
    */
-  function generatePermissionTypes(PERMISSION_SCHEMAS, permissions) {
+  function generatePermissionTypes(
+    PERMISSION_SCHEMAS,
+    permissions,
+    externalTypeSchemas = {},
+  ) {
     const permSet = new Set(["default", ...permissions]);
     const output = [];
 
@@ -578,7 +756,7 @@ export function createTypeEmitter(zoteroTypesRoot, options = {}) {
       }
     }
 
-    emitReferencedTypes(output);
+    emitReferencedTypes(output, externalTypeSchemas);
 
     return output;
   }
@@ -590,9 +768,14 @@ export function createTypeEmitter(zoteroTypesRoot, options = {}) {
     PERMISSION_SCHEMAS,
     WINDOW_SCHEMAS,
     MAIN_WINDOW_SCHEMAS,
+    externalTypeSchemas = {},
   ) {
     const allPerms = Object.keys(PERMISSION_SCHEMAS);
-    const output = generatePermissionTypes(PERMISSION_SCHEMAS, allPerms);
+    const output = generatePermissionTypes(
+      PERMISSION_SCHEMAS,
+      allPerms,
+      externalTypeSchemas,
+    );
 
     output.push(
       `// =============================================================================`,
@@ -615,8 +798,13 @@ export function createTypeEmitter(zoteroTypesRoot, options = {}) {
     WINDOW_SCHEMAS,
     MAIN_WINDOW_SCHEMAS,
     permissions,
+    externalTypeSchemas = {},
   ) {
-    const output = generatePermissionTypes(PERMISSION_SCHEMAS, permissions);
+    const output = generatePermissionTypes(
+      PERMISSION_SCHEMAS,
+      permissions,
+      externalTypeSchemas,
+    );
 
     output.push(
       `// =============================================================================`,
