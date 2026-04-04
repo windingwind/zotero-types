@@ -881,7 +881,7 @@ declare namespace Zotero {
     annotationPosition: string;
     annotationColor: string;
     annotationPageLabel: string;
-    annotationSortIndex: number;
+    annotationSortIndex: string;
     annotationIsExternal: boolean;
 
     isAnnotationSupportingImage(): boolean;
