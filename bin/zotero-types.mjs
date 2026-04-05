@@ -302,7 +302,7 @@ if (!fs.existsSync(tsconfigPath)) {
   const tsconfig = {
     compilerOptions: {
       composite: true,
-      target: "ES2022",
+      target: "es2025",
       module: "ESNext",
       moduleResolution: "bundler",
       resolveJsonModule: true,
