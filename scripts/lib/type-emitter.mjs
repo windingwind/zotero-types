@@ -819,10 +819,121 @@ export function createTypeEmitter(zoteroTypesRoot, options = {}) {
     return output;
   }
 
+  // ---------------------------------------------------------------------------
+  // Gecko global extraction (for sandbox)
+  // ---------------------------------------------------------------------------
+
+  /**
+   * Extract gecko globals and their transitive type dependencies from the
+   * full type program, producing a standalone .d.ts string.
+   *
+   * @param {object | string[]} geckoGlobalsConfig - Either an array of global names,
+   *   or an object with an `extract` array (e.g. { extract: ["Localization"] })
+   * @returns {string | null} Generated .d.ts content, or null if nothing to extract
+   */
+  function generateGeckoGlobalTypes(geckoGlobalsConfig) {
+    const globalNames = Array.isArray(geckoGlobalsConfig)
+      ? geckoGlobalsConfig
+      : geckoGlobalsConfig.extract || [];
+    if (globalNames.length === 0) return null;
+
+    // Index top-level declarations from gecko source files
+    const geckoSourceFiles = program
+      .getSourceFiles()
+      .filter((sf) => sf.isDeclarationFile && sf.fileName.includes("/gecko/"));
+
+    /** @type {Map<string, (ts.InterfaceDeclaration | ts.TypeAliasDeclaration)[]>} */
+    const typeDecls = new Map();
+
+    for (const sf of geckoSourceFiles) {
+      sf.forEachChild((node) => {
+        if (
+          ts.isInterfaceDeclaration(node) ||
+          ts.isTypeAliasDeclaration(node)
+        ) {
+          const name = node.name?.text;
+          if (name) {
+            if (!typeDecls.has(name)) typeDecls.set(name, []);
+            typeDecls.get(name).push(node);
+          }
+        }
+      });
+    }
+
+    const emitted = new Set();
+    const depLines = [];
+    const globalLines = [];
+
+    /** Scan text for PascalCase identifiers that are gecko-defined types. */
+    function scanRefs(text) {
+      const refs = new Set();
+      const regex = /\b([A-Z]\w+)\b/g;
+      let m;
+      while ((m = regex.exec(text))) {
+        const name = m[1];
+        if (!emitted.has(name) && typeDecls.has(name)) {
+          refs.add(name);
+        }
+      }
+      return refs;
+    }
+
+    /** Emit a gecko type (interface / type alias) as a dependency. */
+    function emitTypeDep(name) {
+      if (emitted.has(name)) return;
+      emitted.add(name);
+
+      const decls = typeDecls.get(name);
+      if (!decls) return;
+
+      for (const decl of decls) {
+        const text = printNode(decl);
+        // Resolve transitive deps before emitting this type
+        for (const ref of scanRefs(text)) {
+          emitTypeDep(ref);
+        }
+        depLines.push(text);
+        depLines.push(``);
+      }
+    }
+
+    // Process each global
+    for (const name of globalNames) {
+      emitted.add(name);
+
+      // Interface declarations (may include iterable augmentations)
+      const ifaces = (typeDecls.get(name) || []).filter(
+        ts.isInterfaceDeclaration,
+      );
+      for (const decl of ifaces) {
+        const text = printNode(decl);
+        for (const ref of scanRefs(text)) {
+          emitTypeDep(ref);
+        }
+        globalLines.push(text);
+        globalLines.push(``);
+      }
+    }
+
+    const output = [];
+    output.push(
+      `// Auto-generated gecko globals — extracted from types/gecko/`,
+    );
+    output.push(
+      `// Do not edit manually. Run \`npx zotero-types generate-bundled\` to regenerate.`,
+    );
+    output.push(``);
+    output.push(...depLines);
+    output.push(...globalLines);
+
+    return output.join("\n") + "\n";
+  }
+
   return {
     generatePermissionTypes,
     generateAllPermissionTypes,
     generatePluginTypes,
     generateXulTypes,
+    generateGeckoGlobalTypes,
   };
 }

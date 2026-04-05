@@ -66,6 +66,17 @@ export const EXTERNAL_TYPE_SCHEMAS = {
 };
 
 /**
+ * Gecko globals to extract for the unprivileged sandbox.
+ *
+ * These are gecko-defined interfaces that the Zotero sandbox exposes to
+ * unprivileged plugins. The type emitter extracts them (and their transitive
+ * type dependencies) from the full gecko type program.
+ */
+export const SANDBOX_GECKO_GLOBALS = {
+  extract: ["Localization"],
+};
+
+/**
  * Parse schema source code and return the schema objects.
  * @param {string} src - The raw source of schema.mjs
  */

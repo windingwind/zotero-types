@@ -21,6 +21,7 @@ import { fileURLToPath } from "url";
 import {
   loadSchema,
   EXTERNAL_TYPE_SCHEMAS,
+  SANDBOX_GECKO_GLOBALS,
 } from "../scripts/lib/schema-loader.mjs";
 import { createTypeEmitter } from "../scripts/lib/type-emitter.mjs";
 
@@ -169,6 +170,15 @@ if (command === "generate-bundled") {
   const xulOutFile = path.join(UNPRIVILEGED_DIR, "xul.d.ts");
   fs.writeFileSync(xulOutFile, emitter.generateXulTypes());
 
+  const geckoGlobalsContent = emitter.generateGeckoGlobalTypes(
+    SANDBOX_GECKO_GLOBALS,
+  );
+  if (geckoGlobalsContent) {
+    const geckoGlobalsFile = path.join(UNPRIVILEGED_DIR, "gecko-globals.d.ts");
+    fs.writeFileSync(geckoGlobalsFile, geckoGlobalsContent);
+    console.log(`Generated ${geckoGlobalsFile}`);
+  }
+
   console.log(`Generated ${outFile}`);
   console.log(`Generated ${xulOutFile}`);
   console.log(`  Permissions: ${Object.keys(PERMISSION_SCHEMAS).join(", ")}`);
@@ -255,7 +265,18 @@ for (const { src, dest } of staticFiles) {
   }
 }
 
-// 3. XUL types — generated from source
+// 3. Gecko globals — auto-extracted from gecko types
+const geckoGlobalsContent = emitter.generateGeckoGlobalTypes(
+  SANDBOX_GECKO_GLOBALS,
+);
+if (geckoGlobalsContent) {
+  fs.writeFileSync(
+    path.join(outDir, "gecko-globals.d.ts"),
+    geckoGlobalsContent,
+  );
+}
+
+// 4. XUL types — generated from source
 const xulContent = emitter.generateXulTypes();
 fs.writeFileSync(path.join(outDir, "xul.d.ts"), xulContent);
 
@@ -268,6 +289,7 @@ const indexContent = [
   ``,
   `/// <reference path="./sandbox.d.ts" />`,
   `/// <reference path="./gecko.d.ts" />`,
+  `/// <reference path="./gecko-globals.d.ts" />`,
   `/// <reference path="./xul.d.ts" />`,
   `/// <reference path="./zotero.d.ts" />`,
   ``,
@@ -306,6 +328,9 @@ console.log(`  ${rel(path.join(outDir, "index.d.ts"))}    (entry point)`);
 console.log(`  ${rel(path.join(outDir, "zotero.d.ts"))}   (Zotero namespace)`);
 console.log(`  ${rel(path.join(outDir, "sandbox.d.ts"))}  (sandbox globals)`);
 console.log(`  ${rel(path.join(outDir, "gecko.d.ts"))}    (gecko DOM)`);
+console.log(
+  `  ${rel(path.join(outDir, "gecko-globals.d.ts"))} (gecko globals)`,
+);
 console.log(`  ${rel(path.join(outDir, "xul.d.ts"))}      (XUL elements)`);
 console.log(`  ${rel(path.join(outDir, "tsconfig.json"))} (TypeScript config)`);
 console.log();

@@ -10,5 +10,6 @@
 
 /// <reference path="../../types/unprivileged/sandbox.d.ts" />
 /// <reference path="../../types/unprivileged/gecko.d.ts" />
+/// <reference path="../../types/unprivileged/gecko-globals.d.ts" />
 /// <reference path="../../types/unprivileged/xul.d.ts" />
 /// <reference path="../../types/unprivileged/index.d.ts" />
