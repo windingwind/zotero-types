@@ -1,22 +1,19 @@
-# types/unprivileged — Auto-generated
+# Auto-generated Zotero plugin types
 
 This folder contains auto-generated TypeScript declarations for unprivileged
 Zotero plugin scopes. **Do not edit the generated files manually.**
 
-## Generated files
+## Files
 
-| File                 | Description                            |
-| -------------------- | -------------------------------------- |
-| `index.d.ts`         | Zotero namespace (permission-filtered) |
-| `xul.d.ts`           | XUL element types                      |
-| `gecko-globals.d.ts` | Gecko globals (e.g. Localization)      |
-
-## Static files
-
-| File           | Description                                              |
-| -------------- | -------------------------------------------------------- |
-| `sandbox.d.ts` | Sandbox globals provided by Zotero                       |
-| `gecko.d.ts`   | Gecko DOM augmentations (XUL tag map, Document, Element) |
+| File                 | Description                                              |
+| -------------------- | -------------------------------------------------------- |
+| `index.d.ts`         | Entry point (references all type files)                  |
+| `zotero.d.ts`        | Zotero namespace (permission-filtered)                   |
+| `sandbox.d.ts`       | Sandbox globals provided by Zotero                       |
+| `gecko.d.ts`         | Gecko DOM augmentations (XUL tag map, Document, Element) |
+| `gecko-globals.d.ts` | Gecko globals (e.g. Localization)                        |
+| `xul.d.ts`           | XUL element types                                        |
+| `tsconfig.json`      | TypeScript config                                        |
 
 ## Regenerate
 
@@ -30,7 +27,6 @@ npx zotero-types generate-bundled [--zotero-client <path>]
 | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Date**                 | 2026-04-05                                                                                                                                            |
 | **zotero-types version** | 4.1.2                                                                                                                                                 |
-| **Schema source**        | local zotero-client (1ee415bc63)                                                                                                                      |
+| **Schema source**        | local zotero-client (02ea7d3a0d)                                                                                                                      |
 | **Gecko types**          | types/gecko/ (from mozilla/gecko-dev)                                                                                                                 |
-| **Command**              | `npx zotero-types generate-bundled --zotero-client <local>`                                                                                           |
 | **Permissions**          | default, data, fileSystem, network, preferences, translator, itemTree, itemPane, menu, windowResource, reader, preferencePane, userPrompt, openWindow |

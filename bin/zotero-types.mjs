@@ -115,6 +115,71 @@ const schemaOptions = {
 };
 
 /**
+ * Generate a README.md with provenance metadata for the output directory.
+ * @param {object} options
+ * @param {string} options.command - The CLI command used ("generate" or "generate-bundled")
+ * @param {string[]} options.permissions - Permission names included
+ */
+function generateReadme({ command: cmd, permissions: perms }) {
+  const pkgJson = JSON.parse(
+    fs.readFileSync(path.join(PACKAGE_ROOT, "package.json"), "utf-8"),
+  );
+  const schemaSource = (() => {
+    if (!zoteroClientPath) {
+      const repo = schemaRepo || "zotero/zotero";
+      const branch = schemaBranch || "main";
+      return `https://github.com/${repo} (${branch})`;
+    }
+    let source = "local zotero-client";
+    try {
+      const sha = execSync("git rev-parse --short HEAD", {
+        cwd: zoteroClientPath,
+        encoding: "utf-8",
+      }).trim();
+      if (sha) source += ` (${sha})`;
+    } catch {
+      // git not available or not a repo
+    }
+    return source;
+  })();
+  return [
+    `# Auto-generated Zotero plugin types`,
+    ``,
+    `This folder contains auto-generated TypeScript declarations for unprivileged`,
+    `Zotero plugin scopes. **Do not edit the generated files manually.**`,
+    ``,
+    `## Files`,
+    ``,
+    `| File | Description |`,
+    `|------|-------------|`,
+    `| \`index.d.ts\` | Entry point (references all type files) |`,
+    `| \`zotero.d.ts\` | Zotero namespace (permission-filtered) |`,
+    `| \`sandbox.d.ts\` | Sandbox globals provided by Zotero |`,
+    `| \`gecko.d.ts\` | Gecko DOM augmentations (XUL tag map, Document, Element) |`,
+    `| \`gecko-globals.d.ts\` | Gecko globals (e.g. Localization) |`,
+    `| \`xul.d.ts\` | XUL element types |`,
+    `| \`tsconfig.json\` | TypeScript config |`,
+    ``,
+    `## Regenerate`,
+    ``,
+    `\`\`\`bash`,
+    `npx zotero-types ${cmd} [--zotero-client <path>]`,
+    `\`\`\``,
+    ``,
+    `## Provenance`,
+    ``,
+    `| | |`,
+    `|---|---|`,
+    `| **Date** | ${new Date().toISOString().split("T")[0]} |`,
+    `| **zotero-types version** | ${pkgJson.version} |`,
+    `| **Schema source** | ${schemaSource} |`,
+    `| **Gecko types** | types/gecko/ (from mozilla/gecko-dev) |`,
+    `| **Permissions** | ${perms.join(", ")} |`,
+    ``,
+  ].join("\n");
+}
+
+/**
  * Find manifest.json by searching the current directory and common subdirectories.
  * Returns the first match found, or null.
  */
@@ -198,67 +263,13 @@ if (command === "generate-bundled") {
   }
 
   // Generate README with provenance metadata
-  const pkgJson = JSON.parse(
-    fs.readFileSync(path.join(PACKAGE_ROOT, "package.json"), "utf-8"),
+  fs.writeFileSync(
+    path.join(UNPRIVILEGED_DIR, "README.md"),
+    generateReadme({
+      command: "generate-bundled",
+      permissions: Object.keys(PERMISSION_SCHEMAS),
+    }),
   );
-  const schemaSource = (() => {
-    if (!zoteroClientPath) {
-      const repo = schemaRepo || "zotero/zotero";
-      const branch = schemaBranch || "main";
-      return `https://github.com/${repo} (${branch})`;
-    }
-    let source = "local zotero-client";
-    try {
-      const sha = execSync("git rev-parse --short HEAD", {
-        cwd: zoteroClientPath,
-        encoding: "utf-8",
-      }).trim();
-      if (sha) source += ` (${sha})`;
-    } catch {
-      // git not available or not a repo
-    }
-    return source;
-  })();
-  const readme = [
-    `# types/unprivileged — Auto-generated`,
-    ``,
-    `This folder contains auto-generated TypeScript declarations for unprivileged`,
-    `Zotero plugin scopes. **Do not edit the generated files manually.**`,
-    ``,
-    `## Generated files`,
-    ``,
-    `| File | Description |`,
-    `|------|-------------|`,
-    `| \`index.d.ts\` | Zotero namespace (permission-filtered) |`,
-    `| \`xul.d.ts\` | XUL element types |`,
-    `| \`gecko-globals.d.ts\` | Gecko globals (e.g. Localization) |`,
-    ``,
-    `## Static files`,
-    ``,
-    `| File | Description |`,
-    `|------|-------------|`,
-    `| \`sandbox.d.ts\` | Sandbox globals provided by Zotero |`,
-    `| \`gecko.d.ts\` | Gecko DOM augmentations (XUL tag map, Document, Element) |`,
-    ``,
-    `## Regenerate`,
-    ``,
-    `\`\`\`bash`,
-    `npx zotero-types generate-bundled [--zotero-client <path>]`,
-    `\`\`\``,
-    ``,
-    `## Provenance`,
-    ``,
-    `| | |`,
-    `|---|---|`,
-    `| **Date** | ${new Date().toISOString().split("T")[0]} |`,
-    `| **zotero-types version** | ${pkgJson.version} |`,
-    `| **Schema source** | ${schemaSource} |`,
-    `| **Gecko types** | types/gecko/ (from mozilla/gecko-dev) |`,
-    `| **Command** | \`npx zotero-types generate-bundled${zoteroClientPath ? " --zotero-client <local>" : ""}\` |`,
-    `| **Permissions** | ${Object.keys(PERMISSION_SCHEMAS).join(", ")} |`,
-    ``,
-  ].join("\n");
-  fs.writeFileSync(path.join(UNPRIVILEGED_DIR, "README.md"), readme);
 
   console.log(`Generated ${outFile}`);
   console.log(`Generated ${xulOutFile}`);
@@ -396,6 +407,15 @@ if (!fs.existsSync(tsconfigPath)) {
   };
   fs.writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 2) + "\n");
 }
+
+// 6. README with provenance metadata
+fs.writeFileSync(
+  path.join(outDir, "README.md"),
+  generateReadme({
+    command: "generate",
+    permissions: ["default", ...permissions.filter((p) => p !== "default")],
+  }),
+);
 
 // ---------------------------------------------------------------------------
 // Summary
