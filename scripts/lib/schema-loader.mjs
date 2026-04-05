@@ -7,7 +7,8 @@ import path from "path";
 import vm from "vm";
 
 const SCHEMA_RELATIVE_PATH = "chrome/content/zotero/xpcom/plugins/schema.mjs";
-const GITHUB_RAW_URL = `https://raw.githubusercontent.com/zotero/zotero/main/${SCHEMA_RELATIVE_PATH}`;
+const DEFAULT_REPO = "zotero/zotero";
+const DEFAULT_BRANCH = "main";
 
 /**
  * Supplementary PERMISSION_SCHEMAS entries for permissions whose APIs are
@@ -101,11 +102,17 @@ export function loadSchemaFromLocal(zoteroClientPath) {
 }
 
 /**
- * Load the schema from GitHub (zotero/zotero main branch).
+ * Load the schema from GitHub.
+ * @param {object} [options]
+ * @param {string} [options.repo] - GitHub repo in "owner/repo" format (default: "zotero/zotero")
+ * @param {string} [options.branch] - Branch name (default: "main")
  */
-export async function loadSchemaFromGitHub() {
-  console.log(`Fetching schema from GitHub: ${GITHUB_RAW_URL}`);
-  const res = await fetch(GITHUB_RAW_URL);
+export async function loadSchemaFromGitHub(options = {}) {
+  const repo = options.repo || DEFAULT_REPO;
+  const branch = options.branch || DEFAULT_BRANCH;
+  const url = `https://raw.githubusercontent.com/${repo}/${branch}/${SCHEMA_RELATIVE_PATH}`;
+  console.log(`Fetching schema from GitHub: ${url}`);
+  const res = await fetch(url);
   if (!res.ok) {
     throw new Error(
       `Failed to fetch schema from GitHub: ${res.status} ${res.statusText}`,
@@ -146,10 +153,13 @@ function applySchemaSupplements(schemas) {
 /**
  * Load schema — from local path if given, otherwise from GitHub.
  * @param {string | null} zoteroClientPath
+ * @param {object} [options]
+ * @param {string} [options.repo] - GitHub repo in "owner/repo" format (default: "zotero/zotero")
+ * @param {string} [options.branch] - Branch name (default: "main")
  */
-export async function loadSchema(zoteroClientPath) {
+export async function loadSchema(zoteroClientPath, options = {}) {
   const schemas = zoteroClientPath
     ? loadSchemaFromLocal(zoteroClientPath)
-    : await loadSchemaFromGitHub();
+    : await loadSchemaFromGitHub(options);
   return applySchemaSupplements(schemas);
 }

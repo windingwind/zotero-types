@@ -17,6 +17,7 @@
 
 import fs from "fs";
 import path from "path";
+import { execSync } from "child_process";
 import { fileURLToPath } from "url";
 import {
   loadSchema,
@@ -51,12 +52,16 @@ Options (generate):
   --outdir <path>          Output directory (default: ./typings/zotero)
   --zotero-client <path>   Use a local zotero-client checkout for schema
                            (default: fetch from GitHub)
+  --schema-repo <repo>     GitHub repo for schema (default: zotero/zotero)
+  --schema-branch <branch> Branch to fetch schema from (default: main)
   --permissions <list>     Comma-separated permissions, overrides manifest
                            (e.g., --permissions data,fileSystem,network)
 
 Options (generate-bundled):
   --zotero-client <path>   Use a local zotero-client checkout for schema
                            (default: fetch from GitHub)
+  --schema-repo <repo>     GitHub repo for schema (default: zotero/zotero)
+  --schema-branch <branch> Branch to fetch schema from (default: main)
 
   --help                   Show this help message
 `);
@@ -78,6 +83,8 @@ let manifestPath = null;
 let outDir = path.resolve("typings/zotero");
 let zoteroClientPath = null;
 let cliPermissions = null;
+let schemaRepo = null;
+let schemaBranch = null;
 
 for (let i = 1; i < args.length; i++) {
   switch (args[i]) {
@@ -93,8 +100,19 @@ for (let i = 1; i < args.length; i++) {
     case "--permissions":
       cliPermissions = args[++i].split(",").map((s) => s.trim());
       break;
+    case "--schema-repo":
+      schemaRepo = args[++i];
+      break;
+    case "--schema-branch":
+      schemaBranch = args[++i];
+      break;
   }
 }
+
+const schemaOptions = {
+  ...(schemaRepo && { repo: schemaRepo }),
+  ...(schemaBranch && { branch: schemaBranch }),
+};
 
 /**
  * Find manifest.json by searching the current directory and common subdirectories.
@@ -148,7 +166,7 @@ if (!manifestPath && !cliPermissions) {
 
 if (command === "generate-bundled") {
   const { PERMISSION_SCHEMAS, WINDOW_SCHEMAS, MAIN_WINDOW_SCHEMAS } =
-    await loadSchema(zoteroClientPath);
+    await loadSchema(zoteroClientPath, schemaOptions);
 
   const UNPRIVILEGED_DIR = path.join(PACKAGE_ROOT, "types/unprivileged");
   const emitter = createTypeEmitter(PACKAGE_ROOT, {
@@ -178,6 +196,69 @@ if (command === "generate-bundled") {
     fs.writeFileSync(geckoGlobalsFile, geckoGlobalsContent);
     console.log(`Generated ${geckoGlobalsFile}`);
   }
+
+  // Generate README with provenance metadata
+  const pkgJson = JSON.parse(
+    fs.readFileSync(path.join(PACKAGE_ROOT, "package.json"), "utf-8"),
+  );
+  const schemaSource = (() => {
+    if (!zoteroClientPath) {
+      const repo = schemaRepo || "zotero/zotero";
+      const branch = schemaBranch || "main";
+      return `https://github.com/${repo} (${branch})`;
+    }
+    let source = "local zotero-client";
+    try {
+      const sha = execSync("git rev-parse --short HEAD", {
+        cwd: zoteroClientPath,
+        encoding: "utf-8",
+      }).trim();
+      if (sha) source += ` (${sha})`;
+    } catch {
+      // git not available or not a repo
+    }
+    return source;
+  })();
+  const readme = [
+    `# types/unprivileged — Auto-generated`,
+    ``,
+    `This folder contains auto-generated TypeScript declarations for unprivileged`,
+    `Zotero plugin scopes. **Do not edit the generated files manually.**`,
+    ``,
+    `## Generated files`,
+    ``,
+    `| File | Description |`,
+    `|------|-------------|`,
+    `| \`index.d.ts\` | Zotero namespace (permission-filtered) |`,
+    `| \`xul.d.ts\` | XUL element types |`,
+    `| \`gecko-globals.d.ts\` | Gecko globals (e.g. Localization) |`,
+    ``,
+    `## Static files`,
+    ``,
+    `| File | Description |`,
+    `|------|-------------|`,
+    `| \`sandbox.d.ts\` | Sandbox globals provided by Zotero |`,
+    `| \`gecko.d.ts\` | Gecko DOM augmentations (XUL tag map, Document, Element) |`,
+    ``,
+    `## Regenerate`,
+    ``,
+    `\`\`\`bash`,
+    `npx zotero-types generate-bundled [--zotero-client <path>]`,
+    `\`\`\``,
+    ``,
+    `## Provenance`,
+    ``,
+    `| | |`,
+    `|---|---|`,
+    `| **Date** | ${new Date().toISOString().split("T")[0]} |`,
+    `| **zotero-types version** | ${pkgJson.version} |`,
+    `| **Schema source** | ${schemaSource} |`,
+    `| **Gecko types** | types/gecko/ (from mozilla/gecko-dev) |`,
+    `| **Command** | \`npx zotero-types generate-bundled${zoteroClientPath ? " --zotero-client <local>" : ""}\` |`,
+    `| **Permissions** | ${Object.keys(PERMISSION_SCHEMAS).join(", ")} |`,
+    ``,
+  ].join("\n");
+  fs.writeFileSync(path.join(UNPRIVILEGED_DIR, "README.md"), readme);
 
   console.log(`Generated ${outFile}`);
   console.log(`Generated ${xulOutFile}`);
@@ -223,7 +304,7 @@ if (cliPermissions) {
 // Load schema & generate
 console.log();
 const { PERMISSION_SCHEMAS, WINDOW_SCHEMAS, MAIN_WINDOW_SCHEMAS } =
-  await loadSchema(zoteroClientPath);
+  await loadSchema(zoteroClientPath, schemaOptions);
 
 // Validate permissions against schema
 const validPerms = Object.keys(PERMISSION_SCHEMAS);
