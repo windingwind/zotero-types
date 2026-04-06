@@ -15,6 +15,10 @@ declare function openWindow(
 
 declare function isDeadWrapper(obj: any): boolean;
 
+declare const Localization: {
+  new (aResourceIds: L10nResourceId[], aSync?: boolean): Localization;
+};
+
 // Timer functions (setTimeout, setInterval, requestIdleCallback, etc.)
 // are provided by the sandbox but also exist in lib.dom.d.ts.
 // We do NOT redeclare them here to avoid conflicts when DOM lib is included.
