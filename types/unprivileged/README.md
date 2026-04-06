@@ -27,6 +27,6 @@ npx zotero-types generate-bundled [--zotero-client <path>]
 | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Date**                 | 2026-04-06                                                                                                                                                           |
 | **zotero-types version** | 4.1.2                                                                                                                                                                |
-| **Schema source**        | local zotero-client (02ea7d3a0d)                                                                                                                                     |
+| **Schema source**        | local zotero-client (918516fa8b)                                                                                                                                     |
 | **Gecko types**          | types/gecko/ (from mozilla/gecko-dev)                                                                                                                                |
 | **Permissions**          | default, data, fileSystem, network, preferences, translator, itemTree, itemPane, menu, windowResource, pluginInterop, reader, preferencePane, userPrompt, openWindow |

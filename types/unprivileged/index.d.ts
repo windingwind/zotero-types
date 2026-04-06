@@ -54,13 +54,13 @@ declare namespace Zotero {
   function getMainWindow(): _ZoteroTypes.MainWindow;
   function getMainWindows(): _ZoteroTypes.MainWindow[];
   namespace Utilities {
-    function /**
+    /**
      * Strip info:doi prefix and any suffixes from a DOI
      * @type String
      */
-    cleanDOI(x: string): null | string;
+    function cleanDOI(x: string): null | string;
     function sentenceCase(str: string): string;
-    function /**
+    /**
      * Fixes author name capitalization.
      * Currently for all uppercase names only
      *
@@ -71,55 +71,55 @@ declare namespace Zotero {
      * @param {String} string Uppercase author name
      * @return {String} Title-cased author name
      */
-    capitalizeName(str: string): string;
-    function /**
+    function capitalizeName(str: string): string;
+    /**
      * Generate a random string of length 'len' (defaults to 8)
      **/
-    randomString(len?: number, chars?: string): string;
+    function randomString(len?: number, chars?: string): string;
     namespace Internal {
-      function /**
+      /**
        * Copy a text string to the clipboard
        */
-      copyTextToClipboard(str: string): void;
+      function copyTextToClipboard(str: string): void;
       // copyToClipboard: true (not found)
-      function /**
+      /**
        * Adapted from http://developer.mozilla.org/en/docs/nsICryptoHash
        *
        * @param	{String|nsIFile}	strOrFile
        * @param	{Boolean}			[base64=false]	Return as base-64-encoded string rather than hex string
        * @return	{String}
        */
-      md5(strOrFile: string | nsIFile, base64?: boolean): string;
-      function /**
+      function md5(strOrFile: string | nsIFile, base64?: boolean): string;
+      /**
        * @param {OS.File|nsIFile|String} file  File or file path
        * @param {Boolean} [base64=FALSE]  Return as base-64-encoded string
        *                                  rather than hex string
        */
-      md5Async(
+      function md5Async(
         file: typeof OS.File | nsIFile | string,
         base64?: boolean,
       ): Promise<string>;
-      function /**
+      /**
        * Adapted from http://developer.mozilla.org/en/docs/nsICryptoHash
        *
        * @param {String} str
        * @return	{String}
        */
-      sha1(str: string): string;
-      function /**
+      function sha1(str: string): string;
+      /**
        * Decode a binary string to UTF-8 string
        *
        * @param {String} data - Binary string to decode
        * @return {String} UTF-8 encoded string
        */
-      decodeUTF8(data: string): string;
-      function /**
+      function decodeUTF8(data: string): string;
+      /**
        * Return the byte length of a UTF-8 string
        *
        * http://stackoverflow.com/a/23329386
        */
-      byteLength(str: string): number;
-      function /**
+      function byteLength(str: string): number;
+      /**
        * Find valid item fields in Extra field text
        *
        * There are a couple differences from citeproc-js behavior:
@@ -135,7 +135,7 @@ declare namespace Zotero {
        *     field name to value, 3) 'creators', in API JSON syntax, and 4) 'extra', the remaining
        *     Extra string after removing the extracted values
        */
-      extractExtraFields(
+      function extractExtraFields(
         extra: string,
         item?: Zotero.Item,
         additionalFields?: string[],
@@ -153,10 +153,10 @@ declare namespace Zotero {
   namespace Promise {
     function method(fn: Function): () => _ZoteroTypes.Promise.Bluebird<T>;
     function defer(): _ZoteroTypes.Promise.DeferredPromise<T>;
-    function /**
+    /**
      * Same as calling `Promise.delay(ms, this)`.
      */
-    delay(ms: number): Bluebird<R>;
+    function delay(ms: number): Bluebird<R>;
   }
 }
 
@@ -168,26 +168,26 @@ declare namespace Zotero {
     function get(ids: number[] | string[]): Zotero.Item[];
     function getAsync(ids: number | string): Promise<Zotero.Item>;
     function getAsync(ids: number[] | string[]): Promise<Zotero.Item[]>;
-    function /**
+    /**
      * Retrieves an object by its libraryID and key
      *
      * @param	{Integer}		libraryID
      * @param	{String}			key
      * @return	{Zotero.DataObject}			Zotero data object, or FALSE if not found
      */
-    getByLibraryAndKey(
+    function getByLibraryAndKey(
       libraryID: number,
       key: string,
       options?: unknown,
     ): T | false;
-    function /**
+    /**
      * Get the top-level items of all passed items
      *
      * @param {Zotero.Item[]} items
      * @return {Zotero.Item[]}
      */
-    getTopLevel(items: Zotero.Item[]): Zotero.Item[];
-    function /**
+    function getTopLevel(items: Zotero.Item[]): Zotero.Item[];
+    /**
      * Return an array of items with descendants of selected top-level items removed
      *
      * Non-top-level items that aren't descendents of selected items are kept.
@@ -195,22 +195,22 @@ declare namespace Zotero {
      * @param {Zotero.Item[]}
      * @return {Zotero.Item[]}
      */
-    keepTopLevel(items: Zotero.Item[]): Zotero.Item[];
+    function keepTopLevel(items: Zotero.Item[]): Zotero.Item[];
     function trash(ids: number | number[]): Promise<void>;
     function trashTx(ids: number | number[]): Promise<void>;
   }
   namespace Libraries {
-    function /**
+    /**
      * Get an existing library
      *
      * @param {Integer} libraryID
      * @return {_ZoteroTypes.Library.LibraryLike[] | _ZoteroTypes.Library.LibraryLike}
      */
-    get(libraryID: number): _ZoteroTypes.Library.LibraryLike | false;
-    function /**
+    function get(libraryID: number): _ZoteroTypes.Library.LibraryLike | false;
+    /**
      * @return {Array<Zotero.Library | Zotero.Group | Zotero.Feed>} - All libraries
      */
-    getAll(): _ZoteroTypes.Library.LibraryLike[];
+    function getAll(): _ZoteroTypes.Library.LibraryLike[];
     function getName(libraryID: number): string;
     function getType(libraryID: number): "group" | "user" | "feed";
     function getLastSyncTime(libraryID: number): Date;
@@ -219,14 +219,14 @@ declare namespace Zotero {
     function isEditable(libraryID: number): boolean;
     function isFilesEditable(libraryID: number): boolean;
     function isGroupLibrary(libraryID: number): boolean;
-    function /**
+    /**
      * @param {Integer} libraryID
      * @return {Boolean}
      */
-    exists(libraryID: number): boolean;
+    function exists(libraryID: number): boolean;
   }
   namespace Collections {
-    function /**
+    /**
      * Get collections within a library
      *
      * Either libraryID or parentID must be provided
@@ -235,15 +235,18 @@ declare namespace Zotero {
      * @param {Boolean} [recursive=false]
      * @return {Zotero.Collection[]}
      */
-    getByLibrary(libraryID: number, recursive?: boolean): Zotero.Collection[];
-    function /**
+    function getByLibrary(
+      libraryID: number,
+      recursive?: boolean,
+    ): Zotero.Collection[];
+    /**
      * Get collections that are subcollection of a given collection
      *
      * @param {Integer} parentCollectionID
      * @param {Boolean} [recursive=false]
      * @return {Zotero.Collection[]}
      */
-    getByParent(
+    function getByParent(
       parentCollectionID: number,
       recursive?: boolean,
     ): Zotero.Collection[];
@@ -312,21 +315,21 @@ declare namespace Zotero {
     function exists(groupID: number): boolean;
   }
   namespace Tags {
-    function /**
+    /**
      * Returns a tag for a given tagID
      *
      * @param {Integer} tagID
      * @return {Promise<String|false>} - A tag name, or false if tag with id not found
      */
-    getName(tagID: number): string | false;
-    function /**
+    function getName(tagID: number): string | false;
+    /**
      * Returns the tagID matching given fields, or false if none
      *
      * @param {String} name - Tag data in API JSON format
      * @return {Integer} tagID
      */
-    getID(name: string): number | false;
-    function /**
+    function getID(name: string): number | false;
+    /**
      * Get all tags in library
      *
      * @param {Number} libraryID
@@ -334,11 +337,11 @@ declare namespace Zotero {
      * @return {Promise<Array>}   A promise for an array containing tag objects in API JSON format
      *                            [{ tag: "foo" }, { tag: "bar", type: 1 }]
      */
-    getAll(
+    function getAll(
       libraryID: number,
       types?: number[],
     ): Promise<_ZoteroTypes.Tags.TagJson[]>;
-    function /**
+    /**
      * Get all tags within the items of a temporary table of search results
      *
      * @param {Object}
@@ -348,24 +351,24 @@ declare namespace Zotero {
      * @param {Object.Number[]} [tagIDs] - Array of tagIDs to limit the result to
      * @return {Promise<Array[]>} - Promise for an array of tag objects in API JSON format
      */
-    getAllWithin(object: {
+    function getAllWithin(object: {
       libraryID: number;
       tmpTable?: string;
       types?: number[];
       tagIDs?: number[];
     }): Promise<_ZoteroTypes.Tags.TagJson[]>;
-    function /**
+    /**
      *
      * @param {Integer} libraryID
      * @param {String} name Tag name
      * @return {Object|false} An object containing 'color' as a hex string (e.g., '#990000') and
      *     'position', or false if no colored tag with that name
      */
-    getColor(
+    function getColor(
       libraryID: number,
       name: string,
     ): _ZoteroTypes.Tags.TagJson | false;
-    function /**
+    /**
      * Get color data by position (number key - 1)
      *
      * @param {Integer} libraryID
@@ -373,7 +376,7 @@ declare namespace Zotero {
      * @return {Object|false} An object containing 'name' and 'color', or false if no color at
      *     the given position
      */
-    getColorByPosition(
+    function getColorByPosition(
       libraryID: number,
       position: number,
     ):
@@ -382,47 +385,51 @@ declare namespace Zotero {
           color: string;
         }
       | false;
-    function /**
+    /**
      * Get colored tags within a given library
      *
      * @param {Integer} libraryID
      * @return {Map} - A Map with tag names as keys and objects containing 'color' and 'position'
      *     as values
      */
-    getColors(libraryID: number): Map<
+    function getColors(libraryID: number): Map<
       string,
       {
         color: string;
         position: number;
       }
     >;
-    function /**
+    /**
      * Rename a tag and update the tag colors setting accordingly if necessary
      *
      * @param {Number} tagID
      * @param {String} newName
      * @return {Promise}
      */
-    rename(libraryID: number, oldName: string, newName: string): Promise<void>;
-    function /**
+    function rename(
+      libraryID: number,
+      oldName: string,
+      newName: string,
+    ): Promise<void>;
+    /**
      * @param {Integer} libraryID
      * @param {Integer[]} tagIDs
      * @param {Function} [onProgress]
      * @param {Integer[]} [types]
      * @return {Promise}
      */
-    removeFromLibrary(
+    function removeFromLibrary(
       libraryID: number,
       tagIDs: number[],
       onProgress: Function,
       types: number[],
     ): Promise<void>;
-    function /**
+    /**
      * Assign a color to a tag
      *
      * @return {Promise}
      */
-    setColor(
+    function setColor(
       libraryID: number,
       name: string,
       color: string,
@@ -452,14 +459,14 @@ declare namespace Zotero {
     >;
   }
   namespace Notifier {
-    function /**
+    /**
      * @param {Object} [ref] signature {notify: function(event, type, ids, extraData) {}}
      * @param {Array} [types] a list of types of events observer should be triggered on
      * @param {String} [id] an id of the observer used in debug output
      * @param {Integer} [priority] lower numbers correspond to higher priority of observer execution
      * @returns {string}
      */
-    registerObserver(
+    function registerObserver(
       ref: {
         notify: _ZoteroTypes.Notifier.Notify;
       },
@@ -1534,12 +1541,12 @@ declare namespace Zotero {
 declare namespace Zotero {
   namespace Utilities {
     namespace Internal {
-      function /**
+      /**
        * Get string data from the clipboard
        * @param {String[]} mimeType MIME type of data to get
        * @return {String|null} Clipboard data, or null if none was available
        */
-      getClipboard(mimeType: string): string | null;
+      function getClipboard(mimeType: string): string | null;
     }
   }
   namespace File {
@@ -1706,7 +1713,7 @@ declare class FilePicker {
 
 declare namespace Zotero {
   namespace HTTP {
-    function /**
+    /**
      * Get a promise for a HTTP request
      *
      * @param {String} method - The method of the request ("GET", "POST", etc.)
@@ -1744,7 +1751,7 @@ declare namespace Zotero {
      *     request succeeds or rejected if the browser is offline or a non-2XX status response
      *     code is received (or a code not in options.successCodes if provided).
      */
-    request(
+    function request(
       method: string,
       url: string,
       options?: {
@@ -1767,7 +1774,7 @@ declare namespace Zotero {
         errorDelayMax?: number;
       },
     ): Promise<XMLHttpRequest>;
-    function /**
+    /**
      * Load one or more documents using XMLHttpRequest
      *
      * This should stay in sync with the equivalent function in the connector
@@ -1780,7 +1787,7 @@ declare namespace Zotero {
      * @param {Object} [options.headers] - Headers to include in the request
      * @return {Promise<Array>} - A promise for an array of results from the processor runs
      */
-    processDocuments<T>(
+    function processDocuments<T>(
       urls: string | string[],
       processor: (doc: Document, responseURL: string) => T | Promise<T>,
       options?: {
@@ -1941,7 +1948,7 @@ declare namespace Zotero {
 
 declare namespace Zotero {
   namespace Reader {
-    function /**
+    /**
      * Inject DOM nodes to reader UI parts:
      * - renderTextSelectionPopup
      * - renderSidebarAnnotationHeader
@@ -1971,7 +1978,7 @@ declare namespace Zotero {
      * 	});
      * });
      */
-    registerEventListener<T extends _ZoteroTypes.Reader._EventKey>(
+    function registerEventListener<T extends _ZoteroTypes.Reader._EventKey>(
       type: T,
       handler: _ZoteroTypes.Reader.EventHandler<T>,
       pluginID?: string,
@@ -1987,7 +1994,7 @@ declare namespace Zotero {
 
 declare namespace Zotero {
   namespace PreferencePanes {
-    function /**
+    /**
      * Register a pane to be displayed in the preferences. The pane XHTML (`src`)
      * is loaded as a fragment, not a full document, with XUL as the default
      * namespace and (X)HTML tags available under `html:`.
@@ -2012,13 +2019,15 @@ declare namespace Zotero {
      * 		and the provided URL will open when it is clicked
      * @return {Promise<String>} Resolves to the ID of the pane if successfully added
      */
-    register(options: _ZoteroTypes._PreferencePaneOption): Promise<string>;
-    function /**
+    function register(
+      options: _ZoteroTypes._PreferencePaneOption,
+    ): Promise<string>;
+    /**
      * Called automatically on plugin shutdown.
      *
      * @param {String} id
      */
-    unregister(id: string): void;
+    function unregister(id: string): void;
   }
 }
 

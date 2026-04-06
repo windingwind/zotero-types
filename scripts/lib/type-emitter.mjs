@@ -136,6 +136,18 @@ export function createTypeEmitter(zoteroTypesRoot, options = {}) {
     );
   }
 
+  /**
+   * Prepend a keyword (e.g. "function", "const") before the identifier,
+   * keeping any leading JSDoc/comments above the keyword.
+   */
+  function prependKeyword(keyword, text) {
+    const match = text.match(/^(\s*\/\*\*[\s\S]*?\*\/\s*)/);
+    if (match) {
+      return `${match[1]}${keyword} ${text.slice(match[1].length)}`;
+    }
+    return `${keyword} ${text}`;
+  }
+
   function indent(text, level = 1) {
     const prefix = "  ".repeat(level);
     return text
@@ -213,7 +225,11 @@ export function createTypeEmitter(zoteroTypesRoot, options = {}) {
         const text = q(printNode(d));
         if (seen.has(text)) continue;
         seen.add(text);
-        results.push(asNamespaceMember ? `function ${text}` : text);
+        if (asNamespaceMember) {
+          results.push(prependKeyword("function", text));
+        } else {
+          results.push(text);
+        }
       }
       return results.join("\n");
     }
@@ -221,8 +237,8 @@ export function createTypeEmitter(zoteroTypesRoot, options = {}) {
     if (ts.isPropertySignature(decl) || ts.isPropertyDeclaration(decl)) {
       let text = q(printNode(decl));
       if (asNamespaceMember) {
-        text = text.replace(/^\s*readonly\s+/, "");
-        text = `const ${text}`;
+        text = text.replace(/readonly\s+/, "");
+        text = prependKeyword("const", text);
       }
       return text;
     }
