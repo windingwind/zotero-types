@@ -37,6 +37,7 @@
 /// <reference path="./xpcom/pluginAPI/itemPaneManager.zotero.d.ts" />
 /// <reference path="./xpcom/pluginAPI/itemTreeManager.zotero.d.ts" />
 /// <reference path="./xpcom/pluginAPI/menuManager.zotero.d.ts" />
+/// <reference path="./xpcom/pluginAPI/pluginInteropManager.zotero.d.ts" />
 /// <reference path="./xpcom/pluginAPI/windowResourceManager.zotero.d.ts" />
 /// <reference path="./xpcom/plugins.zotero.d.ts" />
 /// <reference path="./xpcom/preferencePanes.zotero.d.ts" />

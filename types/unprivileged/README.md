@@ -23,10 +23,10 @@ npx zotero-types generate-bundled [--zotero-client <path>]
 
 ## Provenance
 
-|                          |                                                                                                                                                       |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Date**                 | 2026-04-05                                                                                                                                            |
-| **zotero-types version** | 4.1.2                                                                                                                                                 |
-| **Schema source**        | local zotero-client (02ea7d3a0d)                                                                                                                      |
-| **Gecko types**          | types/gecko/ (from mozilla/gecko-dev)                                                                                                                 |
-| **Permissions**          | default, data, fileSystem, network, preferences, translator, itemTree, itemPane, menu, windowResource, reader, preferencePane, userPrompt, openWindow |
+|                          |                                                                                                                                                                      |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Date**                 | 2026-04-06                                                                                                                                                           |
+| **zotero-types version** | 4.1.2                                                                                                                                                                |
+| **Schema source**        | local zotero-client (02ea7d3a0d)                                                                                                                                     |
+| **Gecko types**          | types/gecko/ (from mozilla/gecko-dev)                                                                                                                                |
+| **Permissions**          | default, data, fileSystem, network, preferences, translator, itemTree, itemPane, menu, windowResource, pluginInterop, reader, preferencePane, userPrompt, openWindow |
