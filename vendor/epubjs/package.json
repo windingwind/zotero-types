@@ -1,0 +1,8 @@
+{
+  "name": "epubjs",
+  "version": "0.3.93",
+  "types": "types/index.d.ts",
+  "dependencies": {
+    "jszip": "^3.7.1"
+  }
+}
