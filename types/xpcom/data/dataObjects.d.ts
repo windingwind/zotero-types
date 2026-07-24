@@ -23,7 +23,7 @@ declare namespace _ZoteroTypes {
      * @return {Zotero.[Object]|Array<Zotero.[Object]>} A Zotero.[Object], if a scalar id was passed;
      *                                          otherwise, an array of Zotero.[Object]
      */
-    get(id: number): T;
+    get(id: number): T | false;
     get(ids: number[]): T[];
 
     /**
@@ -35,7 +35,7 @@ declare namespace _ZoteroTypes {
      * @return {Promise<Zotero.DataObject|Zotero.DataObject[]>} - A promise for either a data object,
      *     if a scalar id was passed, or an array of data objects, if an array of ids was passed
      */
-    getAsync(id: number, options?: { noCache: boolean }): Promise<T>;
+    getAsync(id: number, options?: { noCache: boolean }): Promise<T | false>;
     getAsync(ids: number[], options?: { noCache: boolean }): Promise<T[]>;
 
     /**

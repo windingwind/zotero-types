@@ -215,6 +215,7 @@ declare namespace _ZoteroTypes {
     _handleMessage(event: MessageEvent): Promise<void>;
     _updateSecondViewState(): void;
     _waitForReader(): Promise<void>;
+    close(): void;
 
     /**
      * Return item JSON in the pdf-reader ready format
@@ -274,7 +275,7 @@ declare namespace _ZoteroTypes {
     setSidebarOpen(open: boolean): void;
     setBottomPlaceholderHeight(height: number): void;
     notify: _ZoteroTypes.Notifier.Notify;
-    getByTabID(tabID: string): _ZoteroTypes.ReaderInstance;
+    getByTabID(tabID: string): _ZoteroTypes.ReaderInstance | undefined;
     getWindowStates(): {
       type: "reader";
       itemID: number;

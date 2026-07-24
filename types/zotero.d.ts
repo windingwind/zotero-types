@@ -63,7 +63,7 @@ declare namespace Zotero {
   function getMainWindow(): _ZoteroTypes.MainWindow;
   function getMainWindows(): _ZoteroTypes.MainWindow[];
   function getZoteroPanes(): _ZoteroTypes.ZoteroPane[];
-  function getActiveZoteroPane(): _ZoteroTypes.ZoteroPane;
+  function getActiveZoteroPane(): _ZoteroTypes.ZoteroPane | null;
   function getStorageDirectory(): nsIFile;
   const setFontSize: typeof Utilities.Internal.setFontSize;
   const flattenArguments: typeof Utilities.Internal.flattenArguments;

@@ -54,10 +54,10 @@ declare namespace _ZoteroTypes {
      */
     hasDeleted(libraryID: number): Promise<boolean>;
 
-    get(ids: number | string): Zotero.Item;
+    get(ids: number | string): Zotero.Item | false;
     get(ids: number[] | string[]): Zotero.Item[];
 
-    getAsync(ids: number | string): Promise<Zotero.Item>;
+    getAsync(ids: number | string): Promise<Zotero.Item | false>;
     getAsync(ids: number[] | string[]): Promise<Zotero.Item[]>;
 
     /**
