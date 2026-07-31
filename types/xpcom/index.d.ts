@@ -17,6 +17,7 @@
 /// <reference path="reader.d.ts" />
 /// <reference path="session.d.ts" />
 /// <reference path="uiProperties.d.ts" />
+/// <reference path="undoHistory.d.ts" />
 /// <reference path="uri.d.ts" />
 /// <reference path="collectionTreeRow.d.ts" />
 /// <reference path="dataDirectory.d.ts" />

@@ -35,6 +35,20 @@ declare namespace Zotero {
        */
       notifierData?: any;
 
+      /**
+       * Fluent message ID for the undo/redo menu label (e.g. 'undo-action-edit-metadata').
+       * Adding this causes the save to be recorded on the undo stack.
+       * @since Zotero 10
+       */
+      undoAction?: string;
+
+      /**
+       * Fluent message arguments for the undo/redo label (e.g. { count: 3 }).
+       * Only needed when undoAction references a message with variables.
+       * @since Zotero 10
+       */
+      undoActionArgs?: Record<string, unknown>;
+
       tx?: boolean;
     }
     interface EraseOptions {
