@@ -279,6 +279,17 @@ declare namespace Zotero {
     ): "ltr" | "rtl";
   };
 
+  /**
+   * Fluent localization instance shared across the application.
+   * Register plugin FTL files with addResourceIds() to make strings
+   * available for undo labels and other global Fluent lookups.
+   * @since Zotero 10
+   */
+  const ftl: {
+    addResourceIds: (resourceIds: string[]) => void;
+    removeResourceIds: (resourceIds: string[]) => void;
+  };
+
   const Intl: {
     strings: {
       [key: string]: string;
