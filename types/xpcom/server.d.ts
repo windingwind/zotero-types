@@ -45,13 +45,24 @@ declare namespace _ZoteroTypes {
   namespace Server {
     class Endpoint {
       supportedMethods?: string[];
-      supportedDataTypes?: Array<
-        | "application/json"
-        | "application/x-www-form-urlencoded"
-        | "multipart/form-data"
-        | string
-      >;
+      supportedDataTypes?:
+        | Array<
+            | "application/json"
+            | "application/x-www-form-urlencoded"
+            | "multipart/form-data"
+            | string
+          >
+        | "*";
       permitBookmarklet?: boolean;
+
+      /**
+       * Since Zotero 10, requests that look like they come from a browser
+       * (User-Agent starting with `Mozilla/`, or any `Origin` header) are
+       * dropped unless they include a `Zotero-Allowed-Request` header or come
+       * from the connector. Set this to true to explicitly opt into allowing
+       * such requests for this endpoint.
+       */
+      allowRequestsFromUnsafeWebContent?: boolean;
 
       init: initMethodEvent | initMethodPromise;
     }
@@ -59,7 +70,8 @@ declare namespace _ZoteroTypes {
     type initMethodPromise = (options: {
       method: "GET" | "POST";
       pathname: string;
-      query: Record<string, string>;
+      pathParams: Record<string, string>;
+      searchParams: URLSearchParams;
       headers: Record<string, string>;
       data: any;
     }) => MaybePromise<

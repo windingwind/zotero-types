@@ -1,3 +1,55 @@
+declare namespace _ZoteroTypes {
+  namespace UndoHistory {
+    /**
+     * Fluent message ID for an undo entry's action label. Zotero ships the
+     * `undo-action-*` strings below; plugins can use their own Fluent IDs
+     * after registering them with `Zotero.ftl.addResourceIds()`.
+     */
+    type UndoAction =
+      | "undo-action-edit-metadata"
+      | "undo-action-edit-field"
+      | "undo-action-normalize-attachment-titles"
+      | "undo-action-trash"
+      | "undo-action-restore-items"
+      | "undo-action-trash-collection"
+      | "undo-action-trash-search"
+      | "undo-action-restore-collection"
+      | "undo-action-restore-objects"
+      | "undo-action-add-to-collection"
+      | "undo-action-remove-from-collection"
+      | "undo-action-move-to-collection"
+      | "undo-action-rename-collection"
+      | "undo-action-move-collection"
+      | "undo-action-add-tag"
+      | "undo-action-change-tag"
+      | "undo-action-split-tag"
+      | "undo-action-remove-tag"
+      | "undo-action-remove-tags-from-item"
+      | "undo-action-remove-all-tags"
+      | "undo-action-edit-note"
+      | "undo-action-add-creator"
+      | "undo-action-remove-creator"
+      | "undo-action-edit-creator"
+      | "undo-action-reorder-creator"
+      | "undo-action-change-type"
+      | "undo-action-change-parent-item"
+      | "undo-action-convert-to-standalone"
+      | "undo-action-add-related"
+      | "undo-action-remove-related"
+      | "undo-action-merge-items"
+      | (string & {});
+
+    interface ChangeRecord {
+      objectType: string;
+      id: number;
+      libraryID: number;
+      key: string;
+      fields: Record<string, { old: unknown; new: unknown }>;
+      skipDateModified?: boolean;
+    }
+  }
+}
+
 declare namespace Zotero {
   class UndoHistory {
     /**
@@ -40,7 +92,7 @@ declare namespace Zotero {
      * @param actionArgs Optional Fluent message arguments (e.g. { count: 3 })
      */
     static stageAction(
-      action: string,
+      action: _ZoteroTypes.UndoHistory.UndoAction,
       actionArgs?: Record<string, unknown>,
     ): void;
     /**
@@ -48,14 +100,9 @@ declare namespace Zotero {
      * Must be called inside a DB transaction. Records for the same object
      * are coalesced field-by-field (first-write-wins for old, last-wins for new).
      */
-    static stageChange(changeRecord: {
-      objectType: string;
-      id: number;
-      libraryID: number;
-      key: string;
-      fields: Record<string, { old: unknown; new: unknown }>;
-      skipDateModified?: boolean;
-    }): void;
+    static stageChange(
+      changeRecord: _ZoteroTypes.UndoHistory.ChangeRecord,
+    ): void;
     /**
      * Return the action description for the top of the undo stack.
      */
@@ -71,10 +118,15 @@ declare namespace Zotero {
       actionArgs: Record<string, unknown> | null;
     } | null;
     /**
-     * Return a XUL controller that delegates to native text-editing
-     * controllers when they are active.
+     * Return a XUL controller supporting 'cmd_undo'/'cmd_redo' that
+     * delegates to native text-editing controllers when they are active.
      */
-    static getController(doc: Document): object;
+    static getController(doc: Document): {
+      supportsCommand(cmd: string): boolean;
+      isCommandEnabled(cmd: string): boolean;
+      doCommand(cmd: string): void;
+      onEvent(evt: string): void;
+    };
     /**
      * Return true if a native text editor handles undo (e.g. focused input).
      */

@@ -4,7 +4,10 @@
 declare namespace _ZoteroTypes {
   class ItemPane extends XULElementBase {
     get content(): DocumentFragment;
-    collectionTreeRow: _ZoteroTypes.CollectionTree;
+    /** @deprecated Removed in Zotero 10 — use `collectionTreeRows` */
+    collectionTreeRow?: never;
+    /** Selected collection tree rows, in selection order (Zotero 10+) */
+    collectionTreeRows: Zotero.CollectionTreeRow[];
     itemsView: any;
     editable: boolean;
     mode: "message" | "item" | "note" | "duplicates";

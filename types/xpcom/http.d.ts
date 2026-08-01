@@ -16,8 +16,8 @@ declare namespace _ZoteroTypes {
      * @param {Object | Headers} [options.headers] - HTTP headers to send with the request
      * @param {Boolean} [options.followRedirects = true] - Object of HTTP headers to send with the
      *     request
-     * @param {Zotero.CookieSandbox} [options.cookieSandbox] - The sandbox from which cookies should
-     *     be taken
+     * @param {Boolean} [options.anon] - Make the request anonymously, without global cookies
+     * @param {Number} [options.userContextId] - From newCookieContext() for cookie isolation
      * @param {Boolean} [options.debug] - Log response text and status code
      * @param {Boolean} [options.noCache] - If set, specifies that the request should not be
      *     fulfilled from the cache
@@ -33,7 +33,6 @@ declare namespace _ZoteroTypes {
      * @param {String} [options.responseCharset] - The charset the response should be interpreted as
      * @param {Number[]|false} [options.successCodes] - HTTP status codes that are considered
      *     successful, or FALSE to allow all
-     * @param {Zotero.CookieSandbox} [options.cookieSandbox] - Cookie sandbox object
      * @param {Number} [options.timeout = 30000] - Request timeout specified in milliseconds, or 0
      *     for no timeout
      * @param {Number[]} [options.errorDelayIntervals] - Array of milliseconds to wait before
@@ -51,7 +50,17 @@ declare namespace _ZoteroTypes {
         body?: string | Uint8Array;
         headers?: any;
         followRedirects?: boolean;
-        cookieSandbox?: Zotero.CookieSandbox;
+        anon?: boolean;
+        /**
+         * From {@link newCookieContext} for cookie isolation (Zotero 10+)
+         */
+        userContextId?: number;
+        /**
+         * @deprecated Since Zotero 10 this is only a compatibility alias for
+         *     `userContextId` and must be a number; `Zotero.CookieSandbox`
+         *     objects no longer exist.
+         */
+        cookieSandbox?: number;
         debug?: boolean;
         noCache?: boolean;
         dontCache?: boolean;
@@ -69,12 +78,61 @@ declare namespace _ZoteroTypes {
     ): Promise<XMLHttpRequest>;
 
     /**
+     * Create an isolated cookie context backed by a unique Mozilla userContextId.
+     *
+     * All HTTP requests and HiddenBrowsers that share the same context ID will
+     * share a separate cookie jar, isolated from the default jar and from other
+     * contexts. Call dispose() when finished to remove all cookies in the context.
+     *
+     * @return {{ id: number, getCookies: (host: string) => nsICookie[], dispose: () => void }}
+     * @since Zotero 10
+     */
+    newCookieContext(): _ZoteroTypes.CookieContext;
+
+    /**
+     * Download a file, streaming the response body directly to disk
+     *
+     * Uses fetch() + ReadableStream instead of XMLHttpRequest so that the response body is
+     * streamed to disk chunk by chunk, avoiding the 2 GB IOUtils.write() limit and reducing
+     * memory pressure for large files.
+     *
+     * @param {nsIURI|String} uri - URL to request
+     * @param {String} path - Path to save file to
+     * @param {Object} [options]
+     * @param {Object|Headers} [options.headers] - HTTP headers to send with the request
+     * @param {Boolean} [options.noCache] - Bypass the cache
+     * @param {Number[]|false} [options.successCodes] - HTTP status codes that are considered
+     *     successful, or FALSE to allow all
+     * @param {Function} [options.onProgress] - Progress callback (totalBytes, contentLength)
+     * @param {Function} [options.cancellerReceiver] - Callback to receive a cancel function
+     * @param {Number} [options.timeout = 30000] - Timeout in milliseconds (connect and
+     *     inactivity); 0 to disable
+     * @param {Number[]} [options.errorDelayIntervals] - Retry delay intervals for 5xx errors
+     * @param {Number} [options.errorDelayMax] - Max time to spend retrying 5xx errors
+     * @return {Promise<Response>} - A promise for a fetch Response object
+     */
+    download(
+      uri: string | URL | nsIURI,
+      path: string,
+      options?: {
+        headers?: Record<string, string> | Headers;
+        noCache?: boolean;
+        successCodes?: number[] | false;
+        onProgress?: (totalBytes: number, contentLength: number) => void;
+        cancellerReceiver?: (cancel: () => void) => void;
+        timeout?: number;
+        errorDelayIntervals?: number[];
+        errorDelayMax?: number;
+      },
+    ): Promise<Response>;
+
+    /**
      * Send an HTTP GET request via XMLHTTPRequest
      *
      * @param {nsIURI|String}	url				URL to request
      * @param {Function} 		onDone			Callback to be executed upon request completion
      * @param {String} 		responseCharset	Character set to force on the response
-     * @param {Zotero.CookieSandbox} [cookieSandbox] Cookie sandbox object
+     * @param {unknown} [cookieSandbox] Ignored since Zotero 10
      * @param {Object} requestHeaders HTTP headers to include with request
      * @return {XMLHttpRequest} The XMLHttpRequest object if the request was sent, or
      *     false if the browser is offline
@@ -83,8 +141,8 @@ declare namespace _ZoteroTypes {
     doGet(
       url: string | URL,
       onDone: (xhr: XMLHttpRequest) => void | Promise<void>,
-      responseCharset: string,
-      cookieSandbox?: Zotero.CookieSandbox,
+      responseCharset?: string,
+      cookieSandbox?: unknown,
       requestHeaders?: Record<string, string>,
     ): XMLHttpRequest;
 
@@ -96,7 +154,7 @@ declare namespace _ZoteroTypes {
      * @param {Function} onDone Callback to be executed upon request completion
      * @param {String} headers Request HTTP headers
      * @param {String} responseCharset Character set to force on the response
-     * @param {Zotero.CookieSandbox} [cookieSandbox] Cookie sandbox object
+     * @param {unknown} [cookieSandbox] Ignored since Zotero 10
      * @return {XMLHttpRequest} The XMLHttpRequest object if the request was sent, or
      *     false if the browser is offline
      * @deprecated Use {@link Zotero.HTTP.request}
@@ -106,8 +164,8 @@ declare namespace _ZoteroTypes {
       body: string,
       onDone: (xhr: XMLHttpRequest) => void | Promise<void>,
       headers: Record<string, string>,
-      responseCharset: string,
-      cookieSandbox?: Zotero.CookieSandbox,
+      responseCharset?: string,
+      cookieSandbox?: unknown,
     ): XMLHttpRequest;
 
     /**
@@ -116,7 +174,7 @@ declare namespace _ZoteroTypes {
      * @param {String} url URL to request
      * @param {Function} onDone Callback to be executed upon request completion
      * @param {Object} requestHeaders HTTP headers to include with request
-     * @param {Zotero.CookieSandbox} [cookieSandbox] Cookie sandbox object
+     * @param {unknown} [cookieSandbox] Ignored since Zotero 10
      * @return {XMLHttpRequest} The XMLHttpRequest object if the request was sent, or
      *     false if the browser is offline
      * @deprecated Use {@link Zotero.HTTP.request}
@@ -124,8 +182,8 @@ declare namespace _ZoteroTypes {
     doHead(
       url: string | URL,
       onDone: (xhr: XMLHttpRequest) => void | Promise<void>,
-      requestHeaders: Record<string, string>,
-      cookieSandbox?: Zotero.CookieSandbox,
+      requestHeaders?: Record<string, string>,
+      cookieSandbox?: unknown,
     ): XMLHttpRequest;
 
     /**
@@ -168,7 +226,6 @@ declare namespace _ZoteroTypes {
      * @param {Function} processor - Callback to be executed for each document loaded; if function returns
      *     a promise, it's waited for before continuing
      * @param {Object} [options]
-     * @param {Zotero.CookieSandbox} [options.cookieSandbox] - Cookie sandbox object
      * @param {Object} [options.headers] - Headers to include in the request
      * @return {Promise<Array>} - A promise for an array of results from the processor runs
      */
@@ -176,7 +233,6 @@ declare namespace _ZoteroTypes {
       urls: string | string[],
       processor: (doc: Document, responseURL: string) => T | Promise<T>,
       options?: {
-        cookieSandbox?: Zotero.CookieSandbox;
         headers?: Record<string, string>;
       },
     ): Promise<T[]>;

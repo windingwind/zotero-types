@@ -40,7 +40,7 @@ declare namespace Zotero {
        * Adding this causes the save to be recorded on the undo stack.
        * @since Zotero 10
        */
-      undoAction?: string;
+      undoAction?: _ZoteroTypes.UndoHistory.UndoAction;
 
       /**
        * Fluent message arguments for the undo/redo label (e.g. { count: 3 }).

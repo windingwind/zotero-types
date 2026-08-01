@@ -62,13 +62,9 @@ declare namespace Zotero {
 
     /**
      * @param {String} url
-     * @param {Zotero.CookieSandbox} [cookieSandbox]
      * @return {Promise<[string, boolean]>} Resolves with [mimeType, hasNativeHandler]
      */
-    function getMIMETypeFromURL(
-      url: string,
-      cookieSandbox?: any,
-    ): Promise<[string, boolean]>;
+    function getMIMETypeFromURL(url: string): Promise<[string, boolean]>;
 
     /*
      * Determine if a MIME type can be handled natively

@@ -1,13 +1,32 @@
+declare namespace _ZoteroTypes {
+  /**
+   * An isolated cookie context backed by a unique Mozilla userContextId,
+   * created with {@link Zotero.HTTP.newCookieContext} (Zotero 10+).
+   *
+   * All HTTP requests and HiddenBrowsers that share the same context ID will
+   * share a separate cookie jar, isolated from the default jar and from other
+   * contexts. Call dispose() when finished to remove all cookies in the
+   * context.
+   *
+   * @example
+   * ```js
+   * let cookieContext = Zotero.HTTP.newCookieContext();
+   * await Zotero.HTTP.request('GET', url, { userContextId: cookieContext.id });
+   * let cookies = cookieContext.getCookies('example.com');
+   * cookieContext.dispose();
+   * ```
+   */
+  interface CookieContext {
+    id: number;
+    getCookies(host: string): nsICookie[];
+    dispose(): void;
+  }
+}
+
 declare namespace Zotero {
   /**
-   * Manage cookies in a sandboxed fashion
-   *
-   * @constructor
-   * @param {browser} [browser] Hidden browser object
-   * @param {String|nsIURI} uri URI of page to manage cookies for (cookies for domains that are not
-   *                     subdomains of this URI are ignored)
-   * @param {String} cookieData Cookies with which to initiate the sandbox
-   * @param {String} userAgent User agent to use for sandboxed requests
+   * @deprecated Removed in Zotero 10 — use {@link Zotero.HTTP.newCookieContext}
+   *     and pass its numeric `id` as the `userContextId` request option.
    */
   interface CookieSandbox {
     new (
@@ -16,26 +35,5 @@ declare namespace Zotero {
       cookieData: string,
       userAgent: string,
     ): this;
-
-    /**
-     * Normalizes the host string: lower-case, remove leading period, some more cleanup
-     * @param {string} host
-     * @returns {string}
-     */
-    normalizeHost(host: string): string;
-
-    /**
-     * Normalizes the path string
-     * @param {string} path
-     * @returns {string}
-     */
-    normalizePath(path: string): string;
-
-    /**
-     * Generates a semicolon-separated string of cookie values from a list of cookies
-     * @param {Object} cookies Object containing key: value cookie pairs
-     * @returns {string}
-     */
-    generateCookieString(cookies: { [key: string]: string }): string;
   }
 }

@@ -20,34 +20,77 @@ declare namespace Zotero {
     isSearch(): boolean;
     isDuplicates(): boolean;
     isUnfiled(): boolean;
+    /** Zotero 10+ */
+    isRecentlyRead(): boolean;
     isRetracted(): boolean;
     isTrash(): boolean;
     isHeader(): boolean;
     isPublications(): boolean;
     isGroup(): boolean;
     isFeed(): boolean;
+    /** Zotero 10+ */
+    isFeeds(): boolean;
+    /** Zotero 10+ */
+    isFeedsOrFeed(): boolean;
     isSeparator(): boolean;
     isBucket(): boolean;
     isShare(): boolean;
     isContainer(): boolean;
     isWithinGroup(): boolean;
     isWithinEditableGroup(): boolean;
+    /** Zotero 10+ */
+    isSortable(): boolean;
 
     get editable(): boolean;
     get filesEditable(): boolean;
     get visibilityGroup(): "feed" | "feeds" | "default";
     getName(): string;
     getChildren(): Zotero.Collection | Zotero.Feed | undefined;
-    getItems(): Promise<Array<Item | unknown>>; //
-    getSearchResults(asTempTable?: false): Promise<number[]>;
-    getSearchResults(asTempTable: true): Promise<string>;
+
+    /**
+     * Trashed collections in this row's library (Trash rows only, Zotero 10+)
+     */
+    getTrashedCollections(): Promise<Zotero.Collection[]>;
+
+    /**
+     * @param {Object} [options]
+     * @param {Boolean} [options.unfiltered=false] - If true, ignore quicksearch, tag, and
+     *     advanced search filters
+     */
+    getItems(options?: {
+      unfiltered?: boolean;
+    }): Promise<Array<Item | unknown>>; //
+
+    /**
+     * @param {Boolean} [asTempTable=false]
+     * @param {Object} [options]
+     * @param {Boolean} [options.unfiltered=false] - If true, ignore quicksearch, tag, and
+     *     advanced search filters and bypass the cache
+     */
+    getSearchResults(
+      asTempTable?: false,
+      options?: { unfiltered?: boolean },
+    ): Promise<number[]>;
+    getSearchResults(
+      asTempTable: true,
+      options?: { unfiltered?: boolean },
+    ): Promise<string>;
 
     /*
      * Returns the search object for the currently display
      *
      * This accounts for the collection, saved search, quicksearch, tags, etc.
+     *
+     * @param {Object} [options]
+     * @param {Boolean} [options.unfiltered=false] - If true, ignore quicksearch, tag, and
+     *     advanced search filters and bypass the cache
      */
-    getSearchObject(): Promise<Zotero.Search>;
+    getSearchObject(options?: { unfiltered?: boolean }): Promise<Zotero.Search>;
+
+    /**
+     * @deprecated Use getTags() instead
+     */
+    getChildTags(): Promise<_ZoteroTypes.Tags.TagJson[]>;
 
     /**
      * Returns all the tags used by items in the current view

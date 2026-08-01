@@ -108,8 +108,13 @@ declare namespace _ZoteroTypes {
     interface LibraryMenuContext extends BaseMenuContext {
       /** Array of selected items */
       items?: Zotero.Item[];
-      /** Collection tree row (for collection menus) */
-      collectionTreeRow?: _ZoteroTypes.CollectionTree;
+      /**
+       * @deprecated Removed in Zotero 10 — reading this property throws.
+       *     Use {@link collectionTreeRows}, which contains the full selection.
+       */
+      collectionTreeRow?: never;
+      /** Selected collection tree rows (full selection, Zotero 10+) */
+      collectionTreeRows?: Zotero.CollectionTreeRow[];
       /** Type of the tab */
       tabType: "library";
       /** Subtype of the tab */

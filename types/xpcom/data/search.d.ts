@@ -30,19 +30,47 @@ declare namespace Zotero {
 
     _eraseData(env: _ZoteroTypes.Search.EnvType): Promise<void>;
 
+    /**
+     * Add a condition to the search
+     *
+     * Searches can use complex boolean logic by nesting conditions between
+     * `groupStart`/`groupEnd` conditions, with a `joinMode` condition inside
+     * the group:
+     * ```js
+     * search.addCondition('joinMode', 'all');
+     * search.addCondition('title', 'contains', 'foo');
+     * search.addCondition('groupStart', 'true', '');
+     * search.addCondition('joinMode', 'any');
+     * search.addCondition('tag', 'is', 'x');
+     * search.addCondition('tag', 'is', 'y');
+     * search.addCondition('groupEnd', 'true', '');
+     * ```
+     *
+     * The `resultLevel` condition specifies what the search returns:
+     * `item`, `attachment`, `note`, or `annotation` (passed as the operator).
+     *
+     * Note: passing a truthy legacy `required` fourth parameter throws in
+     * Zotero 10 — use a condition group instead.
+     */
+    addCondition(
+      condition: "resultLevel",
+      operator: _ZoteroTypes.Search.ResultLevel,
+    ): number;
     addCondition(
       condition: _ZoteroTypes.Search.Conditions,
       operator: _ZoteroTypes.Search.Operator,
-      value: string | number,
-      required?: boolean,
+      value?: string | number,
+      required?: false,
     ): number;
     addCondition(
       condition: string,
       operator: _ZoteroTypes.Search.Operator,
       value?: string | number,
-      required?: boolean,
+      required?: false,
     ): number;
-    addCondition(condition: "blockStart" | "blockEnd"): number;
+    addCondition(condition: "groupStart" | "groupEnd"): number;
+    /** @deprecated Renamed to `groupStart`/`groupEnd` in Zotero 10 */
+    addCondition(condition: "blockStart" | "blockEnd"): never;
 
     /**
      * Sets scope of search to the results of the passed Search object
@@ -54,15 +82,17 @@ declare namespace Zotero {
      * @param {String} condition
      * @param {String} operator
      * @param {String} value
-     * @param {Boolean} [required]
      * @return {Promise}
+     *
+     * Note: passing a truthy legacy `required` fifth parameter throws in
+     * Zotero 10 — use a condition group instead.
      */
     updateCondition(
       searchConditionID: number,
       condition: string,
       operator: string,
       value: string,
-      required: boolean,
+      required?: false,
     ): void;
 
     removeCondition(searchConditionID: number): void;
@@ -102,6 +132,14 @@ declare namespace Zotero {
     fromJSON(json: object, options?: { strict: boolean }): void;
 
     toJSON(option: object): object;
+
+    /**
+     * Copy the passed itemIDs to a temp table and return the table name
+     */
+    static idsToTempTable(
+      ids: number[],
+      options?: { idColumn?: string },
+    ): Promise<string>;
   }
 }
 
@@ -121,19 +159,24 @@ declare namespace _ZoteroTypes {
       transactionOptions: object;
       isNew: boolean;
     };
+    /**
+     * What a search returns; passed as the operator of a `resultLevel`
+     * condition (Zotero 10+)
+     */
+    type ResultLevel = "item" | "attachment" | "note" | "annotation";
     type Operator =
       | "is"
       | "isNot"
-      | "true"
-      | "false"
-      | "isInTheLast"
-      | "isBefore"
-      | "isAfter"
+      | "beginsWith"
       | "contains"
       | "doesNotContain"
-      | "beginsWith"
       | "isLessThan"
       | "isGreaterThan"
+      | "isBefore"
+      | "isAfter"
+      | "isInTheLast"
+      | "isEmpty"
+      | "isNotEmpty"
       | "any"
       | "all"
       | "true"
@@ -155,7 +198,6 @@ declare namespace _ZoteroTypes {
       | "authority"
       | "bookAuthor"
       | "callNumber"
-      | "childNote"
       | "citationKey"
       | "code"
       | "codeNumber"
@@ -212,6 +254,7 @@ declare namespace _ZoteroTypes {
       | "versionNumber"
       | "volume"
       | "deleted"
+      | "includeDeleted"
       | "noChildren"
       | "unfiled"
       | "retracted"
@@ -227,16 +270,26 @@ declare namespace _ZoteroTypes {
       | "quicksearch-fields"
       | "quicksearch-everything"
       | "quicksearch"
-      | "blockStart"
-      | "blockEnd"
+      | "groupStart"
+      | "groupEnd"
+      | "resultLevel"
       | "collectionID"
       | "savedSearchID"
       | "savedSearch"
+      | "lastRead"
       | "itemTypeID"
+      | "attachmentStorageType"
       | "tagID"
+      | "numTags"
+      | "numNotes"
+      | "numAttachments"
+      | "numAnnotations"
       | "lastName"
+      | "titleCreatorYear"
       | "field"
       | "datefield"
+      | "dateDue"
+      | "accepted"
       | "year"
       | "numberfield"
       | "libraryID"
@@ -244,7 +297,9 @@ declare namespace _ZoteroTypes {
       | "itemID"
       | "annotationText"
       | "annotationComment"
-      | "fulltextWord"
+      | "annotationType"
+      | "annotationColor"
+      | "annotationAuthor"
       | "tempTable";
   }
 }

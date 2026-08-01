@@ -162,15 +162,19 @@ declare namespace Zotero {
    * @param {String} uri
    * @param {Object} [options]
    * @param {Function} [options.onLoad] - Function to run once URI is loaded; passed the loaded document
-   * @param {Object} [options.cookieSandbox] - Attach a cookie sandbox to the browser
    * @param {Boolean} [options.allowJavaScript] - Set to false to disable JavaScript
+   * @param {Number} [options.userContextId] - To isolate the viewer's cookies
+   *     into the same jar as a Zotero.HTTP.request or HiddenBrowser using the same ID
+   * @param {String} [options.customUserAgent] - Override the User-Agent for all requests
+   *     from this viewer's browsing context
    */
   function openInViewer(
     uri: string,
     options?: {
       onLoad?: (doc: Document) => void;
-      cookieSandbox?: Zotero.CookieSandbox;
       allowJavaScript?: boolean;
+      userContextId?: number;
+      customUserAgent?: string;
     },
   ): void;
 
@@ -280,15 +284,16 @@ declare namespace Zotero {
   };
 
   /**
-   * Fluent localization instance shared across the application.
+   * Synchronous-mode Fluent Localization instance shared across the
+   * application.
    * Register plugin FTL files with addResourceIds() to make strings
-   * available for undo labels and other global Fluent lookups.
+   * available for undo labels and other global Fluent lookups; remove them
+   * on shutdown with removeResourceIds(). All plugins' strings are
+   * consolidated into a single localization source with proper per-locale
+   * fallback.
    * @since Zotero 10
    */
-  const ftl: {
-    addResourceIds: (resourceIds: string[]) => void;
-    removeResourceIds: (resourceIds: string[]) => void;
-  };
+  const ftl: Localization;
 
   const Intl: {
     strings: {

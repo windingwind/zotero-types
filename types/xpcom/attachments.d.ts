@@ -128,7 +128,6 @@ declare namespace _ZoteroTypes {
      * @param {Boolean} [options.renameIfAllowedType=false]
      * @param {String} [options.contentType]
      * @param {String} [options.referrer]
-     * @param {CookieSandbox} [options.cookieSandbox]
      * @param {Object} [options.saveOptions] - Options to pass to Zotero.Item::save()
      * @return {Promise<Zotero.Item>} - A promise for the created attachment item
      */
@@ -201,26 +200,24 @@ declare namespace _ZoteroTypes {
      * @param {String} url
      * @param {String} path
      * @param {Object} [options]
-     * @param {Object} [options.cookieSandbox]
      * @param {String} [options.referrer]
      * @param {Boolean} [options.isPDF] - Delete file if not PDF
      */
     downloadFile(
       url: string,
       path: string,
-      options?: { cookieSandbox?: object; referrer?: string },
+      options?: { referrer?: string; isPDF?: boolean },
     ): Promise<boolean>;
 
     /**
      * @param {String} url
      * @param {String} path
      * @param {Object} [options]
-     * @param {Object} [options.cookieSandbox]
      */
     downloadPDFViaBrowser(
       url: string,
       path: string,
-      options?: { cookieSandbox?: object },
+      options?: object,
     ): Promise<boolean>;
 
     InvalidPDFException: typeof Error & {
