@@ -80,5 +80,17 @@ declare namespace _ZoteroTypes {
     setDropEffect(event: unknown, effect: unknown): void;
 
     selectLibrary(libraryID?: number): Promise<boolean>;
+
+    /**
+     * Get selected tree rows
+     *
+     * @return {TreeRow[]}
+     */
+    getSelectedRows(): TreeRow[];
+
+    /**
+     * Get the `ref` of every selected tree row
+     */
+    getSelectedObjects(): unknown[];
   }
 }

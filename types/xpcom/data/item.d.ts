@@ -469,6 +469,9 @@ declare namespace Zotero {
 
     /*
      * Set or change the item's type
+     *
+     * Since Zotero 10, changing between regular items, attachments, notes,
+     * and annotations throws an error.
      */
     setType(itemTypeID: number, loadIn?: boolean): boolean;
 
@@ -746,6 +749,9 @@ declare namespace Zotero {
      *
      * This will return the filename for all file attachments, but the filename can only be set
      * for stored file attachments. Linked file attachments should be set using .attachmentPath.
+     *
+     * Since Zotero 10, the setter throws if the value contains a directory
+     * path — it must be a bare filename.
      */
     attachmentFilename: string;
 
@@ -754,6 +760,10 @@ declare namespace Zotero {
      * (e.g., "storage:foo.pdf", "attachments:foo/bar.pdf", "/Users/foo/Desktop/bar.pdf")
      *
      * Can be set as absolute path or prefixed string ("storage:foo.pdf")
+     *
+     * Since Zotero 10, the setter throws for stored-file attachments if the
+     * part after the `storage:` prefix contains a directory path — it must
+     * be a bare filename.
      */
     attachmentPath: string;
 

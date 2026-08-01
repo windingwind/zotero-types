@@ -7,22 +7,58 @@ declare namespace _ZoteroTypes {
     [attr: string]: any;
     document: Document & { body: null; head: null };
     collectionsView: CollectionTree | false;
-    itemsView: ItemTree | false;
+    itemsView: CollectionViewItemTree | false;
     itemPane: ItemPane | false;
     progressWindow: Zotero.ProgressWindow | false;
 
     newCollection(parentKey: string): Promise<undefined | Zotero.Collection>;
+    /**
+     * @deprecated Since Zotero 10 the Advanced Search window no longer
+     *     exists; it has moved into the main window.
+     *     Use {@link toggleAdvancedSearchState} instead.
+     */
     openAdvancedSearchWindow(): void;
+    /**
+     * Toggle the in-window Advanced Search pane (Zotero 10+)
+     *
+     * @param {'open' | 'collapsed' | 'closed'} state
+     */
+    toggleAdvancedSearchState(
+      state?: "open" | "collapsed" | "closed",
+    ): Promise<void>;
     updateTagFilter(): Promise<undefined>;
     toggleTagSelector(): void;
     tagSelectorShown(): undefined | boolean;
-    getSelectedLibraryID(): number;
-    getSelectedGroup(): Zotero.Collection;
-    getSelectedGroup(asID: boolean): Zotero.Collection | number;
-    getSelectedSavedSearch(): Zotero.Collection;
-    getSelectedSavedSearch(asID: boolean): Zotero.Collection | number;
-    getSelectedCollection(asID?: false): Zotero.Collection | undefined;
-    getSelectedCollection(asID: true): number | undefined;
+    /**
+     * @deprecated Removed in Zotero 10 — throws when called.
+     *     Use {@link getSelectedLibraryIDs} instead.
+     */
+    getSelectedLibraryID(): never;
+    /**
+     * @return {Integer[]} - libraryIDs of the selected rows, in collections-list order
+     */
+    getSelectedLibraryIDs(): number[];
+    /**
+     * @deprecated Removed in Zotero 10 — throws when called.
+     *     Filter {@link getCollectionTreeRows} by `isGroup()` instead.
+     */
+    getSelectedGroup(asID?: boolean): never;
+    /**
+     * @deprecated Removed in Zotero 10 — throws when called.
+     *     Use {@link getSelectedSavedSearches} instead.
+     */
+    getSelectedSavedSearch(asID?: boolean): never;
+    /** Selected saved searches, safe for any selection (Zotero 10+) */
+    getSelectedSavedSearches(asID?: false): Zotero.Search[];
+    getSelectedSavedSearches(asID: true): number[];
+    /**
+     * @deprecated Removed in Zotero 10 — throws when called.
+     *     Use {@link getSelectedCollections} instead.
+     */
+    getSelectedCollection(asID?: boolean): never;
+    /** Selected collections, safe for any selection (Zotero 10+) */
+    getSelectedCollections(asID?: false): Zotero.Collection[];
+    getSelectedCollections(asID: true): number[];
     selectItem(itemID: number, inLibraryRoot?: boolean): undefined | boolean;
     selectItems: (
       itemIDs: Array<number>,
@@ -37,7 +73,15 @@ declare namespace _ZoteroTypes {
     duplicateAndConvertSelectedItem(): Promise<Zotero.Item | boolean>;
     restoreSelectedItems(): Promise<void>;
     updateNoteButtonMenu(): Promise<void>;
-    getCollectionTreeRow(): undefined | CollectionTree;
+    /**
+     * @deprecated Removed in Zotero 10 — throws when called.
+     *     Use {@link getCollectionTreeRows} instead.
+     */
+    getCollectionTreeRow(): never;
+    /**
+     * Selected collection tree rows, in collections-list order (Zotero 10+)
+     */
+    getCollectionTreeRows(): Zotero.CollectionTreeRow[];
     showOriginalItem(): void;
     search(runAdvanced: boolean): Promise<void>;
     sync(): void;

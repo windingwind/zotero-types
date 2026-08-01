@@ -213,6 +213,37 @@ declare namespace _ZoteroTypes {
      */
     escapeSQLExpression(expr: string): string;
 
+    /**
+     * Load a bundled SQLite extension (e.g., 'fts5') on the connection.
+     *
+     * Mozilla's mozStorage doesn't compile FTS in by default and disables generic extension
+     * loading, but it does allow loading specific bundled extensions by name. The module is
+     * registered per connection, so call this once: the extension is remembered and re-loaded
+     * automatically when the connection is reopened (e.g., after a vacuum()), before onConnect()
+     * callbacks run, so callers don't have to reload it themselves.
+     *
+     * @since Zotero 10
+     */
+    loadExtension(name: string): Promise<unknown>;
+
+    /**
+     * Register a callback to run when a corruption error occurs but the main database checks out,
+     * meaning an attached database (e.g., the rebuildable full-text index) is corrupt. The
+     * callback can rebuild it. Run deferred, after the failing operation unwinds.
+     *
+     * @since Zotero 10
+     */
+    addCorruptionHandler(handler: () => void | Promise<void>): void;
+
+    /**
+     * Register a callback to run during the database's idle maintenance, after the periodic
+     * backup and vacuum. Lets code with its own attached database do maintenance (e.g.,
+     * vacuuming) on the same idle trigger.
+     *
+     * @since Zotero 10
+     */
+    onIdle(callback: () => void | Promise<void>): void;
+
     /////////////////////////////////////////////////////////////////
     //
     // Private methods
