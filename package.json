@@ -26,8 +26,8 @@
   "dependencies": {
     "@types/bluebird": "^3.5.42",
     "@types/react": "^18.3.28",
-    "epubjs": "github:zotero/epub.js#a6139d586b66d404f3da2b846598960c0394afc5",
-    "pdfjs-dist": "github:zotero-plugin-dev/zotero-pdfjs-types#main"
+    "epubjs": "file:vendor/epubjs",
+    "pdfjs-dist": "file:vendor/pdfjs-dist"
   },
   "devDependencies": {
     "bumpp": "^10.4.1",
@@ -41,6 +41,15 @@
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
+  "files": [
+    "**/*.d.ts",
+    "entries",
+    "types",
+    "vendor/pdfjs-dist/package.json",
+    "vendor/pdfjs-dist/types/**",
+    "vendor/epubjs/package.json",
+    "vendor/epubjs/types/**"
+  ],
   "prettier": {
     "printWidth": 80,
     "tabWidth": 2,

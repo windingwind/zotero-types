@@ -1,0 +1,3 @@
+[submodule "vendor/pdfjs-dist"]
+	path = vendor/pdfjs-dist
+	url = https://github.com/zotero-plugin-dev/zotero-pdfjs-types.git
