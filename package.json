@@ -20,7 +20,7 @@
   "scripts": {
     "release": "bumpp",
     "prepare": "husky",
-    "lint": "prettier --write . && eslint . --fix",
+    "lint": "prettier --write .",
     "update-deps": "npm update --save",
     "test": "tsc -b test"
   },
@@ -36,7 +36,7 @@
     "lint-staged": "^16.2.7",
     "octokit": "^5.0.5",
     "prettier": "3.6.2",
-    "typescript-eslint": "^8.56.1"
+    "typescript": "^7.0.2"
   },
   "publishConfig": {
     "access": "public",
