@@ -1,6 +1,7 @@
 import { Octokit } from "octokit";
 import fs from "fs";
 import path from "path";
+import { buildSandboxTypes } from "./buildSandboxTypes.mjs";
 
 // Download all files in https://github.com/mozilla/gecko-dev/tree/master/tools/@types to types/gecko
 
@@ -142,6 +143,11 @@ async function main() {
   // Save the `domVars` to a separate file
   const domVarsPath = path.join("types/gecko", "lib.gecko.dom-vars.d.ts");
   fs.writeFileSync(domVarsPath, domVars, { encoding: "utf-8" });
+
+  // Split the global values out of the DOM types and generate the globals of a
+  // plugin sandbox, so that the sandbox entry does not advertise window-only
+  // APIs such as `AbortController` or `document`.
+  buildSandboxTypes();
 }
 
 main().catch(console.error);

@@ -41,6 +41,20 @@ Available entries:
 | `base`       | The base entry. Does not include any extra type definitions.                                                        | ❌         | ❌     | ❌  | ❌  | ❌         | ❌        |
 | `shared`     | The entry for privileged APIs.                                                                                      | ✅         | ✅     | ❌  | ❌  | ❌         | ❌        |
 
+The `sandbox` entry only declares the globals that `_loadScope()` in Zotero's
+[`chrome/content/zotero/xpcom/plugins.js`](https://github.com/zotero/zotero/blob/main/chrome/content/zotero/xpcom/plugins.js)
+puts into a plugin scope (`wantGlobalProperties` + `Object.assign(scope, ...)`):
+`Blob`, `fetch`, `URL`, `TextEncoder`, `XMLHttpRequest`, `setTimeout`, ... plus the
+Zotero/Gecko APIs. Anything else a window has (`AbortController`, `structuredClone`,
+`Request`, `queueMicrotask`, `document`, `window`, ...) is a `Cannot find name`
+error on purpose, because it does not exist in the sandbox at runtime.
+
+This only works if the type environment is clean: a dependency that pulls in
+`lib.dom` or `@types/node` declares those globals again (`@types/node` declares
+`AbortController` and `structuredClone`, for example) and the error disappears.
+Keep Node/DOM types out of the tsconfig used for plugin code, and put your tests
+and build scripts in a separate tsconfig.
+
 2. Use `compileOptions > types` in your Zotero plugin project's `tsconfig.json` file.
 
 ```jsonc
@@ -80,6 +94,16 @@ if (await IOUtils.exists(filepath)) {
   let contentRaw = await IOUtils.readUTF8(filepath);
 }
 ```
+
+## Development
+
+`npm test` type-checks two fixtures against the `sandbox` and `xhtml` entries: it
+asserts that window-only globals stay untyped in the sandbox entry, and stay
+available in the window one.
+
+`scripts/updateGecko.mjs` downloads the Gecko types and then re-splits
+`lib.gecko.dom.d.ts` into types and globals, regenerating
+`types/gecko/sandbox-globals.d.ts`; `npm test` verifies the result.
 
 ## Contributing
 
